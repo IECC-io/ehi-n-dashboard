@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHRAM Live Heat Map - India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        :root {
+            --iecc-blue: #2d637f;
+            --iecc-green: #9DAD33;
+            --zone4-color: #fbc02d;
+            --zone5-color: #f57c00;
+            --zone6-color: #d32f2f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: var(--iecc-blue);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: relative;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .control-group label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .control-group select {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .sun-toggle {
+            display: flex;
+            gap: 0;
+        }
+
+        .sun-toggle button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sun-toggle button:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+
+        .sun-toggle button:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sun-toggle button.active {
+            background: white;
+            color: var(--iecc-blue);
+        }
+
+        .data-timestamp {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            padding: 0.3rem 0.6rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            height: calc(100vh - 60px);
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr auto;
+            }
+        }
+
+        #map-container {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            position: relative;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 1.5rem;
+            overflow-y: auto;
+            border-left: 3px solid var(--iecc-green);
+        }
+
+        .sidebar h2 {
+            color: var(--iecc-blue);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 3px solid var(--iecc-blue);
+        }
+
+        .stat-box.zone5 { border-color: var(--zone5-color); background: #fff3e0; }
+        .stat-box.zone6 { border-color: var(--zone6-color); background: #ffebee; }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--iecc-blue);
+        }
+
+        .stat-box.zone5 .stat-number { color: var(--zone5-color); }
+        .stat-box.zone6 .stat-number { color: var(--zone6-color); }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .alert-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .alert-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+            border-left: 4px solid;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .alert-item:hover {
+            transform: translateX(3px);
+        }
+
+        .alert-item.zone5 { border-color: var(--zone5-color); }
+        .alert-item.zone6 { border-color: var(--zone6-color); background: #ffebee; }
+
+        .alert-item .district {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .alert-item .details {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .map-legend {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .map-legend h3 {
+            font-size: 0.85rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 4px;
+            font-size: 0.75rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+
+        .map-legend .source-text {
+            font-size: 9px;
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+
+        .map-legend .source-text:first-of-type {
+            margin-top: 8px;
+            border-top: 1px solid #eee;
+            padding-top: 6px;
+        }
+
+        .map-legend .source-text a {
+            color: inherit;
+        }
+
+        /* Methodology Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin: 20px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            background: linear-gradient(135deg, #1a3d4f 0%, var(--iecc-blue) 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            opacity: 0.8;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-body h4 {
+            color: var(--iecc-blue);
+            margin: 1rem 0 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .modal-body h4:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            margin: 0 0 0.75rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        .modal-body ul {
+            margin: 0 0 0.75rem 0;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.25rem;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-overlay.hidden { display: none; }
+
+        .loading-box {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .loading-box h3 {
+            color: var(--iecc-blue);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e0e0e0;
+            border-top: 4px solid var(--iecc-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* Tooltip */
+        .deck-tooltip {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            max-width: 250px;
+        }
+
+        .tooltip-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--iecc-blue);
+            margin-bottom: 8px;
+        }
+
+        .tooltip-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+        }
+
+        .tooltip-row label {
+            color: #666;
+        }
+
+        .tooltip-row value {
+            font-weight: 600;
+        }
+
+        .tooltip-zone {
+            margin-top: 8px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .tooltip-zone.zone1 { background: #e3f2fd; color: #1565c0; }
+        .tooltip-zone.zone2, .tooltip-zone.zone3 { background: #e8f5e9; color: #2e7d32; }
+        .tooltip-zone.zone4 { background: #fffde7; color: #f9a825; }
+        .tooltip-zone.zone5 { background: #fff3e0; color: #ef6c00; }
+        .tooltip-zone.zone6 { background: #ffebee; color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-map-marked-alt"></i> SHRAM Live Heat Map</h1>
+        <div class="header-controls">
+            <div class="control-group">
+                <select id="met-select">
+                    <option value="3">EHI-3 (Light Work)</option>
+                    <option value="4">EHI-4 (Moderate)</option>
+                    <option value="5">EHI-5 (Heavy)</option>
+                    <option value="6" selected>EHI-6 (Very Heavy)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <div class="sun-toggle">
+                    <button id="shade-btn" class="active" onclick="setSunCondition('shade')">
+                        <i class="fas fa-cloud"></i> Shade
+                    </button>
+                    <button id="sun-btn" onclick="setSunCondition('sun')">
+                        <i class="fas fa-sun"></i> Sun
+                    </button>
+                </div>
+            </div>
+            <div class="data-timestamp" id="data-timestamp">
+                <i class="fas fa-clock"></i> Loading...
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div id="map-container">
+            <div id="map"></div>
+            <div class="map-legend">
+                <h3>Physiological Zones</h3>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2196f3;"></div>
+                    <span>Zone 1: Cold Stress</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4caf50;"></div>
+                    <span>Zone 2/3: Comfortable</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fbc02d;"></div>
+                    <span>Zone 4: Caution</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f57c00;"></div>
+                    <span>Zone 5: High Risk</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #d32f2f;"></div>
+                    <span>Zone 6: Hazardous</span>
+                </div>
+                <div class="source-text"><em>Data source: WeatherAPI.com</em></div>
+                <div class="source-text"><a href="#" onclick="showMethodology(); return false;" style="color: #2d637f; text-decoration: underline; cursor: pointer;">Methodology</a></div>
+            </div>
+        </div>
+
+    <!-- Methodology Modal -->
+    <div class="modal-overlay" id="methodology-modal" onclick="hideMethodology()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Live Map Methodology</h3>
+                <button class="modal-close" onclick="hideMethodology()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4>Data Source</h4>
+                <p>Weather data (temperature and relative humidity) is fetched hourly from WeatherAPI.com for locations across India.</p>
+
+                <h4>Grid Resolution</h4>
+                <p>The map uses a 0.5° latitude/longitude grid (~55 km spacing) covering India. Only grid points within India's boundaries are included, resulting in approximately 400-500 locations.</p>
+
+                <h4>EHI-N* Calculation</h4>
+                <p>For each location, the Extended Heat Index (EHI-N*) is computed using pre-calculated lookup tables derived from the two-node human thermal model. The "N" denotes the MET level (metabolic rate) and "*" indicates additional solar radiation heat stress is applied. The calculation assumes:</p>
+                <ul>
+                    <li>MET level: Selectable (3-6 MET, default MET 6 for heavy work)</li>
+                    <li>Sun exposure: Selectable (shade or sun, where * applies additional heat stress)</li>
+                    <li>Standard adult physiology</li>
+                </ul>
+
+                <h4>Physiological Zones</h4>
+                <p>EHI-N* values are mapped to physiological zones based on thermoregulatory limits:</p>
+                <ul>
+                    <li><strong>Zone 1:</strong> Cold stress (below comfort range)</li>
+                    <li><strong>Zone 2/3:</strong> Comfortable (thermal equilibrium maintained)</li>
+                    <li><strong>Zone 4:</strong> Caution (approaching thermal limits)</li>
+                    <li><strong>Zone 5:</strong> High Risk (thermal strain, limited work capacity)</li>
+                    <li><strong>Zone 6:</strong> Hazardous (hyperthermia risk, hazardous conditions)</li>
+                </ul>
+
+                <h4>Update Frequency</h4>
+                <p>Data is automatically updated every hour via GitHub Actions.</p>
+            </div>
+        </div>
+    </div>
+        <div class="sidebar">
+            <h2><i class="fas fa-exclamation-triangle"></i> Active Alerts</h2>
+            <div class="stats-grid">
+                <div class="stat-box zone6">
+                    <div class="stat-number" id="zone6-count">0</div>
+                    <div class="stat-label">Zone 6 Locations</div>
+                </div>
+                <div class="stat-box zone5">
+                    <div class="stat-number" id="zone5-count">0</div>
+                    <div class="stat-label">Zone 5 Locations</div>
+                </div>
+            </div>
+            <div class="alert-list" id="alert-list">
+                <p class="status-text">Loading data...</p>
+            </div>
+            <p class="status-text" id="last-update">Data updates hourly</p>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loading">
+        <div class="loading-box">
+            <h3><i class="fas fa-globe-asia"></i> Loading India Heat Map</h3>
+            <div class="spinner"></div>
+            <div class="status-text" id="loading-status">Loading pre-computed data...</div>
+        </div>
+    </div>
+
+    <script>
+        const { DeckGL, SolidPolygonLayer, IconLayer } = deck;
+
+        // Methodology modal functions
+        function showMethodology() {
+            document.getElementById('methodology-modal').classList.add('visible');
+        }
+
+        function hideMethodology() {
+            document.getElementById('methodology-modal').classList.remove('visible');
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideMethodology();
+            }
+        });
+
+        // IECC Building location - 2400 Ridge Rd, Berkeley, CA 94709
+        const IECC_LOCATION = {
+            name: 'IECC - India Energy & Climate Center',
+            coordinates: [-122.2618, 37.8755]  // [longitude, latitude] - 2400 Ridge Rd, Berkeley
+        };
+
+        // Global state
+        let deckgl;
+        let precomputedData = null;
+        let currentMet = 6;
+        let currentSun = 'shade';
+
+        // Grid configuration
+        const GRID_RESOLUTION = 0.5;
+
+        // Zone colors [R, G, B, A]
+        const ZONE_COLORS = {
+            6: [211, 47, 47, 200],    // Hazardous - red
+            5: [245, 124, 0, 200],    // High risk - orange
+            4: [251, 192, 45, 200],   // Caution - yellow
+            3: [76, 175, 80, 200],    // Comfortable - green
+            2: [76, 175, 80, 200],    // Comfortable - green
+            1: [33, 150, 243, 200],   // Cold stress - blue
+            0: [158, 158, 158, 200],  // Unknown - gray
+        };
+
+        // Get zone status text
+        function getZoneStatus(zone) {
+            switch(zone) {
+                case 6: return 'HAZARDOUS';
+                case 5: return 'HIGH RISK';
+                case 4: return 'Caution';
+                case 1: return 'COLD STRESS';
+                default: return 'Comfortable';
+            }
+        }
+
+        // Create polygon for grid cell
+        function createGridPolygon(lat, lon, resolution) {
+            const half = resolution / 2;
+            return [
+                [lon - half, lat - half],
+                [lon + half, lat - half],
+                [lon + half, lat + half],
+                [lon - half, lat + half],
+                [lon - half, lat - half]
+            ];
+        }
+
+        // Get grid data for current MET/sun selection
+        function getGridLayerData() {
+            if (!precomputedData) return [];
+
+            const metKey = `met${currentMet}`;
+            return precomputedData.points.map(point => {
+                const conditionData = point.data[metKey]?.[currentSun];
+                if (!conditionData) return null;
+
+                return {
+                    polygon: createGridPolygon(point.lat, point.lon, GRID_RESOLUTION),
+                    lat: point.lat,
+                    lon: point.lon,
+                    location: point.location,
+                    temp: point.temp,
+                    rh: point.rh,
+                    ehi: conditionData.ehi,
+                    zone: conditionData.zone
+                };
+            }).filter(d => d !== null);
+        }
+
+        // Create the grid layer
+        function createGridLayer() {
+            const data = getGridLayerData();
+
+            return new SolidPolygonLayer({
+                id: 'grid-layer',
+                data: data,
+                getPolygon: d => d.polygon,
+                getFillColor: d => ZONE_COLORS[d.zone] || ZONE_COLORS[0],
+                pickable: true,
+                extruded: false,
+                wireframe: false,
+                updateTriggers: {
+                    getFillColor: [currentMet, currentSun]
+                }
+            });
+        }
+
+        // Create tooltip HTML
+        function getTooltip({object}) {
+            if (!object) return null;
+
+            // Special tooltip for IECC marker
+            if (object.name && object.coordinates) {
+                return {
+                    html: `
+                        <div class="deck-tooltip" style="text-align: left; min-width: 200px;">
+                            <div class="tooltip-title" style="color: #2d637f; text-align: center; margin-bottom: 0.75rem;">
+                                <i class="fas fa-users"></i> Heat Resilience Team
+                            </div>
+                            <div style="font-size: 0.85rem; color: #333; line-height: 1.6;">
+                                <div style="font-weight: 600;">Elif Kilic</div>
+                                <div>Cassidy Cramer</div>
+                                <div>Connor Riley</div>
+                                <div>Prof. Ashok Gadgil</div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: #666; margin-top: 0.75rem; text-align: center; border-top: 1px solid #eee; padding-top: 0.5rem;">
+                                India Energy & Climate Center<br>
+                                UC Berkeley
+                            </div>
+                        </div>
+                    `,
+                    style: {
+                        backgroundColor: 'transparent',
+                        padding: '0'
+                    }
+                };
+            }
+
+            return {
+                html: `
+                    <div class="deck-tooltip">
+                        <div class="tooltip-title">${object.location || (object.lat.toFixed(2) + '°N, ' + object.lon.toFixed(2) + '°E')}</div>
+                        <div class="tooltip-row">
+                            <label>Temperature</label>
+                            <value>${object.temp}°C</value>
+                        </div>
+                        <div class="tooltip-row">
+                            <label>Humidity</label>
+                            <value>${object.rh}%</value>
+                        </div>
+                        <div class="tooltip-row">
+                            <label>EHI</label>
+                            <value>${object.ehi !== null ? object.ehi.toFixed(1) + '°C' : 'N/A'}</value>
+                        </div>
+                        <div class="tooltip-row">
+                            <label>MET Level</label>
+                            <value>${currentMet}</value>
+                        </div>
+                        <div class="tooltip-zone zone${object.zone}">
+                            ${(object.zone === 2 || object.zone === 3) ? 'Zone 2/3' : 'Zone ' + object.zone} - ${getZoneStatus(object.zone)}
+                        </div>
+                    </div>
+                `,
+                style: {
+                    backgroundColor: 'transparent',
+                    padding: '0'
+                }
+            };
+        }
+
+        // Initialize Deck.gl
+        function initDeck() {
+            deckgl = new DeckGL({
+                container: 'map',
+                mapStyle: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+                initialViewState: {
+                    longitude: 82,
+                    latitude: 22.5,
+                    zoom: 4,
+                    pitch: 0,
+                    bearing: 0
+                },
+                controller: true,
+                layers: [],
+                getTooltip: getTooltip
+            });
+        }
+
+        // Load pre-computed grid data
+        async function loadGridData() {
+            const loading = document.getElementById('loading');
+            loading.classList.remove('hidden');
+            document.getElementById('loading-status').textContent = 'Loading pre-computed data...';
+
+            try {
+                const response = await fetch('grid_data.json');
+                precomputedData = await response.json();
+
+                // Update timestamp display
+                document.getElementById('data-timestamp').innerHTML =
+                    `<i class="fas fa-clock"></i> ${precomputedData.metadata.generated_at_ist}`;
+                document.getElementById('last-update').textContent =
+                    `Data from: ${precomputedData.metadata.generated_at_ist}`;
+
+                console.log(`Loaded ${precomputedData.metadata.point_count} grid points`);
+
+                // Update the visualization
+                updateVisualization();
+
+                loading.classList.add('hidden');
+            } catch (error) {
+                console.error('Failed to load grid data:', error);
+                document.getElementById('loading-status').textContent =
+                    'Error loading data. Please refresh the page.';
+            }
+        }
+
+        // Create IECC marker layer using IconLayer with logo
+        const { ScatterplotLayer, TextLayer } = deck;
+
+        function createIECCMarkerLayer() {
+            // IECC logo icon
+            const iconLayer = new IconLayer({
+                id: 'iecc-logo',
+                data: [IECC_LOCATION],
+                pickable: true,
+                getIcon: d => ({
+                    url: 'iecc-logo.svg',
+                    width: 416,
+                    height: 97,
+                    anchorY: 48
+                }),
+                getPosition: d => d.coordinates,
+                getSize: 30,
+                sizeScale: 1,
+                sizeMinPixels: 25,
+                sizeMaxPixels: 50
+            });
+
+            return [iconLayer];
+        }
+
+        // Update visualization
+        function updateVisualization() {
+            if (!deckgl || !precomputedData) return;
+
+            // Update layers - grid layer + IECC marker layers (spread since it returns array)
+            deckgl.setProps({
+                layers: [createGridLayer(), ...createIECCMarkerLayer()]
+            });
+
+            // Update sidebar
+            updateSidebar();
+        }
+
+        // Update sidebar with alert counts
+        function updateSidebar() {
+            if (!precomputedData) return;
+
+            const metKey = `met${currentMet}`;
+            let zone5Count = 0;
+            let zone6Count = 0;
+            const alerts = [];
+
+            precomputedData.points.forEach(point => {
+                const conditionData = point.data[metKey]?.[currentSun];
+                if (!conditionData) return;
+
+                const zone = conditionData.zone;
+                const ehi = conditionData.ehi;
+
+                if (zone === 5) zone5Count++;
+                if (zone === 6) zone6Count++;
+                if (zone >= 5) {
+                    alerts.push({
+                        lat: point.lat,
+                        lon: point.lon,
+                        location: point.location,
+                        temp: point.temp,
+                        rh: point.rh,
+                        ehi,
+                        zone
+                    });
+                }
+            });
+
+            document.getElementById('zone5-count').textContent = zone5Count;
+            document.getElementById('zone6-count').textContent = zone6Count;
+
+            // Sort alerts by zone (highest first) then by EHI
+            alerts.sort((a, b) => {
+                if (a.zone !== b.zone) return b.zone - a.zone;
+                return (b.ehi || 0) - (a.ehi || 0);
+            });
+
+            const alertList = document.getElementById('alert-list');
+            if (alerts.length === 0) {
+                alertList.innerHTML = '<p class="status-text">No Zone 5 or 6 alerts currently.</p>';
+            } else {
+                // Show all alerts (scrollable)
+                alertList.innerHTML = alerts.map(a => `
+                    <div class="alert-item zone${a.zone}" onclick="flyTo(${a.lat}, ${a.lon})">
+                        <div class="district">${a.location || `${a.lat.toFixed(2)}°N, ${a.lon.toFixed(2)}°E`}</div>
+                        <div class="details">
+                            ${a.temp}°C, ${a.rh}% RH | EHI: ${a.ehi !== null ? a.ehi.toFixed(1) : 'N/A'}°C | Zone ${a.zone}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Fly to location
+        function flyTo(lat, lon) {
+            deckgl.setProps({
+                initialViewState: {
+                    longitude: lon,
+                    latitude: lat,
+                    zoom: 7,
+                    pitch: 0,
+                    bearing: 0,
+                    transitionDuration: 1000
+                }
+            });
+        }
+
+        // Set sun condition
+        function setSunCondition(condition) {
+            currentSun = condition;
+            document.getElementById('shade-btn').classList.toggle('active', condition === 'shade');
+            document.getElementById('sun-btn').classList.toggle('active', condition === 'sun');
+            updateVisualization();
+        }
+
+        // MET selector change
+        document.getElementById('met-select').addEventListener('change', function() {
+            currentMet = parseInt(this.value);
+            updateVisualization();
+        });
+
+        // Initialize
+        async function init() {
+            initDeck();
+            await loadGridData();
+        }
+
+        init();
+    </script>
+</body>
+</html>

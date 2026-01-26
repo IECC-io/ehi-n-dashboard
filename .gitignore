@@ -1,0 +1,34 @@
+### Paste this content:
+```
+# Ignore old massive CSV files
+weather_logs/delhi_weather_master.csv
+weather_logs/Delhi_weather_master.csv
+weather_logs/india_weather_master.csv
+weather_logs/India_weather_master.csv
+
+# Keep weekly CSVs and JSON
+!weather_logs/india_weather_*.csv
+!weather_logs/*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+```

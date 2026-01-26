@@ -1,0 +1,39 @@
+name: Update Forecast Data (Daily 5pm IST)
+
+on:
+  schedule:
+    # 5pm IST = 11:30 UTC (IST is UTC+5:30)
+    - cron: '30 11 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-forecast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests pytz
+
+      - name: Run generate_forecast.py
+        run: |
+          cd ${{ github.workspace }}
+          python generate_forecast.py
+
+      - name: Commit and push data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update forecast data [automated - 5pm IST]" && git pull --rebase && git push)
