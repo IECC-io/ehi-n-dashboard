@@ -1,0 +1,90 @@
+name: India AWS Logger
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  log-india-weather:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build gfortran python3-dev libidn2-0
+      
+      - name: Verify tools
+        run: |
+          cmake --version
+          gfortran --version
+          python --version
+      
+      - name: Install Python packages (except NumbaMinpack)
+        run: |
+          pip install --upgrade pip wheel setuptools
+          pip install pandas numpy requests scipy tabulate beautifulsoup4 thermofeel
+      
+      - name: Install NumbaMinpack with retry
+        run: |
+          pip install numbaminpack || \
+          pip install git+https://github.com/Nicholaswogan/NumbaMinpack.git || \
+          (cd /tmp && \
+           git clone https://github.com/Nicholaswogan/NumbaMinpack.git && \
+           cd NumbaMinpack && \
+           pip install .)
+        continue-on-error: false
+      
+      - name: Validate installation
+        run: pip list
+      
+      - name: Pull latest data
+        run: git pull origin main
+      
+      - name: Run weather logger script
+        run: python IMDdata.py
+      
+      - name: Commit & push updated logs
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Pull latest changes first to avoid conflicts
+          git pull --rebase origin main || echo "No remote changes"
+          
+          # Stage changes
+          git add weather_logs/*.csv weather_logs/*.json
+          
+          # Commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "[Auto] Update India weather logs $(date -u +'%Y-%m-%d %H:%M UTC')"
+            
+            # Try to push with retry logic
+            max_attempts=3
+            attempt=1
+            until git push origin main || [ $attempt -eq $max_attempts ]; do
+              echo "Push failed, attempt $attempt/$max_attempts. Pulling and retrying..."
+              git pull --rebase origin main
+              attempt=$((attempt + 1))
+              sleep 2
+            done
+            
+            if [ $attempt -eq $max_attempts ]; then
+              echo "Failed to push after $max_attempts attempts"
+              exit 1
+            fi
+          fi
+        continue-on-error: false

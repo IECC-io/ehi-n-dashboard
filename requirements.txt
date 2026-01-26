@@ -1,0 +1,10 @@
+pandas
+numpy
+requests
+scipy
+tabulate
+beautifulsoup4
+thermofeel
+NumbaMinpack
+#git+https://github.com/romeric/NumbaMinpack.git
+
