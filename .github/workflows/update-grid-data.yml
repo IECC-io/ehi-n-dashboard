@@ -26,6 +26,16 @@ jobs:
         run: |
           pip install requests pytz
 
+      - name: Save previous hour's data for trend comparison
+        run: |
+          cd ${{ github.workspace }}
+          if [ -f grid_data.json ]; then
+            cp grid_data.json grid_data_prev.json
+            echo "Saved previous grid_data.json as grid_data_prev.json"
+          else
+            echo "No existing grid_data.json found"
+          fi
+
       - name: Run generate_grid_data.py
         run: |
           cd ${{ github.workspace }}
