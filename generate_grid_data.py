@@ -11,6 +11,7 @@ from datetime import datetime
 import pytz
 import os
 import time
+import glob as glob_module
 
 # Use lookup tables for EHI calculations (no NumbaMinpack/scipy needed)
 from ehi_lookup import EHILookup
@@ -53,6 +54,59 @@ def load_india_boundary():
            feature['properties'].get('ISO_A3') == 'IND':
             return feature
     return None
+
+
+def load_district_geojsons():
+    """Load all district GeoJSON files and build a lookup structure."""
+    districts = []
+    geojson_dir = os.path.join(os.path.dirname(__file__) or '.', 'geojson')
+
+    # Find all district GeoJSON files
+    pattern = os.path.join(geojson_dir, '*_districts.geojson')
+    files = glob_module.glob(pattern)
+
+    print(f"Loading {len(files)} district GeoJSON files...")
+
+    for filepath in files:
+        try:
+            with open(filepath, 'r') as f:
+                data = json.load(f)
+
+            # Extract state name from filename (e.g., gujarat_districts.geojson -> Gujarat)
+            filename = os.path.basename(filepath)
+            state_name = filename.replace('_districts.geojson', '').replace('_', ' ').title()
+
+            for feature in data.get('features', []):
+                district_name = feature.get('properties', {}).get('name', 'Unknown')
+                geometry = feature.get('geometry', {})
+
+                if geometry:
+                    districts.append({
+                        'name': district_name,
+                        'state': state_name,
+                        'geometry': geometry
+                    })
+        except Exception as e:
+            print(f"  Error loading {filepath}: {e}")
+
+    print(f"  Loaded {len(districts)} districts")
+    return districts
+
+
+def find_district_for_point(lat, lon, districts):
+    """Find which district contains a given point."""
+    for district in districts:
+        geometry = district['geometry']
+
+        if geometry['type'] == 'Polygon':
+            if point_in_polygon(lat, lon, geometry['coordinates'][0]):
+                return district['name'], district['state']
+        elif geometry['type'] == 'MultiPolygon':
+            for polygon in geometry['coordinates']:
+                if point_in_polygon(lat, lon, polygon[0]):
+                    return district['name'], district['state']
+
+    return None, None
 
 
 def point_in_polygon(lat, lon, polygon):
@@ -180,9 +234,21 @@ def generate_grid_data():
     print("Loading India boundary...")
     india_boundary = load_india_boundary()
 
+    print("Loading district boundaries...")
+    districts = load_district_geojsons()
+
     print("Generating grid points...")
     points = generate_grid_points(india_boundary)
     print(f"Found {len(points)} points within India")
+
+    # Pre-compute district for each point
+    print("Mapping points to districts...")
+    point_districts = {}
+    for i, point in enumerate(points):
+        district_name, state_name = find_district_for_point(point['lat'], point['lon'], districts)
+        point_districts[(point['lat'], point['lon'])] = (district_name, state_name)
+        if (i + 1) % 100 == 0:
+            print(f"  Mapped {i + 1}/{len(points)} points to districts")
 
     print("Fetching weather data...")
     weather_data = fetch_weather_batch(points)
@@ -208,10 +274,15 @@ def generate_grid_data():
         if weather is None:
             continue
 
+        # Get district and state for this point
+        district_name, state_name = point_districts.get((point['lat'], point['lon']), (None, None))
+
         point_data = {
             'lat': point['lat'],
             'lon': point['lon'],
             'location': weather.get('location', f"{point['lat']}, {point['lon']}"),
+            'district': district_name,  # Official district name from GeoJSON
+            'state': state_name,        # State name
             'temp': weather['temp'],
             'rh': weather['rh'],
             'data': {}

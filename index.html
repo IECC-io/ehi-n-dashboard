@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHRAM: System for Heat Risk Assessment for Manual Labor</title>
+
+    <!-- Google Analytics (supports multiple accounts) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZRLEJEW2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        // Primary Google Analytics account
+        gtag('config', 'G-FZRLEJEW2N');
+        // Secondary Google Analytics account (company - to be added later)
+        // gtag('config', 'G-COMPANY-ID');
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,6 +26,7 @@
             --iecc-light-blue: #4a8dad;
             --iecc-dark-blue: #1a3d4f;
             --iecc-brown: #8B5A2B;
+            --shram-teal: #006D77;
             --danger-red: #d32f2f;
             --warning-orange: #f57c00;
             --caution-yellow: #fbc02d;
@@ -35,7 +49,7 @@
             background: white;
             padding: 1rem 2rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-bottom: 3px solid var(--iecc-green);
+            border-bottom: 10px solid var(--shram-dark-orange);
         }
 
         .logo-strip-content {
@@ -57,27 +71,55 @@
         }
 
         .logo-strip-text strong {
-            color: var(--iecc-blue);
+            color: var(--shram-teal);
             font-size: 1.1rem;
         }
 
         .header {
             background: var(--shram-dark-orange);
             color: white;
-            padding: 2rem 2rem 0 2rem;
+            padding: 1rem 2rem 0.5rem 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        .header-content { max-width: 1400px; margin: 0 auto; }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            position: relative;
+            min-height: 180px;
+        }
+
+        .logo-container {
+            position: absolute;
+            left: 4rem;
+            bottom: 0.5rem;
+            height: 180px;
+            width: calc(100% - 4rem);
+            overflow: hidden;
+        }
+
+        .logo-container img {
+            height: 180px;
+            width: auto;
+        }
+
         .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700; }
-        .header .subtitle { font-size: 1.1rem; opacity: 0.95; margin-bottom: 1.5rem; }
         .header .credit { font-size: 0.95rem; opacity: 0.85; font-style: italic; margin-bottom: 2rem; }
 
         .tabs {
             display: flex;
             gap: 0;
-            border-bottom: 3px solid var(--iecc-green);
             flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+            margin-left: auto;
+            align-self: flex-end;
+            margin-bottom: -0.5rem;
         }
 
         .tab {
@@ -101,17 +143,17 @@
 
         .tab.active {
             background: white;
-            color: var(--iecc-blue);
+            color: var(--shram-teal);
         }
 
         .tab.active::after {
             content: '';
             position: absolute;
-            bottom: -3px;
+            bottom: -10px;
             left: 0;
             right: 0;
-            height: 3px;
-            background: var(--iecc-green);
+            height: 10px;
+            background: var(--iecc-brown);
         }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
@@ -125,11 +167,11 @@
             margin-bottom: 2rem;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            border-left: 4px solid var(--iecc-green);
+            border-left: 4px solid var(--iecc-brown);
         }
 
         h2 {
-            color: var(--iecc-blue);
+            color: var(--shram-teal);
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--gray-light);
@@ -137,7 +179,7 @@
         }
 
         h3 {
-            color: var(--iecc-blue);
+            color: var(--shram-teal);
             margin: 1.5rem 0 1rem 0;
             font-size: 1.3rem;
         }
@@ -145,7 +187,7 @@
         /* Two-column Dashboard Layout */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 500px 1fr;
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -158,7 +200,7 @@
 
         /* Calculator */
         .calculator-container {
-            background: var(--iecc-blue);
+            background: var(--shram-teal);
             color: white;
             padding: 2.5rem;
             border-radius: 12px;
@@ -211,7 +253,7 @@
 
         .input-group input:focus,
         .input-wrapper select:focus {
-            outline: 2px solid var(--iecc-green);
+            outline: 2px solid var(--iecc-brown);
         }
 
         .met-selector {
@@ -233,13 +275,13 @@
 
         .met-option:hover {
             background: rgba(255, 255, 255, 0.2);
-            border-color: var(--iecc-green);
+            border-color: var(--iecc-brown);
         }
 
         .met-option.active {
             background: white;
-            color: var(--iecc-blue);
-            border-color: var(--iecc-green);
+            color: var(--shram-teal);
+            border-color: var(--iecc-brown);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
@@ -249,13 +291,13 @@
 
         /* Blue MET dropdown for dashboard sections */
         .met-select-green {
-            background: var(--iecc-blue);
+            background: var(--shram-teal);
             color: white;
             border: none;
             padding: 0.4rem 0.8rem;
             border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
             appearance: none;
             -webkit-appearance: none;
@@ -283,7 +325,7 @@
             vertical-align: middle;
         }
         .info-tooltip i {
-            color: var(--iecc-blue);
+            color: var(--shram-teal);
             font-size: 0.85rem;
             opacity: 0.7;
         }
@@ -325,7 +367,7 @@
         }
 
         .calculate-btn {
-            background: var(--iecc-green);
+            background: var(--iecc-brown);
             color: white;
             border: none;
             padding: 1rem 3rem;
@@ -339,9 +381,9 @@
         }
 
         .calculate-btn:hover {
-            background: #8a9a2d;
+            background: #7a4a1b;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(157, 173, 51, 0.4);
+            box-shadow: 0 4px 12px rgba(139, 90, 43, 0.4);
         }
 
         .result-display {
@@ -355,7 +397,7 @@
 
         .result-display.show { display: block; }
         .result-zone { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .result-value { font-size: 1.5rem; font-weight: 600; color: var(--iecc-blue); margin-bottom: 1rem; }
+        .result-value { font-size: 1.5rem; font-weight: 600; color: var(--shram-teal); margin-bottom: 1rem; }
 
         .zone-legend {
             display: grid;
@@ -386,7 +428,7 @@
         }
 
         .stat-box {
-            background: var(--iecc-blue);
+            background: var(--shram-teal);
             color: white;
             padding: 1.5rem;
             border-radius: 10px;
@@ -476,12 +518,16 @@
             background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
             color: white;
             padding: 1rem 2rem;
-            margin: 1rem 0;
-            border-radius: 8px;
+            margin: 0.5rem 0 1rem 0;
+            border-radius: 12px;
             box-shadow: 0 4px 20px rgba(211, 47, 47, 0.4);
             animation: pulse 2s ease-in-out infinite;
             display: none;
-            position: relative;
+            position: sticky;
+            top: 0.5rem;
+            z-index: 1100;  /* Higher than Leaflet map controls (1000) */
+            max-height: 300px;
+            overflow-y: auto;
         }
 
         .zone6-alert-banner.show {
@@ -558,7 +604,7 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 0.5rem;
             margin-top: 1rem;
-            max-height: 200px;
+            max-height: 150px;
             overflow-y: auto;
             padding-right: 0.5rem;
         }
@@ -636,7 +682,7 @@
         }
 
         .api-modal-header {
-            background: var(--iecc-blue);
+            background: var(--shram-teal);
             color: white;
             padding: 1.5rem 2rem;
             border-radius: 10px 10px 0 0;
@@ -669,10 +715,10 @@
             background: var(--gray-light);
             padding: 1.5rem;
             border-radius: 8px;
-            border-left: 4px solid var(--iecc-blue);
+            border-left: 4px solid var(--shram-teal);
         }
 
-        .endpoint-card h4 { color: var(--iecc-blue); margin-bottom: 1rem; }
+        .endpoint-card h4 { color: var(--shram-teal); margin-bottom: 1rem; }
 
         .endpoint {
             background: white;
@@ -687,7 +733,7 @@
 
         .method-badge {
             display: inline-block;
-            background: var(--iecc-green);
+            background: var(--iecc-brown);
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
@@ -726,7 +772,7 @@
 
         .success-box {
             background: #e8f5e9;
-            border-left: 4px solid var(--iecc-green);
+            border-left: 4px solid var(--iecc-brown);
             padding: 1.5rem;
             border-radius: 8px;
             margin: 1.5rem 0;
@@ -746,14 +792,14 @@
         }
 
         .footer {
-            background: var(--iecc-blue);
+            background: var(--shram-dark-orange);
             color: white;
             padding: 2rem;
             text-align: center;
             margin-top: 3rem;
         }
 
-        .footer a { color: var(--iecc-green); text-decoration: none; }
+        .footer a { color: var(--iecc-brown); text-decoration: none; }
         .footer a:hover { text-decoration: underline; }
 
         .forecast-table {
@@ -770,7 +816,7 @@
         }
 
         .forecast-table th {
-            background: var(--iecc-blue);
+            background: var(--shram-teal);
             color: white;
             font-weight: 600;
         }
@@ -780,11 +826,11 @@
         /* District map tooltip */
         .district-tooltip {
             background: white;
-            border: 2px solid var(--iecc-blue);
+            border: 2px solid var(--shram-teal);
             border-radius: 4px;
             padding: 4px 8px;
             font-weight: 600;
-            color: var(--iecc-blue);
+            color: var(--shram-teal);
         }
 
         #district-map {
@@ -793,8 +839,11 @@
 
         @media (max-width: 768px) {
             .header { padding: 1rem; }
-            .header img { height: 40px; }
-            .header .subtitle { font-size: 0.75rem; margin-bottom: 0.75rem; }
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .header img { height: 50px; margin-bottom: 0.5rem; }
 
             /* Keep tabs horizontal but compact */
             .tabs {
@@ -895,8 +944,9 @@
 
     <div class="header">
         <div class="header-content">
-            <img src="shram_logo.svg" alt="SHRAM: System for Heat Risk Assessment for Manual Labor" style="height: 60px; margin-bottom: 0.5rem;">
-            <p class="subtitle">Real-time heat stress monitoring | 1- and 3-day forecast heat stress warnings</p>
+            <div class="logo-container">
+                <img src="shram_logo.svg" alt="SHRAM: System for Heat Risk Assessment for Manual Labor">
+            </div>
 
             <div class="tabs">
                 <button class="tab active" onclick="switchTab(event, 'dashboard')">
@@ -917,8 +967,8 @@
 
     <div class="container">
         <!-- Zone 6 Hazardous Alert Banner -->
-        <div id="zone6-banner" class="zone6-alert-banner">
-            <button class="close-btn" onclick="toggleBanner()" id="banner-toggle-btn"><i class="fas fa-minus"></i></button>
+        <div id="zone6-banner" class="zone6-alert-banner minimized">
+            <button class="close-btn" onclick="toggleBanner()" id="banner-toggle-btn"><i class="fas fa-plus"></i></button>
             <div id="zone6-banner-content"></div>
         </div>
 
@@ -929,40 +979,36 @@
                 <!-- LEFT: Current Status -->
                 <div class="section">
                     <h2><i class="fas fa-chart-line"></i> Current Heat Status for
-                        <select id="met-select-current" onchange="selectMet(this.value)" class="met-select-green">
+                        <select id="met-select-current" onchange="selectMetCurrent(this.value)" class="met-select-green">
                             <option value="3">EHI-3 (Light Work)</option>
                             <option value="4">EHI-4 (Moderate)</option>
                             <option value="5">EHI-5 (Heavy)</option>
                             <option value="6" selected>EHI-6 (Very Heavy)</option>
                         </select>
-                        <span class="info-tooltip">
-                            <i class="fas fa-info-circle"></i>
-                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)</span>
-                        </span>
                         <span style="margin-left: 0.5rem;">
-                            <button id="current-shade-btn" onclick="setShade('current', true)" style="background: var(--iecc-blue); color: white; border: 2px solid var(--iecc-blue); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                            <button id="current-shade-btn" onclick="setShade('current', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
                                 <i class="fas fa-cloud"></i> Shade
-                            </button><button id="current-sun-btn" onclick="setShade('current', false)" style="background: white; color: var(--iecc-blue); border: 2px solid var(--iecc-blue); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                            </button><button id="current-sun-btn" onclick="setShade('current', false)" style="background: white; color: var(--shram-teal); border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
                                 <i class="fas fa-sun"></i> Sun
                             </button>
                         </span>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
-                            <span class="tooltip-text"><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure (adds ~15°C heat stress)</span>
+                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                         </span>
                     </h2>
 
                     <!-- State/District Filter -->
                     <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
                         <div style="flex: 1; min-width: 200px;">
-                            <label for="current-state-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--iecc-blue);">State:</label>
-                            <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--iecc-blue); background: white; color: var(--iecc-blue); font-weight: 500; width: 100%; font-size: 1rem;">
+                            <label for="current-state-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">State:</label>
+                            <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
                                 <option value="all">All India</option>
                             </select>
                         </div>
                         <div style="flex: 1; min-width: 200px;">
-                            <label for="current-district-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--iecc-blue);">District:</label>
-                            <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--iecc-blue); background: white; color: var(--iecc-blue); font-weight: 500; width: 100%; font-size: 1rem;">
+                            <label for="current-district-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">District:</label>
+                            <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
                                 <option value="all">All Districts</option>
                             </select>
                         </div>
@@ -981,37 +1027,33 @@
                 <!-- RIGHT: Forecast -->
                 <div class="section">
                     <h2><i class="fas fa-calendar-alt"></i> Heat Forecast for
-                        <select id="met-select-forecast" onchange="selectMet(this.value)" class="met-select-green">
+                        <select id="met-select-forecast" onchange="selectMetForecast(this.value)" class="met-select-green">
                             <option value="3">EHI-3 (Light Work)</option>
                             <option value="4">EHI-4 (Moderate)</option>
                             <option value="5">EHI-5 (Heavy)</option>
                             <option value="6" selected>EHI-6 (Very Heavy)</option>
                         </select>
-                        <span class="info-tooltip">
-                            <i class="fas fa-info-circle"></i>
-                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)</span>
-                        </span>
                         <span style="margin-left: 0.5rem;">
-                            <button id="forecast-shade-btn" onclick="setShade('forecast', true)" style="background: var(--iecc-blue); color: white; border: 2px solid var(--iecc-blue); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                            <button id="forecast-shade-btn" onclick="setShade('forecast', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
                                 <i class="fas fa-cloud"></i> Shade
-                            </button><button id="forecast-sun-btn" onclick="setShade('forecast', false)" style="background: white; color: var(--iecc-blue); border: 2px solid var(--iecc-blue); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                            </button><button id="forecast-sun-btn" onclick="setShade('forecast', false)" style="background: white; color: var(--shram-teal); border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
                                 <i class="fas fa-sun"></i> Sun
                             </button>
                         </span>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
-                            <span class="tooltip-text"><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure (adds ~15°C heat stress)</span>
+                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                         </span>
                     </h2>
 
                     <!-- Interactive Map for State/District Selection -->
                     <div style="margin-bottom: 1.5rem;">
-                        <p id="map-instruction" style="font-weight: 600; color: var(--iecc-blue); margin-bottom: 0.5rem;">
+                        <p id="map-instruction" style="font-weight: 600; color: var(--shram-teal); margin-bottom: 0.5rem;">
                             <i class="fas fa-hand-pointer"></i> Click on a state to select it:
                         </p>
-                        <div id="forecast-map" style="height: 350px; border-radius: 8px; border: 2px solid var(--iecc-blue);"></div>
+                        <div id="forecast-map" style="height: 350px; border-radius: 8px; border: 2px solid var(--shram-teal);"></div>
                         <div style="margin-top: 0.5rem;">
-                            <p id="selected-location-label" style="font-weight: 600; color: var(--iecc-blue); margin: 0;"></p>
+                            <p id="selected-location-label" style="font-weight: 600; color: var(--shram-teal); margin: 0;"></p>
                         </div>
                     </div>
 
@@ -1024,8 +1066,8 @@
                     </select>
 
                     <div style="margin-bottom: 1.5rem;">
-                        <button id="forecast-1day-btn" onclick="setForecastDays(1)" class="calculate-btn" style="margin-right: 1rem; padding: 0.5rem 1.5rem; font-size: 0.9rem; background: white; color: var(--iecc-blue); border: 2px solid var(--iecc-blue);">1-Day</button>
-                        <button id="forecast-3day-btn" onclick="setForecastDays(3)" class="calculate-btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem; background: var(--iecc-blue); color: white; border: 2px solid var(--iecc-blue);">3-Day</button>
+                        <button id="forecast-1day-btn" onclick="setForecastDays(1)" class="calculate-btn" style="margin-right: 1rem; padding: 0.5rem 1.5rem; font-size: 0.9rem; background: white; color: var(--shram-teal); border: 2px solid var(--shram-teal);">1-Day</button>
+                        <button id="forecast-3day-btn" onclick="setForecastDays(3)" class="calculate-btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem; background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal);">3-Day</button>
                     </div>
 
                     <div id="forecast-content">
@@ -1042,41 +1084,37 @@
             <!-- Last 24 Hours (full width) -->
             <div class="section">
                 <h2><i class="fas fa-clock"></i> Last 24 Hours for
-                    <select id="met-select-last24h" onchange="selectMet(this.value)" class="met-select-green">
+                    <select id="met-select-last24h" onchange="selectMetLast24h(this.value)" class="met-select-green">
                         <option value="3">EHI-3 (Light Work)</option>
                         <option value="4">EHI-4 (Moderate)</option>
                         <option value="5">EHI-5 (Heavy)</option>
                         <option value="6" selected>EHI-6 (Very Heavy)</option>
                     </select>
-                    <span class="info-tooltip">
-                        <i class="fas fa-info-circle"></i>
-                        <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)</span>
-                    </span>
                     <span style="margin-left: 0.5rem;">
-                        <button id="last24h-shade-btn" onclick="setShade('last24h', true)" style="background: var(--iecc-blue); color: white; border: 2px solid var(--iecc-blue); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                        <button id="last24h-shade-btn" onclick="setShade('last24h', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
                             <i class="fas fa-cloud"></i> Shade
-                        </button><button id="last24h-sun-btn" onclick="setShade('last24h', false)" style="background: white; color: var(--iecc-blue); border: 2px solid var(--iecc-blue); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 600; cursor: pointer; font-size: 0.9rem;">
+                        </button><button id="last24h-sun-btn" onclick="setShade('last24h', false)" style="background: white; color: var(--shram-teal); border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
                             <i class="fas fa-sun"></i> Sun
                         </button>
                     </span>
                     <span class="info-tooltip">
                         <i class="fas fa-info-circle"></i>
-                        <span class="tooltip-text"><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure (adds ~15°C heat stress)</span>
+                        <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                     </span>
                 </h2>
-                <p id="last24h-timestamp" style="text-align: center; font-size: 0.95rem; color: #666; margin-bottom: 1rem;"></p>
+                <p id="last24h-timestamp" style="text-align: center; font-size: 1.2rem; color: #000; margin-bottom: 1rem; font-weight: 600;"></p>
 
                 <!-- State/District Filter -->
                 <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
                     <div style="flex: 1; min-width: 200px;">
-                        <label for="charts-state-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--iecc-blue);">State:</label>
-                        <select id="charts-state-select" onchange="updateChartsDistricts(); load24HourData();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--iecc-blue); background: white; color: var(--iecc-blue); font-weight: 500; width: 100%; font-size: 1rem;">
+                        <label for="charts-state-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">State:</label>
+                        <select id="charts-state-select" onchange="updateChartsDistricts(); load24HourData();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
                             <option value="all">All India</option>
                         </select>
                     </div>
                     <div style="flex: 1; min-width: 200px;">
-                        <label for="charts-district-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--iecc-blue);">District:</label>
-                        <select id="charts-district-select" onchange="load24HourData()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--iecc-blue); background: white; color: var(--iecc-blue); font-weight: 500; width: 100%; font-size: 1rem;">
+                        <label for="charts-district-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">District:</label>
+                        <select id="charts-district-select" onchange="load24HourData()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
                             <option value="all">All Districts</option>
                         </select>
                     </div>
@@ -1213,28 +1251,28 @@
 
                 <div style="margin: 1.5rem 0;">
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-                        <button onclick="showZone(1)" id="zone-btn-1" style="padding: 0.5rem 1rem; border: 2px solid var(--iecc-blue); background: white; color: var(--iecc-blue); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 1</button>
-                        <button onclick="showZone(2)" id="zone-btn-2" style="padding: 0.5rem 1rem; border: 2px solid var(--iecc-blue); background: white; color: var(--iecc-blue); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 2</button>
-                        <button onclick="showZone(3)" id="zone-btn-3" style="padding: 0.5rem 1rem; border: 2px solid var(--iecc-blue); background: white; color: var(--iecc-blue); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 3</button>
+                        <button onclick="showZone(1)" id="zone-btn-1" style="padding: 0.5rem 1rem; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 1</button>
+                        <button onclick="showZone(2)" id="zone-btn-2" style="padding: 0.5rem 1rem; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 2</button>
+                        <button onclick="showZone(3)" id="zone-btn-3" style="padding: 0.5rem 1rem; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 3</button>
                         <button onclick="showZone(4)" id="zone-btn-4" style="padding: 0.5rem 1rem; border: 2px solid var(--caution-yellow); background: white; color: var(--caution-yellow); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 4</button>
                         <button onclick="showZone(5)" id="zone-btn-5" style="padding: 0.5rem 1rem; border: 2px solid var(--warning-orange); background: white; color: var(--warning-orange); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 5</button>
                         <button onclick="showZone(6)" id="zone-btn-6" style="padding: 0.5rem 1rem; border: 2px solid var(--danger-red); background: var(--danger-red); color: white; border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 6</button>
                     </div>
 
-                    <div id="zone-content-1" class="zone-content" style="display: none; background: var(--gray-light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--iecc-blue);">
-                        <h3 style="color: var(--iecc-blue); margin-bottom: 1rem;"><i class="fas fa-snowflake"></i> Zone 1: Hypothermia (Severe Cold Stress)</h3>
+                    <div id="zone-content-1" class="zone-content" style="display: none; background: var(--gray-light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--shram-teal);">
+                        <h3 style="color: var(--shram-teal); margin-bottom: 1rem;"><i class="fas fa-snowflake"></i> Zone 1: Hypothermia (Severe Cold Stress)</h3>
                         <p><strong>Physiological State:</strong> Fractional skin coverage provides sufficient control.</p>
                         <p><strong>Characteristics:</strong> The body can maintain thermal equilibrium through minimal adjustments to skin blood flow and clothing.</p>
                     </div>
 
-                    <div id="zone-content-2" class="zone-content" style="display: none; background: var(--gray-light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--iecc-green);">
-                        <h3 style="color: var(--iecc-green); margin-bottom: 1rem;"><i class="fas fa-check-circle"></i> Zone 2: Comfortable (Thermoneutral)</h3>
+                    <div id="zone-content-2" class="zone-content" style="display: none; background: var(--gray-light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--iecc-brown);">
+                        <h3 style="color: var(--iecc-brown); margin-bottom: 1rem;"><i class="fas fa-check-circle"></i> Zone 2: Comfortable (Thermoneutral)</h3>
                         <p><strong>Physiological State:</strong> Clothing adjustment in warm conditions.</p>
                         <p><strong>Characteristics:</strong> Increased skin blood flow while maintaining comfortable clothing levels.</p>
                     </div>
 
-                    <div id="zone-content-3" class="zone-content" style="display: none; background: var(--gray-light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--iecc-green);">
-                        <h3 style="color: var(--iecc-green); margin-bottom: 1rem;"><i class="fas fa-sun"></i> Zone 3: Warm (Manageable Heat)</h3>
+                    <div id="zone-content-3" class="zone-content" style="display: none; background: var(--gray-light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--iecc-brown);">
+                        <h3 style="color: var(--iecc-brown); margin-bottom: 1rem;"><i class="fas fa-sun"></i> Zone 3: Warm (Manageable Heat)</h3>
                         <p><strong>Physiological State:</strong> Minimal clothing for enhanced evaporative cooling.</p>
                         <p><strong>Characteristics:</strong> Maximum skin blood flow with minimal clothing to maximize heat dissipation.</p>
                     </div>
@@ -1271,7 +1309,7 @@
 
                 <p>Get notified when hazardous heat stress conditions are detected in your location. Free service for workers, employers, and community organizers.</p>
 
-                <div class="alert-box" style="background: #e3f2fd; border-left-color: var(--iecc-blue);">
+                <div class="alert-box" style="background: #e3f2fd; border-left-color: var(--shram-teal);">
                     <p><strong><i class="fas fa-info-circle"></i> How it works:</strong></p>
                     <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
                         <li>Select your state and district</li>
@@ -1306,14 +1344,14 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group">
                             <label for="subscriber-state" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">States *</label>
-                            <select id="subscriber-state" required multiple onchange="updateSubscriberDistricts()" style="width: 100%; padding: 0.75rem; border: 2px solid var(--iecc-blue); border-radius: 6px; font-size: 1rem; background: white; min-height: 150px;">
+                            <select id="subscriber-state" required multiple onchange="updateSubscriberDistricts()" style="width: 100%; padding: 0.75rem; border: 2px solid var(--shram-teal); border-radius: 6px; font-size: 1rem; background: white; min-height: 150px;">
                             </select>
                             <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Hold Ctrl/Cmd to select multiple states</small>
                         </div>
 
                         <div class="input-group">
                             <label for="subscriber-district" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Districts *</label>
-                            <select id="subscriber-district" required multiple style="width: 100%; padding: 0.75rem; border: 2px solid var(--iecc-green); border-radius: 6px; font-size: 1rem; background: white; min-height: 150px;">
+                            <select id="subscriber-district" required multiple style="width: 100%; padding: 0.75rem; border: 2px solid var(--iecc-brown); border-radius: 6px; font-size: 1rem; background: white; min-height: 150px;">
                             </select>
                             <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Hold Ctrl/Cmd to select multiple districts</small>
                         </div>
@@ -1330,10 +1368,6 @@
                             </label>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; background: white;">
-                                    <input type="checkbox" id="alert-met-3" value="3" style="width: 18px; height: 18px; cursor: pointer;">
-                                    <span>EHI-3 (Light)</span>
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; background: white;">
                                     <input type="checkbox" id="alert-met-4" value="4" style="width: 18px; height: 18px; cursor: pointer;">
                                     <span>EHI-4 (Moderate)</span>
                                 </label>
@@ -1341,7 +1375,7 @@
                                     <input type="checkbox" id="alert-met-5" value="5" style="width: 18px; height: 18px; cursor: pointer;">
                                     <span>EHI-5 (Heavy)</span>
                                 </label>
-                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--iecc-blue); border-radius: 6px; background: #e3f2fd;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--shram-teal); border-radius: 6px; background: #e3f2fd;">
                                     <input type="checkbox" id="alert-met-6" value="6" checked style="width: 18px; height: 18px; cursor: pointer;">
                                     <span>EHI-6 (Very Heavy)</span>
                                 </label>
@@ -1392,7 +1426,7 @@
                     <i class="fas fa-globe"></i> <a href="https://iecc.gspp.berkeley.edu" target="_blank">iecc.gspp.berkeley.edu</a>
                 </p>
 
-                <button onclick="toggleApiModal()" style="margin-top: 1rem; background: var(--iecc-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                <button onclick="toggleApiModal()" style="margin-top: 1rem; background: var(--shram-teal); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
                     <i class="fas fa-code"></i> API Documentation
                 </button>
             </div>
@@ -1400,9 +1434,9 @@
     </div>
 
     <div class="footer">
-        <p><strong>EHI-N* Heat Stress Monitoring System</strong></p>
-        <p>Developed by Elif Kilic | <a href="https://iecc.gspp.berkeley.edu" target="_blank">India Energy & Climate Center</a> | University of California, Berkeley</p>
-        <p>Data sources: India Meteorological Department (IMD) | Updated hourly</p>
+        <p><strong>SHRAM: System for Heat Risk Assessment for Manual labor</strong></p>
+        <p>Developed by Elif Kılıç | <span style="color: #fff;">India Energy & Climate Center</span> | University of California, Berkeley</p>
+        <p>Data sources: India Meteorological Department (IMD), ERA5 Reanalysis (ECMWF) | Updated hourly</p>
         <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
             &copy; 2025
         </p>
@@ -1476,7 +1510,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     <button onclick="closePrivacyModal()" style="background: var(--gray-medium); color: var(--gray-dark); border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
                         Cancel
                     </button>
-                    <button onclick="acceptPrivacyAndSubmit()" style="background: var(--iecc-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                    <button onclick="acceptPrivacyAndSubmit()" style="background: var(--shram-teal); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
                         <i class="fas fa-check"></i> I Acknowledge
                     </button>
                 </div>
@@ -1485,6 +1519,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
     </div>
 
     <script>
+        // Separate MET levels for each section (dashboard)
+        let currentMetStatus = 6;
+        let currentMetForecast = 6;
+        let currentMetLast24h = 6;
+        // MET level for calculator (independent)
         let currentMet = 6;
         let forecastDays = 3;
         let alertTrendChart, tempHumidityChart;
@@ -1521,7 +1560,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 button.style.background = '#4caf50';
                 setTimeout(() => {
                     button.innerHTML = originalText;
-                    button.style.background = 'var(--iecc-green)';
+                    button.style.background = 'var(--iecc-brown)';
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy:', err);
@@ -1597,15 +1636,15 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
             if (isShade) {
                 // Shade is active
-                shadeBtn.style.background = 'var(--iecc-blue)';
+                shadeBtn.style.background = 'var(--shram-teal)';
                 shadeBtn.style.color = 'white';
                 sunBtn.style.background = 'white';
-                sunBtn.style.color = 'var(--iecc-blue)';
+                sunBtn.style.color = 'var(--shram-teal)';
             } else {
                 // Sun is active
                 shadeBtn.style.background = 'white';
-                shadeBtn.style.color = 'var(--iecc-blue)';
-                sunBtn.style.background = 'var(--iecc-blue)';
+                shadeBtn.style.color = 'var(--shram-teal)';
+                sunBtn.style.background = 'var(--shram-teal)';
                 sunBtn.style.color = 'white';
             }
 
@@ -1619,13 +1658,30 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             }
         }
 
+        function selectMetCurrent(metLevel) {
+            currentMetStatus = parseInt(metLevel);
+            loadLiveData();
+        }
+
+        function selectMetForecast(metLevel) {
+            currentMetForecast = parseInt(metLevel);
+            loadForecast();
+        }
+
+        function selectMetLast24h(metLevel) {
+            currentMetLast24h = parseInt(metLevel);
+            load24HourData();
+        }
+
+        // Legacy function for backward compatibility
         function selectMet(metLevel) {
-            currentMet = parseInt(metLevel);
-            // Sync all MET dropdowns to the same value
+            const met = parseInt(metLevel);
+            currentMetStatus = met;
+            currentMetForecast = met;
+            currentMetLast24h = met;
             document.querySelectorAll('.met-select-green').forEach(select => {
-                select.value = currentMet;
+                select.value = met;
             });
-            // Reload all data with new MET level
             loadForecast();
             load24HourData();
             loadLiveData();
@@ -1647,14 +1703,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const btn3 = document.getElementById('forecast-3day-btn');
 
             if (days === 1) {
-                btn1.style.background = 'var(--iecc-blue)';
+                btn1.style.background = 'var(--shram-teal)';
                 btn1.style.color = 'white';
                 btn3.style.background = 'white';
-                btn3.style.color = 'var(--iecc-blue)';
+                btn3.style.color = 'var(--shram-teal)';
             } else {
                 btn1.style.background = 'white';
-                btn1.style.color = 'var(--iecc-blue)';
-                btn3.style.background = 'var(--iecc-blue)';
+                btn1.style.color = 'var(--shram-teal)';
+                btn3.style.background = 'var(--shram-teal)';
                 btn3.style.color = 'white';
             }
 
@@ -1803,27 +1859,46 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 'Uttarakhand', 'West Bengal'
             ].sort();
 
-            // Current Status dropdowns
+            // Current Status dropdowns - make all states clickable, even if no current data
+            // (unavailable states will show last available data from 24h history)
             const currentStateSelect = document.getElementById('current-state-select');
             currentStateSelect.innerHTML = '<option value="all">All India</option>';
             allStates.forEach(state => {
                 const isAvailable = availableStates.includes(state);
-                const disabled = !isAvailable ? 'disabled' : '';
-                const className = isAvailable ? 'available' : 'unavailable';
-                currentStateSelect.innerHTML += `<option value="${state}" class="${className}" ${disabled}>${state}</option>`;
+                // Use disabled for grey styling, but we'll enable selection via JS
+                const label = isAvailable ? state : `${state} (last available)`;
+                const disabled = isAvailable ? '' : 'disabled';
+                currentStateSelect.innerHTML += `<option value="${state}" ${disabled}>${label}</option>`;
             });
 
             // NOTE: Forecast dropdowns are populated separately from india_districts.json
             // by loadIndiaDistrictsData() - do NOT populate them here with uppercase names
 
-            // Charts dropdowns
+            // Charts dropdowns - make all states clickable
             const chartsStateSelect = document.getElementById('charts-state-select');
             chartsStateSelect.innerHTML = '<option value="all">All India</option>';
             allStates.forEach(state => {
                 const isAvailable = availableStates.includes(state);
-                const disabled = !isAvailable ? 'disabled' : '';
-                const className = isAvailable ? 'available' : 'unavailable';
-                chartsStateSelect.innerHTML += `<option value="${state}" class="${className}" ${disabled}>${state}</option>`;
+                // Use disabled for grey styling, but we'll enable selection via JS
+                const label = isAvailable ? state : `${state} (last available)`;
+                const disabled = isAvailable ? '' : 'disabled';
+                chartsStateSelect.innerHTML += `<option value="${state}" ${disabled}>${label}</option>`;
+            });
+
+            // Enable selection of "disabled" options by temporarily enabling them on mousedown
+            enableDisabledOptions(currentStateSelect);
+            enableDisabledOptions(chartsStateSelect);
+        }
+
+        // Helper function to allow clicking on disabled options (for greyed-out styling)
+        function enableDisabledOptions(selectElement) {
+            selectElement.addEventListener('mousedown', function(e) {
+                // Temporarily enable all disabled options
+                const disabledOptions = this.querySelectorAll('option[disabled]');
+                disabledOptions.forEach(opt => opt.removeAttribute('disabled'));
+            });
+            selectElement.addEventListener('change', function() {
+                // Re-disable options after selection (will be reset on next populateStateDropdowns call)
             });
         }
 
@@ -1833,21 +1908,52 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const districtSelect = document.getElementById('current-district-select');
             const selectedState = stateSelect.value;
 
-            if (!allAlertsData || selectedState === 'all') {
+            if (selectedState === 'all') {
                 districtSelect.innerHTML = '<option value="all" class="available">All Districts</option>';
                 return;
             }
 
-            const districts = [...new Set(
-                allAlertsData.alerts
-                    .filter(a => a.STATE === selectedState)
-                    .map(a => a.DISTRICT)
-            )].sort();
+            // First try to get districts from current alerts
+            let districts = [];
+            let isHistorical = false;
 
-            districtSelect.innerHTML = '<option value="all" class="available">All Districts</option>';
+            if (allAlertsData) {
+                districts = [...new Set(
+                    allAlertsData.alerts
+                        .filter(a => a.STATE === selectedState)
+                        .map(a => a.DISTRICT)
+                )].sort();
+            }
+
+            // If no current districts, try to find from 24h historical data
+            if (districts.length === 0 && all24HourData && all24HourData.hourly_alerts) {
+                const normalizedState = normalizeLocationName(selectedState);
+                const allHistoricalDistricts = new Set();
+
+                all24HourData.hourly_alerts.forEach(entry => {
+                    const stations = entry.alerts || entry.stations || [];
+                    stations.forEach(s => {
+                        if (normalizeLocationName(s.STATE) === normalizedState) {
+                            allHistoricalDistricts.add(s.DISTRICT);
+                        }
+                    });
+                });
+
+                districts = [...allHistoricalDistricts].sort();
+                isHistorical = districts.length > 0;
+            }
+
+            // Use disabled attribute for grey styling on historical data
+            const headerText = isHistorical ? 'All Districts (last available)' : 'All Districts';
+            const headerDisabled = isHistorical ? 'disabled' : '';
+            districtSelect.innerHTML = `<option value="all" ${headerDisabled}>${headerText}</option>`;
             districts.forEach(district => {
-                districtSelect.innerHTML += `<option value="${district}" class="available">${district.replace(/_/g, ' ')}</option>`;
+                const label = district.replace(/_/g, ' ');
+                const disabled = isHistorical ? 'disabled' : '';
+                districtSelect.innerHTML += `<option value="${district}" ${disabled}>${label}${isHistorical ? ' (last available)' : ''}</option>`;
             });
+            // Enable selection of disabled options
+            enableDisabledOptions(districtSelect);
         }
 
         function updateForecastDistricts() {
@@ -1954,16 +2060,24 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             <i class="fas fa-users"></i> Heat Resilience Team
                         </div>
                         <div style="font-size: 0.8rem; line-height: 1.5;">
-                            <div style="font-weight: 600;">Elif Kilic</div>
-                            <div>Cassidy Cramer</div>
-                            <div>Connor Riley</div>
+                            <div style="font-weight: 600;">Elif Kilic <span style="font-weight: 400; color: #666; font-size: 0.7rem;">(Lead)</span></div>
+                            <div>Rohini Tamarana</div>
+                            <div>Piyush Narang</div>
+                            <div>Fernando Augusto</div>
+                            <div>Shruti Deorah</div>
                             <div>Prof. Ashok Gadgil</div>
                         </div>
                         <div style="font-size: 0.7rem; color: #666; margin-top: 0.5rem; border-top: 1px solid #eee; padding-top: 0.5rem;">
                             India Energy & Climate Center<br>UC Berkeley
                         </div>
+                        <div style="font-size: 0.65rem; color: #2d637f; margin-top: 0.3rem;">
+                            <i class="fas fa-mouse-pointer"></i> Click to visit team page
+                        </div>
                     </div>
                 `, { direction: 'top', offset: [0, -5] })
+                .on('click', function() {
+                    window.open('https://iecc.gspp.berkeley.edu/about/team/', '_blank');
+                })
                 .addTo(forecastMap);
 
             // Load states GeoJSON
@@ -2212,21 +2326,90 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const districtSelect = document.getElementById('charts-district-select');
             const selectedState = stateSelect.value;
 
-            if (!allAlertsData || selectedState === 'all') {
+            if (selectedState === 'all') {
                 districtSelect.innerHTML = '<option value="all" class="available">All Districts</option>';
                 return;
             }
 
-            const districts = [...new Set(
-                allAlertsData.alerts
-                    .filter(a => a.STATE === selectedState)
-                    .map(a => a.DISTRICT)
-            )].sort();
+            // First try to get districts from current alerts
+            let districts = [];
+            let isHistorical = false;
 
-            districtSelect.innerHTML = '<option value="all" class="available">All Districts</option>';
+            if (allAlertsData) {
+                districts = [...new Set(
+                    allAlertsData.alerts
+                        .filter(a => a.STATE === selectedState)
+                        .map(a => a.DISTRICT)
+                )].sort();
+            }
+
+            // If no current districts, try to find from 24h historical data
+            if (districts.length === 0 && all24HourData && all24HourData.hourly_alerts) {
+                const normalizedState = normalizeLocationName(selectedState);
+                const allHistoricalDistricts = new Set();
+
+                all24HourData.hourly_alerts.forEach(entry => {
+                    const stations = entry.alerts || entry.stations || [];
+                    stations.forEach(s => {
+                        if (normalizeLocationName(s.STATE) === normalizedState) {
+                            allHistoricalDistricts.add(s.DISTRICT);
+                        }
+                    });
+                });
+
+                districts = [...allHistoricalDistricts].sort();
+                isHistorical = districts.length > 0;
+            }
+
+            // Use disabled attribute for grey styling on historical data
+            const headerText = isHistorical ? 'All Districts (last available)' : 'All Districts';
+            const headerDisabled = isHistorical ? 'disabled' : '';
+            districtSelect.innerHTML = `<option value="all" ${headerDisabled}>${headerText}</option>`;
             districts.forEach(district => {
-                districtSelect.innerHTML += `<option value="${district}" class="available">${district.replace(/_/g, ' ')}</option>`;
+                const label = district.replace(/_/g, ' ');
+                const disabled = isHistorical ? 'disabled' : '';
+                districtSelect.innerHTML += `<option value="${district}" ${disabled}>${label}${isHistorical ? ' (last available)' : ''}</option>`;
             });
+            // Enable selection of disabled options
+            enableDisabledOptions(districtSelect);
+        }
+
+        // Helper to normalize state/district names for comparison
+        function normalizeLocationName(str) {
+            return str ? str.toLowerCase().replace(/_/g, ' ').trim() : '';
+        }
+
+        // Find last available data from 24h history for a state/district
+        function findLastAvailableData(selectedState, selectedDistrict) {
+            if (!all24HourData || !all24HourData.hourly_alerts) return null;
+
+            const hourlySource = all24HourData.hourly_alerts;
+            const normalizedState = normalizeLocationName(selectedState);
+            const normalizedDistrict = selectedDistrict !== 'all' ? normalizeLocationName(selectedDistrict) : null;
+
+            // Search from most recent to oldest
+            for (let i = hourlySource.length - 1; i >= 0; i--) {
+                const entry = hourlySource[i];
+                const stations = entry.alerts || entry.stations || [];
+
+                let matchingStations = stations.filter(s =>
+                    normalizeLocationName(s.STATE) === normalizedState
+                );
+
+                if (normalizedDistrict) {
+                    matchingStations = matchingStations.filter(s =>
+                        normalizeLocationName(s.DISTRICT) === normalizedDistrict
+                    );
+                }
+
+                if (matchingStations.length > 0) {
+                    return {
+                        timestamp: entry.timestamp,
+                        alerts: matchingStations
+                    };
+                }
+            }
+            return null;
         }
 
         // Filter current status based on selected state/district
@@ -2237,6 +2420,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const selectedDistrict = document.getElementById('current-district-select').value;
 
             let filteredAlerts = allAlertsData.alerts;
+            let isHistoricalData = false;
+            let dataTimestamp = allAlertsData.timestamp;
 
             if (selectedState !== 'all') {
                 filteredAlerts = filteredAlerts.filter(a => a.STATE === selectedState);
@@ -2245,7 +2430,17 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 filteredAlerts = filteredAlerts.filter(a => a.DISTRICT === selectedDistrict);
             }
 
-            // Recalculate zone counts
+            // If no current data found, try to get last available from 24h history
+            if (filteredAlerts.length === 0 && selectedState !== 'all') {
+                const historicalData = findLastAvailableData(selectedState, selectedDistrict);
+                if (historicalData) {
+                    filteredAlerts = historicalData.alerts;
+                    dataTimestamp = historicalData.timestamp;
+                    isHistoricalData = true;
+                }
+            }
+
+            // Recalculate zone counts using the correct column names
             const zone6Count = filteredAlerts.filter(a => a["Hard Labor Heat Stress Zone"] === "Zone 6").length;
             const zone5Count = filteredAlerts.filter(a => a["Hard Labor Heat Stress Zone"] === "Zone 5").length;
             const zone4Count = filteredAlerts.filter(a => a["Hard Labor Heat Stress Zone"] === "Zone 4").length;
@@ -2256,16 +2451,25 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 (selectedDistrict === 'all' ? selectedState.replace(/_/g, ' ') :
                 selectedDistrict.replace(/_/g, ' ') + ', ' + selectedState.replace(/_/g, ' '));
 
+            const formattedTimestamp = new Date(dataTimestamp).toLocaleString('en-IN', {
+                timeZone: 'Asia/Calcutta',
+                dateStyle: 'medium',
+                timeStyle: 'short'
+            });
+
+            // Show warning and red timestamp if using historical data
+            const timestampLabel = isHistoricalData ? 'Last Data Available' : 'Last Updated';
+            const timestampStyle = isHistoricalData
+                ? 'background: #ffebee; color: #c62828; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #ef9a9a;'
+                : '';
+
             document.getElementById('live-status-summary').innerHTML = `
-                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 1rem;">
-                    <strong>Last Updated: ${new Date(allAlertsData.timestamp).toLocaleString('en-IN', {
-                        timeZone: 'Asia/Calcutta',
-                        dateStyle: 'medium',
-                        timeStyle: 'short'
-                    })} IST</strong>
+                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 1rem; ${timestampStyle}">
+                    ${isHistoricalData ? '<i class="fas fa-history"></i> ' : ''}<strong>${timestampLabel}: ${formattedTimestamp} IST</strong>
+                    ${isHistoricalData ? '<br><small style="font-weight: normal;">No current IMD data for this location</small>' : ''}
                 </p>
                 <p style="text-align: center; font-size: 1.2rem; color: #333;">
-                    <strong>${filteredAlerts.length}</strong> heat stress alerts in <strong>${locationText}</strong> across <strong>${totalDistricts}</strong> districts
+                    <strong>${filteredAlerts.length}</strong> stations in <strong>${locationText}</strong> across <strong>${totalDistricts}</strong> districts
                 </p>
             `;
 
@@ -2273,13 +2477,17 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const zone6 = filteredAlerts.filter(a => a["Hard Labor Heat Stress Zone"] === "Zone 6");
             const zone5 = filteredAlerts.filter(a => a["Hard Labor Heat Stress Zone"] === "Zone 5");
 
-            const zone6DistrictsList = zone6.length > 0 ?
-                `<div class="districts-list">${zone6.map(a => `${a.DISTRICT}, ${a.STATE}`).join('<br>')}</div>` :
+            const noAlertsMessage = isHistoricalData ?
+                '<p style="margin-top: 0.5rem; font-style: italic;">No alerts in last available data</p>' :
                 '<p style="margin-top: 0.5rem; font-style: italic;">No alerts currently</p>';
 
+            const zone6DistrictsList = zone6.length > 0 ?
+                `<div class="districts-list">${zone6.map(a => `${a.DISTRICT.replace(/_/g, ' ')}, ${a.STATE.replace(/_/g, ' ')}`).join('<br>')}</div>` :
+                noAlertsMessage;
+
             const zone5DistrictsList = zone5.length > 0 ?
-                `<div class="districts-list">${zone5.map(a => `${a.DISTRICT}, ${a.STATE}`).join('<br>')}</div>` :
-                '<p style="margin-top: 0.5rem; font-style: italic;">No alerts currently</p>';
+                `<div class="districts-list">${zone5.map(a => `${a.DISTRICT.replace(/_/g, ' ')}, ${a.STATE.replace(/_/g, ' ')}`).join('<br>')}</div>` :
+                noAlertsMessage;
 
             document.getElementById('status-grid').innerHTML = `
                 <div class="stat-box">
@@ -2331,7 +2539,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 populateStateDropdowns(data.alerts);
 
                 // Get current MET level and sun condition for "Current" section
-                const met = currentMet || 6;
+                const met = currentMetStatus || 6;
                 const sun = shadeStates.current ? 'shade' : 'sun';
                 const zoneCol = `Zone_${met}_${sun}`;
                 const ehiCol = `EHI_${met}_${sun}`;
@@ -2357,11 +2565,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 const totalDistricts = countUniqueDistricts([...zone6, ...zone5]);
 
                 document.getElementById('live-status-summary').innerHTML = `
-                    <p style="text-align: center; font-size: 1.1rem; margin-bottom: 1rem;">
-                        <strong>Last Updated: ${lastUpdate} IST</strong>
-                    </p>
-                    <p style="text-align: center; font-size: 1.2rem; color: #333;">
-                        <strong>${alertCount}</strong> heat stress alerts (Zone 5 & 6) in <strong>All India</strong> across <strong>${totalDistricts}</strong> districts
+                    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem; font-weight: 700; color: #fff;">
+                        Last Updated: ${lastUpdate} IST
                     </p>
                 `;
 
@@ -2411,7 +2616,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     a["Zone_6_shade"] === "Zone 6" || a["Zone_6_sun"] === "Zone 6"
                 );
                 if (globalZone6.length > 0) {
-                    const marqueeItems = globalZone6.map(a => `${a.DISTRICT}, ${a.STATE}`).join(' ⚠️ ');
+                    const marqueeItems = globalZone6.map(a => `${a.DISTRICT}, ${a.STATE}`).join(' | ');
                     const districtsList = globalZone6.map(a => `<div class="banner-district-item"><i class="fas fa-map-marker-alt"></i>${a.DISTRICT}, ${a.STATE}</div>`).join('');
                     const bannerHtml = `
                         <strong style="font-size: 1.4rem;"><i class="fas fa-exclamation-triangle"></i> ZONE 6 DETECTED (${globalZone6.length} locations)</strong><br>
@@ -2422,7 +2627,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         <span class="banner-static-text">⚠️ ZONE 6 DETECTED</span>
                         <div class="banner-marquee-container">
                             <marquee behavior="scroll" direction="left" scrollamount="5" style="font-size: 1rem;">
-                                ${marqueeItems} ⚠️ ${marqueeItems}
+                                ${marqueeItems} | ${marqueeItems}
                             </marquee>
                         </div>
                     `;
@@ -2431,7 +2636,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     document.getElementById('zone6-banner').classList.add('show');
 
                 } else {
-                    // Show blue IECC advisory banner
+                    // Show teal IECC advisory banner
                     const bannerHtml = `
                         <strong style="font-size: 1.2rem;"><i class="fas fa-info-circle"></i> Heat Stress Advisory</strong><br>
                         <span style="font-size: 1rem;">No hazardous (Zone 6) heat stress alerts at this time. Learn more about the Extended Heat Index (EHI) methodology:</span><br>
@@ -2440,7 +2645,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         </a>
                     `;
                     document.getElementById('zone6-banner-content').innerHTML = bannerHtml;
-                    document.getElementById('zone6-banner').style.background = 'var(--iecc-blue)';
+                    document.getElementById('zone6-banner').style.background = 'var(--shram-teal)';
+                    document.getElementById('zone6-banner').style.boxShadow = '0 4px 20px rgba(0, 109, 119, 0.4)';
                     document.getElementById('zone6-banner').classList.add('show');
                 }
             } catch (error) {
@@ -2657,7 +2863,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // Check if All India is selected - show message to select a state
             const selectedState = document.getElementById('forecast-state-select').value;
             if (selectedState === 'all') {
-                forecastContent.innerHTML = '<p style="text-align: center; color: var(--iecc-blue); font-size: 1.1rem; padding: 2rem;"><i class="fas fa-map-marker-alt"></i> Please select a state to view the forecast</p>';
+                forecastContent.innerHTML = '<p style="text-align: center; color: var(--shram-teal); font-size: 1.1rem; padding: 2rem;"><i class="fas fa-map-marker-alt"></i> Please select a state to view the forecast</p>';
                 // Clear chart
                 if (forecastChart) {
                     forecastChart.destroy();
@@ -2676,7 +2882,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 }
 
                 // Get current MET and shade settings
-                const met = currentMet || 6;
+                const met = currentMetForecast || 6;
                 const sunCondition = shadeStates.forecast ? 'shade' : 'sun';
                 const days = Math.min(forecastDays, 3);
 
@@ -2718,12 +2924,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 const chartLabels = [];
                 const chartData = [];
                 const chartColors = [];
+                const isDayLabel = []; // Track which indices are day labels (for bold styling)
 
                 forecast.forEach((day, dayIndex) => {
-                    const dateStr = new Date(day.date).toLocaleDateString('en-IN', {
-                        weekday: 'short',
-                        day: 'numeric'
-                    });
+                    const dateObj = new Date(day.date);
+                    const dayName = dateObj.toLocaleDateString('en-IN', { weekday: 'short' });
+                    const dateNum = dateObj.getDate();
 
                     // Show every hour (0-23)
                     day.hours.forEach((hourData, hour) => {
@@ -2738,26 +2944,37 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             const rawZoneInt = Math.round(rawZone);
                             const zone = zoneMap[rawZoneInt] !== undefined ? zoneMap[rawZoneInt] : 2;
 
-                            // Show day name only at midnight, otherwise just hour
-                            const label = hour === 0 ? `${dateStr}` : `${hour}:00`;
+                            // Full day + date at midnight, just hours otherwise (every 3 hours)
+                            let label;
+                            let isDay = false;
+                            if (hour === 0) {
+                                // Full day name and date at midnight
+                                const monthDay = dateObj.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                                label = `${dayName}, ${monthDay}`;
+                                isDay = true;
+                            } else if (hour % 3 === 0) {
+                                // Show hours at 3, 6, 9, 12, 15, 18, 21
+                                label = `${hour}:00`;
+                            } else {
+                                label = '';
+                            }
                             chartLabels.push(label);
                             chartData.push(zone);
                             chartColors.push(getZoneColor(rawZoneInt)); // Keep original zone for color
+                            isDayLabel.push(isDay);
                         }
                     });
                 });
 
-                // Create summary HTML
-                let html = `<p style="margin-bottom: 1rem;"><strong><i class="fas fa-map-marker-alt"></i> ${locationName}</strong></p>`;
-
-                // Show when forecast was generated
-                if (data.metadata && data.metadata.generated_at_ist) {
-                    html += `<p style="font-size: 0.85rem; color: #666; margin-bottom: 1rem;"><i class="fas fa-clock"></i> Forecast generated: ${data.metadata.generated_at_ist}</p>`;
-                }
+                // Create summary HTML with location and timestamp on same line
+                let html = `<p style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                    <strong><i class="fas fa-map-marker-alt"></i> ${locationName}</strong>
+                    ${data.metadata && data.metadata.generated_at_ist ? `<span style="font-size: 0.85rem; color: #666;"><i class="fas fa-clock"></i> Forecast generated: ${data.metadata.generated_at_ist}</span>` : ''}
+                </p>`;
 
                 // Add peak conditions summary
                 html += `<div style="padding: 1rem; background: var(--gray-light); border-radius: 8px;">
-                    <h4 style="margin-bottom: 0.5rem; color: var(--iecc-blue);"><i class="fas fa-sun"></i> Peak Conditions</h4>`;
+                    <h4 style="margin-bottom: 0.5rem; color: var(--shram-teal);"><i class="fas fa-sun"></i> Peak Conditions</h4>`;
 
                 forecast.forEach(day => {
                     const dateStr = new Date(day.date).toLocaleDateString('en-IN', {
@@ -2804,6 +3021,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     type: 'line',
                     data: {
                         labels: chartLabels,
+                        isDayLabel: isDayLabel, // Custom property for styling
                         datasets: [{
                             label: 'EHI Zone',
                             data: chartData,
@@ -2865,14 +3083,43 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             x: {
                                 title: {
                                     display: true,
-                                    text: 'Hour',
+                                    text: 'Time',
                                     font: { weight: 'bold' }
                                 },
                                 ticks: {
                                     maxRotation: 45,
-                                    minRotation: 0,
-                                    autoSkip: true,
-                                    maxTicksLimit: 24
+                                    autoSkip: false,
+                                    callback: function(value, index, ticks) {
+                                        const label = this.getLabelForValue(value);
+                                        return label || null;
+                                    },
+                                    font: function(context) {
+                                        // Bold font for day labels (contain comma like "Sun, 26 Jan")
+                                        // In Chart.js 4.x, context.tick.label contains the tick label
+                                        const tickLabel = context.tick && context.tick.label;
+                                        if (tickLabel && typeof tickLabel === 'string' && tickLabel.includes(',')) {
+                                            return { size: 11, weight: 'bold' };
+                                        }
+                                        return { size: 9 };
+                                    }
+                                },
+                                grid: {
+                                    color: function(context) {
+                                        // Bold line at midnight (day labels contain comma)
+                                        const tickLabel = context.tick && context.tick.label;
+                                        if (tickLabel && typeof tickLabel === 'string' && tickLabel.includes(',')) {
+                                            return 'rgba(0, 0, 0, 0.5)';
+                                        }
+                                        return 'rgba(0, 0, 0, 0.05)';
+                                    },
+                                    lineWidth: function(context) {
+                                        // Thicker line at midnight (day labels contain comma)
+                                        const tickLabel = context.tick && context.tick.label;
+                                        if (tickLabel && typeof tickLabel === 'string' && tickLabel.includes(',')) {
+                                            return 2;
+                                        }
+                                        return 1;
+                                    }
                                 }
                             }
                         }
@@ -2901,26 +3148,39 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 }
                 const data = await response.json();
 
+                // Store globally for historical data lookups (used by filterCurrentStatus for unavailable locations)
+                all24HourData = data;
+
                 // Get selected state and district
                 const selectedState = document.getElementById('charts-state-select').value;
                 const selectedDistrict = document.getElementById('charts-district-select').value;
 
-                // Get current MET level and sun condition
-                const met = currentMet || 6;
-                const sun = shadeStates.last24h ? 'shade' : 'sun';
-                const zoneCol = `Zone_${met}_${sun}`;
-
-                // Update timestamp for Last 24 Hours section
-                if (data.timestamp || data.last_updated) {
-                    const timestamp = new Date(data.timestamp || data.last_updated).toLocaleString('en-IN', {
-                        timeZone: 'Asia/Calcutta',
-                        dateStyle: 'medium',
-                        timeStyle: 'short'
-                    });
-                    document.getElementById('last24h-timestamp').innerHTML = `<strong>Last Updated: ${timestamp} IST</strong>`;
-                }
+                // Get current MET level and map to actual column names in JSON
+                const met = currentMetLast24h || 6;
+                // Map MET levels to actual column names in alerts_24h.json
+                // Currently data only has: "Light Work Heat Stress Zone" (MET 3) and "Hard Labor Heat Stress Zone" (MET 6)
+                const zoneColMap = {
+                    3: 'Light Work Heat Stress Zone',
+                    4: 'Hard Labor Heat Stress Zone',  // fallback to MET 6 for MET 4
+                    5: 'Hard Labor Heat Stress Zone',  // fallback to MET 6 for MET 5
+                    6: 'Hard Labor Heat Stress Zone'
+                };
+                const zoneCol = zoneColMap[met] || 'Hard Labor Heat Stress Zone';
 
                 const hourlySource = data.hourly_data || data.hourly_alerts;
+
+                // Update timestamp for Last 24 Hours section (get most recent entry timestamp)
+                if (hourlySource && hourlySource.length > 0) {
+                    const latestTimestamp = hourlySource[hourlySource.length - 1].timestamp || data.timestamp || data.last_updated;
+                    if (latestTimestamp) {
+                        const timestamp = new Date(latestTimestamp).toLocaleString('en-IN', {
+                            timeZone: 'Asia/Calcutta',
+                            dateStyle: 'medium',
+                            timeStyle: 'short'
+                        });
+                        document.getElementById('last24h-timestamp').innerHTML = `<strong>Last Updated: ${timestamp} IST</strong>`;
+                    }
+                }
                 if (!hourlySource || hourlySource.length === 0) {
                     createPlaceholderCharts();
                     return;
@@ -2930,16 +3190,21 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 const zone6Data = [], zone5Data = [], zone4Data = [], zone23Data = [], zone1Data = [];
                 const tempData = [], rhData = [];
 
+                // Helper to normalize state/district names for comparison (handles UPPERCASE_UNDERSCORED vs Title Case)
+                const normalizeForComparison = (str) => str ? str.toLowerCase().replace(/_/g, ' ') : '';
+
                 hourlySource.forEach(entry => {
                     // Use stations (all data) instead of alerts (filtered)
                     let stations = entry.stations || entry.alerts || [];
 
-                    // Filter by selected state and district
+                    // Filter by selected state and district (handle format differences)
                     if (selectedState !== 'all') {
-                        stations = stations.filter(s => s.STATE === selectedState);
+                        const normalizedSelected = normalizeForComparison(selectedState);
+                        stations = stations.filter(s => normalizeForComparison(s.STATE) === normalizedSelected);
                     }
                     if (selectedDistrict !== 'all') {
-                        stations = stations.filter(s => s.DISTRICT === selectedDistrict);
+                        const normalizedSelected = normalizeForComparison(selectedDistrict);
+                        stations = stations.filter(s => normalizeForComparison(s.DISTRICT) === normalizedSelected);
                     }
 
                     const time = new Date(entry.timestamp);
@@ -3197,10 +3462,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     // Reset button styles based on zone
                     if (i === 1) {
                         btn.style.background = 'white';
-                        btn.style.color = 'var(--iecc-blue)';
+                        btn.style.color = 'var(--shram-teal)';
                     } else if (i === 2 || i === 3) {
                         btn.style.background = 'white';
-                        btn.style.color = 'var(--iecc-green)';
+                        btn.style.color = 'var(--iecc-brown)';
                     } else if (i === 4) {
                         btn.style.background = 'white';
                         btn.style.color = 'var(--caution-yellow)';
@@ -3220,10 +3485,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             if (selectedContent) selectedContent.style.display = 'block';
             if (selectedBtn) {
                 if (zoneNum === 1) {
-                    selectedBtn.style.background = 'var(--iecc-blue)';
+                    selectedBtn.style.background = 'var(--shram-teal)';
                     selectedBtn.style.color = 'white';
                 } else if (zoneNum === 2 || zoneNum === 3) {
-                    selectedBtn.style.background = 'var(--iecc-green)';
+                    selectedBtn.style.background = 'var(--iecc-brown)';
                     selectedBtn.style.color = 'white';
                 } else if (zoneNum === 4) {
                     selectedBtn.style.background = 'var(--caution-yellow)';
@@ -3275,15 +3540,99 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Handle form submission
         document.addEventListener('DOMContentLoaded', function() {
-            loadLiveData().then(() => {
-                // Populate subscriber dropdowns after data loads
-                populateSubscriberStates();
+            // Listen for messages from Live Map iframe (click-to-forecast)
+            window.addEventListener('message', async function(event) {
+                if (event.data && event.data.type === 'navigateToForecast') {
+                    const stateName = event.data.state;
+                    const clickLat = event.data.lat;
+                    const clickLon = event.data.lon;
+
+                    // Switch to Dashboard tab
+                    const dashboardTab = document.querySelector('.tab[onclick*="dashboard"]');
+                    if (dashboardTab) {
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                        document.getElementById('dashboard-tab').classList.add('active');
+                        dashboardTab.classList.add('active');
+                    }
+                    // Switch to Forecast section within Dashboard
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    const forecastBtn = document.querySelector('.nav-btn[onclick*="forecast"]');
+                    if (forecastBtn) forecastBtn.classList.add('active');
+                    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                    const forecastSection = document.getElementById('forecast-section');
+                    if (forecastSection) forecastSection.classList.add('active');
+
+                    // Select the state and find nearest district
+                    if (window.indiaDistrictsData && window.indiaDistrictsData.states[stateName]) {
+                        // Call zoomToState and wait for it to complete
+                        await zoomToState(stateName);
+
+                        // If we have lat/lon, find and select the nearest district
+                        if (clickLat && clickLon) {
+                            const stateData = window.indiaDistrictsData.states[stateName];
+                            let nearestDistrict = null;
+                            let minDistance = Infinity;
+
+                            // Check all districts in the state
+                            for (const [districtName, districtData] of Object.entries(stateData.districts || {})) {
+                                if (districtData.lat && districtData.lon) {
+                                    // Simple Euclidean distance (good enough for nearby points)
+                                    const dist = Math.sqrt(
+                                        Math.pow(districtData.lat - clickLat, 2) +
+                                        Math.pow(districtData.lon - clickLon, 2)
+                                    );
+                                    if (dist < minDistance) {
+                                        minDistance = dist;
+                                        nearestDistrict = districtName;
+                                    }
+                                }
+                            }
+
+                            // Select the nearest district if found
+                            if (nearestDistrict && stateData.districts[nearestDistrict]) {
+                                const districtData = stateData.districts[nearestDistrict];
+                                // Update selectedDistrictCoords to override the capital
+                                selectedDistrictCoords = {
+                                    name: nearestDistrict,
+                                    lat: districtData.lat,
+                                    lon: districtData.lon
+                                };
+                                // Update UI label
+                                const label = document.getElementById('selected-location-label');
+                                if (label) {
+                                    label.textContent = `Selected: ${nearestDistrict.replace(/_/g, ' ')}`;
+                                }
+                                // Highlight the district on the map if layer exists
+                                if (districtLayer) {
+                                    districtLayer.eachLayer(layer => {
+                                        if (layer.feature && layer.feature.properties.name === nearestDistrict) {
+                                            layer.setStyle({ fillColor: '#8B5A2B', fillOpacity: 0.6 });
+                                        } else {
+                                            layer.setStyle({ fillColor: '#2d637f', fillOpacity: 0.3 });
+                                        }
+                                    });
+                                }
+                                // Load forecast for the nearest district
+                                loadForecast();
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Load 24h historical data first (needed for fallback when current data unavailable)
+            load24HourData().then(() => {
+                // Then load live data - it will use historical data for unavailable locations
+                loadLiveData().then(() => {
+                    // Populate subscriber dropdowns after data loads
+                    populateSubscriberStates();
+                });
             });
             // Load districts data and initialize forecast map
             loadIndiaDistrictsData().then(() => {
                 initForecastMap();  // Initialize map with all states
             });
-            load24HourData();
             loadSummerStats();
 
             // Handle subscription form

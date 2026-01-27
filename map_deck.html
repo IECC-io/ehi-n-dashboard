@@ -66,7 +66,8 @@
             padding: 0.4rem 0.8rem;
             border: none;
             border-radius: 4px;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
         }
 
@@ -82,6 +83,8 @@
             color: white;
             cursor: pointer;
             transition: all 0.2s;
+            font-size: 1rem;
+            font-weight: 700;
         }
 
         .sun-toggle button:first-child {
@@ -98,8 +101,8 @@
         }
 
         .data-timestamp {
-            font-size: 0.75rem;
-            opacity: 0.8;
+            font-size: 1rem;
+            font-weight: 700;
             padding: 0.3rem 0.6rem;
             background: rgba(255,255,255,0.1);
             border-radius: 4px;
@@ -123,6 +126,7 @@
             height: 100%;
             min-height: 400px;
             position: relative;
+            overflow: hidden;
         }
 
         #map {
@@ -130,11 +134,18 @@
             height: 100%;
         }
 
+        /* Ensure deck.gl tooltip container doesn't extend beyond map */
+        #map > div {
+            overflow: hidden;
+        }
+
         .sidebar {
             background: white;
             padding: 1.5rem;
             overflow-y: auto;
             border-left: 3px solid var(--iecc-green);
+            position: relative;
+            z-index: 100;
         }
 
         .sidebar h2 {
@@ -176,6 +187,58 @@
             font-size: 0.8rem;
             color: #666;
             margin-top: 0.25rem;
+        }
+
+        .trend-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .trend-indicator.worsening {
+            color: #c62828;
+            background: rgba(198, 40, 40, 0.1);
+        }
+
+        .trend-indicator.improving {
+            color: #2e7d32;
+            background: rgba(46, 125, 50, 0.1);
+        }
+
+        .trend-indicator.stable {
+            color: #666;
+            background: rgba(102, 102, 102, 0.1);
+        }
+
+        .trend-summary {
+            background: #f8f9fa;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--iecc-blue);
+        }
+
+        .trend-summary-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--iecc-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .trend-summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .trend-summary-row:last-child {
+            margin-bottom: 0;
         }
 
         .alert-list {
@@ -556,6 +619,21 @@
                     <div class="stat-label">Zone 5 Locations</div>
                 </div>
             </div>
+            <div class="trend-summary" id="trend-summary" style="display: none;">
+                <div class="trend-summary-title"><i class="fas fa-chart-line"></i> Trend (vs 1 hour ago)</div>
+                <div class="trend-summary-row">
+                    <span>Worsening:</span>
+                    <span id="trend-worsening" style="color: #c62828; font-weight: 600;">0 locations</span>
+                </div>
+                <div class="trend-summary-row">
+                    <span>Improving:</span>
+                    <span id="trend-improving" style="color: #2e7d32; font-weight: 600;">0 locations</span>
+                </div>
+                <div class="trend-summary-row">
+                    <span>Stable:</span>
+                    <span id="trend-stable" style="color: #666;">0 locations</span>
+                </div>
+            </div>
             <div class="alert-list" id="alert-list">
                 <p class="status-text">Loading data...</p>
             </div>
@@ -572,7 +650,7 @@
     </div>
 
     <script>
-        const { DeckGL, SolidPolygonLayer, IconLayer } = deck;
+        const { DeckGL, SolidPolygonLayer, IconLayer, GeoJsonLayer } = deck;
 
         // Methodology modal functions
         function showMethodology() {
@@ -599,6 +677,8 @@
         // Global state
         let deckgl;
         let precomputedData = null;
+        let previousData = null;  // Store previous hour's data for trend comparison
+        let statesGeoJson = null;  // India state boundaries
         let currentMet = 6;
         let currentSun = 'shade';
 
@@ -653,6 +733,8 @@
                     lat: point.lat,
                     lon: point.lon,
                     location: point.location,
+                    district: point.district,  // Official district name
+                    state: point.state,        // State name
                     temp: point.temp,
                     rh: point.rh,
                     ehi: conditionData.ehi,
@@ -692,14 +774,19 @@
                                 <i class="fas fa-users"></i> Heat Resilience Team
                             </div>
                             <div style="font-size: 0.85rem; color: #333; line-height: 1.6;">
-                                <div style="font-weight: 600;">Elif Kilic</div>
-                                <div>Cassidy Cramer</div>
-                                <div>Connor Riley</div>
+                                <div style="font-weight: 600;">Elif Kilic <span style="font-weight: 400; color: #666; font-size: 0.75rem;">(Lead)</span></div>
+                                <div>Rohini Tamarana</div>
+                                <div>Piyush Narang</div>
+                                <div>Fernando Augusto</div>
+                                <div>Shruti Deorah</div>
                                 <div>Prof. Ashok Gadgil</div>
                             </div>
                             <div style="font-size: 0.75rem; color: #666; margin-top: 0.75rem; text-align: center; border-top: 1px solid #eee; padding-top: 0.5rem;">
                                 India Energy & Climate Center<br>
                                 UC Berkeley
+                            </div>
+                            <div style="font-size: 0.7rem; color: #2d637f; text-align: center; margin-top: 0.5rem;">
+                                <i class="fas fa-mouse-pointer"></i> Click to visit team page
                             </div>
                         </div>
                     `,
@@ -710,10 +797,32 @@
                 };
             }
 
+            // Check if location has a state for click-to-forecast
+            const hasState = object.state || (object.location && object.location.includes(','));
+            const clickHint = hasState ? `<div style="font-size: 0.7rem; color: #666; text-align: center; margin-top: 8px; border-top: 1px solid #eee; padding-top: 6px;"><i class="fas fa-mouse-pointer"></i> Click to view forecast</div>` : '';
+
+            // Build title: prefer district/state, fall back to location from weather API
+            let titleText;
+            if (object.district && object.state) {
+                titleText = `${object.district}, ${object.state}`;
+            } else if (object.district) {
+                titleText = object.district;
+            } else if (object.location) {
+                titleText = object.location;
+            } else {
+                titleText = `${object.lat.toFixed(2)}°N, ${object.lon.toFixed(2)}°E`;
+            }
+
+            // Show nearby place name if different from district
+            const nearbyPlace = (object.location && object.district && !object.location.includes(object.district))
+                ? `<div style="font-size: 0.75rem; color: #666; margin-top: -4px; margin-bottom: 6px;">near ${object.location.split(',')[0]}</div>`
+                : '';
+
             return {
                 html: `
                     <div class="deck-tooltip">
-                        <div class="tooltip-title">${object.location || (object.lat.toFixed(2) + '°N, ' + object.lon.toFixed(2) + '°E')}</div>
+                        <div class="tooltip-title">${titleText}</div>
+                        ${nearbyPlace}
                         <div class="tooltip-row">
                             <label>Temperature</label>
                             <value>${object.temp}°C</value>
@@ -733,6 +842,7 @@
                         <div class="tooltip-zone zone${object.zone}">
                             ${(object.zone === 2 || object.zone === 3) ? 'Zone 2/3' : 'Zone ' + object.zone} - ${getZoneStatus(object.zone)}
                         </div>
+                        ${clickHint}
                     </div>
                 `,
                 style: {
@@ -756,7 +866,22 @@
                 },
                 controller: true,
                 layers: [],
-                getTooltip: getTooltip
+                getTooltip: getTooltip,
+                onClick: (info, event) => {
+                    if (info.object) {
+                        // Use state from district lookup if available, otherwise parse from location
+                        let stateName = info.object.state;
+                        if (!stateName && info.object.location) {
+                            const locationParts = info.object.location.split(',');
+                            if (locationParts.length >= 2) {
+                                stateName = locationParts[locationParts.length - 1].trim();
+                            }
+                        }
+                        if (stateName) {
+                            goToForecast(stateName, info.object.lat, info.object.lon);
+                        }
+                    }
+                }
             });
         }
 
@@ -778,6 +903,30 @@
 
                 console.log(`Loaded ${precomputedData.metadata.point_count} grid points`);
 
+                // Try to load previous hour's data for trend comparison
+                try {
+                    const prevResponse = await fetch('grid_data_prev.json');
+                    if (prevResponse.ok) {
+                        previousData = await prevResponse.json();
+                        console.log('Loaded previous hour data for trend comparison');
+                    }
+                } catch (prevError) {
+                    console.log('No previous hour data available for trend comparison');
+                    previousData = null;
+                }
+
+                // Load state boundaries for overlay
+                try {
+                    const statesResponse = await fetch('geojson/india_states.geojson');
+                    if (statesResponse.ok) {
+                        statesGeoJson = await statesResponse.json();
+                        console.log('Loaded India state boundaries');
+                    }
+                } catch (statesError) {
+                    console.log('Could not load state boundaries');
+                    statesGeoJson = null;
+                }
+
                 // Update the visualization
                 updateVisualization();
 
@@ -787,6 +936,23 @@
                 document.getElementById('loading-status').textContent =
                     'Error loading data. Please refresh the page.';
             }
+        }
+
+        // Create state boundaries layer
+        function createStateBoundariesLayer() {
+            if (!statesGeoJson) return null;
+
+            return new GeoJsonLayer({
+                id: 'state-boundaries',
+                data: statesGeoJson,
+                pickable: false,
+                stroked: true,
+                filled: false,
+                lineWidthMinPixels: 1,
+                lineWidthMaxPixels: 2,
+                getLineColor: [80, 80, 80, 180],  // Dark gray with some transparency
+                getLineWidth: 1
+            });
         }
 
         // Create IECC marker layer using IconLayer with logo
@@ -808,7 +974,10 @@
                 getSize: 30,
                 sizeScale: 1,
                 sizeMinPixels: 25,
-                sizeMaxPixels: 50
+                sizeMaxPixels: 50,
+                onClick: () => {
+                    window.open('https://iecc.gspp.berkeley.edu/about/team/', '_blank');
+                }
             });
 
             return [iconLayer];
@@ -818,13 +987,91 @@
         function updateVisualization() {
             if (!deckgl || !precomputedData) return;
 
-            // Update layers - grid layer + IECC marker layers (spread since it returns array)
-            deckgl.setProps({
-                layers: [createGridLayer(), ...createIECCMarkerLayer()]
-            });
+            // Build layers array - grid layer, state boundaries, IECC marker
+            const layers = [createGridLayer()];
+
+            // Add state boundaries on top of grid
+            const boundariesLayer = createStateBoundariesLayer();
+            if (boundariesLayer) {
+                layers.push(boundariesLayer);
+            }
+
+            // Add IECC marker on top
+            layers.push(...createIECCMarkerLayer());
+
+            deckgl.setProps({ layers });
 
             // Update sidebar
             updateSidebar();
+        }
+
+        // Calculate trend by comparing current and previous data
+        function calculateTrends() {
+            if (!precomputedData || !previousData) return null;
+
+            const metKey = `met${currentMet}`;
+            let worsening = 0;
+            let improving = 0;
+            let stable = 0;
+
+            // Create a map of previous data by location key
+            const prevMap = new Map();
+            previousData.points.forEach(point => {
+                const key = `${point.lat}_${point.lon}`;
+                const prevCondition = point.data[metKey]?.[currentSun];
+                if (prevCondition) {
+                    prevMap.set(key, prevCondition.zone);
+                }
+            });
+
+            // Compare current to previous
+            precomputedData.points.forEach(point => {
+                const key = `${point.lat}_${point.lon}`;
+                const currentCondition = point.data[metKey]?.[currentSun];
+                const prevZone = prevMap.get(key);
+
+                if (currentCondition && prevZone !== undefined) {
+                    const currentZone = currentCondition.zone;
+                    if (currentZone > prevZone) {
+                        worsening++;
+                    } else if (currentZone < prevZone) {
+                        improving++;
+                    } else {
+                        stable++;
+                    }
+                }
+            });
+
+            return { worsening, improving, stable };
+        }
+
+        // Get trend indicator HTML for an alert item
+        function getTrendIndicator(lat, lon) {
+            if (!previousData) return '';
+
+            const metKey = `met${currentMet}`;
+            const key = `${lat}_${lon}`;
+
+            // Find previous zone for this location
+            const prevPoint = previousData.points.find(p => p.lat === lat && p.lon === lon);
+            if (!prevPoint) return '';
+
+            const prevCondition = prevPoint.data[metKey]?.[currentSun];
+            if (!prevCondition) return '';
+
+            const currentPoint = precomputedData.points.find(p => p.lat === lat && p.lon === lon);
+            if (!currentPoint) return '';
+
+            const currentCondition = currentPoint.data[metKey]?.[currentSun];
+            if (!currentCondition) return '';
+
+            const diff = currentCondition.zone - prevCondition.zone;
+            if (diff > 0) {
+                return '<span class="trend-indicator worsening"><i class="fas fa-arrow-up"></i></span>';
+            } else if (diff < 0) {
+                return '<span class="trend-indicator improving"><i class="fas fa-arrow-down"></i></span>';
+            }
+            return '';
         }
 
         // Update sidebar with alert counts
@@ -850,6 +1097,8 @@
                         lat: point.lat,
                         lon: point.lon,
                         location: point.location,
+                        district: point.district,
+                        state: point.state,
                         temp: point.temp,
                         rh: point.rh,
                         ehi,
@@ -861,6 +1110,18 @@
             document.getElementById('zone5-count').textContent = zone5Count;
             document.getElementById('zone6-count').textContent = zone6Count;
 
+            // Update trend summary
+            const trends = calculateTrends();
+            const trendSummary = document.getElementById('trend-summary');
+            if (trends && (trends.worsening > 0 || trends.improving > 0)) {
+                trendSummary.style.display = 'block';
+                document.getElementById('trend-worsening').textContent = `${trends.worsening} locations`;
+                document.getElementById('trend-improving').textContent = `${trends.improving} locations`;
+                document.getElementById('trend-stable').textContent = `${trends.stable} locations`;
+            } else {
+                trendSummary.style.display = 'none';
+            }
+
             // Sort alerts by zone (highest first) then by EHI
             alerts.sort((a, b) => {
                 if (a.zone !== b.zone) return b.zone - a.zone;
@@ -871,15 +1132,27 @@
             if (alerts.length === 0) {
                 alertList.innerHTML = '<p class="status-text">No Zone 5 or 6 alerts currently.</p>';
             } else {
-                // Show all alerts (scrollable)
-                alertList.innerHTML = alerts.map(a => `
+                // Show all alerts (scrollable) with trend indicators
+                alertList.innerHTML = alerts.map(a => {
+                    // Build display name: prefer district/state, fall back to location
+                    let displayName;
+                    if (a.district && a.state) {
+                        displayName = `${a.district}, ${a.state}`;
+                    } else if (a.district) {
+                        displayName = a.district;
+                    } else if (a.location) {
+                        displayName = a.location;
+                    } else {
+                        displayName = `${a.lat.toFixed(2)}°N, ${a.lon.toFixed(2)}°E`;
+                    }
+                    return `
                     <div class="alert-item zone${a.zone}" onclick="flyTo(${a.lat}, ${a.lon})">
-                        <div class="district">${a.location || `${a.lat.toFixed(2)}°N, ${a.lon.toFixed(2)}°E`}</div>
+                        <div class="district">${displayName}${getTrendIndicator(a.lat, a.lon)}</div>
                         <div class="details">
                             ${a.temp}°C, ${a.rh}% RH | EHI: ${a.ehi !== null ? a.ehi.toFixed(1) : 'N/A'}°C | Zone ${a.zone}
                         </div>
                     </div>
-                `).join('');
+                `}).join('');
             }
         }
 
@@ -895,6 +1168,25 @@
                     transitionDuration: 1000
                 }
             });
+        }
+
+        // Navigate to forecast for a location (sends message to parent iframe)
+        function goToForecast(stateName, lat, lon) {
+            if (!stateName) return;
+
+            // Normalize state name for the parent dashboard
+            const normalizedState = stateName.replace(/\s+/g, '_');
+
+            // Send message to parent window to switch to forecast tab
+            // Include lat/lon so parent can find nearest district
+            if (window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'navigateToForecast',
+                    state: normalizedState,
+                    lat: lat,
+                    lon: lon
+                }, '*');
+            }
         }
 
         // Set sun condition
