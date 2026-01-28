@@ -13,8 +13,8 @@
         gtag('js', new Date());
         // Primary Google Analytics account
         gtag('config', 'G-FZRLEJEW2N');
-        // Secondary Google Analytics account (company - to be added later)
-        // gtag('config', 'G-COMPANY-ID');
+        // Secondary Google Analytics account
+        gtag('config', 'G-3J6EVWWDBX');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -49,7 +49,6 @@
             background: white;
             padding: 1rem 2rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-bottom: 10px solid var(--shram-dark-orange);
         }
 
         .logo-strip-content {
@@ -91,20 +90,20 @@
             justify-content: flex-end;
             align-items: flex-end;
             position: relative;
-            min-height: 180px;
+            min-height: 230px;
         }
 
         .logo-container {
             position: absolute;
-            left: 4rem;
-            bottom: 0.5rem;
-            height: 180px;
-            width: calc(100% - 4rem);
+            left: 1rem;
+            bottom: 0.25rem;
+            height: 220px;
+            width: calc(100% - 1rem);
             overflow: hidden;
         }
 
         .logo-container img {
-            height: 180px;
+            height: 220px;
             width: auto;
         }
 
@@ -347,7 +346,7 @@
             font-weight: 400;
             width: 250px;
             text-align: left;
-            z-index: 1000;
+            z-index: 1200;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transition: opacity 0.2s, visibility 0.2s;
             line-height: 1.4;
@@ -490,6 +489,21 @@
             font-size: 0.8rem;
         }
 
+        .zone-tooltip .learn-more-link {
+            display: block;
+            margin-top: 0.75rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eee;
+            font-size: 0.8rem;
+            color: var(--shram-teal);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .zone-tooltip .learn-more-link:hover {
+            text-decoration: underline;
+        }
+
         .stat-number { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
         .stat-label { font-size: 0.95rem; opacity: 0.9; }
 
@@ -552,6 +566,7 @@
 
         .zone6-alert-banner.minimized {
             padding: 0.75rem 2rem;
+            cursor: pointer;
         }
 
         .zone6-alert-banner.minimized #zone6-banner-content strong {
@@ -598,48 +613,112 @@
             display: block;
         }
 
-        /* Districts list for expanded banner */
-        .banner-districts-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        /* States list for expanded banner */
+        .banner-states-list {
+            display: flex;
+            flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 1rem;
-            max-height: 150px;
-            overflow-y: auto;
+            max-height: 120px;
+            overflow: visible;
             padding-right: 0.5rem;
         }
 
-        .banner-districts-list::-webkit-scrollbar {
+        .banner-states-list::-webkit-scrollbar {
             width: 6px;
         }
 
-        .banner-districts-list::-webkit-scrollbar-track {
+        .banner-states-list::-webkit-scrollbar-track {
             background: rgba(255,255,255,0.1);
             border-radius: 3px;
         }
 
-        .banner-districts-list::-webkit-scrollbar-thumb {
+        .banner-states-list::-webkit-scrollbar-thumb {
             background: rgba(255,255,255,0.4);
             border-radius: 3px;
         }
 
-        .banner-district-item {
+        .banner-state-item {
             background: rgba(255,255,255,0.15);
             padding: 0.4rem 0.75rem;
             border-radius: 4px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s;
         }
 
-        .banner-district-item i {
+        .banner-state-item:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .banner-state-item .district-count {
+            background: rgba(255,255,255,0.25);
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
             font-size: 0.7rem;
-            opacity: 0.8;
+            margin-left: 0.3rem;
+        }
+
+        /* Tooltip showing districts on hover */
+        .banner-state-item .districts-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: fixed;
+            background: white;
+            color: #333;
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: normal;
+            min-width: 180px;
+            max-width: 280px;
+            max-height: 180px;
+            overflow-y: auto;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: opacity 0.2s, visibility 0.2s;
+            pointer-events: none;
+        }
+
+        .banner-state-item .districts-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 20px;
+            border: 8px solid transparent;
+            border-bottom-color: white;
+        }
+
+        .banner-state-item:hover .districts-tooltip {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .districts-tooltip .tooltip-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 0.3rem;
+        }
+
+        .districts-tooltip .district-name {
+            padding: 0.15rem 0;
+            white-space: normal;
+        }
+
+        .districts-tooltip::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .districts-tooltip::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 2px;
         }
 
         /* When minimized, hide list and show marquee */
-        .zone6-alert-banner.minimized .banner-districts-list {
+        .zone6-alert-banner.minimized .banner-states-list {
             display: none;
         }
 
@@ -953,7 +1032,7 @@
                     <i class="fas fa-dashboard"></i> Dashboard
                 </button>
                 <button class="tab" onclick="switchTab(event, 'livemap')">
-                    <i class="fas fa-map-marked-alt"></i> Live Map
+                    <i class="fas fa-map-marked-alt"></i> Live Zone Map
                 </button>
                 <button class="tab" onclick="switchTab(event, 'calculator')">
                     <i class="fas fa-calculator"></i> EHI-N* Calculator
@@ -967,8 +1046,8 @@
 
     <div class="container">
         <!-- Zone 6 Hazardous Alert Banner -->
-        <div id="zone6-banner" class="zone6-alert-banner minimized">
-            <button class="close-btn" onclick="toggleBanner()" id="banner-toggle-btn"><i class="fas fa-plus"></i></button>
+        <div id="zone6-banner" class="zone6-alert-banner minimized" onclick="expandBannerIfMinimized(event)">
+            <button class="close-btn" onclick="toggleBanner(event)" id="banner-toggle-btn"><i class="fas fa-plus"></i></button>
             <div id="zone6-banner-content"></div>
         </div>
 
@@ -1013,6 +1092,9 @@
                             </select>
                         </div>
                     </div>
+
+                    <!-- Last Updated Timestamp -->
+                    <p id="global-timestamp" style="text-align: center; font-size: 1.2rem; color: #000; margin-bottom: 1rem; font-weight: 600;"></p>
 
                     <div class="status-overview">
                         <div id="live-status-summary">
@@ -1077,7 +1159,7 @@
                         <canvas id="forecast-chart" style="height: 400px; min-height: 350px;"></canvas>
                     </div>
 
-                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: WeatherAPI.com</p>
+                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: WeatherAPI.com (to be replaced by in-house model, Summer 2026)</p>
                 </div>
             </div>
 
@@ -1122,33 +1204,26 @@
 
                 <div class="chart-grid">
                     <div class="chart-container">
-                        <h3>Heat Stress Zone Trends</h3>
+                        <h3>Zone Trends</h3>
                         <canvas id="alertTrendChart"></canvas>
                     </div>
                     <div class="chart-container">
-                        <h3>Temperature & Humidity</h3>
+                        <h3>Dry-Bulb Temperature & Relative Humidity</h3>
                         <canvas id="tempHumidityChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Summer Statistics (full width) -->
+            <!-- Summer 2025 Zones Animation -->
             <div class="section">
-                <h2><i class="fas fa-fire"></i> Summer (March to September) 2025 Stats for EHI-6</h2>
-                <div id="summer-stats-content">
-                    <p style="text-align: center; color: #666;">Loading summer statistics...</p>
-                </div>
-            </div>
-
-            <!-- Summer 2025 Heatwave Animation -->
-            <div class="section">
-                <h2><i class="fas fa-play-circle"></i> Summer 2025 EHI Zone Animation</h2>
+                <h2><i class="fas fa-play-circle"></i> Summer 2025 Zones</h2>
                 <p style="margin-bottom: 1rem; color: #666;">Hourly heat stress zones across India from May-June 2025. Use the controls to change MET level, sun/shade conditions, and scrub through time.</p>
                 <iframe
                     src="https://ekilic-coder.github.io/ehi-webapp-frontend/"
                     style="width: 100%; height: 600px; border: none; border-radius: 8px;"
                     title="EHI Heat Stress Zones - India Summer 2025">
                 </iframe>
+                <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: ERA5 Reanalysis (Copernicus Climate Data Store)</p>
             </div>
         </div>
 
@@ -1236,24 +1311,57 @@
 
         <!-- TAB 3: ABOUT EHI-N -->
         <div id="about-tab" class="tab-content">
-            <div class="section">
+            <div class="section" style="padding-left: 2.5rem;">
                 <h2><i class="fas fa-book"></i> About EHI-N*</h2>
 
-                <p>The <strong>Extended Heat Index for Working Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal strain in labor-intensive occupations.</p>
+                <p style="padding-left: 0.5rem;">The <strong>Extended Heat Index for Working Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal strain in labor-intensive occupations.</p>
 
                 <h3><i class="fas fa-tag"></i> Nomenclature</h3>
-                <ul>
-                    <li><strong>N</strong> = Metabolic load (activity level): Accounts for labor intensity from resting to heavy work (3-6 METs)</li>
-                    <li><strong>*</strong> = Sunlight included: Heat stress in direct sunlight conditions
-                        <ul>
-                            <li><strong>EHI-N</strong> (without *) = Shaded conditions only</li>
-                            <li><strong>EHI-N*</strong> (with *) = Full sun exposure</li>
-                        </ul>
-                    </li>
-                </ul>
+                <div style="display: flex; flex-direction: column; align-items: center; margin: 1.5rem 0; gap: 1rem;">
+                    <!-- N explanation above with curved arrow pointing to N -->
+                    <div style="display: flex; align-items: flex-start; position: relative; margin-left: -17rem;">
+                        <div style="display: flex; flex-direction: column; align-items: flex-end; padding-right: 4px;">
+                            <div style="font-size: 0.75rem; color: var(--iecc-brown); font-weight: 600; text-align: right;">Metabolic Rate</div>
+                            <div style="font-size: 0.65rem; color: #888; text-align: right;">Work intensity (3-6 METs)</div>
+                        </div>
+                        <svg width="50" height="45" style="margin-top: -2px;">
+                            <path d="M5 5 Q 45 5, 45 35" stroke="var(--iecc-brown)" stroke-width="2" fill="none"/>
+                            <polygon points="40,32 45,42 50,32" fill="var(--iecc-brown)"/>
+                        </svg>
+                    </div>
+
+                    <!-- Main EHI-N* with arrow on right for * -->
+                    <div style="display: flex; align-items: center; gap: 0; margin-top: -12px;">
+                        <!-- Center: EHI-N* -->
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-size: 2.5rem; font-weight: 700; color: #666;">EHI-</span>
+                            <span style="font-size: 2.5rem; font-weight: 700; color: var(--iecc-brown);">N</span>
+                            <span style="font-size: 2.5rem; font-weight: 700; color: #f57c00;">*</span>
+                        </div>
+
+                        <!-- Right side: * explanation -->
+                        <div style="color: #f57c00; font-size: 1.2rem; margin-left: 0.5rem;">&#8592;</div>
+                        <div style="display: flex; flex-direction: column; align-items: flex-start; padding-left: 0.5rem;">
+                            <div style="font-size: 0.75rem; color: #f57c00; font-weight: 600;"><i class="fas fa-sun" style="font-size: 0.6rem;"></i> Sun Exposure</div>
+                            <div style="font-size: 0.65rem; color: #888;">Direct sunlight included</div>
+                        </div>
+                    </div>
+
+                    <!-- Examples -->
+                    <div style="display: flex; gap: 1.5rem; align-items: center; font-size: 0.85rem; color: #666; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-cloud" style="color: #78909c;"></i>
+                            <span><strong>EHI-6</strong> = Heavy work, shaded</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-sun" style="color: #f57c00;"></i>
+                            <span><strong>EHI-6*</strong> = Heavy work, full sun</span>
+                        </div>
+                    </div>
+                </div>
 
                 <h3><i class="fas fa-flask"></i> Scientific Foundation</h3>
-                <p><em>Technical brief coming soon...</em></p>
+                <p style="padding-left: 0.5rem;"><em>Technical brief coming soon...</em></p>
             </div>
 
             <div class="section">
@@ -1321,14 +1429,13 @@
                 <p>Get notified when hazardous heat stress conditions are detected in your location. Free service for workers, employers, and community organizers.</p>
 
                 <div class="alert-box" style="background: #e3f2fd; border-left-color: var(--shram-teal);">
-                    <p><strong><i class="fas fa-info-circle"></i> How it works:</strong></p>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <p><strong>How it works:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
                         <li>Select your state and district</li>
-                        <li>Choose your MET level (work intensity) - default is EHI-6 for manual laborers</li>
-                        <li>Select which zones trigger alerts - default is Zone 6 (Hazardous) only</li>
-                        <li>Get real-time notifications when heat stress reaches your selected threshold</li>
-                        <li>Alerts include zone classification, current EHI value, and safety recommendations</li>
-                    </ul>
+                        <li>Choose your MET level (work intensity) and zone alert threshold</li>
+                        <li><strong>Live alerts:</strong> You will receive an immediate email if Zone 6 (Hazardous) is detected in your district, regardless of MET level or sun/shade conditions</li>
+                        <li><strong>Daily forecast:</strong> Each day you will receive a forecast email for your selected district with your chosen MET level and zone threshold</li>
+                    </ol>
                 </div>
 
                 <form id="alert-subscription-form" style="background: var(--gray-light); padding: 2rem; border-radius: 10px; margin-top: 1.5rem;">
@@ -1378,6 +1485,10 @@
                                 </span>
                             </label>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; background: white;">
+                                    <input type="checkbox" id="alert-met-3" value="3" style="width: 18px; height: 18px; cursor: pointer;">
+                                    <span>EHI-3 (Light)</span>
+                                </label>
                                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; background: white;">
                                     <input type="checkbox" id="alert-met-4" value="4" style="width: 18px; height: 18px; cursor: pointer;">
                                     <span>EHI-4 (Moderate)</span>
@@ -1445,8 +1556,8 @@
     </div>
 
     <div class="footer">
-        <p><strong>SHRAM: System for Heat Risk Assessment for Manual labor</strong></p>
-        <p>Developed by Elif Kılıç | <span style="color: #fff;">India Energy & Climate Center</span> | University of California, Berkeley</p>
+        <p><strong>SHRAM: System for Heat Risk Assessment for Manual Labor</strong></p>
+        <p>Developed by Elif Kılıç | India Energy & Climate Center | University of California, Berkeley</p>
         <p>Data sources: India Meteorological Department (IMD), ERA5 Reanalysis (ECMWF) | Updated hourly</p>
         <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
             &copy; 2025
@@ -1546,7 +1657,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             event.currentTarget.classList.add('active');
         }
 
-        function toggleBanner() {
+        function toggleBanner(event) {
+            if (event) event.stopPropagation();
             const banner = document.getElementById('zone6-banner');
             const toggleBtn = document.getElementById('banner-toggle-btn');
 
@@ -1558,6 +1670,63 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 toggleBtn.innerHTML = '<i class="fas fa-plus"></i>';
             }
         }
+
+        // Expand banner when clicking anywhere on it (only when minimized)
+        function expandBannerIfMinimized(event) {
+            const banner = document.getElementById('zone6-banner');
+            // Only expand if minimized and not clicking on a state item or button
+            if (banner.classList.contains('minimized') &&
+                !event.target.closest('.banner-state-item') &&
+                !event.target.closest('.close-btn')) {
+                toggleBanner();
+            }
+        }
+
+        // Navigate to forecast for a specific state (called from Zone 6 banner)
+        function showForecastForState(stateName) {
+            // Switch to dashboard tab
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('dashboard-tab').classList.add('active');
+            document.querySelector('.tab[onclick*="dashboard"]').classList.add('active');
+
+            // Set the state dropdown and trigger forecast load
+            const stateSelect = document.getElementById('forecast-state-select');
+            if (stateSelect) {
+                stateSelect.value = stateName;
+                // Reset district to 'all' (will use capital)
+                const districtSelect = document.getElementById('forecast-district-select');
+                if (districtSelect) {
+                    districtSelect.value = 'all';
+                }
+            }
+
+            // Scroll to the forecast section
+            const forecastSection = document.getElementById('forecast-content');
+            if (forecastSection) {
+                forecastSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // Load the forecast for this state (uses capital by default)
+            setTimeout(() => {
+                if (typeof loadForecast === 'function') {
+                    loadForecast();
+                }
+            }, 300);
+        }
+
+        // Position tooltip on hover for banner state items
+        document.addEventListener('mouseover', function(e) {
+            const stateItem = e.target.closest('.banner-state-item');
+            if (stateItem) {
+                const tooltip = stateItem.querySelector('.districts-tooltip');
+                if (tooltip) {
+                    const rect = stateItem.getBoundingClientRect();
+                    tooltip.style.left = rect.left + 'px';
+                    tooltip.style.top = (rect.bottom + 8) + 'px';
+                }
+            }
+        });
 
         function toggleApiModal() {
             const modal = document.getElementById('apiModal');
@@ -2474,11 +2643,21 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 ? 'background: #ffebee; color: #c62828; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #ef9a9a;'
                 : '';
 
+            // Update global timestamp only - show red warning style if historical data, otherwise normal
+            // Note: last24h-timestamp is managed independently by load24HourData()
+            if (isHistoricalData) {
+                document.getElementById('global-timestamp').innerHTML = `
+                    <span style="background: #ffebee; color: #c62828; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #ef9a9a; display: inline-block;">
+                        <i class="fas fa-history"></i> <strong>Last Data Available: ${formattedTimestamp} IST</strong>
+                        <br><small style="font-weight: normal;">No current IMD data for this location</small>
+                    </span>
+                `;
+            } else {
+                // Reset to normal timestamp style
+                document.getElementById('global-timestamp').innerHTML = `<strong>Last Updated: ${formattedTimestamp} IST</strong>`;
+            }
+
             document.getElementById('live-status-summary').innerHTML = `
-                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 1rem; ${timestampStyle}">
-                    ${isHistoricalData ? '<i class="fas fa-history"></i> ' : ''}<strong>${timestampLabel}: ${formattedTimestamp} IST</strong>
-                    ${isHistoricalData ? '<br><small style="font-weight: normal;">No current IMD data for this location</small>' : ''}
-                </p>
                 <p style="text-align: center; font-size: 1.2rem; color: #333;">
                     <strong>${filteredAlerts.length}</strong> stations in <strong>${locationText}</strong> across <strong>${totalDistricts}</strong> districts
                 </p>
@@ -2509,22 +2688,24 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     <div class="stat-number">${totalDistricts}</div>
                     <div class="stat-label">Districts Affected</div>
                 </div>
-                <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); padding: 1rem; cursor: pointer; border-color: #d32f2f;">
+                <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); padding: 1rem; cursor: pointer; border-color: #d32f2f;" onclick="switchTab(event, 'about')">
                     <div class="stat-number" style="font-size: 1.8rem;">${zone6Count}</div>
                     <div class="stat-label" style="font-size: 0.85rem;">Zone 6 (Hazardous)</div>
                     <div class="zone-tooltip" style="border-color: #d32f2f;">
                         <h4 style="color: #d32f2f;"><i class="fas fa-exclamation-triangle"></i> Zone 6: Hyperthermia (HAZARDOUS)</h4>
                         <p><strong>Action Required:</strong> Core temperature rising - cease work immediately. Move to cool environment. Seek medical attention.</p>
                         ${zone6DistrictsList}
+                        <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
                     </div>
                 </div>
-                <div class="stat-box hoverable" style="background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%); padding: 1rem; cursor: pointer; border-color: #f57c00;">
+                <div class="stat-box hoverable" style="background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%); padding: 1rem; cursor: pointer; border-color: #f57c00;" onclick="switchTab(event, 'about')">
                     <div class="stat-number" style="font-size: 1.8rem;">${zone5Count}</div>
                     <div class="stat-label" style="font-size: 0.85rem;">Zone 5 (High)</div>
                     <div class="zone-tooltip" style="border-color: #f57c00;">
                         <h4 style="color: #f57c00;"><i class="fas fa-heartbeat"></i> Zone 5: Very Hot (Cardiovascular Stress)</h4>
                         <p><strong>Action Required:</strong> Limit heavy work. Increase rest periods. Ensure continuous hydration and access to shade.</p>
                         ${zone5DistrictsList}
+                        <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
                     </div>
                 </div>
             `;
@@ -2566,8 +2747,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     timeStyle: 'short'
                 });
 
-                // Update Last 24 Hours timestamp as well
-                document.getElementById('last24h-timestamp').innerHTML = `<strong>Last Updated: ${lastUpdate} IST</strong>`;
+                // Update global timestamp only - last24h-timestamp is managed independently by load24HourData()
+                document.getElementById('global-timestamp').innerHTML = `<strong>Last Updated: ${lastUpdate} IST</strong>`;
 
                 // Filter alerts for selected MET/sun (only Zone 5 & 6 are alerts)
                 const zone6 = data.alerts.filter(a => a[zoneCol] === "Zone 6");
@@ -2575,11 +2756,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 const alertCount = zone6.length + zone5.length;
                 const totalDistricts = countUniqueDistricts([...zone6, ...zone5]);
 
-                document.getElementById('live-status-summary').innerHTML = `
-                    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 1rem; font-weight: 700; color: #fff;">
-                        Last Updated: ${lastUpdate} IST
-                    </p>
-                `;
+                // Summary is set by global-timestamp, so just clear live-status-summary
+                document.getElementById('live-status-summary').innerHTML = '';
 
                 const zone6DistrictsList = zone6.length > 0 ?
                     `<div class="districts-list">${zone6.map(a => `${a.DISTRICT}, ${a.STATE}`).join('<br>')}</div>` :
@@ -2598,22 +2776,24 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         <div class="stat-number">${totalDistricts}</div>
                         <div class="stat-label">Districts Affected</div>
                     </div>
-                    <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); padding: 1rem; cursor: pointer; border-color: #d32f2f;">
+                    <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); padding: 1rem; cursor: pointer; border-color: #d32f2f;" onclick="switchTab(event, 'about')">
                         <div class="stat-number" style="font-size: 1.8rem;">${zone6.length}</div>
                         <div class="stat-label" style="font-size: 0.85rem;">Zone 6 (Hazardous)</div>
                         <div class="zone-tooltip" style="border-color: #d32f2f;">
                             <h4 style="color: #d32f2f;"><i class="fas fa-exclamation-triangle"></i> Zone 6: Hyperthermia (HAZARDOUS)</h4>
                             <p><strong>Action Required:</strong> Core temperature rising - cease work immediately. Move to cool environment. Seek medical attention.</p>
                             ${zone6DistrictsList}
+                            <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
                         </div>
                     </div>
-                    <div class="stat-box hoverable" style="background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%); padding: 1rem; cursor: pointer; border-color: #f57c00;">
+                    <div class="stat-box hoverable" style="background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%); padding: 1rem; cursor: pointer; border-color: #f57c00;" onclick="switchTab(event, 'about')">
                         <div class="stat-number" style="font-size: 1.8rem;">${zone5.length}</div>
                         <div class="stat-label" style="font-size: 0.85rem;">Zone 5 (High Risk)</div>
                         <div class="zone-tooltip" style="border-color: #f57c00;">
                             <h4 style="color: #f57c00;"><i class="fas fa-heartbeat"></i> Zone 5: High Risk (Cardiovascular Stress)</h4>
                             <p><strong>Action Required:</strong> Limit heavy work. Increase rest periods. Ensure continuous hydration and access to shade.</p>
                             ${zone5DistrictsList}
+                            <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
                         </div>
                     </div>
                 `;
@@ -2628,12 +2808,37 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 );
                 if (globalZone6.length > 0) {
                     const marqueeItems = globalZone6.map(a => `${a.DISTRICT}, ${a.STATE}`).join(' | ');
-                    const districtsList = globalZone6.map(a => `<div class="banner-district-item"><i class="fas fa-map-marker-alt"></i>${a.DISTRICT}, ${a.STATE}</div>`).join('');
+
+                    // Group districts by state
+                    const stateGroups = {};
+                    globalZone6.forEach(a => {
+                        if (!stateGroups[a.STATE]) {
+                            stateGroups[a.STATE] = [];
+                        }
+                        stateGroups[a.STATE].push(a.DISTRICT);
+                    });
+
+                    // Build state items with hover tooltips showing districts
+                    const statesList = Object.keys(stateGroups).sort().map(state => {
+                        const districts = stateGroups[state];
+                        const districtNames = districts.map(d => `<div class="district-name">${d}</div>`).join('');
+                        return `
+                            <div class="banner-state-item" onclick="showForecastForState('${state.replace(/'/g, "\\'")}')">
+                                ${state}<span class="district-count">${districts.length}</span>
+                                <div class="districts-tooltip">
+                                    <div class="tooltip-title">${state} districts affected</div>
+                                    ${districtNames}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    const numStates = Object.keys(stateGroups).length;
                     const bannerHtml = `
-                        <strong style="font-size: 1.4rem;"><i class="fas fa-exclamation-triangle"></i> ZONE 6 DETECTED (${globalZone6.length} locations)</strong><br>
-                        <span style="font-size: 1.1rem; font-weight: 700;">Severe hyperthermia risk found in these regions:</span>
-                        <div class="banner-districts-list">
-                            ${districtsList}
+                        <strong style="font-size: 1.4rem;"><i class="fas fa-exclamation-triangle"></i> ZONE 6 DETECTED (${globalZone6.length} districts in ${numStates} states)</strong><br>
+                        <span style="font-size: 1rem; font-weight: 600;">Hover over state for districts. Click to view forecast.</span>
+                        <div class="banner-states-list">
+                            ${statesList}
                         </div>
                         <span class="banner-static-text">⚠️ ZONE 6 DETECTED</span>
                         <div class="banner-marquee-container">
@@ -3419,22 +3624,24 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             <div class="stat-number">${(data.total_alerts || 0).toLocaleString()}</div>
                             <div class="stat-label">Total Alerts (Summer ${data.year})</div>
                         </div>
-                        <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); cursor: pointer; border-color: #d32f2f;">
+                        <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); cursor: pointer; border-color: #d32f2f;" onclick="switchTab(event, 'about')">
                             <div class="stat-number">${data.zone_6_events.toLocaleString()}</div>
                             <div class="stat-label">Zone 6 Hours</div>
                             <div class="zone-tooltip" style="border-color: #d32f2f;">
                                 <h4 style="color: #d32f2f;"><i class="fas fa-exclamation-triangle"></i> Zone 6 Summer Statistics</h4>
                                 <p><strong>Top State:</strong> ${zone6TopState.replace(/_/g, ' ')}</p>
                                 <p><strong>Most Common Time:</strong> ${zone6CommonTime}</p>
+                                <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
                             </div>
                         </div>
-                        <div class="stat-box hoverable" style="background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%); cursor: pointer; border-color: #f57c00;">
+                        <div class="stat-box hoverable" style="background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%); cursor: pointer; border-color: #f57c00;" onclick="switchTab(event, 'about')">
                             <div class="stat-number">${data.zone_5_events.toLocaleString()}</div>
                             <div class="stat-label">Zone 5 Hours</div>
                             <div class="zone-tooltip" style="border-color: #f57c00;">
                                 <h4 style="color: #f57c00;"><i class="fas fa-heartbeat"></i> Zone 5 Summer Statistics</h4>
                                 <p><strong>Top State:</strong> ${zone5TopState.replace(/_/g, ' ')}</p>
                                 <p><strong>Most Common Time:</strong> ${zone5CommonTime}</p>
+                                <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
                             </div>
                         </div>
                     </div>

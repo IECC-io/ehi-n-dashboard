@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHRAM Live Heat Map - India</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZRLEJEW2N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-FZRLEJEW2N');
+        gtag('config', 'G-3J6EVWWDBX');
+    </script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
     <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
@@ -24,51 +35,42 @@
             background: #f5f5f5;
         }
 
-        .header {
-            background: var(--iecc-blue);
-            color: white;
-            padding: 1rem 2rem;
+        .map-controls {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
             display: flex;
-            justify-content: space-between;
+            gap: 15px;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            position: relative;
-            z-index: 100;
-        }
-
-        .header h1 {
-            font-size: 1.5rem;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
         }
 
         .control-group {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            gap: 8px;
         }
 
         .control-group label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-weight: 600;
+            font-size: 12px;
+            color: #333;
+            white-space: nowrap;
         }
 
         .control-group select {
-            padding: 0.4rem 0.8rem;
-            border: none;
+            padding: 5px 10px;
+            border: 2px solid #ddd;
             border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 600;
             cursor: pointer;
+            background: white;
         }
 
         .sun-toggle {
@@ -77,18 +79,19 @@
         }
 
         .sun-toggle button {
-            padding: 0.5rem 1rem;
-            border: none;
-            background: rgba(255,255,255,0.2);
-            color: white;
+            padding: 5px 12px;
+            border: 2px solid #ddd;
+            background: white;
+            color: #333;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .sun-toggle button:first-child {
             border-radius: 4px 0 0 4px;
+            border-right: none;
         }
 
         .sun-toggle button:last-child {
@@ -96,22 +99,51 @@
         }
 
         .sun-toggle button.active {
+            background: #2166ac;
+            color: white;
+            border-color: #2166ac;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 4px;
+            flex-wrap: nowrap;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border: 2px solid #ddd;
             background: white;
-            color: var(--iecc-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            border-color: #999;
+            background: #f9f9f9;
+        }
+
+        .btn.active {
+            background: #2166ac;
+            color: white;
+            border-color: #2166ac;
         }
 
         .data-timestamp {
-            font-size: 1rem;
-            font-weight: 700;
-            padding: 0.3rem 0.6rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
         }
 
         .main-container {
             display: grid;
             grid-template-columns: 1fr 350px;
-            height: calc(100vh - 60px);
+            height: 100vh;
         }
 
         @media (max-width: 900px) {
@@ -210,7 +242,7 @@
             background: rgba(46, 125, 50, 0.1);
         }
 
-        .trend-indicator.stable {
+        .trend-indicator.unchanged {
             color: #666;
             background: rgba(102, 102, 102, 0.1);
         }
@@ -513,36 +545,36 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1><i class="fas fa-map-marked-alt"></i> SHRAM Live Heat Map</h1>
-        <div class="header-controls">
-            <div class="control-group">
-                <select id="met-select">
-                    <option value="3">EHI-3 (Light Work)</option>
-                    <option value="4">EHI-4 (Moderate)</option>
-                    <option value="5">EHI-5 (Heavy)</option>
-                    <option value="6" selected>EHI-6 (Very Heavy)</option>
-                </select>
-            </div>
-            <div class="control-group">
-                <div class="sun-toggle">
-                    <button id="shade-btn" class="active" onclick="setSunCondition('shade')">
-                        <i class="fas fa-cloud"></i> Shade
-                    </button>
-                    <button id="sun-btn" onclick="setSunCondition('sun')">
-                        <i class="fas fa-sun"></i> Sun
-                    </button>
-                </div>
-            </div>
-            <div class="data-timestamp" id="data-timestamp">
-                <i class="fas fa-clock"></i> Loading...
-            </div>
-        </div>
-    </div>
-
     <div class="main-container">
         <div id="map-container">
             <div id="map"></div>
+
+            <!-- Controls at top center of map -->
+            <div class="map-controls">
+                <div class="control-group">
+                    <label>MET Level</label>
+                    <div class="btn-group">
+                        <button class="btn" data-met="3">3</button>
+                        <button class="btn" data-met="4">4</button>
+                        <button class="btn" data-met="5">5</button>
+                        <button class="btn active" data-met="6">6</button>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="sun-toggle">
+                        <button id="shade-btn" class="active" onclick="setSunCondition('shade')">
+                            <i class="fas fa-cloud"></i> Shade
+                        </button>
+                        <button id="sun-btn" onclick="setSunCondition('sun')">
+                            <i class="fas fa-sun"></i> Sun
+                        </button>
+                    </div>
+                </div>
+                <div class="data-timestamp" id="data-timestamp">
+                    Loading...
+                </div>
+            </div>
+
             <div class="map-legend">
                 <h3>Physiological Zones</h3>
                 <div class="legend-item">
@@ -630,7 +662,7 @@
                     <span id="trend-improving" style="color: #2e7d32; font-weight: 600;">0 locations</span>
                 </div>
                 <div class="trend-summary-row">
-                    <span>Stable:</span>
+                    <span>Unchanged:</span>
                     <span id="trend-stable" style="color: #666;">0 locations</span>
                 </div>
             </div>
@@ -728,6 +760,21 @@
                 const conditionData = point.data[metKey]?.[currentSun];
                 if (!conditionData) return null;
 
+                // Calculate trend for this point
+                let trend = null;  // null = no data, 'worsening', 'improving', 'unchanged'
+                if (previousData) {
+                    const prevPoint = previousData.points.find(p => p.lat === point.lat && p.lon === point.lon);
+                    if (prevPoint) {
+                        const prevCondition = prevPoint.data[metKey]?.[currentSun];
+                        if (prevCondition) {
+                            const diff = conditionData.zone - prevCondition.zone;
+                            if (diff > 0) trend = 'worsening';
+                            else if (diff < 0) trend = 'improving';
+                            else trend = 'unchanged';
+                        }
+                    }
+                }
+
                 return {
                     polygon: createGridPolygon(point.lat, point.lon, GRID_RESOLUTION),
                     lat: point.lat,
@@ -738,7 +785,8 @@
                     temp: point.temp,
                     rh: point.rh,
                     ehi: conditionData.ehi,
-                    zone: conditionData.zone
+                    zone: conditionData.zone,
+                    trend: trend
                 };
             }).filter(d => d !== null);
         }
@@ -801,12 +849,12 @@
             const hasState = object.state || (object.location && object.location.includes(','));
             const clickHint = hasState ? `<div style="font-size: 0.7rem; color: #666; text-align: center; margin-top: 8px; border-top: 1px solid #eee; padding-top: 6px;"><i class="fas fa-mouse-pointer"></i> Click to view forecast</div>` : '';
 
-            // Build title: prefer district/state, fall back to location from weather API
+            // Build title: prefer district/state, fall back to state only, then location
             let titleText;
             if (object.district && object.state) {
                 titleText = `${object.district}, ${object.state}`;
-            } else if (object.district) {
-                titleText = object.district;
+            } else if (object.state) {
+                titleText = object.state;
             } else if (object.location) {
                 titleText = object.location;
             } else {
@@ -817,6 +865,23 @@
             const nearbyPlace = (object.location && object.district && !object.location.includes(object.district))
                 ? `<div style="font-size: 0.75rem; color: #666; margin-top: -4px; margin-bottom: 6px;">near ${object.location.split(',')[0]}</div>`
                 : '';
+
+            // Build trend display for tooltip
+            let trendHtml = '';
+            if (object.trend) {
+                const trendConfig = {
+                    'worsening': { icon: 'fa-arrow-up', color: '#c62828', text: 'Worsening' },
+                    'improving': { icon: 'fa-arrow-down', color: '#2e7d32', text: 'Improving' },
+                    'unchanged': { icon: 'fa-minus', color: '#666', text: 'Unchanged' }
+                };
+                const t = trendConfig[object.trend];
+                trendHtml = `
+                    <div class="tooltip-row" style="margin-top: 4px; padding-top: 4px; border-top: 1px solid #eee;">
+                        <label>Trend (1hr)</label>
+                        <value style="color: ${t.color};"><i class="fas ${t.icon}"></i> ${t.text}</value>
+                    </div>
+                `;
+            }
 
             return {
                 html: `
@@ -842,6 +907,7 @@
                         <div class="tooltip-zone zone${object.zone}">
                             ${(object.zone === 2 || object.zone === 3) ? 'Zone 2/3' : 'Zone ' + object.zone} - ${getZoneStatus(object.zone)}
                         </div>
+                        ${trendHtml}
                         ${clickHint}
                     </div>
                 `,
@@ -1197,10 +1263,14 @@
             updateVisualization();
         }
 
-        // MET selector change
-        document.getElementById('met-select').addEventListener('change', function() {
-            currentMet = parseInt(this.value);
-            updateVisualization();
+        // MET button clicks
+        document.querySelectorAll('[data-met]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-met]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentMet = parseInt(this.dataset.met);
+                updateVisualization();
+            });
         });
 
         // Initialize
