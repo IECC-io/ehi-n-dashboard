@@ -365,6 +365,17 @@
             opacity: 1;
         }
 
+        /* Mobile touch: show tooltip on focus/active */
+        @media (hover: none) and (pointer: coarse) {
+            .info-tooltip .tooltip-text {
+                /* On touch devices, tooltip shows when parent has .tooltip-active class */
+            }
+            .info-tooltip.tooltip-active .tooltip-text {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
         .calculate-btn {
             background: var(--iecc-brown);
             color: white;
@@ -690,7 +701,8 @@
             border-bottom-color: white;
         }
 
-        .banner-state-item:hover .districts-tooltip {
+        .banner-state-item:hover .districts-tooltip,
+        .banner-state-item.tooltip-active .districts-tooltip {
             visibility: visible;
             opacity: 1;
             pointer-events: auto;
@@ -917,28 +929,47 @@
         }
 
         @media (max-width: 768px) {
-            .header { padding: 1rem; }
+            .header { padding: 0.75rem 0.5rem 0 0.5rem; }
             .header-content {
                 flex-direction: column;
                 align-items: stretch;
+                min-height: auto;
             }
-            .header img { height: 50px; margin-bottom: 0.5rem; }
 
-            /* Keep tabs horizontal but compact */
+            /* Mobile SHRAM logo - larger and centered */
+            .logo-container {
+                position: relative;
+                left: 0;
+                bottom: 0;
+                height: auto;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+            .logo-container img {
+                height: 150px;
+                width: auto;
+            }
+
+            /* Keep tabs horizontal but compact - flush with orange border */
             .tabs {
                 flex-direction: row;
                 flex-wrap: wrap;
-                gap: 0.3rem;
+                gap: 0;
+                margin-left: 0;
+                align-self: stretch;
+                margin-bottom: 0;
             }
             .tab {
                 flex: 1 1 auto;
                 min-width: auto;
-                padding: 0.5rem 0.4rem;
-                font-size: 0.7rem;
+                padding: 0.5rem 0.3rem;
+                font-size: 0.75rem;
+                border-radius: 6px 6px 0 0;
             }
             .tab i { display: none; } /* Hide icons on mobile to save space */
 
-            .container { padding: 0.5rem; }
+            .container { padding: 0.5rem; overflow-x: hidden; }
 
             /* Zone 6 Banner - compact */
             #zone6-banner {
@@ -954,14 +985,30 @@
                 gap: 0.75rem;
             }
 
-            /* Compact sections */
-            .section { padding: 0.75rem; margin-bottom: 0.75rem; }
-            .section h2 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+            /* Compact sections - prevent overflow */
+            .section {
+                padding: 0.75rem;
+                margin-bottom: 0.75rem;
+                overflow-x: hidden;
+                max-width: 100%;
+            }
+            .section h2 { font-size: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
             .section h3 { font-size: 0.85rem; }
             .section p { font-size: 0.8rem; }
 
-            /* Dashboard section titles */
-            .dashboard-grid .section h2 { font-size: 0.9rem; }
+            /* Dashboard section titles - larger for readability */
+            .dashboard-grid .section h2 { font-size: 1.1rem; }
+
+            /* MET/Sun toggle buttons - prevent overflow */
+            .section h2 .met-toggle-group,
+            .section h2 span[style*="display: flex"] {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+            .section h2 button {
+                padding: 0.25rem 0.4rem !important;
+                font-size: 0.65rem !important;
+            }
 
             /* Stat boxes */
             .stat-box { padding: 0.5rem; }
@@ -981,9 +1028,8 @@
             #forecast-content p { font-size: 0.8rem; }
             #forecast-chart { height: 200px !important; }
 
-            /* Last 24 hours */
+            /* Last 24 hours - prevent overflow */
             #last24h-timestamp { font-size: 0.8rem; }
-            .chart-container { height: 180px !important; }
 
             /* Calculator */
             .calculator-container { padding: 0.75rem; }
@@ -993,19 +1039,393 @@
             .met-selector { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
             .met-option { padding: 0.4rem; font-size: 0.75rem; }
 
-            /* Charts */
+            /* Charts - prevent overflow */
             .chart-grid { grid-template-columns: 1fr; }
 
-            /* Dropdowns and inputs */
-            select, input { font-size: 0.8rem; padding: 0.35rem; }
+            /* Dropdowns and inputs - constrain width */
+            select, input {
+                font-size: 0.8rem;
+                padding: 0.35rem;
+                max-width: 100%;
+            }
             label { font-size: 0.8rem; }
 
-            /* Logo strip */
-            .logo-strip { padding: 0.4rem 0.75rem; }
-            .logo-strip img { height: 30px; }
+            /* Logo strip - smaller IECC logo on mobile */
+            .logo-strip { padding: 0.5rem 0.75rem; }
+            .logo-strip img { height: 14px; }
 
-            /* Filter dropdowns */
-            .dashboard-grid select { width: 100%; margin-bottom: 0.25rem; }
+            /* Filter dropdowns - prevent overflow */
+            .dashboard-grid select {
+                width: 100%;
+                margin-bottom: 0.25rem;
+                max-width: calc(100vw - 2rem);
+            }
+
+            /* About page - work intensity annotation */
+            .section div[style*="margin-left: -17rem"] {
+                margin-left: 0 !important;
+                justify-content: center;
+            }
+
+            /* Mobile touch - show tooltip on tap before navigation */
+            .zone6-alert-banner,
+            .info-tooltip {
+                cursor: pointer;
+            }
+
+            /* Zone 6 banner minimized - stack text and marquee on mobile */
+            .zone6-alert-banner.minimized #zone6-banner-content .banner-static-text {
+                display: block !important;
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+                text-align: left;
+            }
+            .zone6-alert-banner.minimized #zone6-banner-content .banner-marquee-container {
+                display: block !important;
+                width: 100%;
+            }
+
+            /* Dashboard tile tooltips - position to the LEFT on mobile (white bg, black text) */
+            .dashboard-grid .info-tooltip .tooltip-text {
+                bottom: auto;
+                top: 50%;
+                left: auto;
+                right: 100%;
+                transform: translateY(-50%);
+                margin-right: 8px;
+                margin-top: 0;
+                width: 200px;
+                background: white !important;
+                color: #333 !important;
+                border: 1px solid #ddd;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            }
+            .dashboard-grid .info-tooltip .tooltip-text::after {
+                top: 50%;
+                bottom: auto;
+                left: 100%;
+                right: auto;
+                transform: translateY(-50%);
+                border-top-color: transparent;
+                border-bottom-color: transparent;
+                border-left-color: white;
+                border-right-color: transparent;
+            }
+
+            /* EHI dropdown - wider and match conditions button height */
+            .met-select-green {
+                font-size: 0.85rem !important;
+                padding: 0.5rem 1.5rem 0.5rem 0.75rem !important;
+                min-width: 170px !important;
+                max-width: none !important;
+                height: auto !important;
+            }
+
+            /* ================================================
+               MOBILE DASHBOARD TILE LAYOUT
+               Line 1: Title only
+               Line 2: EHI dropdown + Shade/Sun buttons
+               Line 3: Timestamp
+               Line 4: Separator
+               Line 5: State/District dropdowns inline
+               Line 6: Stats tiles inline
+               ================================================ */
+
+            /* Section headers - use block display, let content wrap naturally */
+            .section h2 {
+                display: block !important;
+                line-height: 1.8;
+                margin-bottom: 0.75rem;
+            }
+
+            /* EHI dropdown inline with buttons */
+            .section h2 .met-select-green {
+                display: inline-block !important;
+                vertical-align: middle;
+                margin: 0.25rem 0.25rem 0.25rem 0;
+            }
+            .section h2 > span[style*="margin-left"] {
+                display: inline-flex !important;
+                align-items: center;
+                vertical-align: middle;
+                margin-left: 0.25rem !important;
+            }
+            .section h2 .info-tooltip {
+                display: inline-block !important;
+                vertical-align: middle;
+                margin-left: 0.25rem;
+            }
+
+            /* Shade/Sun buttons - match dropdown height */
+            .section h2 span[style*="margin-left"] button {
+                padding: 0.4rem 0.5rem !important;
+                font-size: 0.75rem !important;
+            }
+
+            /* Timestamp - appears under controls, before separator */
+            #global-timestamp,
+            #last24h-timestamp {
+                font-size: 0.8rem !important;
+                margin-top: 0.25rem;
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid var(--gray-light);
+            }
+
+            /* Forecast generated timestamp */
+            #forecast-content p[style*="font-size: 0.9rem"] {
+                font-size: 0.8rem !important;
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid var(--gray-light);
+            }
+
+            /* State/District filters - inline on mobile */
+            .section > div[style*="display: flex"][style*="gap: 1rem"] {
+                flex-direction: row !important;
+                gap: 0.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            .section > div[style*="display: flex"][style*="gap: 1rem"] > div {
+                flex: 1 !important;
+                min-width: 0 !important;
+            }
+            .section > div[style*="display: flex"][style*="gap: 1rem"] label {
+                display: none;
+            }
+            .section > div[style*="display: flex"][style*="gap: 1rem"] select {
+                font-size: 0.8rem !important;
+                padding: 0.4rem !important;
+            }
+
+            /* Status grid - 2x2 layout for stat tiles */
+            .status-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.5rem !important;
+            }
+            .status-grid .stat-box {
+                padding: 0.5rem !important;
+            }
+            .status-grid .stat-box .stat-number {
+                font-size: 1.1rem !important;
+            }
+            .status-grid .stat-box .stat-label {
+                font-size: 0.75rem !important;
+            }
+
+            /* Last 24 hours charts - fix distortion */
+            .chart-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                width: 100% !important;
+            }
+            .chart-container {
+                width: 100% !important;
+                height: 280px !important;
+                min-height: 260px !important;
+                max-height: 320px !important;
+                padding: 0.5rem !important;
+                overflow: visible !important;
+                position: relative !important;
+                box-sizing: border-box !important;
+            }
+            .chart-container h3 {
+                font-size: 0.75rem !important;
+                margin-bottom: 0.25rem !important;
+                margin-top: 0 !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .chart-container canvas {
+                width: 100% !important;
+                height: calc(100% - 20px) !important;
+                max-width: 100% !important;
+                display: block !important;
+            }
+
+            /* Forecast peak conditions - compact on mobile */
+            #forecast-content > div[style*="background: var(--gray-light)"] p {
+                font-size: 0.8rem !important;
+                display: flex !important;
+                flex-wrap: wrap !important;
+                gap: 0.25rem !important;
+            }
+            #forecast-content > div[style*="background: var(--gray-light)"] span {
+                font-size: 0.7rem !important;
+                padding: 2px 5px !important;
+                margin-left: 0 !important;
+            }
+        }
+
+        /* Small phones (iPhone 14/15 regular, most Androids) */
+        @media (max-width: 420px) {
+            .logo-container img {
+                height: 130px;
+            }
+            .tab {
+                padding: 0.4rem 0.25rem;
+                font-size: 0.7rem;
+            }
+            .met-select-green {
+                font-size: 0.75rem !important;
+                padding: 0.4rem 1.2rem 0.4rem 0.5rem !important;
+                min-width: 150px !important;
+            }
+            .section h2 span[style*="margin-left"] button {
+                padding: 0.35rem 0.4rem !important;
+                font-size: 0.7rem !important;
+            }
+            .status-grid .stat-box .stat-number {
+                font-size: 1rem !important;
+            }
+            .status-grid .stat-box .stat-label {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* Extra small phones (iPhone SE, small Androids ~360px) */
+        @media (max-width: 375px) {
+            .logo-container img {
+                height: 110px;
+            }
+            .tab {
+                padding: 0.35rem 0.2rem;
+                font-size: 0.65rem;
+            }
+            .met-select-green {
+                font-size: 0.7rem !important;
+                padding: 0.35rem 1rem 0.35rem 0.4rem !important;
+                min-width: 130px !important;
+            }
+            .section h2 span[style*="margin-left"] button {
+                padding: 0.3rem 0.35rem !important;
+                font-size: 0.65rem !important;
+            }
+            .section h2 {
+                font-size: 0.9rem !important;
+            }
+            .dashboard-grid .section h2 {
+                font-size: 1rem !important;
+            }
+            .stat-box {
+                padding: 0.4rem !important;
+            }
+            .status-grid .stat-box .stat-number {
+                font-size: 0.9rem !important;
+            }
+            .status-grid .stat-box .stat-label {
+                font-size: 0.6rem !important;
+            }
+        }
+
+        /* Landscape phone mode - apply mobile styles when height is limited */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 0.5rem;
+                position: relative;
+            }
+            .header-content {
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: nowrap;
+                gap: 1rem;
+            }
+            .logo-container {
+                position: relative;
+                left: 0;
+                bottom: 0;
+                height: auto;
+                width: auto;
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            .logo-container img {
+                height: 60px;
+                width: auto;
+            }
+            .tabs {
+                flex-wrap: nowrap;
+                gap: 0.25rem;
+                flex: 1;
+                justify-content: flex-end;
+            }
+            .tab {
+                padding: 0.35rem 0.5rem;
+                font-size: 0.7rem;
+                flex: 0 0 auto;
+            }
+            .tab i { display: none; }
+
+            /* Container scrollable in landscape */
+            .container {
+                padding: 0.5rem;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+            }
+
+            /* Section headers inline for landscape */
+            .section h2 {
+                display: block !important;
+                line-height: 1.6;
+                font-size: 0.9rem;
+            }
+            .section h2 .met-select-green {
+                display: inline-block !important;
+                vertical-align: middle;
+                font-size: 0.75rem !important;
+                padding: 0.3rem 0.8rem 0.3rem 0.4rem !important;
+                min-width: auto !important;
+            }
+            .section h2 > span[style*="margin-left"] {
+                display: inline-flex !important;
+                align-items: center;
+                vertical-align: middle;
+            }
+            .section h2 span[style*="margin-left"] button {
+                padding: 0.3rem 0.4rem !important;
+                font-size: 0.65rem !important;
+            }
+
+            /* Compact stats in landscape */
+            .status-grid {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: wrap;
+                gap: 0.5rem !important;
+            }
+            .status-grid .stat-box {
+                flex: 1 1 45%;
+                padding: 0.4rem !important;
+            }
+            .status-grid .stat-box .stat-number {
+                font-size: 0.9rem !important;
+            }
+            .status-grid .stat-box .stat-label {
+                font-size: 0.6rem !important;
+            }
+
+            /* Dashboard grid - 2 columns in landscape */
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Very short landscape (older/smaller phones) */
+        @media (max-height: 400px) and (orientation: landscape) {
+            .logo-container img {
+                height: 50px;
+            }
+            .tab {
+                padding: 0.25rem 0.4rem;
+                font-size: 0.65rem;
+            }
+            .container {
+                max-height: calc(100vh - 60px);
+            }
         }
     </style>
     <!-- Leaflet CSS and JS for district map -->
@@ -1245,7 +1665,7 @@
                     <div class="input-group">
                         <label for="temp-input"><i class="fas fa-thermometer-half"></i> Temperature</label>
                         <div class="input-wrapper">
-                            <input type="number" id="temp-input" placeholder="35" min="-50" max="150" value="35">
+                            <input type="number" id="temp-input" placeholder="e.g., 35" min="-50" max="150">
                             <select id="temp-unit">
                                 <option value="C">°C</option>
                                 <option value="F">°F</option>
@@ -1255,7 +1675,7 @@
 
                     <div class="input-group">
                         <label for="rh-input"><i class="fas fa-tint"></i> Relative Humidity (%)</label>
-                        <input type="number" id="rh-input" placeholder="70" min="0" max="100" value="70" style="padding: 0.75rem; border: none; border-radius: 6px; background: rgba(255,255,255,0.95); font-size: 1rem;">
+                        <input type="number" id="rh-input" placeholder="e.g., 70" min="0" max="100" style="padding: 0.75rem; border: none; border-radius: 6px; background: rgba(255,255,255,0.95); font-size: 1rem;">
                     </div>
 
                     <div class="input-group">
@@ -1418,9 +1838,6 @@
                     </div>
                 </div>
 
-                <div style="background: #e3f2fd; padding: 1rem; border-radius: 6px; border-left: 4px solid #1976d2; margin-top: 1.5rem;">
-                    <p><strong><i class="fas fa-info-circle"></i> Note:</strong> For India heat stress monitoring, we focus on <strong>Zones 5 and 6</strong> as these represent hazardous heat stress levels requiring intervention.</p>
-                </div>
             </div>
 
             <div class="section">
@@ -1650,6 +2067,78 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         let forecastDays = 3;
         let alertTrendChart, tempHumidityChart;
 
+        // Mobile-aware chart options
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        function isSmallMobile() {
+            return window.innerWidth <= 420;
+        }
+
+        function getChartOptions(type) {
+            const mobile = isMobile();
+            const small = isSmallMobile();
+            const base = {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: small ? 5 : (mobile ? 8 : 10),
+                        bottom: small ? 8 : (mobile ? 10 : 10),
+                        left: small ? 5 : (mobile ? 8 : 10),
+                        right: small ? 5 : (mobile ? 8 : 10)
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            boxWidth: small ? 8 : (mobile ? 10 : 12),
+                            boxHeight: small ? 8 : (mobile ? 10 : 12),
+                            padding: small ? 4 : (mobile ? 6 : 10),
+                            font: { size: small ? 8 : (mobile ? 10 : 12) },
+                            usePointStyle: false
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            maxRotation: mobile ? 45 : 0,
+                            minRotation: mobile ? 45 : 0,
+                            font: { size: small ? 8 : (mobile ? 9 : 11) },
+                            maxTicksLimit: small ? 6 : (mobile ? 8 : 12)
+                        },
+                        title: { display: !mobile, text: 'Time (IST)' }
+                    },
+                    y: {
+                        ticks: { font: { size: small ? 8 : (mobile ? 9 : 11) } },
+                        title: {
+                            display: true,
+                            text: type === 'zone' ? (mobile ? '# Locations' : 'Number of Locations') : (mobile ? 'Temp (°C)' : 'Temperature (°C)'),
+                            font: { size: small ? 8 : (mobile ? 9 : 11) }
+                        },
+                        beginAtZero: type === 'zone'
+                    }
+                }
+            };
+            if (type === 'temp') {
+                base.scales.y1 = {
+                    type: 'linear',
+                    position: 'right',
+                    ticks: { font: { size: small ? 8 : (mobile ? 9 : 11) } },
+                    title: {
+                        display: true,
+                        text: mobile ? 'RH (%)' : 'Humidity (%)',
+                        font: { size: small ? 8 : (mobile ? 9 : 11) }
+                    },
+                    grid: { drawOnChartArea: false }
+                };
+            }
+            return base;
+        }
+
         function switchTab(event, tabName) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1671,12 +2160,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             }
         }
 
-        // Expand banner when clicking anywhere on it (only when minimized)
+        // Toggle banner when clicking anywhere on it (expand/collapse)
         function expandBannerIfMinimized(event) {
             const banner = document.getElementById('zone6-banner');
-            // Only expand if minimized and not clicking on a state item or button
-            if (banner.classList.contains('minimized') &&
-                !event.target.closest('.banner-state-item') &&
+            // Don't toggle if clicking on a state item or the close button
+            if (!event.target.closest('.banner-state-item') &&
                 !event.target.closest('.close-btn')) {
                 toggleBanner();
             }
@@ -1684,6 +2172,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Navigate to forecast for a specific state (called from Zone 6 banner)
         function showForecastForState(stateName) {
+            // Clear any active tooltips (mobile)
+            document.querySelectorAll('.tooltip-active').forEach(t => {
+                t.classList.remove('tooltip-active');
+            });
+
             // Switch to dashboard tab
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1707,10 +2200,13 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 forecastSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
 
-            // Load the forecast for this state (uses capital by default)
+            // Load the forecast for this state and zoom map to the state
             setTimeout(() => {
                 if (typeof loadForecast === 'function') {
                     loadForecast();
+                }
+                if (typeof zoomToState === 'function') {
+                    zoomToState(stateName);
                 }
             }, 300);
         }
@@ -1727,6 +2223,61 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 }
             }
         });
+
+        // Mobile touch support for tooltips
+        // On touch devices, first tap shows tooltip, second tap follows link/action
+        (function() {
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            if (isTouchDevice) {
+                document.addEventListener('click', function(e) {
+                    // Handle info-tooltip (info icons)
+                    const infoTooltip = e.target.closest('.info-tooltip');
+                    if (infoTooltip) {
+                        if (!infoTooltip.classList.contains('tooltip-active')) {
+                            // Remove active class from all tooltips
+                            document.querySelectorAll('.tooltip-active').forEach(t => {
+                                t.classList.remove('tooltip-active');
+                            });
+                            infoTooltip.classList.add('tooltip-active');
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
+                        // If already active, allow the click through (second tap)
+                        return;
+                    }
+
+                    // Handle banner-state-item (Zone 6 banner state tooltips)
+                    const bannerItem = e.target.closest('.banner-state-item');
+                    if (bannerItem) {
+                        if (!bannerItem.classList.contains('tooltip-active')) {
+                            // Remove active class from all tooltips
+                            document.querySelectorAll('.tooltip-active').forEach(t => {
+                                t.classList.remove('tooltip-active');
+                            });
+                            bannerItem.classList.add('tooltip-active');
+                            // Position the tooltip
+                            const tooltip = bannerItem.querySelector('.districts-tooltip');
+                            if (tooltip) {
+                                const rect = bannerItem.getBoundingClientRect();
+                                tooltip.style.left = Math.max(10, rect.left) + 'px';
+                                tooltip.style.top = (rect.bottom + 8) + 'px';
+                            }
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return;
+                        }
+                        // If already active, allow the click through (navigate to forecast)
+                        return;
+                    }
+
+                    // Clicking elsewhere removes all active tooltips
+                    document.querySelectorAll('.tooltip-active').forEach(t => {
+                        t.classList.remove('tooltip-active');
+                    });
+                }, true);
+            }
+        })();
 
         function toggleApiModal() {
             const modal = document.getElementById('apiModal');
@@ -3298,16 +3849,28 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             },
                             x: {
                                 title: {
-                                    display: true,
-                                    text: 'Time',
-                                    font: { weight: 'bold' }
+                                    display: false
                                 },
                                 ticks: {
                                     maxRotation: 45,
                                     autoSkip: false,
                                     callback: function(value, index, ticks) {
                                         const label = this.getLabelForValue(value);
-                                        return label || null;
+                                        if (!label) return null;
+
+                                        // On mobile, only show labels every 6 hours (keep grid lines)
+                                        const isMobile = window.innerWidth <= 768;
+                                        if (isMobile) {
+                                            // Show day labels (contain comma) and every 6th hour (indices 0, 6, 12, 18)
+                                            if (label.includes(',')) return label; // Day labels always show
+                                            // Check if this is an hourly label at 6-hour intervals
+                                            const hourMatch = label.match(/^(\d+)/);
+                                            if (hourMatch) {
+                                                const hour = parseInt(hourMatch[1]);
+                                                if (hour % 6 !== 0) return null; // Hide non-6-hour labels on mobile
+                                            }
+                                        }
+                                        return label;
                                     },
                                     font: function(context) {
                                         // Bold font for day labels (contain comma like "Sun, 26 Jan")
@@ -3450,22 +4013,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     data: {
                         labels: labels,
                         datasets: [
-                            { label: 'Zone 6 (Hazardous)', data: zone6Data, borderColor: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)', fill: true },
-                            { label: 'Zone 5 (High Risk)', data: zone5Data, borderColor: '#f57c00', backgroundColor: 'rgba(245, 124, 0, 0.1)', fill: true },
-                            { label: 'Zone 4 (Caution)', data: zone4Data, borderColor: '#fbc02d', backgroundColor: 'rgba(251, 192, 45, 0.1)', fill: true },
-                            { label: 'Zone 2-3 (Comfortable)', data: zone23Data, borderColor: '#4caf50', backgroundColor: 'rgba(76, 175, 80, 0.1)', fill: true },
-                            { label: 'Zone 1 (Cold)', data: zone1Data, borderColor: '#03a9f4', backgroundColor: 'rgba(3, 169, 244, 0.1)', fill: true }
+                            { label: 'Zone 6', data: zone6Data, borderColor: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)', fill: true },
+                            { label: 'Zone 5', data: zone5Data, borderColor: '#f57c00', backgroundColor: 'rgba(245, 124, 0, 0.1)', fill: true },
+                            { label: 'Zone 4', data: zone4Data, borderColor: '#fbc02d', backgroundColor: 'rgba(251, 192, 45, 0.1)', fill: true },
+                            { label: 'Zone 2-3', data: zone23Data, borderColor: '#4caf50', backgroundColor: 'rgba(76, 175, 80, 0.1)', fill: true },
+                            { label: 'Zone 1', data: zone1Data, borderColor: '#03a9f4', backgroundColor: 'rgba(3, 169, 244, 0.1)', fill: true }
                         ]
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: { legend: { position: 'top' } },
-                        scales: {
-                            y: { beginAtZero: true, title: { display: true, text: 'Number of Locations' } },
-                            x: { title: { display: true, text: 'Time (IST)' } }
-                        }
-                    }
+                    options: getChartOptions('zone')
                 });
 
                 const ctxTemp = document.getElementById('tempHumidityChart').getContext('2d');
@@ -3475,20 +4030,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     data: {
                         labels: labels,
                         datasets: [
-                            { label: 'Temperature (°C)', data: tempData, borderColor: '#d32f2f', yAxisID: 'y', fill: false },
-                            { label: 'Relative Humidity (%)', data: rhData, borderColor: '#1976d2', yAxisID: 'y1', fill: false }
+                            { label: 'Temp (°C)', data: tempData, borderColor: '#d32f2f', yAxisID: 'y', fill: false },
+                            { label: 'RH (%)', data: rhData, borderColor: '#1976d2', yAxisID: 'y1', fill: false }
                         ]
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: { legend: { position: 'top' } },
-                        scales: {
-                            y: { type: 'linear', position: 'left', title: { display: true, text: 'Temperature (°C)' } },
-                            y1: { type: 'linear', position: 'right', title: { display: true, text: 'Humidity (%)' }, grid: { drawOnChartArea: false } },
-                            x: { title: { display: true, text: 'Time (IST)' } }
-                        }
-                    }
+                    options: getChartOptions('temp')
                 });
             } catch (error) {
                 console.error('Error loading 24-hour data:', error);
@@ -3515,26 +4061,15 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 data: {
                     labels: hours,
                     datasets: [
-                        { label: 'Zone 6 (Hazardous)', data: sampleZone6, borderColor: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)', fill: true },
-                        { label: 'Zone 5 (High Risk)', data: sampleZone5, borderColor: '#f57c00', backgroundColor: 'rgba(245, 124, 0, 0.1)', fill: true },
-                        { label: 'Zone 4 (Caution)', data: sampleZone4, borderColor: '#fbc02d', backgroundColor: 'rgba(251, 192, 45, 0.1)', fill: true },
-                        { label: 'Zone 3 (Comfortable)', data: sampleZone3, borderColor: '#4caf50', backgroundColor: 'rgba(76, 175, 80, 0.1)', fill: true },
-                        { label: 'Zone 2 (Comfortable)', data: sampleZone2, borderColor: '#8bc34a', backgroundColor: 'rgba(139, 195, 74, 0.1)', fill: true },
-                        { label: 'Zone 1 (Cold)', data: sampleZone1, borderColor: '#03a9f4', backgroundColor: 'rgba(3, 169, 244, 0.1)', fill: true }
+                        { label: 'Zone 6', data: sampleZone6, borderColor: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)', fill: true },
+                        { label: 'Zone 5', data: sampleZone5, borderColor: '#f57c00', backgroundColor: 'rgba(245, 124, 0, 0.1)', fill: true },
+                        { label: 'Zone 4', data: sampleZone4, borderColor: '#fbc02d', backgroundColor: 'rgba(251, 192, 45, 0.1)', fill: true },
+                        { label: 'Zone 3', data: sampleZone3, borderColor: '#4caf50', backgroundColor: 'rgba(76, 175, 80, 0.1)', fill: true },
+                        { label: 'Zone 2', data: sampleZone2, borderColor: '#8bc34a', backgroundColor: 'rgba(139, 195, 74, 0.1)', fill: true },
+                        { label: 'Zone 1', data: sampleZone1, borderColor: '#03a9f4', backgroundColor: 'rgba(3, 169, 244, 0.1)', fill: true }
                     ]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Sample Data - Actual data will load when available' }
-                    },
-                    scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Number of Locations' } },
-                        x: { title: { display: true, text: 'Time (IST)' } }
-                    }
-                }
+                options: getChartOptions('zone')
             });
 
             const ctxTemp = document.getElementById('tempHumidityChart').getContext('2d');
@@ -3544,23 +4079,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 data: {
                     labels: hours,
                     datasets: [
-                        { label: 'Temperature (°C)', data: sampleTemp, borderColor: '#d32f2f', yAxisID: 'y', fill: false },
-                        { label: 'Relative Humidity (%)', data: sampleRH, borderColor: '#1976d2', yAxisID: 'y1', fill: false }
+                        { label: 'Temp (°C)', data: sampleTemp, borderColor: '#d32f2f', yAxisID: 'y', fill: false },
+                        { label: 'RH (%)', data: sampleRH, borderColor: '#1976d2', yAxisID: 'y1', fill: false }
                     ]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Sample Data - Actual data will load when available' }
-                    },
-                    scales: {
-                        y: { type: 'linear', position: 'left', title: { display: true, text: 'Temperature (°C)' } },
-                        y1: { type: 'linear', position: 'right', title: { display: true, text: 'Humidity (%)' }, grid: { drawOnChartArea: false } },
-                        x: { title: { display: true, text: 'Time (IST)' } }
-                    }
-                }
+                options: getChartOptions('temp')
             });
         }
 
