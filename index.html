@@ -93,15 +93,15 @@
         .header::before {
             content: '';
             position: absolute;
-            top: -20%;
-            right: -5%;
+            top: 0;
+            left: 2rem;
             bottom: 0;
-            width: 50%;
+            width: 300px;
             background-image: url('shram-map-dot.svg');
             background-repeat: no-repeat;
-            background-position: right top;
-            background-size: auto 140%;
-            opacity: 0.8;
+            background-position: left center;
+            background-size: auto 100%;
+            opacity: 0.5;
             filter: brightness(2) saturate(0.3);
             pointer-events: none;
         }
@@ -1724,11 +1724,11 @@
                     <div class="input-group">
                         <label style="display: block; margin-bottom: 0.5rem;"><i class="fas fa-sun"></i> Solar Exposure</label>
                         <div style="display: flex; gap: 0.5rem;">
-                            <button type="button" class="solar-option active" data-solar="0" onclick="selectSolar(0)" style="flex: 1; padding: 0.75rem; border: 2px solid white; border-radius: 6px; background: rgba(255,255,255,0.95); cursor: pointer; font-size: 0.9rem; font-weight: 600;">
+                            <button type="button" class="solar-option active" data-solar="0" onclick="selectSolar(0)" style="flex: 1; padding: 0.75rem; border: 2px solid var(--iecc-brown); border-radius: 8px; background: white; color: var(--shram-teal); cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                                 <i class="fas fa-tree" style="display: block; font-size: 1.5rem; margin-bottom: 0.25rem;"></i>
                                 Shaded
                             </button>
-                            <button type="button" class="solar-option" data-solar="1" onclick="selectSolar(1)" style="flex: 1; padding: 0.75rem; border: 2px solid transparent; border-radius: 6px; background: rgba(255,255,255,0.7); cursor: pointer; font-size: 0.9rem; font-weight: 600;">
+                            <button type="button" class="solar-option" data-solar="1" onclick="selectSolar(1)" style="flex: 1; padding: 0.75rem; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease;">
                                 <i class="fas fa-sun" style="display: block; font-size: 1.5rem; margin-bottom: 0.25rem;"></i>
                                 Full Sun
                             </button>
@@ -2394,15 +2394,19 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         function selectSolar(value) {
             selectedSolar = value;
 
-            // Update button styles
+            // Update button styles to match MET option styling
             document.querySelectorAll('.solar-option').forEach(btn => {
                 if (parseFloat(btn.dataset.solar) === value) {
-                    btn.style.border = '2px solid white';
-                    btn.style.background = 'rgba(255,255,255,0.95)';
+                    btn.style.border = '2px solid var(--iecc-brown)';
+                    btn.style.background = 'white';
+                    btn.style.color = 'var(--shram-teal)';
+                    btn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
                     btn.classList.add('active');
                 } else {
-                    btn.style.border = '2px solid transparent';
-                    btn.style.background = 'rgba(255,255,255,0.7)';
+                    btn.style.border = '2px solid rgba(255,255,255,0.3)';
+                    btn.style.background = 'rgba(255,255,255,0.1)';
+                    btn.style.color = 'white';
+                    btn.style.boxShadow = 'none';
                     btn.classList.remove('active');
                 }
             });
