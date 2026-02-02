@@ -1819,41 +1819,32 @@
             <div class="dashboard-grid">
                 <!-- LEFT: Current Status -->
                 <div class="section">
-                    <h2>Current Heat Status for
+                    <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
+                        <span>Current Heat Status</span>
                         <select id="met-select-current" onchange="selectMetCurrent(this.value)" class="met-select-green">
                             <option value="3">EHI-3</option>
                             <option value="4">EHI-4</option>
                             <option value="5">EHI-5</option>
                             <option value="6" selected>EHI-6</option>
                         </select>
-                        <span id="sun-shade-toggle" style="margin-left: 0.5rem;">
+                        <span id="sun-shade-toggle">
                             <button id="current-shade-btn" onclick="setShade('current', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
                                 <i class="fas fa-cloud"></i> Shade
                             </button><button id="current-sun-btn" onclick="setShade('current', false)" style="background: white; color: var(--shram-teal); border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
                                 <i class="fas fa-sun"></i> Sun
                             </button>
                         </span>
+                        <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                            <option value="all">All India</option>
+                        </select>
+                        <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                            <option value="all">All Districts</option>
+                        </select>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
                             <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                         </span>
                     </h2>
-
-                    <!-- State/District Filter -->
-                    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 200px;">
-                            <label for="current-state-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">State:</label>
-                            <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
-                                <option value="all">All India</option>
-                            </select>
-                        </div>
-                        <div style="flex: 1; min-width: 200px;">
-                            <label for="current-district-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">District:</label>
-                            <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
-                                <option value="all">All Districts</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <!-- Last Updated Timestamp -->
                     <p id="global-timestamp" style="text-align: center; font-size: 1.2rem; color: #000; margin-bottom: 1rem; font-weight: 600;"></p>
@@ -1937,42 +1928,33 @@
 
             <!-- Last 24 Hours (full width) -->
             <div class="section">
-                <h2>Last 24 Hours for
+                <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
+                    <span>Last 24 Hours</span>
                     <select id="met-select-last24h" onchange="selectMetLast24h(this.value)" class="met-select-green">
                         <option value="3">EHI-3</option>
                         <option value="4">EHI-4</option>
                         <option value="5">EHI-5</option>
                         <option value="6" selected>EHI-6</option>
                     </select>
-                    <span style="margin-left: 0.5rem;">
+                    <span>
                         <button id="last24h-shade-btn" onclick="setShade('last24h', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
                             <i class="fas fa-cloud"></i> Shade
                         </button><button id="last24h-sun-btn" onclick="setShade('last24h', false)" style="background: white; color: var(--shram-teal); border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
                             <i class="fas fa-sun"></i> Sun
                         </button>
                     </span>
+                    <select id="charts-state-select" onchange="updateChartsDistricts(); load24HourData();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                        <option value="all">All India</option>
+                    </select>
+                    <select id="charts-district-select" onchange="load24HourData()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                        <option value="all">All Districts</option>
+                    </select>
                     <span class="info-tooltip">
                         <i class="fas fa-info-circle"></i>
                         <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                     </span>
                 </h2>
                 <p id="last24h-timestamp" style="text-align: center; font-size: 1.2rem; color: #000; margin-bottom: 1rem; font-weight: 600;"></p>
-
-                <!-- State/District Filter -->
-                <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 200px;">
-                        <label for="charts-state-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">State:</label>
-                        <select id="charts-state-select" onchange="updateChartsDistricts(); load24HourData();" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
-                            <option value="all">All India</option>
-                        </select>
-                    </div>
-                    <div style="flex: 1; min-width: 200px;">
-                        <label for="charts-district-select" style="font-weight: 600; margin-right: 0.5rem; color: var(--shram-teal);">District:</label>
-                        <select id="charts-district-select" onchange="load24HourData()" style="padding: 0.5rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 500; width: 100%; font-size: 1rem;">
-                            <option value="all">All Districts</option>
-                        </select>
-                    </div>
-                </div>
 
                 <div class="chart-grid">
                     <div class="chart-container">
@@ -3622,12 +3604,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
             document.getElementById('status-grid').innerHTML = `
                 <div class="stat-box">
-                    <div class="stat-number">${filteredAlerts.length}</div>
-                    <div class="stat-label">Total Alerts</div>
+                    <div class="stat-number" style="font-size: 1.8rem;">${filteredAlerts.length}</div>
+                    <div class="stat-label" style="font-size: 0.85rem;">Total Alerts</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number">${totalDistricts}</div>
-                    <div class="stat-label">Districts Affected</div>
+                    <div class="stat-number" style="font-size: 1.8rem;">${totalDistricts}</div>
+                    <div class="stat-label" style="font-size: 0.85rem;">Districts Affected</div>
                 </div>
                 <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); padding: 1rem; cursor: pointer; border-color: #d32f2f;" onclick="switchTab(event, 'about')">
                     <div class="stat-number" style="font-size: 1.8rem;">${zone6Count}</div>
@@ -3710,12 +3692,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
                 document.getElementById('status-grid').innerHTML = `
                     <div class="stat-box">
-                        <div class="stat-number">${alertCount}</div>
-                        <div class="stat-label">Total Alerts (Zone 5 & 6)</div>
+                        <div class="stat-number" style="font-size: 1.8rem;">${alertCount}</div>
+                        <div class="stat-label" style="font-size: 0.85rem;">Total Alerts (Zone 5 & 6)</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-number">${totalDistricts}</div>
-                        <div class="stat-label">Districts Affected</div>
+                        <div class="stat-number" style="font-size: 1.8rem;">${totalDistricts}</div>
+                        <div class="stat-label" style="font-size: 0.85rem;">Districts Affected</div>
                     </div>
                     <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); padding: 1rem; cursor: pointer; border-color: #d32f2f;" onclick="switchTab(event, 'about')">
                         <div class="stat-number" style="font-size: 1.8rem;">${zone6.length}</div>
