@@ -54,6 +54,9 @@ jobs:
       
       - name: Run weather logger script
         run: python IMDdata.py
+
+      - name: Generate trend data
+        run: python generate_trends.py
       
       - name: Commit & push updated logs
         run: |

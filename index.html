@@ -1939,10 +1939,13 @@
                 </div>
             </div>
 
-            <!-- Last 24 Hours (full width) -->
+            <!-- Zone Trends (full width) -->
             <div id="last24h-section" class="section">
                 <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
-                    <span>Last 24 Hours</span>
+                    <span>Zone Trends</span>
+                    <span style="display: inline-flex;">
+                        <button id="trend-day-btn" onclick="setTrendPeriod('day')" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">Day</button><button id="trend-week-btn" onclick="setTrendPeriod('week')" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">Week</button><button id="trend-month-btn" onclick="setTrendPeriod('month')" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">Month</button>
+                    </span>
                     <span id="met-toggle-last24h" class="met-toggle-group" style="display: inline-flex;">
                         <button id="last24h-met-3" onclick="selectMetLast24h(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="last24h-met-4" onclick="selectMetLast24h(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="last24h-met-5" onclick="selectMetLast24h(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="last24h-met-6" onclick="selectMetLast24h(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
                     </span>
@@ -2354,6 +2357,24 @@
                         </div>
                         <p><strong>Returns:</strong> 72-hour heat stress forecast with EHI predictions</p>
                     </div>
+
+                    <div class="endpoint-card">
+                        <h4><i class="fas fa-chart-line"></i> Get Weekly Trends</h4>
+                        <div class="endpoint">
+                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/trends_weekly.json', this)"><i class="fas fa-copy"></i> Copy</button>
+                            <span>https://iecc-io.github.io/SHRAM/weather_logs/trends_weekly.json</span>
+                        </div>
+                        <p><strong>Returns:</strong> Last 4 weeks of daily zone averages</p>
+                    </div>
+
+                    <div class="endpoint-card">
+                        <h4><i class="fas fa-calendar"></i> Get Monthly Trends</h4>
+                        <div class="endpoint">
+                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/trends_monthly.json', this)"><i class="fas fa-copy"></i> Copy</button>
+                            <span>https://iecc-io.github.io/SHRAM/weather_logs/trends_monthly.json</span>
+                        </div>
+                        <p><strong>Returns:</strong> Last 6 months of weekly zone averages</p>
+                    </div>
                 </div>
 
                 <h3 style="margin-top: 2rem;"><i class="fas fa-terminal"></i> Example Usage (Python)</h3>
@@ -2404,6 +2425,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         // MET level for calculator (independent)
         let currentMet = 3;
         let forecastDays = 3;
+        let trendPeriod = 'day';  // 'day', 'week', or 'month'
         let alertTrendChart, tempHumidityChart;
 
         // Mobile-aware chart options
@@ -2855,6 +2877,185 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             }
 
             loadForecast();
+        }
+
+        function setTrendPeriod(period) {
+            trendPeriod = period;
+
+            // Update button styles
+            const btnDay = document.getElementById('trend-day-btn');
+            const btnWeek = document.getElementById('trend-week-btn');
+            const btnMonth = document.getElementById('trend-month-btn');
+
+            [btnDay, btnWeek, btnMonth].forEach(btn => {
+                btn.style.background = '#e8f4f8';
+                btn.style.color = 'var(--shram-teal)';
+                btn.style.borderColor = '#e8f4f8';
+            });
+
+            const activeBtn = period === 'day' ? btnDay : (period === 'week' ? btnWeek : btnMonth);
+            activeBtn.style.background = 'var(--shram-teal)';
+            activeBtn.style.color = 'white';
+            activeBtn.style.borderColor = 'var(--shram-teal)';
+
+            // Load appropriate data
+            loadTrendData();
+        }
+
+        async function loadTrendData() {
+            // Map period to file and display settings
+            const periodConfig = {
+                'day': { file: 'alerts_24h.json', labelKey: 'timestamp', labelFormat: 'time' },
+                'week': { file: 'trends_weekly.json', labelKey: 'date', labelFormat: 'date' },
+                'month': { file: 'trends_monthly.json', labelKey: 'week', labelFormat: 'week' }
+            };
+
+            const config = periodConfig[trendPeriod];
+
+            if (trendPeriod === 'day') {
+                // Use existing 24h data function
+                load24HourData();
+                return;
+            }
+
+            try {
+                let response;
+                try {
+                    response = await fetch(`weather_logs/${config.file}`);
+                    if (!response.ok) throw new Error('Local file not found');
+                } catch (e) {
+                    response = await fetch(`https://iecc-io.github.io/SHRAM/weather_logs/${config.file}`);
+                }
+                const data = await response.json();
+
+                if (!data.data || data.data.length === 0) {
+                    document.getElementById('last24h-timestamp').innerHTML = `<strong>No ${trendPeriod}ly data available yet</strong>`;
+                    return;
+                }
+
+                // Update timestamp
+                const generated = new Date(data.generated).toLocaleString('en-IN', {
+                    timeZone: 'Asia/Calcutta',
+                    dateStyle: 'medium',
+                    timeStyle: 'short'
+                });
+                document.getElementById('last24h-timestamp').innerHTML = `<strong>Data generated: ${generated} IST</strong>`;
+
+                // Get MET/sun column key
+                const met = currentMetLast24h || 3;
+                const sun = shadeStates.last24h ? 'shade' : 'sun';
+                const zoneKey = `met${met}_${sun}`;
+
+                const labels = [];
+                const zone6Data = [], zone5Data = [], zone4Data = [], zone23Data = [], zone1Data = [];
+
+                data.data.forEach(entry => {
+                    // Generate label based on format
+                    if (config.labelFormat === 'date') {
+                        labels.push(new Date(entry.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }));
+                    } else if (config.labelFormat === 'week') {
+                        labels.push(entry.week.replace('-W', ' W'));
+                    } else {
+                        labels.push(entry[config.labelKey]);
+                    }
+
+                    // Get zone data for this MET/sun combo
+                    const zones = entry[zoneKey] || {};
+                    zone6Data.push(zones.zone6 || 0);
+                    zone5Data.push(zones.zone5 || 0);
+                    zone4Data.push(zones.zone4 || 0);
+                    zone23Data.push((zones.zone2 || 0) + (zones.zone3 || 0));
+                    zone1Data.push(zones.zone1 || 0);
+                });
+
+                // Create chart
+                const ctxAlert = document.getElementById('alertTrendChart').getContext('2d');
+                if (alertTrendChart) alertTrendChart.destroy();
+
+                alertTrendChart = new Chart(ctxAlert, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Zone 6 (Hazardous)',
+                                data: zone6Data,
+                                borderColor: '#d32f2f',
+                                backgroundColor: 'rgba(211, 47, 47, 0.1)',
+                                fill: true,
+                                tension: 0.3,
+                                borderWidth: 3
+                            },
+                            {
+                                label: 'Zone 5 (High Risk)',
+                                data: zone5Data,
+                                borderColor: '#e65100',
+                                backgroundColor: 'rgba(230, 81, 0, 0.1)',
+                                fill: true,
+                                tension: 0.3,
+                                borderWidth: 3
+                            },
+                            {
+                                label: 'Zone 4 (Elevated)',
+                                data: zone4Data,
+                                borderColor: '#c79100',
+                                backgroundColor: 'rgba(199, 145, 0, 0.1)',
+                                fill: true,
+                                tension: 0.3,
+                                borderWidth: 3
+                            },
+                            {
+                                label: 'Zone 2-3 (Comfortable)',
+                                data: zone23Data,
+                                borderColor: '#006D77',
+                                backgroundColor: 'rgba(0, 109, 119, 0.1)',
+                                fill: true,
+                                tension: 0.3,
+                                borderWidth: 3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' },
+                            title: {
+                                display: true,
+                                text: trendPeriod === 'week' ? 'Last 4 Weeks (Daily Averages)' : 'Last 6 Months (Weekly Averages)'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Number of Districts' }
+                            }
+                        }
+                    }
+                });
+
+                // Hide temp/humidity chart for weekly/monthly views (no detailed data)
+                if (tempHumidityChart) tempHumidityChart.destroy();
+                const ctxTemp = document.getElementById('tempHumidityChart').getContext('2d');
+                tempHumidityChart = new Chart(ctxTemp, {
+                    type: 'line',
+                    data: { labels: [], datasets: [] },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Temperature & Humidity data available in Day view only'
+                            }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error loading trend data:', error);
+                document.getElementById('last24h-timestamp').innerHTML = `<strong>Error loading ${trendPeriod}ly data</strong>`;
+            }
         }
 
         // Unit conversions
