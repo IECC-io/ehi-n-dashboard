@@ -1923,7 +1923,7 @@
             </div>
 
             <!-- Last 24 Hours (full width) -->
-            <div class="section">
+            <div id="last24h-section" class="section">
                 <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
                     <span>Last 24 Hours</span>
                     <select id="met-select-last24h" onchange="selectMetLast24h(this.value)" class="met-select-green">
@@ -2061,7 +2061,7 @@
 
         <!-- TAB 3: ABOUT EHI-N -->
         <div id="about-tab" class="tab-content">
-            <div class="section" style="padding-left: 2.5rem;">
+            <div id="about-ehi-section" class="section" style="padding-left: 2.5rem;">
                 <h2>About EHI-N*</h2>
 
                 <p>The <strong>Extended Heat Index for Working Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal strain in labor-intensive occupations.</p>
@@ -2098,7 +2098,7 @@
                 <p style="padding-left: 0.5rem;"><em>Technical brief coming soon...</em></p>
             </div>
 
-            <div class="section">
+            <div id="zones-section" class="section">
                 <h2>Heat Stress Zones</h2>
                 <p>EHI-N* classifies heat stress into zones based on physiological strain:</p>
 
@@ -2154,7 +2154,7 @@
 
             </div>
 
-            <div class="section">
+            <div id="subscribe-section" class="section">
                 <h2>Subscribe to Heat Stress Alerts</h2>
 
                 <p>Get notified when hazardous heat stress conditions are detected in your location. Free service for workers, employers, and community organizers.</p>
@@ -2267,7 +2267,7 @@
                 </form>
             </div>
 
-            <div class="section">
+            <div id="contact-section" class="section">
                 <h2>Contact</h2>
 
                 <p>
@@ -2279,7 +2279,7 @@
                     <i class="fas fa-globe"></i> <a href="https://iecc.gspp.berkeley.edu" target="_blank">iecc.gspp.berkeley.edu</a>
                 </p>
 
-                <button onclick="toggleApiModal()" style="margin-top: 1rem; background: var(--shram-teal); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                <button id="api-docs-btn" onclick="toggleApiModal()" style="margin-top: 1rem; background: var(--shram-teal); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
                     <i class="fas fa-code"></i> API Documentation
                 </button>
             </div>
@@ -4866,7 +4866,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     intro: 'SHRAM monitors heat stress for outdoor workers across India. Let\'s explore the key features.',
                     tab: 'dashboard'
                 },
-                // Dashboard tab features
+                // Navigation Tabs
                 {
                     element: document.querySelector('.tabs'),
                     title: 'Navigation Tabs',
@@ -4874,56 +4874,107 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'bottom',
                     tab: 'dashboard'
                 },
+                // Work Intensity
                 {
                     element: document.querySelector('#met-select-current'),
                     title: 'Work Intensity',
-                    intro: 'Select work intensity:<br><b>EHI-3:</b> Light (office)<br><b>EHI-4:</b> Moderate (walking)<br><b>EHI-5:</b> Heavy (construction)<br><b>EHI-6:</b> Very heavy (digging)',
+                    intro: 'Select work intensity:<br><b>EHI-3:</b> Light (walking, housework)<br><b>EHI-4:</b> Moderate (brick laying, cleaning)<br><b>EHI-5:</b> Heavy (picking crops, construction)<br><b>EHI-6:</b> Very heavy (digging, shovelling)',
                     position: 'bottom',
                     tab: 'dashboard'
                 },
+                // Sun Exposure
                 {
                     element: document.querySelector('#sun-shade-toggle'),
                     title: 'Sun Exposure',
-                    intro: 'Toggle between <b>Shade</b> and <b>Sun</b> to see how direct sunlight increases heat risk during the day.',
+                    intro: 'Toggle between <b>Shade</b> and <b>Sun</b> to see how direct sunlight increases heat risk during the day.<br><br><em>Note: From 6pm to 6am, all values show shaded conditions (no sun).</em>',
                     position: 'bottom',
                     tab: 'dashboard'
                 },
+                // Current Heat Stress Status
                 {
                     element: document.querySelector('#status-grid'),
-                    title: 'Zone Statistics',
-                    intro: 'See how many weather stations are in each zone. <b>Click any tile</b> to learn what each zone means.',
+                    title: 'Current Heat Stress Status',
+                    intro: 'See how many districts are in each heat stress zone right now. <b>Hover over zone tiles</b> to see affected districts, or <b>click</b> to see zone definitions.',
                     position: 'top',
-                    tab: 'dashboard'
+                    tab: 'dashboard',
+                    scrollTo: 'tooltip'
                 },
+                // Forecast Map
                 {
                     element: document.querySelector('#forecast-map'),
-                    title: '7-Day Forecast',
-                    intro: '<b>Click any state</b> on the map to see its heat forecast for the next 7 days.',
+                    title: '1- and 3-Day Heat Stress Forecast',
+                    intro: '<b>Click any state</b> on the map to see its heat forecast for the next 1 or 3 days.<br><br><em>7-day forecasts expected in 2026.</em>',
                     position: 'left',
                     tab: 'dashboard'
                 },
-                // Live Map tab
+                // Live Map intro
                 {
                     title: 'Live Zone Map',
-                    intro: 'Now let\'s check out the <b>Live Zone Map</b> - an interactive 3D view of current conditions across India.',
+                    intro: 'Now let\'s check out the <b>Live Zone Map</b> - an interactive full view of current conditions across India.',
                     tab: 'livemap'
                 },
-                // Calculator tab
+                // Live Map MET/Sun controls
                 {
+                    element: document.querySelector('#livemap-tab iframe'),
+                    title: 'Map Controls',
+                    intro: 'Use the <b>MET level</b> and <b>Sun/Shade</b> buttons in the map to adjust work intensity and sun exposure settings.',
+                    position: 'bottom',
+                    tab: 'livemap'
+                },
+                // Live Map alerts and trends
+                {
+                    element: document.querySelector('#livemap-tab iframe'),
+                    title: 'Active Alerts & Trends',
+                    intro: 'The sidebar shows <b>Active Alerts</b> count and <b>Zone Trends</b> over the last 24 hours.',
+                    position: 'left',
+                    tab: 'livemap'
+                },
+                // Live Map hover/click
+                {
+                    element: document.querySelector('#livemap-tab iframe'),
+                    title: 'Explore Locations',
+                    intro: '<b>Hover</b> over any location to see current conditions. <b>Click</b> a district to view its detailed forecast.',
+                    position: 'top',
+                    tab: 'livemap'
+                },
+                // Calculator
+                {
+                    element: document.querySelector('.calculator-container'),
                     title: 'EHI-N* Calculator',
                     intro: 'The <b>Calculator</b> lets you compute heat stress for any temperature, humidity, and work intensity. Great for planning outdoor work!',
+                    position: 'top',
                     tab: 'calculator'
                 },
-                // About tab
+                // About EHI-N*
                 {
+                    element: document.querySelector('#about-ehi-section'),
                     title: 'About EHI-N*',
-                    intro: 'The <b>About</b> section explains the science behind EHI-N* and how heat stress zones are determined.',
+                    intro: 'Learn about the <b>Extended Heat Index for Working Populations</b> and the science behind heat stress assessment.<br><br><em>Technical report and working paper coming soon.</em>',
+                    position: 'top',
                     tab: 'about'
                 },
-                // Finish - Subscribe section on About page
+                // Heat Stress Zones
                 {
+                    element: document.querySelector('#zones-section'),
+                    title: 'Heat Stress Zones',
+                    intro: 'Understand what each <b>zone</b> means physiologically - from Zone 1 (comfortable) to Zone 6 (hazardous). Click zone buttons to see detailed definitions.',
+                    position: 'top',
+                    tab: 'about'
+                },
+                // Subscribe
+                {
+                    element: document.querySelector('#subscribe-section'),
                     title: 'Stay Safe!',
-                    intro: 'Scroll down to <b>Subscribe</b> for heat alerts. Check forecasts before outdoor work!<br><br>Thanks for taking the tour!',
+                    intro: 'Enter your <b>name, email, location, and work intensity</b> to receive heat stress alerts. You\'ll get immediate alerts when Zone 6 is detected and daily forecasts for your district.',
+                    position: 'top',
+                    tab: 'about'
+                },
+                // API Documentation
+                {
+                    element: document.querySelector('#api-docs-btn'),
+                    title: 'API for Developers',
+                    intro: 'Access our <b>three datasets</b> programmatically:<br>• Current alerts<br>• 24-hour history<br>• 3-day forecasts<br><br>Click to view API documentation.<br><br><b>Thanks for taking the tour!</b>',
+                    position: 'top',
                     tab: 'about'
                 }
             ];
