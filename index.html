@@ -4950,34 +4950,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'right',
                     tab: 'dashboard'
                 },
-                // Live Map intro
+                // Live Map intro - consolidated since iframe elements can't be highlighted individually
                 {
                     title: 'Live Zone Map',
-                    intro: 'Now let\'s check out the <b>Live Zone Map</b> - an interactive full view of current conditions across India.',
-                    tab: 'livemap'
-                },
-                // Live Map MET/Sun controls
-                {
-                    element: document.querySelector('#livemap-tab iframe'),
-                    title: 'Map Controls',
-                    intro: 'Use the <b>MET level</b> and <b>Sun/Shade</b> buttons in the map to adjust work intensity and sun exposure settings.',
-                    position: 'bottom',
-                    tab: 'livemap'
-                },
-                // Live Map alerts and trends
-                {
-                    element: document.querySelector('#livemap-tab iframe'),
-                    title: 'Active Alerts & Trends',
-                    intro: 'The sidebar shows <b>Active Alerts</b> count and <b>Zone Trends</b> over the last 24 hours.',
-                    position: 'left',
-                    tab: 'livemap'
-                },
-                // Live Map hover/click
-                {
-                    element: document.querySelector('#livemap-tab iframe'),
-                    title: 'Explore Locations',
-                    intro: '<b>Hover</b> over any location to see current conditions. <b>Click</b> a district to view its detailed forecast.',
-                    position: 'top',
+                    intro: 'The <b>Live Zone Map</b> shows current heat stress conditions across India.<br><br><b>Features:</b><br>• <b>MET & Sun/Shade buttons</b> at the top to adjust settings<br>• <b>Active Alerts & Zone Trends</b> in the sidebar<br>• <b>Hover</b> over locations for details, <b>click</b> for forecasts',
                     tab: 'livemap'
                 },
                 // Calculator
