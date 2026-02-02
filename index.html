@@ -62,6 +62,8 @@
         }
 
         .logo-strip-content {
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 0 2rem;
             display: flex;
             align-items: center;
@@ -96,14 +98,14 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 15rem;
+            left: 200px;
+            right: 0;
             bottom: 0;
-            width: 500px;
             background-image: url('shram-map-dot.svg');
             background-repeat: no-repeat;
-            background-position: left center;
-            background-size: auto 125%;
-            opacity: 0.3;
+            background-position: center center;
+            background-size: auto 110%;
+            opacity: 0.25;
             filter: brightness(2.5) saturate(0.2);
             pointer-events: none;
         }
@@ -148,9 +150,9 @@
         }
 
         .tab {
-            background: rgba(255, 255, 255, 0.1);
+            background: transparent;
             border: none;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             padding: 1rem 2rem;
             font-size: 1rem;
             font-weight: 600;
@@ -162,8 +164,8 @@
         }
 
         .tab:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
         .tab.active {
@@ -529,7 +531,8 @@
         /* Tooltip variant that appears below the element */
         .zone-tooltip.tooltip-down {
             bottom: auto;
-            top: 110%;
+            top: 100%;
+            margin-top: -1px;
         }
 
         .zone-tooltip.tooltip-down::after {
@@ -1117,39 +1120,31 @@
             }
         }
 
-        /* Tabs wrapper - positions tour button above About tab */
+        /* Tabs wrapper - positions tour button alongside tabs */
         .tabs-wrapper {
             position: relative;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: flex-end;
         }
 
-        /* Guide button - subtle, above About tab */
+        /* Guide button - question mark icon inline with tabs */
         .take-tour-btn {
             background: transparent;
-            border: 1px solid rgba(255,255,255,0.25);
+            border: none;
             color: rgba(255,255,255,0.6);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.6rem;
-            font-weight: 500;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 4px;
-            margin-bottom: 4px;
-            margin-right: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            justify-content: center;
         }
         .take-tour-btn i {
-            font-size: 0.55rem;
+            font-size: 1rem;
         }
         .take-tour-btn:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.5);
             color: white;
         }
 
@@ -1796,7 +1791,7 @@
 
             <div class="tabs-wrapper">
                 <button class="take-tour-btn" onclick="startTour()" title="Learn how to use SHRAM">
-                    <i class="fas fa-question-circle"></i> Help
+                    <i class="fas fa-question-circle"></i>
                 </button>
                 <div class="tabs">
                     <button class="tab active" onclick="switchTab(event, 'dashboard')">
@@ -1842,10 +1837,10 @@
                                 <i class="fas fa-sun"></i> Sun
                             </button>
                         </span>
-                        <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                        <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
                             <option value="all">All India</option>
                         </select>
-                        <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                        <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
                             <option value="all">All Districts</option>
                         </select>
                         <span class="info-tooltip">
@@ -1888,7 +1883,9 @@
                                 <i class="fas fa-sun"></i> Sun
                             </button>
                         </span>
-                        <button id="forecast-1day-btn" onclick="setForecastDays(1)" style="margin-left: 0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem; background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer;">1-Day</button><button id="forecast-3day-btn" onclick="setForecastDays(3)" style="padding: 0.5rem 1rem; font-size: 0.9rem; background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer;">3-Day</button>
+                        <span style="margin-left: 0.5rem; display: inline-flex;">
+                            <button id="forecast-1day-btn" onclick="setForecastDays(1)" style="padding: 0.5rem 0.75rem; font-size: 1rem; background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer;">1-Day</button><button id="forecast-3day-btn" onclick="setForecastDays(3)" style="padding: 0.5rem 0.75rem; font-size: 1rem; background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer;">3-Day</button>
+                        </span>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
                             <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
@@ -1934,6 +1931,7 @@
                             <div style="margin-top: 1.5rem;">
                                 <canvas id="forecast-chart" style="height: 400px; min-height: 350px;"></canvas>
                             </div>
+                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.75rem; font-style: italic;">Note: Nighttime hours show EHI-N (no solar load) since there is no sun exposure.</p>
                         </div>
                     </div>
 
@@ -1955,10 +1953,10 @@
                             <i class="fas fa-sun"></i> Sun
                         </button>
                     </span>
-                    <select id="charts-state-select" onchange="updateChartsDistricts(); load24HourData();" style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                    <select id="charts-state-select" onchange="updateChartsDistricts(); load24HourData();" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
                         <option value="all">All India</option>
                     </select>
-                    <select id="charts-district-select" onchange="load24HourData()" style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; min-width: 180px;">
+                    <select id="charts-district-select" onchange="load24HourData()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
                         <option value="all">All Districts</option>
                     </select>
                     <span class="info-tooltip">
@@ -1985,6 +1983,7 @@
                         <canvas id="tempHumidityChart"></canvas>
                     </div>
                 </div>
+                <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: India Meteorological Department (IMD)</p>
             </div>
 
             <!-- Summer 2025 Zones Animation -->
@@ -4924,6 +4923,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'bottom',
                     tab: 'dashboard'
                 },
+                // Help Button
+                {
+                    element: document.querySelector('.take-tour-btn'),
+                    title: 'Take the Tour Again',
+                    intro: 'Click here anytime to take this tour again!',
+                    position: 'bottom',
+                    tab: 'dashboard'
+                },
                 // Work Intensity
                 {
                     element: document.querySelector('#met-select-current'),
@@ -4977,8 +4984,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 },
                 // Live Map hover/click
                 {
+                    element: document.querySelector('#livemap-tab .section'),
                     title: 'Explore Locations',
                     intro: '<b>Hover</b> over any location to see current conditions. <b>Click</b> a district to view its detailed forecast.',
+                    position: 'top',
                     tab: 'livemap'
                 },
                 // Calculator
@@ -4986,7 +4995,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     element: document.querySelector('.calculator-container'),
                     title: 'EHI-N* Calculator',
                     intro: 'The <b>Calculator</b> lets you compute heat stress for any temperature, humidity, and work intensity. Great for planning outdoor work!',
-                    position: 'top',
+                    position: 'bottom',
                     tab: 'calculator'
                 },
                 // About EHI-N*
@@ -4994,7 +5003,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     element: document.querySelector('#about-ehi-section'),
                     title: 'About EHI-N*',
                     intro: 'Learn about the <b>Extended Heat Index for Working Populations</b> and the science behind heat stress assessment.<br><br><em>Technical report and working paper coming soon.</em>',
-                    position: 'top',
+                    position: 'right',
                     tab: 'about'
                 },
                 // Heat Stress Zones
