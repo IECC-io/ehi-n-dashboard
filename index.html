@@ -104,7 +104,7 @@
             background-image: url('shram-map-dot.svg');
             background-repeat: no-repeat;
             background-position: center center;
-            background-size: auto 110%;
+            background-size: auto 140%;
             opacity: 0.25;
             filter: brightness(2.5) saturate(0.2);
             pointer-events: none;
@@ -1828,7 +1828,7 @@
                     <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
                         <span>Current Heat Stress</span>
                         <span id="met-toggle-current" class="met-toggle-group" style="display: inline-flex;">
-                            <button id="current-met-3" onclick="selectMetCurrent(3)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="current-met-4" onclick="selectMetCurrent(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="current-met-5" onclick="selectMetCurrent(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="current-met-6" onclick="selectMetCurrent(6)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                            <button id="current-met-3" onclick="selectMetCurrent(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="current-met-4" onclick="selectMetCurrent(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="current-met-5" onclick="selectMetCurrent(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="current-met-6" onclick="selectMetCurrent(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
                         </span>
                         <span id="sun-shade-toggle">
                             <button id="current-shade-btn" onclick="setShade('current', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
@@ -1850,10 +1850,10 @@
                     </h2>
                     <!-- Hidden select for compatibility -->
                     <select id="met-select-current" style="display: none;">
-                        <option value="3">EHI-3</option>
+                        <option value="3" selected>EHI-3</option>
                         <option value="4">EHI-4</option>
                         <option value="5">EHI-5</option>
-                        <option value="6" selected>EHI-6</option>
+                        <option value="6">EHI-6</option>
                     </select>
 
                     <!-- Last Updated Timestamp -->
@@ -1874,7 +1874,7 @@
                     <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
                         <span>Heat Stress Forecast</span>
                         <span id="met-toggle-forecast" class="met-toggle-group" style="display: inline-flex;">
-                            <button id="forecast-met-3" onclick="selectMetForecast(3)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="forecast-met-4" onclick="selectMetForecast(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="forecast-met-5" onclick="selectMetForecast(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="forecast-met-6" onclick="selectMetForecast(6)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                            <button id="forecast-met-3" onclick="selectMetForecast(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="forecast-met-4" onclick="selectMetForecast(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="forecast-met-5" onclick="selectMetForecast(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="forecast-met-6" onclick="selectMetForecast(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
                         </span>
                         <span style="margin-left: 0.5rem;">
                             <button id="forecast-shade-btn" onclick="setShade('forecast', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
@@ -1893,10 +1893,10 @@
                     </h2>
                     <!-- Hidden selects for compatibility -->
                     <select id="met-select-forecast" style="display: none;">
-                        <option value="3">EHI-3</option>
+                        <option value="3" selected>EHI-3</option>
                         <option value="4">EHI-4</option>
                         <option value="5">EHI-5</option>
-                        <option value="6" selected>EHI-6</option>
+                        <option value="6">EHI-6</option>
                     </select>
                     <select id="forecast-state-select" style="display: none;">
                         <option value="all">-- Select a State --</option>
@@ -1944,7 +1944,7 @@
                 <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
                     <span>Last 24 Hours</span>
                     <span id="met-toggle-last24h" class="met-toggle-group" style="display: inline-flex;">
-                        <button id="last24h-met-3" onclick="selectMetLast24h(3)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="last24h-met-4" onclick="selectMetLast24h(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="last24h-met-5" onclick="selectMetLast24h(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="last24h-met-6" onclick="selectMetLast24h(6)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                        <button id="last24h-met-3" onclick="selectMetLast24h(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="last24h-met-4" onclick="selectMetLast24h(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="last24h-met-5" onclick="selectMetLast24h(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="last24h-met-6" onclick="selectMetLast24h(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
                     </span>
                     <span>
                         <button id="last24h-shade-btn" onclick="setShade('last24h', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
@@ -1966,10 +1966,10 @@
                 </h2>
                 <!-- Hidden select for compatibility -->
                 <select id="met-select-last24h" style="display: none;">
-                    <option value="3">EHI-3</option>
+                    <option value="3" selected>EHI-3</option>
                     <option value="4">EHI-4</option>
                     <option value="5">EHI-5</option>
-                    <option value="6" selected>EHI-6</option>
+                    <option value="6">EHI-6</option>
                 </select>
                 <p id="last24h-timestamp" style="text-align: center; font-size: 1.2rem; color: #000; margin-bottom: 1rem; font-weight: 600;"></p>
 
@@ -2047,7 +2047,7 @@
 
                 <h3 style="color: white; margin-top: 2rem;"><i class="fas fa-running"></i> Select Activity Level (METs)</h3>
                 <div class="met-selector">
-                    <div class="met-option" data-met="3">
+                    <div class="met-option active" data-met="3">
                         <i class="fas fa-walking"></i>
                         <div class="met-label">3 METs</div>
                         <div class="met-desc">Light Work</div>
@@ -2062,7 +2062,7 @@
                         <div class="met-label">5 METs</div>
                         <div class="met-desc">Heavy Work</div>
                     </div>
-                    <div class="met-option active" data-met="6">
+                    <div class="met-option" data-met="6">
                         <i class="fas fa-person-digging"></i>
                         <div class="met-label">6 METs</div>
                         <div class="met-desc">Very Heavy</div>
@@ -2331,8 +2331,8 @@
                     <div class="endpoint-card">
                         <h4><i class="fas fa-globe"></i> Get Current Alerts</h4>
                         <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/shram/weather_logs/latest_alerts.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/shram/weather_logs/latest_alerts.json</span>
+                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/latest_alerts.json', this)"><i class="fas fa-copy"></i> Copy</button>
+                            <span>https://iecc-io.github.io/SHRAM/weather_logs/latest_alerts.json</span>
                         </div>
                         <p><strong>Returns:</strong> Current heat stress zones for all Indian districts</p>
                     </div>
@@ -2340,8 +2340,8 @@
                     <div class="endpoint-card">
                         <h4><i class="fas fa-history"></i> Get 24-Hour History</h4>
                         <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/shram/weather_logs/alerts_24h.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/shram/weather_logs/alerts_24h.json</span>
+                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/alerts_24h.json', this)"><i class="fas fa-copy"></i> Copy</button>
+                            <span>https://iecc-io.github.io/SHRAM/weather_logs/alerts_24h.json</span>
                         </div>
                         <p><strong>Returns:</strong> Hourly data for last 24 hours with zone distributions</p>
                     </div>
@@ -2349,8 +2349,8 @@
                     <div class="endpoint-card">
                         <h4><i class="fas fa-calendar-alt"></i> Get 3-Day Forecast</h4>
                         <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/shram/weather_logs/forecast_data.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/shram/weather_logs/forecast_data.json</span>
+                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/forecast_data.json', this)"><i class="fas fa-copy"></i> Copy</button>
+                            <span>https://iecc-io.github.io/SHRAM/weather_logs/forecast_data.json</span>
                         </div>
                         <p><strong>Returns:</strong> 72-hour heat stress forecast with EHI predictions</p>
                     </div>
@@ -2360,7 +2360,7 @@
                 <pre><code>import requests
 import pandas as pd
 
-url = "https://iecc-io.github.io/shram/weather_logs/latest_alerts.json"
+url = "https://iecc-io.github.io/SHRAM/weather_logs/latest_alerts.json"
 data = requests.get(url).json()
 
 df = pd.DataFrame(data['alerts'])
@@ -2398,11 +2398,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         Chart.defaults.font.family = "'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif";
 
         // Separate MET levels for each section (dashboard)
-        let currentMetStatus = 6;
-        let currentMetForecast = 6;
-        let currentMetLast24h = 6;
+        let currentMetStatus = 3;
+        let currentMetForecast = 3;
+        let currentMetLast24h = 3;
         // MET level for calculator (independent)
-        let currentMet = 6;
+        let currentMet = 3;
         let forecastDays = 3;
         let alertTrendChart, tempHumidityChart;
 
@@ -2834,20 +2834,24 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         function setForecastDays(days) {
             forecastDays = days;
 
-            // Update button styles - selected is blue filled, unselected is white with blue border
+            // Update button styles - selected is teal filled, unselected is light blue-grey
             const btn1 = document.getElementById('forecast-1day-btn');
             const btn3 = document.getElementById('forecast-3day-btn');
 
             if (days === 1) {
                 btn1.style.background = 'var(--shram-teal)';
                 btn1.style.color = 'white';
-                btn3.style.background = 'white';
+                btn1.style.borderColor = 'var(--shram-teal)';
+                btn3.style.background = '#e8f4f8';
                 btn3.style.color = 'var(--shram-teal)';
+                btn3.style.borderColor = '#e8f4f8';
             } else {
-                btn1.style.background = 'white';
+                btn1.style.background = '#e8f4f8';
                 btn1.style.color = 'var(--shram-teal)';
+                btn1.style.borderColor = '#e8f4f8';
                 btn3.style.background = 'var(--shram-teal)';
                 btn3.style.color = 'white';
+                btn3.style.borderColor = 'var(--shram-teal)';
             }
 
             loadForecast();
@@ -3688,7 +3692,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     response = await fetch('weather_logs/latest_alerts.json');
                     if (!response.ok) throw new Error('Local file not found');
                 } catch (e) {
-                    response = await fetch('https://iecc-io.github.io/shram/weather_logs/latest_alerts.json');
+                    response = await fetch('https://iecc-io.github.io/SHRAM/weather_logs/latest_alerts.json');
                 }
                 const data = await response.json();
 
@@ -4028,7 +4032,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         response = await fetch('weather_logs/forecast_data.json');
                         if (!response.ok) throw new Error('Local file not found');
                     } catch (e) {
-                        response = await fetch('https://iecc-io.github.io/shram/weather_logs/forecast_data.json');
+                        response = await fetch('https://iecc-io.github.io/SHRAM/weather_logs/forecast_data.json');
                     }
                     forecastData = await response.json();
                     console.log('Loaded pre-computed forecast data:', forecastData.metadata);
@@ -4342,7 +4346,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     response = await fetch('weather_logs/alerts_24h.json');
                     if (!response.ok) throw new Error('Local file not found');
                 } catch (e) {
-                    response = await fetch('https://iecc-io.github.io/shram/weather_logs/alerts_24h.json');
+                    response = await fetch('https://iecc-io.github.io/SHRAM/weather_logs/alerts_24h.json');
                 }
                 const data = await response.json();
 
@@ -4514,7 +4518,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     response = await fetch('weather_logs/summer_stats.json');
                     if (!response.ok) throw new Error('Local file not found');
                 } catch (e) {
-                    response = await fetch('https://iecc-io.github.io/shram/weather_logs/summer_stats.json');
+                    response = await fetch('https://iecc-io.github.io/SHRAM/weather_logs/summer_stats.json');
                 }
                 const data = await response.json();
 
