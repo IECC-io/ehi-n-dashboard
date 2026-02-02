@@ -2084,47 +2084,31 @@
                 <p>The <strong>Extended Heat Index for Working Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal strain in labor-intensive occupations.</p>
 
                 <h3>Nomenclature</h3>
-                <div style="display: flex; flex-direction: column; align-items: center; margin: 1.5rem 0; gap: 1rem;">
-                    <!-- N explanation above with curved arrow pointing to N -->
-                    <div style="display: flex; align-items: flex-start; position: relative; margin-left: -17rem;">
-                        <div style="display: flex; flex-direction: column; align-items: flex-end; padding-right: 4px;">
-                            <div style="font-size: 0.75rem; color: var(--shram-teal); font-weight: 600; text-align: right;">Metabolic Rate</div>
-                            <div style="font-size: 0.65rem; color: #888; text-align: right;">Work intensity (3-6 METs)</div>
-                        </div>
-                        <svg width="50" height="45" style="margin-top: -2px;">
-                            <path d="M5 5 Q 45 5, 45 35" stroke="var(--shram-teal)" stroke-width="2" fill="none"/>
-                            <polygon points="40,32 45,42 50,32" fill="var(--shram-teal)"/>
-                        </svg>
-                    </div>
+                <div style="display: flex; flex-direction: column; align-items: center; margin: 1.5rem 0;">
+                    <svg viewBox="0 0 400 160" style="max-width: 400px; width: 100%; height: auto;">
+                        <!-- Metabolic Rate label and arrow (shifted left) -->
+                        <text x="70" y="18" font-size="11" fill="#006D77" font-weight="600" text-anchor="end">Metabolic Rate</text>
+                        <text x="70" y="30" font-size="9" fill="#888" text-anchor="end">(3-6+ METs)</text>
+                        <!-- Curved arrow pointing to N -->
+                        <path d="M75 15 Q 115 15, 115 50" stroke="#006D77" stroke-width="2" fill="none"/>
+                        <polygon points="110,47 115,57 120,47" fill="#006D77"/>
 
-                    <!-- Main EHI-N* with arrow on right for * -->
-                    <div style="display: flex; align-items: center; gap: 0; margin-top: -12px;">
-                        <!-- Center: EHI-N* -->
-                        <div style="display: flex; align-items: center;">
-                            <span style="font-size: 2.5rem; font-weight: 700; color: #666;">EHI-</span>
-                            <span style="font-size: 2.5rem; font-weight: 700; color: var(--shram-teal);">N</span>
-                            <span style="font-size: 2.5rem; font-weight: 700; color: #e65100;">*</span>
-                        </div>
+                        <!-- Main EHI-N* text -->
+                        <text x="95" y="85" font-size="36" font-weight="700" fill="#666">EHI-</text>
+                        <text x="185" y="85" font-size="36" font-weight="700" fill="#006D77">N</text>
+                        <text x="215" y="85" font-size="36" font-weight="700" fill="#e65100">*</text>
 
-                        <!-- Right side: * explanation -->
-                        <div style="color: #e65100; font-size: 1.2rem; margin-left: 0.5rem;">&#8592;</div>
-                        <div style="display: flex; flex-direction: column; align-items: flex-start; padding-left: 0.5rem;">
-                            <div style="font-size: 0.75rem; color: #e65100; font-weight: 600;"><i class="fas fa-sun" style="font-size: 0.6rem;"></i> Sun Exposure</div>
-                            <div style="font-size: 0.65rem; color: #888;">Direct sunlight included</div>
-                        </div>
-                    </div>
+                        <!-- Sun Exposure arrow and label (shifted up) -->
+                        <text x="240" y="60" font-size="18" fill="#e65100">←</text>
+                        <text x="260" y="55" font-size="11" fill="#e65100" font-weight="600">☀ Sun Exposure</text>
+                        <text x="260" y="67" font-size="9" fill="#888">Direct sunlight included</text>
 
-                    <!-- Examples -->
-                    <div style="display: flex; gap: 1.5rem; align-items: center; font-size: 0.85rem; color: #666; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <i class="fas fa-cloud" style="color: #78909c;"></i>
-                            <span><strong>EHI-6</strong> = Heavy work, shaded</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <i class="fas fa-sun" style="color: #e65100;"></i>
-                            <span><strong>EHI-6*</strong> = Heavy work, full sun</span>
-                        </div>
-                    </div>
+                        <!-- Examples -->
+                        <text x="115" y="120" font-size="12" fill="#78909c">☁</text>
+                        <text x="130" y="120" font-size="11" fill="#666"><tspan font-weight="700">EHI-6</tspan> = Heavy work, shaded</text>
+                        <text x="115" y="140" font-size="12" fill="#e65100">☀</text>
+                        <text x="130" y="140" font-size="11" fill="#666"><tspan font-weight="700">EHI-6*</tspan> = Heavy work, full sun</text>
+                    </svg>
                 </div>
 
                 <h3>Scientific Foundation</h3>
