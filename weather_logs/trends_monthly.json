@@ -1,8 +1,8 @@
 {
-  "generated": "2026-02-02T14:23:04.704849+05:30",
+  "generated": "2026-02-02T16:56:16.759534+05:30",
   "period": "monthly",
-  "start_date": "2025-08-06T14:22:44.979833+05:30",
-  "end_date": "2026-02-02T14:22:44.979833+05:30",
+  "start_date": "2025-08-06T16:55:51.904374+05:30",
+  "end_date": "2026-02-02T16:55:51.904374+05:30",
   "data": [
     {
       "week": "2025-W31",
@@ -1831,66 +1831,66 @@
       "days_recorded": 1,
       "met3_shade": {
         "zone1": 0,
-        "zone2": 1023,
+        "zone2": 979,
         "zone3": 0,
-        "zone4": 262,
-        "zone5": 5,
+        "zone4": 302,
+        "zone5": 6,
         "zone6": 1
       },
       "met3_sun": {
         "zone1": 0,
-        "zone2": 669,
+        "zone2": 612,
         "zone3": 0,
-        "zone4": 564,
-        "zone5": 56,
+        "zone4": 616,
+        "zone5": 57,
         "zone6": 2
       },
       "met4_shade": {
         "zone1": 0,
-        "zone2": 771,
+        "zone2": 710,
         "zone3": 0,
-        "zone4": 493,
+        "zone4": 550,
         "zone5": 26,
         "zone6": 2
       },
       "met4_sun": {
         "zone1": 0,
-        "zone2": 368,
+        "zone2": 334,
         "zone3": 0,
-        "zone4": 746,
-        "zone5": 173,
+        "zone4": 774,
+        "zone5": 177,
         "zone6": 3
       },
       "met5_shade": {
         "zone1": 0,
-        "zone2": 497,
+        "zone2": 450,
         "zone3": 0,
-        "zone4": 685,
-        "zone5": 106,
+        "zone4": 728,
+        "zone5": 107,
         "zone6": 3
       },
       "met5_sun": {
         "zone1": 0,
-        "zone2": 127,
+        "zone2": 119,
         "zone3": 0,
-        "zone4": 805,
-        "zone5": 356,
+        "zone4": 796,
+        "zone5": 369,
         "zone6": 4
       },
       "met6_shade": {
         "zone1": 0,
-        "zone2": 179,
+        "zone2": 166,
         "zone3": 0,
-        "zone4": 839,
-        "zone5": 269,
+        "zone4": 844,
+        "zone5": 275,
         "zone6": 4
       },
       "met6_sun": {
         "zone1": 0,
-        "zone2": 70,
+        "zone2": 65,
         "zone3": 0,
-        "zone4": 651,
-        "zone5": 566,
+        "zone4": 612,
+        "zone5": 605,
         "zone6": 5
       }
     }
