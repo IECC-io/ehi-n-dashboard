@@ -123,8 +123,8 @@ def fetch_and_log():
                 if temp_c is not None and rh_percent is not None:
                     # MET 350 is closest to MET 6 (360 W/m²), use shade
                     ehi, zone_num = ehi_lookup.get_ehi_zone(temp_c, rh_percent, 6, 'shade')
-                    zone_map = {1: "Zone 1", 2: "Zone 2", 4: "Zone 4", 5: "Zone 5", 6: "Zone 6"}
-                    zone = zone_map.get(zone_num, "Zone 2 or 3")
+                    zone_map = {1: "Zone 1", 2: "Zone 2", 3: "Zone 3", 4: "Zone 4", 5: "Zone 5", 6: "Zone 6"}
+                    zone = zone_map.get(zone_num, "Unknown")
                     return pd.Series([ehi, zone])
                 else:
                     return pd.Series([None, None])
@@ -147,8 +147,8 @@ def fetch_and_log():
                 rh_percent = row["RH"] if pd.notna(row["RH"]) else None
                 if temp_c is not None and rh_percent is not None:
                     ehi, zone_num = ehi_lookup.get_ehi_zone(temp_c, rh_percent, met_level, sun_condition)
-                    zone_map = {1: "Zone 1", 2: "Zone 2", 4: "Zone 4", 5: "Zone 5", 6: "Zone 6"}
-                    zone = zone_map.get(zone_num, "Zone 2 or 3")
+                    zone_map = {1: "Zone 1", 2: "Zone 2", 3: "Zone 3", 4: "Zone 4", 5: "Zone 5", 6: "Zone 6"}
+                    zone = zone_map.get(zone_num, "Unknown")
                     return pd.Series([ehi, zone])
                 else:
                     return pd.Series([None, None])

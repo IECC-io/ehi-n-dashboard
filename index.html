@@ -150,9 +150,9 @@
         }
 
         .tab {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.15);
             border: none;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             padding: 1rem 2rem;
             font-size: 1rem;
             font-weight: 600;
@@ -164,7 +164,7 @@
         }
 
         .tab:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.25);
             color: white;
         }
 
@@ -378,8 +378,9 @@
             opacity: 0;
             position: absolute;
             top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 0;
+            left: auto;
+            transform: none;
             margin-top: 10px;
             background: var(--gray-dark);
             color: white;
@@ -398,8 +399,9 @@
             content: '';
             position: absolute;
             bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 10px;
+            left: auto;
+            transform: none;
             border: 6px solid transparent;
             border-bottom-color: var(--gray-dark);
         }
@@ -1797,13 +1799,13 @@
                     <button class="tab active" onclick="switchTab(event, 'dashboard')">
                         <i class="fas fa-dashboard"></i> Dashboard
                     </button>
-                    <button class="tab" onclick="switchTab(event, 'livemap')">
+                    <button id="livemap-tab-btn" class="tab" onclick="switchTab(event, 'livemap')">
                         <i class="fas fa-map-marked-alt"></i> Live Zone Map
                     </button>
                     <button class="tab" onclick="switchTab(event, 'calculator')">
                         <i class="fas fa-calculator"></i> EHI-N* Calculator
                     </button>
-                    <button class="tab" onclick="switchTab(event, 'about')">
+                    <button id="about-tab-btn" class="tab" onclick="switchTab(event, 'about')">
                         <i class="fas fa-info-circle"></i> About EHI-N*
                     </button>
                 </div>
@@ -1825,24 +1827,36 @@
             <div class="dashboard-grid">
                 <!-- LEFT: Current Status -->
                 <div class="section">
-                    <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
-                        <span>Current Heat Stress</span>
-                        <span id="met-toggle-current" class="met-toggle-group" style="display: inline-flex;">
-                            <button id="current-met-3" onclick="selectMetCurrent(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="current-met-4" onclick="selectMetCurrent(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="current-met-5" onclick="selectMetCurrent(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="current-met-6" onclick="selectMetCurrent(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                    <h2 style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem;">
+                        <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Current Heat Stress</span>
+                        <span id="met-toggle-current" class="met-toggle-group" style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">MET LEVEL</span>
+                            <span style="display: inline-flex;">
+                                <button id="current-met-3" onclick="selectMetCurrent(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="current-met-4" onclick="selectMetCurrent(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="current-met-5" onclick="selectMetCurrent(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="current-met-6" onclick="selectMetCurrent(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                            </span>
                         </span>
-                        <span id="sun-shade-toggle">
-                            <button id="current-shade-btn" onclick="setShade('current', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
-                                <i class="fas fa-cloud"></i> Shade
-                            </button><button id="current-sun-btn" onclick="setShade('current', false)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
-                                <i class="fas fa-sun"></i> Sun
-                            </button>
+                        <span id="sun-shade-toggle" style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">CONDITIONS</span>
+                            <span style="display: inline-flex;">
+                                <button id="current-shade-btn" onclick="setShade('current', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
+                                    <i class="fas fa-cloud"></i> Shade
+                                </button><button id="current-sun-btn" onclick="setShade('current', false)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
+                                    <i class="fas fa-sun"></i> Sun
+                                </button>
+                            </span>
                         </span>
-                        <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
-                            <option value="all">All India</option>
-                        </select>
-                        <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
-                            <option value="all">All Districts</option>
-                        </select>
+                        <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">STATE</span>
+                            <select id="current-state-select" onchange="updateCurrentDistricts(); filterCurrentStatus();" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
+                                <option value="all">All India</option>
+                            </select>
+                        </span>
+                        <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">DISTRICT</span>
+                            <select id="current-district-select" onchange="filterCurrentStatus()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
+                                <option value="all">All Districts</option>
+                            </select>
+                        </span>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
                             <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
@@ -1871,20 +1885,29 @@
 
                 <!-- RIGHT: Forecast -->
                 <div class="section">
-                    <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
-                        <span>Heat Stress Forecast</span>
-                        <span id="met-toggle-forecast" class="met-toggle-group" style="display: inline-flex;">
-                            <button id="forecast-met-3" onclick="selectMetForecast(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="forecast-met-4" onclick="selectMetForecast(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="forecast-met-5" onclick="selectMetForecast(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="forecast-met-6" onclick="selectMetForecast(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                    <h2 style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem;">
+                        <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Heat Stress Forecast</span>
+                        <span id="met-toggle-forecast" class="met-toggle-group" style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">MET LEVEL</span>
+                            <span style="display: inline-flex;">
+                                <button id="forecast-met-3" onclick="selectMetForecast(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="forecast-met-4" onclick="selectMetForecast(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="forecast-met-5" onclick="selectMetForecast(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="forecast-met-6" onclick="selectMetForecast(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                            </span>
                         </span>
-                        <span style="margin-left: 0.5rem;">
-                            <button id="forecast-shade-btn" onclick="setShade('forecast', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
-                                <i class="fas fa-cloud"></i> Shade
-                            </button><button id="forecast-sun-btn" onclick="setShade('forecast', false)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
-                                <i class="fas fa-sun"></i> Sun
-                            </button>
+                        <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">CONDITIONS</span>
+                            <span style="display: inline-flex;">
+                                <button id="forecast-shade-btn" onclick="setShade('forecast', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
+                                    <i class="fas fa-cloud"></i> Shade
+                                </button><button id="forecast-sun-btn" onclick="setShade('forecast', false)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
+                                    <i class="fas fa-sun"></i> Sun
+                                </button>
+                            </span>
                         </span>
-                        <span style="margin-left: 0.5rem; display: inline-flex;">
-                            <button id="forecast-1day-btn" onclick="setForecastDays(1)" style="padding: 0.5rem 0.75rem; font-size: 1rem; background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer;">1-Day</button><button id="forecast-3day-btn" onclick="setForecastDays(3)" style="padding: 0.5rem 0.75rem; font-size: 1rem; background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer;">3-Day</button>
+                        <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">FORECAST</span>
+                            <span style="display: inline-flex;">
+                                <button id="forecast-1day-btn" onclick="setForecastDays(1)" style="padding: 0.5rem 0.75rem; font-size: 1rem; background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer;">1-Day</button><button id="forecast-3day-btn" onclick="setForecastDays(3)" style="padding: 0.5rem 0.75rem; font-size: 1rem; background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer;">3-Day</button>
+                            </span>
                         </span>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
@@ -1941,27 +1964,42 @@
 
             <!-- Zone Trends (full width) -->
             <div id="last24h-section" class="section">
-                <h2 style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
-                    <span>Zone Trends</span>
-                    <span style="display: inline-flex;">
-                        <button id="trend-day-btn" onclick="setTrendPeriod('day')" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">Day</button><button id="trend-week-btn" onclick="setTrendPeriod('week')" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">Week</button><button id="trend-month-btn" onclick="setTrendPeriod('month')" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">Month</button>
+                <h2 style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem;">
+                    <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Zone Trends</span>
+                    <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                        <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">TIMEFRAME</span>
+                        <span style="display: inline-flex;">
+                            <button id="trend-day-btn" onclick="setTrendPeriod('day')" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">Day</button><button id="trend-week-btn" onclick="setTrendPeriod('week')" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">Week</button><button id="trend-month-btn" onclick="setTrendPeriod('month')" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">Month</button>
+                        </span>
                     </span>
-                    <span id="met-toggle-last24h" class="met-toggle-group" style="display: inline-flex;">
-                        <button id="last24h-met-3" onclick="selectMetLast24h(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="last24h-met-4" onclick="selectMetLast24h(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="last24h-met-5" onclick="selectMetLast24h(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="last24h-met-6" onclick="selectMetLast24h(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                    <span id="met-toggle-last24h" class="met-toggle-group" style="display: inline-flex; flex-direction: column; align-items: center;">
+                        <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">MET LEVEL</span>
+                        <span style="display: inline-flex;">
+                            <button id="last24h-met-3" onclick="selectMetLast24h(3)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">3</button><button id="last24h-met-4" onclick="selectMetLast24h(4)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">4</button><button id="last24h-met-5" onclick="selectMetLast24h(5)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem;">5</button><button id="last24h-met-6" onclick="selectMetLast24h(6)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">6</button>
+                        </span>
                     </span>
-                    <span>
-                        <button id="last24h-shade-btn" onclick="setShade('last24h', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
-                            <i class="fas fa-cloud"></i> Shade
-                        </button><button id="last24h-sun-btn" onclick="setShade('last24h', false)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
-                            <i class="fas fa-sun"></i> Sun
-                        </button>
+                    <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                        <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">CONDITIONS</span>
+                        <span style="display: inline-flex;">
+                            <button id="last24h-shade-btn" onclick="setShade('last24h', true)" style="background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); padding: 0.5rem 0.75rem; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer; font-size: 1rem;">
+                                <i class="fas fa-cloud"></i> Shade
+                            </button><button id="last24h-sun-btn" onclick="setShade('last24h', false)" style="background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-left: none; padding: 0.5rem 0.75rem; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer; font-size: 1rem;">
+                                <i class="fas fa-sun"></i> Sun
+                            </button>
+                        </span>
                     </span>
-                    <select id="charts-state-select" onchange="updateChartsDistricts(); load24HourData();" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
-                        <option value="all">All India</option>
-                    </select>
-                    <select id="charts-district-select" onchange="load24HourData()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
-                        <option value="all">All Districts</option>
-                    </select>
+                    <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                        <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">STATE</span>
+                        <select id="charts-state-select" onchange="updateChartsDistricts(); loadTrendData();" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
+                            <option value="all">All India</option>
+                        </select>
+                    </span>
+                    <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                        <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">DISTRICT</span>
+                        <select id="charts-district-select" onchange="loadTrendData()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
+                            <option value="all">All Districts</option>
+                        </select>
+                    </span>
                     <span class="info-tooltip">
                         <i class="fas fa-info-circle"></i>
                         <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
@@ -2004,8 +2042,11 @@
 
         <!-- TAB 2: LIVE MAP -->
         <div id="livemap-tab" class="tab-content">
-            <div class="section" style="padding: 0; overflow: hidden;">
+            <div class="section" style="padding: 0; overflow: hidden; position: relative;">
                 <iframe src="map_deck.html" style="width: 100%; height: calc(100vh - 200px); min-height: 600px; border: none;"></iframe>
+                <!-- Invisible overlay for tour highlighting (can't target iframe elements directly) -->
+                <div id="livemap-controls-overlay" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 640px; height: 45px; pointer-events: none; z-index: 1;"></div>
+                <div id="livemap-sidebar-overlay" style="position: absolute; top: 0; right: 0; width: 340px; height: 100%; pointer-events: none; z-index: 1;"></div>
             </div>
         </div>
 
@@ -2049,7 +2090,7 @@
                 </div>
 
                 <h3 style="color: white; margin-top: 2rem;"><i class="fas fa-running"></i> Select Activity Level (METs)</h3>
-                <div class="met-selector">
+                <div id="met-selector" class="met-selector">
                     <div class="met-option active" data-met="3">
                         <i class="fas fa-walking"></i>
                         <div class="met-label">3 METs</div>
@@ -2786,7 +2827,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             if (section === 'forecast') {
                 loadForecast();
             } else if (section === 'last24h') {
-                load24HourData();
+                loadTrendData();
             } else if (section === 'current') {
                 loadLiveData();
             }
@@ -2828,7 +2869,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         function selectMetLast24h(metLevel) {
             currentMetLast24h = parseInt(metLevel);
             updateMetButtons('last24h', currentMetLast24h);
-            load24HourData();
+            loadTrendData();
         }
 
         // Legacy function for backward compatibility
@@ -2841,7 +2882,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 select.value = met;
             });
             loadForecast();
-            load24HourData();
+            loadTrendData();
             loadLiveData();
         }
 
@@ -2905,18 +2946,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         async function loadTrendData() {
             // Map period to file and display settings
             const periodConfig = {
-                'day': { file: 'alerts_24h.json', labelKey: 'timestamp', labelFormat: 'time' },
+                'day': { file: 'trends_daily.json', labelKey: 'timestamp', labelFormat: 'time' },
                 'week': { file: 'trends_weekly.json', labelKey: 'date', labelFormat: 'date' },
                 'month': { file: 'trends_monthly.json', labelKey: 'week', labelFormat: 'week' }
             };
 
             const config = periodConfig[trendPeriod];
-
-            if (trendPeriod === 'day') {
-                // Use existing 24h data function
-                load24HourData();
-                return;
-            }
 
             try {
                 let response;
@@ -2939,7 +2974,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     dateStyle: 'medium',
                     timeStyle: 'short'
                 });
-                document.getElementById('last24h-timestamp').innerHTML = `<strong>Data generated: ${generated} IST</strong>`;
+                document.getElementById('last24h-timestamp').innerHTML = `<strong>Last Updated: ${generated} IST</strong>`;
 
                 // Get MET/sun column key
                 const met = currentMetLast24h || 3;
@@ -2955,6 +2990,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         labels.push(new Date(entry.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }));
                     } else if (config.labelFormat === 'week') {
                         labels.push(entry.week.replace('-W', ' W'));
+                    } else if (config.labelFormat === 'time') {
+                        // Format timestamp as "Jan 26 14:00"
+                        const ts = new Date(entry.timestamp);
+                        const dateStr = ts.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                        const timeStr = ts.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false });
+                        labels.push(`${dateStr} ${timeStr}`);
                     } else {
                         labels.push(entry[config.labelKey]);
                     }
@@ -3022,7 +3063,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             legend: { position: 'bottom' },
                             title: {
                                 display: true,
-                                text: trendPeriod === 'week' ? 'Last 4 Weeks (Daily Averages)' : 'Last 6 Months (Weekly Averages)'
+                                text: trendPeriod === 'day' ? 'Last 7 Days (Hourly)' :
+                                      trendPeriod === 'week' ? 'Last 4 Weeks (Daily Snapshots)' :
+                                      'Last 6 Months (Weekly Snapshots)'
                             }
                         },
                         scales: {
@@ -3034,19 +3077,74 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     }
                 });
 
-                // Hide temp/humidity chart for weekly/monthly views (no detailed data)
+                // Temp/humidity chart - show actual data
+                const tempData = [], rhData = [];
+                data.data.forEach(entry => {
+                    tempData.push(entry.avg_temp || null);
+                    rhData.push(entry.avg_rh || null);
+                });
+
                 if (tempHumidityChart) tempHumidityChart.destroy();
                 const ctxTemp = document.getElementById('tempHumidityChart').getContext('2d');
                 tempHumidityChart = new Chart(ctxTemp, {
                     type: 'line',
-                    data: { labels: [], datasets: [] },
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Temperature (°C)',
+                                data: tempData,
+                                borderColor: '#d32f2f',
+                                backgroundColor: 'rgba(211, 47, 47, 0.1)',
+                                fill: false,
+                                tension: 0.3,
+                                borderWidth: 2,
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: 'Relative Humidity (%)',
+                                data: rhData,
+                                borderColor: '#1976d2',
+                                backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                                fill: false,
+                                tension: 0.3,
+                                borderWidth: 2,
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
                         plugins: {
+                            legend: { position: 'bottom' },
                             title: {
                                 display: true,
-                                text: 'Temperature & Humidity data available in Day view only'
+                                text: trendPeriod === 'day' ? 'Last 7 Days (Hourly Avg)' :
+                                      trendPeriod === 'week' ? 'Last 4 Weeks (Daily Avg)' :
+                                      'Last 6 Months (Weekly Avg)'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: { display: true, text: 'Temperature (°C)' },
+                                grid: { drawOnChartArea: true }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                title: { display: true, text: 'Relative Humidity (%)' },
+                                min: 0,
+                                max: 100,
+                                grid: { drawOnChartArea: false }
                             }
                         }
                     }
@@ -5136,11 +5234,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'bottom',
                     tab: 'dashboard'
                 },
-                // Work Intensity
+                // Activity Level (METs) on Dashboard
                 {
-                    element: document.querySelector('#met-select-current'),
-                    title: 'Work Intensity',
-                    intro: 'Select work intensity:<br><b>EHI-3:</b> Light (walking, housework)<br><b>EHI-4:</b> Moderate (brick laying, cleaning)<br><b>EHI-5:</b> Heavy (picking crops, construction)<br><b>EHI-6:</b> Very heavy (digging, shovelling)',
+                    element: document.querySelector('#met-toggle-current'),
+                    title: 'Activity Level (METs)',
+                    intro: 'Select your <b>work intensity</b>:<br>• <b>3 METs:</b> Light work (walking, housework)<br>• <b>4 METs:</b> Moderate (carrying loads)<br>• <b>5 METs:</b> Heavy (construction)<br>• <b>6 METs:</b> Very heavy (agricultural labor)',
                     position: 'bottom',
                     tab: 'dashboard'
                 },
@@ -5171,20 +5269,26 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 },
                 // Live Map intro
                 {
+                    element: document.querySelector('#livemap-tab-btn'),
                     title: 'Live Zone Map',
                     intro: 'Now let\'s check out the <b>Live Zone Map</b> - an interactive full view of current conditions across India.',
+                    position: 'bottom',
                     tab: 'livemap'
                 },
                 // Live Map MET/Sun controls
                 {
+                    element: document.querySelector('#livemap-controls-overlay'),
                     title: 'Map Controls',
                     intro: 'Use the <b>MET level</b> and <b>Sun/Shade</b> buttons at the top of the map to adjust work intensity and sun exposure settings.',
+                    position: 'bottom',
                     tab: 'livemap'
                 },
                 // Live Map alerts and trends
                 {
+                    element: document.querySelector('#livemap-sidebar-overlay'),
                     title: 'Active Alerts & Trends',
-                    intro: 'The sidebar on the right shows <b>Active Alerts</b> count and <b>Zone Trends</b> over the last 24 hours.',
+                    intro: 'The sidebar on the right shows <b>Active Alerts</b> count and <b>Zone Trends</b> over the past hour.',
+                    position: 'left',
                     tab: 'livemap'
                 },
                 // Live Map hover/click
@@ -5203,12 +5307,20 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'bottom',
                     tab: 'calculator'
                 },
-                // About EHI-N*
+                // About EHI-N* Tab
+                {
+                    element: document.querySelector('#about-tab-btn'),
+                    title: 'About EHI-N*',
+                    intro: 'Visit the <b>About</b> tab to learn more about the science behind heat stress and subscribe to alerts.',
+                    position: 'bottom',
+                    tab: 'about'
+                },
+                // About EHI-N* Section
                 {
                     element: document.querySelector('#about-ehi-section'),
-                    title: 'About EHI-N*',
+                    title: 'Understanding EHI-N*',
                     intro: 'Learn about the <b>Extended Heat Index for Working Populations</b> and the science behind heat stress assessment.<br><br><em>Technical report and working paper coming soon.</em>',
-                    position: 'right',
+                    position: 'bottom',
                     tab: 'about'
                 },
                 // Heat Stress Zones
@@ -5216,7 +5328,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     element: document.querySelector('#zones-section'),
                     title: 'Heat Stress Zones',
                     intro: 'Understand what each <b>zone</b> means physiologically - from Zone 1 (comfortable) to Zone 6 (hazardous). Click zone buttons to see detailed definitions.',
-                    position: 'top',
+                    position: 'bottom',
                     tab: 'about'
                 },
                 // Subscribe
@@ -5224,7 +5336,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     element: document.querySelector('#alert-subscription-form'),
                     title: 'Stay Safe!',
                     intro: 'Enter your <b>name, email, location, and work intensity</b> to receive heat stress alerts. You\'ll get immediate alerts when Zone 6 is detected and daily forecasts for your district.',
-                    position: 'top',
+                    position: 'bottom',
                     tab: 'about'
                 },
                 // API Documentation
@@ -5265,6 +5377,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             tour.oncomplete(function() {
                 localStorage.setItem('shram-guide-completed', 'true');
                 goToTab('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
             tour.onexit(function() {

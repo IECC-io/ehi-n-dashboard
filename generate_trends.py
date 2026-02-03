@@ -99,13 +99,28 @@ def aggregate_hourly(df):
         for key, col in ZONE_COLS.items():
             entry[key] = count_zones(group, col)
 
+        # Add temp/RH averages
+        if 'TEMP' in group.columns:
+            temp_vals = pd.to_numeric(group['TEMP'], errors='coerce').dropna()
+            if len(temp_vals) > 0:
+                entry['avg_temp'] = round(float(temp_vals.mean()), 1)
+                entry['min_temp'] = round(float(temp_vals.min()), 1)
+                entry['max_temp'] = round(float(temp_vals.max()), 1)
+
+        if 'RH' in group.columns:
+            rh_vals = pd.to_numeric(group['RH'], errors='coerce').dropna()
+            if len(rh_vals) > 0:
+                entry['avg_rh'] = round(float(rh_vals.mean()), 1)
+                entry['min_rh'] = round(float(rh_vals.min()), 1)
+                entry['max_rh'] = round(float(rh_vals.max()), 1)
+
         results.append(entry)
 
     return sorted(results, key=lambda x: x['timestamp'])
 
 
 def aggregate_daily(df):
-    """Aggregate data by day, averaging zone counts."""
+    """Aggregate data by day, averaging zone counts and temp/RH."""
     if df.empty:
         return []
 
@@ -137,6 +152,19 @@ def aggregate_daily(df):
                 f'zone{i}': round(zone_totals[f'zone{i}'] / len(hourly))
                 for i in range(1, 7)
             }
+
+        # Average temp/RH across hours
+        temps = [h['avg_temp'] for h in hourly if 'avg_temp' in h]
+        if temps:
+            entry['avg_temp'] = round(sum(temps) / len(temps), 1)
+            entry['min_temp'] = round(min(h['min_temp'] for h in hourly if 'min_temp' in h), 1)
+            entry['max_temp'] = round(max(h['max_temp'] for h in hourly if 'max_temp' in h), 1)
+
+        rhs = [h['avg_rh'] for h in hourly if 'avg_rh' in h]
+        if rhs:
+            entry['avg_rh'] = round(sum(rhs) / len(rhs), 1)
+            entry['min_rh'] = round(min(h['min_rh'] for h in hourly if 'min_rh' in h), 1)
+            entry['max_rh'] = round(max(h['max_rh'] for h in hourly if 'max_rh' in h), 1)
 
         results.append(entry)
 
@@ -186,6 +214,19 @@ def aggregate_weekly(daily_data):
                 f'zone{i}': round(zone_totals[f'zone{i}'] / len(days))
                 for i in range(1, 7)
             }
+
+        # Average temp/RH across days
+        temps = [d['avg_temp'] for d in days if 'avg_temp' in d]
+        if temps:
+            entry['avg_temp'] = round(sum(temps) / len(temps), 1)
+            entry['min_temp'] = round(min(d['min_temp'] for d in days if 'min_temp' in d), 1)
+            entry['max_temp'] = round(max(d['max_temp'] for d in days if 'max_temp' in d), 1)
+
+        rhs = [d['avg_rh'] for d in days if 'avg_rh' in d]
+        if rhs:
+            entry['avg_rh'] = round(sum(rhs) / len(rhs), 1)
+            entry['min_rh'] = round(min(d['min_rh'] for d in days if 'min_rh' in d), 1)
+            entry['max_rh'] = round(max(d['max_rh'] for d in days if 'max_rh' in d), 1)
 
         results.append(entry)
 

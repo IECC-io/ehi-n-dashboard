@@ -41,12 +41,18 @@
             background: #f5f5f5;
         }
 
-        .map-controls {
+        .controls-wrapper {
             position: absolute;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .map-controls {
             background: white;
             padding: 10px 15px;
             border-radius: 8px;
@@ -426,7 +432,7 @@
 
         .map-legend {
             position: absolute;
-            top: 10px;
+            bottom: 10px;
             left: 10px;
             background: rgba(255, 255, 255, 0.95);
             padding: 12px 16px;
@@ -470,6 +476,30 @@
 
         .map-legend .source-text a {
             color: inherit;
+        }
+
+        /* Home button to reset map view - inline next to controls */
+        .home-button {
+            width: 38px;
+            height: 38px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+        }
+
+        .home-button:hover {
+            background: #f0f0f0;
+        }
+
+        .home-button i {
+            color: #333;
         }
 
         /* Methodology Modal */
@@ -668,28 +698,33 @@
             <div id="map"></div>
 
             <!-- Controls at top center of map -->
-            <div class="map-controls">
-                <div class="control-group">
-                    <label>MET Level</label>
-                    <div class="btn-group">
-                        <button class="btn" data-met="3">3</button>
-                        <button class="btn" data-met="4">4</button>
-                        <button class="btn" data-met="5">5</button>
-                        <button class="btn active" data-met="6">6</button>
+            <div class="controls-wrapper">
+                <button class="home-button" onclick="resetMapView()" title="Reset map view">
+                    <i class="fas fa-home"></i>
+                </button>
+                <div class="map-controls">
+                    <div class="control-group">
+                        <label>MET Level</label>
+                        <div class="btn-group">
+                            <button class="btn active" data-met="3">3</button>
+                            <button class="btn" data-met="4">4</button>
+                            <button class="btn" data-met="5">5</button>
+                            <button class="btn" data-met="6">6</button>
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <div class="sun-toggle">
-                        <button id="shade-btn" class="active" onclick="setSunCondition('shade')">
-                            <i class="fas fa-cloud"></i> Shade
-                        </button>
-                        <button id="sun-btn" onclick="setSunCondition('sun')">
-                            <i class="fas fa-sun"></i> Sun
-                        </button>
+                    <div class="control-group">
+                        <div class="sun-toggle">
+                            <button id="shade-btn" class="active" onclick="setSunCondition('shade')">
+                                <i class="fas fa-cloud"></i> Shade
+                            </button>
+                            <button id="sun-btn" onclick="setSunCondition('sun')">
+                                <i class="fas fa-sun"></i> Sun
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="data-timestamp" id="data-timestamp">
-                    Loading...
+                    <div class="data-timestamp" id="data-timestamp">
+                        Loading...
+                    </div>
                 </div>
             </div>
 
@@ -829,7 +864,7 @@
         let precomputedData = null;
         let previousData = null;  // Store previous hour's data for trend comparison
         let statesGeoJson = null;  // India state boundaries
-        let currentMet = 6;
+        let currentMet = 3;
         let currentSun = 'shade';
 
         // Grid configuration
@@ -1036,21 +1071,30 @@
             };
         }
 
+        // Initial view state for India
+        const INITIAL_VIEW_STATE = {
+            longitude: 82,
+            latitude: 22.5,
+            zoom: 4,
+            pitch: 0,
+            bearing: 0
+        };
+
+        // Current view state (tracked for reset functionality)
+        let currentViewState = { ...INITIAL_VIEW_STATE };
+
         // Initialize Deck.gl
         function initDeck() {
             deckgl = new DeckGL({
                 container: 'map',
                 mapStyle: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-                initialViewState: {
-                    longitude: 82,
-                    latitude: 22.5,
-                    zoom: 4,
-                    pitch: 0,
-                    bearing: 0
-                },
+                initialViewState: INITIAL_VIEW_STATE,
                 controller: true,
                 layers: [],
                 getTooltip: getTooltip,
+                onViewStateChange: ({ viewState }) => {
+                    currentViewState = viewState;
+                },
                 onClick: (info, event) => {
                     if (info.object) {
                         // Use state from district lookup if available, otherwise parse from location
@@ -1379,6 +1423,20 @@
             document.getElementById('shade-btn').classList.toggle('active', condition === 'shade');
             document.getElementById('sun-btn').classList.toggle('active', condition === 'sun');
             updateVisualization();
+        }
+
+        // Reset map view to initial state (all of India)
+        function resetMapView() {
+            if (deckgl) {
+                deckgl.setProps({
+                    initialViewState: {
+                        ...INITIAL_VIEW_STATE,
+                        transitionDuration: 500,
+                        transitionInterpolator: new deck.FlyToInterpolator()
+                    }
+                });
+                currentViewState = { ...INITIAL_VIEW_STATE };
+            }
         }
 
         // MET button clicks
