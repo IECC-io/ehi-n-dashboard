@@ -1,8 +1,8 @@
 {
-  "generated": "2026-02-05T03:19:43.753779+05:30",
+  "generated": "2026-02-05T04:27:57.755910+05:30",
   "period": "daily",
-  "start_date": "2026-01-29T03:19:33.380352+05:30",
-  "end_date": "2026-02-05T03:19:33.380352+05:30",
+  "start_date": "2026-01-29T04:27:47.464030+05:30",
+  "end_date": "2026-02-05T04:27:47.464030+05:30",
   "data": [
     {
       "timestamp": "2026-01-29T04:00:00",
@@ -5625,6 +5625,80 @@
       "min_temp": -12.4,
       "max_temp": 37.1,
       "avg_rh": 85.1,
+      "min_rh": 6.0,
+      "max_rh": 100.0
+    },
+    {
+      "timestamp": "2026-02-05T04:00:00",
+      "total_stations": 1563,
+      "met3_shade": {
+        "zone1": 0,
+        "zone2": 586,
+        "zone3": 664,
+        "zone4": 64,
+        "zone5": 3,
+        "zone6": 1
+      },
+      "met3_sun": {
+        "zone1": 0,
+        "zone2": 574,
+        "zone3": 302,
+        "zone4": 416,
+        "zone5": 22,
+        "zone6": 4
+      },
+      "met4_shade": {
+        "zone1": 0,
+        "zone2": 98,
+        "zone3": 898,
+        "zone4": 315,
+        "zone5": 5,
+        "zone6": 2
+      },
+      "met4_sun": {
+        "zone1": 0,
+        "zone2": 168,
+        "zone3": 332,
+        "zone4": 718,
+        "zone5": 96,
+        "zone6": 4
+      },
+      "met5_shade": {
+        "zone1": 0,
+        "zone2": 26,
+        "zone3": 620,
+        "zone4": 623,
+        "zone5": 45,
+        "zone6": 4
+      },
+      "met5_sun": {
+        "zone1": 0,
+        "zone2": 54,
+        "zone3": 153,
+        "zone4": 864,
+        "zone5": 243,
+        "zone6": 4
+      },
+      "met6_shade": {
+        "zone1": 0,
+        "zone2": 6,
+        "zone3": 284,
+        "zone4": 850,
+        "zone5": 174,
+        "zone6": 4
+      },
+      "met6_sun": {
+        "zone1": 0,
+        "zone2": 22,
+        "zone3": 56,
+        "zone4": 796,
+        "zone5": 440,
+        "zone6": 4
+      },
+      "avg_temp": 14.9,
+      "min_temp": -13.0,
+      "max_temp": 36.3,
+      "avg_rh": 86.0,
       "min_rh": 6.0,
       "max_rh": 100.0
     }
