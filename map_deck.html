@@ -222,10 +222,6 @@
                 gap: 3px;
                 margin-bottom: 1px;
             }
-            .legend-color {
-                width: 10px;
-                height: 10px;
-            }
             .map-legend .source-text {
                 font-size: 7px;
             }
@@ -270,10 +266,6 @@
             }
             .legend-item {
                 font-size: 8px;
-            }
-            .legend-color {
-                width: 8px;
-                height: 8px;
             }
         }
 
@@ -451,15 +443,9 @@
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 4px;
+            gap: 0.35rem;
+            margin-bottom: 2px;
             font-size: 0.75rem;
-        }
-
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 3px;
         }
 
         .map-legend .source-text {
@@ -715,10 +701,10 @@
                     <div class="control-group">
                         <div class="sun-toggle">
                             <button id="shade-btn" class="active" onclick="setSunCondition('shade')">
-                                <i class="fas fa-cloud"></i> Shade
+                                Shade
                             </button>
                             <button id="sun-btn" onclick="setSunCondition('sun')">
-                                <i class="fas fa-sun"></i> Sun
+                                Sun
                             </button>
                         </div>
                     </div>
@@ -729,27 +715,12 @@
             </div>
 
             <div class="map-legend">
-                <h3>Physiological Zones</h3>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #2196f3;"></div>
-                    <span>Zone 1: Cold Stress</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #4caf50;"></div>
-                    <span>Zone 2/3: Comfortable</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #c79100;"></div>
-                    <span>Zone 4: Caution</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #e65100;"></div>
-                    <span>Zone 5: High Risk</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #d32f2f;"></div>
-                    <span>Zone 6: Hazardous</span>
-                </div>
+                <h3>Zones</h3>
+                <div class="legend-item"><span style="color: #2196f3; font-weight: 600;">—</span> <span>1</span></div>
+                <div class="legend-item"><span style="color: #4caf50; font-weight: 600;">—</span> <span>2-3</span></div>
+                <div class="legend-item"><span style="color: #c79100; font-weight: 600;">—</span> <span>4</span></div>
+                <div class="legend-item"><span style="color: #e65100; font-weight: 600;">—</span> <span>5</span></div>
+                <div class="legend-item"><span style="color: #d32f2f; font-weight: 600;">—</span> <span>6</span></div>
                 <div class="source-text"><em>Data source: WeatherAPI.com</em></div>
                 <div class="source-text"><a href="#" onclick="showMethodology(); return false;" style="color: #2d637f; text-decoration: underline; cursor: pointer;">Methodology</a></div>
             </div>

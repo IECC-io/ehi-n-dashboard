@@ -1130,8 +1130,8 @@
             align-items: flex-end;
         }
 
-        /* Guide button - question mark icon inline with tabs */
-        .take-tour-btn {
+        /* Guide button - question mark icon inline with tabs (desktop) */
+        .take-tour-btn.desktop-tour-btn {
             background: transparent;
             border: none;
             color: rgba(255,255,255,0.6);
@@ -1143,11 +1143,16 @@
             align-items: center;
             justify-content: center;
         }
-        .take-tour-btn i {
+        .take-tour-btn.desktop-tour-btn i {
             font-size: 1rem;
         }
         .take-tour-btn:hover {
             color: white;
+        }
+
+        /* Mobile tour button - hidden on desktop */
+        .take-tour-btn.mobile-tour-btn {
+            display: none;
         }
 
 
@@ -1193,7 +1198,19 @@
             background: #f5f5f5;
         }
 
+        /* Multi-select hints - show desktop by default, hide mobile */
+        .multi-select-hint .mobile-hint {
+            display: none;
+        }
+
         @media (max-width: 768px) {
+            /* Show mobile hint, hide desktop hint */
+            .multi-select-hint .desktop-hint {
+                display: none;
+            }
+            .multi-select-hint .mobile-hint {
+                display: inline;
+            }
             .header {
                 padding: 0.5rem 0.5rem 0;
             }
@@ -1202,37 +1219,64 @@
                 align-items: stretch;
                 min-height: auto;
                 padding: 0;
-                gap: 0.5rem;
+                gap: 0;
             }
 
-            /* Hide India dot map on mobile */
+            /* Show India dot map on mobile - centered */
             .header::before {
-                display: none;
+                display: block;
+                left: 0;
+                right: 0;
+                background-position: center center;
+                background-size: auto 100%;
+                opacity: 0.2;
             }
 
-            /* Mobile SHRAM logo - centered, smaller */
+            /* Mobile SHRAM logo - left aligned, fixed height, no overlap */
             .logo-container {
                 position: relative;
                 left: 0;
                 bottom: 0;
                 height: auto;
                 width: 100%;
-                text-align: center;
-                margin-bottom: 0;
+                text-align: left;
+                margin-bottom: 0.5rem;
+                padding-left: 0;
+                flex-shrink: 0;
             }
             .logo-container img {
-                height: 40px;
+                height: 56px;
                 width: auto;
+                display: block;
             }
 
-            /* Mobile tabs - compact row, flush with bottom edge */
+            /* Mobile tabs - compact row, no overlap with logo */
             .tabs-wrapper {
                 flex-direction: column;
                 align-items: stretch;
                 width: 100%;
+                flex-shrink: 0;
             }
-            .take-tour-btn {
+            /* Hide desktop tour button on mobile */
+            .take-tour-btn.desktop-tour-btn {
                 display: none !important;
+            }
+            /* Mobile tour button - top right of orange banner */
+            .take-tour-btn.mobile-tour-btn {
+                display: flex !important;
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                padding: 0.5rem;
+                font-size: 1.25rem;
+                background: transparent;
+                border: none;
+                color: rgba(255,255,255,0.8);
+                cursor: pointer;
+                z-index: 10;
+            }
+            .take-tour-btn.mobile-tour-btn:hover {
+                color: white;
             }
             .tabs {
                 display: flex !important;
@@ -1243,19 +1287,35 @@
             }
             .tab {
                 flex: 1;
-                padding: 8px 6px;
-                font-size: 0.85rem;
+                padding: 8px 4px;
+                font-size: 0.75rem;
                 border-radius: 6px 6px 0 0;
                 white-space: nowrap;
                 text-align: center;
+                overflow: hidden;
             }
             .tab i {
                 display: none;
             }
-            /* Remove brown bar from active tab on mobile */
-            .tab.active::after {
-                display: none;
+            /* Shorter tab labels on mobile */
+            #livemap-tab-btn { font-size: 0; }
+            #livemap-tab-btn::after { content: "Live Map"; font-size: 0.75rem; }
+            .tab[onclick*="calculator"] { font-size: 0; }
+            .tab[onclick*="calculator"]::after { content: "Calculator"; font-size: 0.75rem; }
+            #about-tab-btn { font-size: 0; }
+            #about-tab-btn::after { content: "About"; font-size: 0.75rem; }
+            /* Active tab styling on mobile - ensure teal color */
+            .tab.active {
+                background: white !important;
+                color: var(--shram-teal) !important;
             }
+            .tab.active::after {
+                color: var(--shram-teal) !important;
+            }
+            /* Remove brown bar from active tab on mobile */
+            #livemap-tab-btn.active::after { content: "Live Map"; display: inline; font-size: 0.75rem; color: var(--shram-teal); }
+            .tab[onclick*="calculator"].active::after { content: "Calculator"; display: inline; font-size: 0.75rem; color: var(--shram-teal); }
+            #about-tab-btn.active::after { content: "About"; display: inline; font-size: 0.75rem; color: var(--shram-teal); }
 
             .container { padding: 0.5rem; overflow-x: hidden; }
 
@@ -1279,13 +1339,15 @@
                 margin-bottom: 0.75rem;
                 overflow-x: hidden;
                 max-width: 100%;
+                box-sizing: border-box;
             }
-            .section h2 { font-size: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
-            .section h3 { font-size: 0.85rem; }
-            .section p { font-size: 0.8rem; }
+            /* Mobile typography: body 16-20px (1-1.25rem), headlines 28-40px (1.75-2.5rem), UI 14-16px (0.875-1rem) */
+            .section h2 { font-size: 1.25rem; margin-bottom: 0.5rem; flex-wrap: wrap; } /* 20px headline */
+            .section h3 { font-size: 1.1rem; } /* 17.6px sub-headline */
+            .section p { font-size: 1rem; } /* 16px body text */
 
             /* Dashboard section titles - larger for readability */
-            .dashboard-grid .section h2 { font-size: 1.1rem; }
+            .dashboard-grid .section h2 { font-size: 1.25rem; } /* 20px */
 
             /* MET/Sun toggle buttons - prevent overflow */
             .section h2 .met-toggle-group,
@@ -1294,14 +1356,14 @@
                 gap: 0.25rem;
             }
             .section h2 button {
-                padding: 0.25rem 0.4rem !important;
-                font-size: 0.65rem !important;
+                padding: 0.35rem 0.5rem !important;
+                font-size: 0.875rem !important; /* 14px UI element */
             }
 
             /* Stat boxes */
             .stat-box { padding: 0.5rem; }
-            .stat-number { font-size: 1.2rem; }
-            .stat-label { font-size: 0.65rem; }
+            .stat-number { font-size: 1.5rem; } /* 24px - prominent number */
+            .stat-label { font-size: 0.875rem; } /* 14px UI label */
 
             /* Status grid */
             .status-grid {
@@ -1310,14 +1372,14 @@
             }
 
             /* Status overview text */
-            #live-status-summary p { font-size: 0.8rem !important; }
+            #live-status-summary p { font-size: 1rem !important; } /* 16px body */
 
             /* Forecast section */
-            #forecast-content p { font-size: 0.8rem; }
+            #forecast-content p { font-size: 1rem; } /* 16px body */
             #forecast-chart { height: 200px !important; }
 
             /* Last 24 hours - prevent overflow */
-            #last24h-timestamp { font-size: 0.8rem; }
+            #last24h-timestamp { font-size: 0.875rem; } /* 14px UI */
 
             /* Calculator */
             .calculator-container { padding: 0.75rem; }
@@ -1325,22 +1387,30 @@
 
             /* MET selector */
             .met-selector { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
-            .met-option { padding: 0.4rem; font-size: 0.75rem; }
+            .met-option { padding: 0.4rem; font-size: 0.875rem; } /* 14px UI */
 
             /* Charts - prevent overflow */
             .chart-grid { grid-template-columns: 1fr; }
 
             /* Dropdowns and inputs - constrain width */
             select, input {
-                font-size: 0.8rem;
+                font-size: 1rem; /* 16px - prevents iOS zoom */
                 padding: 0.35rem;
                 max-width: 100%;
             }
-            label { font-size: 0.8rem; }
+            label { font-size: 0.875rem; } /* 14px UI label */
 
-            /* Logo strip - smaller IECC logo on mobile */
-            .logo-strip { padding: 0.5rem 0.75rem; }
-            .logo-strip img { height: 14px; }
+            /* IECC logo strip - very small, left justified aligned with tiles */
+            .logo-strip { padding: 0.15rem 0; }
+            .logo-strip-content {
+                padding: 0 0.5rem;
+                justify-content: flex-start;
+            }
+            .logo-strip img {
+                height: 8px;
+                width: auto;
+            }
+            .logo-strip-text { display: none; }
 
             /* Filter dropdowns - prevent overflow */
             .dashboard-grid select {
@@ -1361,16 +1431,34 @@
                 cursor: pointer;
             }
 
-            /* Zone 6 banner minimized - stack text and marquee on mobile */
-            .zone6-alert-banner.minimized #zone6-banner-content .banner-static-text {
+            /* Zone 6 banner minimized - two lines: title+plus on line 1, marquee on line 2 */
+            .zone6-alert-banner.minimized {
                 display: block !important;
-                margin-right: 0;
-                margin-bottom: 0.5rem;
-                text-align: left;
+                padding: 0.5rem 0.75rem !important;
+                position: relative !important;
+            }
+            .zone6-alert-banner.minimized .close-btn {
+                position: absolute !important;
+                top: 0.5rem !important;
+                right: 0.75rem !important;
+                transform: none !important;
+                width: auto !important;
+                height: auto !important;
+                padding: 0.3rem 0.5rem !important;
+                font-size: 0.9rem !important;
+            }
+            .zone6-alert-banner.minimized #zone6-banner-content .banner-static-text {
+                display: inline !important;
+                font-size: 0.85rem !important;
+                margin-right: 2.5rem; /* Space for plus button */
             }
             .zone6-alert-banner.minimized #zone6-banner-content .banner-marquee-container {
                 display: block !important;
-                width: 100%;
+                width: 100% !important;
+                margin-top: 0.4rem !important;
+            }
+            .zone6-alert-banner.minimized #zone6-banner-content .banner-marquee-container marquee {
+                font-size: 0.8rem !important;
             }
 
             /* Dashboard tile tooltips - position to the LEFT on mobile (white bg, black text) */
@@ -1495,16 +1583,44 @@
 
             /* Forecast grid - stack on mobile */
             .forecast-grid {
+                display: grid !important;
                 grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden !important;
+            }
+            /* Forecast map container - fit to screen width */
+            .forecast-grid > div:first-child {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .forecast-grid > div {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden !important;
+            }
+            #forecast-map {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            #forecast-chart {
+                width: 100% !important;
+                max-width: 100% !important;
             }
             .status-grid .stat-box {
                 padding: 0.5rem !important;
             }
             .status-grid .stat-box .stat-number {
-                font-size: 1.1rem !important;
+                font-size: 1.25rem !important; /* 20px - readable number */
             }
             .status-grid .stat-box .stat-label {
-                font-size: 0.75rem !important;
+                font-size: 0.875rem !important; /* 14px - minimum readable */
+            }
+
+            /* Mobile location summary - show under tiles */
+            #current-location-summary {
+                display: block !important;
             }
 
             /* Last 24 hours charts - fix distortion */
@@ -1577,9 +1693,16 @@
                 width: auto !important;
             }
 
-            /* Forecast map - smaller on mobile */
+            /* Forecast map - viewport-based on mobile */
             #forecast-map {
-                height: 280px !important;
+                height: 40vh !important;
+                min-height: 200px !important;
+            }
+
+            /* Hide icons from conditions buttons on mobile for consistent height with MET */
+            button[id*="shade-btn"] i,
+            button[id*="sun-btn"] i {
+                display: none !important;
             }
 
             /* Forecast map controls - smaller and better positioned */
@@ -1602,12 +1725,26 @@
                 height: 28px !important;
                 font-size: 12px !important;
             }
+
+            /* Footer - smaller text on mobile */
+            .footer {
+                padding: 1rem;
+                margin-top: 1.5rem;
+            }
+            .footer p {
+                font-size: 0.7rem !important;
+                margin: 0.25rem 0;
+                line-height: 1.3;
+            }
+            .footer p strong {
+                font-size: 0.75rem !important;
+            }
         }
 
         /* Small phones (iPhone 14/15 regular, most Androids) */
         @media (max-width: 420px) {
             .logo-container img {
-                height: 100px;
+                height: 28px;
             }
             .tab {
                 padding: 6px 4px;
@@ -1623,21 +1760,169 @@
                 font-size: 0.7rem !important;
             }
             .status-grid .stat-box .stat-number {
-                font-size: 1rem !important;
+                font-size: 1.1rem !important; /* 17.6px - readable */
             }
             .status-grid .stat-box .stat-label {
+                font-size: 0.8rem !important; /* 12.8px - minimum for small phones */
+            }
+
+            /* Phone layout: Stack controls on separate lines */
+            /* Center all h2 content on phones */
+            .section h2 {
+                text-align: center !important;
+                justify-content: center !important;
+            }
+
+            /* Line 1: Title - full width block, centered, with clear break below */
+            .section h2 > span[style*="margin-right: 0.75rem"] {
+                display: block !important;
+                width: 100%;
+                margin-bottom: 0.75rem !important;
+                margin-right: 0 !important;
+                padding-bottom: 0.5rem !important;
+                border-bottom: 1px solid #e0e0e0;
+                font-size: 1.1rem; /* 17.6px title */
+                text-align: center;
+            }
+
+            /* Line 2: MET + Conditions buttons inline, centered */
+            .section h2 .met-toggle-group,
+            .section h2 #sun-shade-toggle,
+            .section h2 > span:has(button[id*="shade-btn"]),
+            .section h2 > span:has(button[id*="sun-btn"]) {
+                display: inline-flex !important;
+                margin-right: 0.4rem;
+                margin-bottom: 0.4rem;
+            }
+            .section h2 .met-toggle-group > span:first-child,
+            .section h2 > span > span[style*="font-size: 0.7rem"] {
+                font-size: 0.75rem !important; /* 12px small label */
+                margin-bottom: 0.15rem !important;
+            }
+            .section h2 .met-toggle-group button,
+            .section h2 button[id*="shade-btn"],
+            .section h2 button[id*="sun-btn"] {
+                padding: 0.35rem 0.5rem !important;
+                font-size: 0.875rem !important; /* 14px UI element */
+            }
+
+            /* Line 3: State + District - force them to stay on same row */
+            .section h2 > span:has(#current-state-select) {
+                display: inline !important;
+                margin-top: 0.4rem;
+                margin-right: 0.15rem;
+            }
+            .section h2 > span:has(#current-district-select) {
+                display: inline !important;
+                margin-top: 0.4rem;
+            }
+            /* Hide STATE/DISTRICT labels on phones */
+            .section h2 > span:has(#current-state-select) > span,
+            .section h2 > span:has(#current-district-select) > span {
+                display: none !important;
+            }
+            #current-state-select, #current-district-select {
+                width: 42% !important;
+                max-width: 140px !important;
+                font-size: 0.875rem !important; /* 14px UI element */
+                padding: 0 0.3rem !important;
+                height: 32px !important;
+                display: inline-block !important;
+            }
+
+            /* Hide FORECAST day buttons from header on mobile - they'll show after map */
+            .section h2 > span:has(#forecast-1day-btn) {
+                display: none !important;
+            }
+
+            /* Show forecast day buttons after map on mobile */
+            .forecast-buttons-mobile {
+                display: flex !important;
+                justify-content: center;
+                gap: 0;
+                margin-top: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            .forecast-buttons-mobile button {
+                padding: 0.4rem 0.75rem !important;
+                font-size: 0.75rem !important;
+            }
+
+            /* ===== ZONE TRENDS SECTION - Phone Layout ===== */
+            /* Line 2: Timeframe buttons under title */
+            #last24h-section h2 > span:has(button[id*="trend-day"]),
+            #last24h-section h2 > span:has(button[id*="trend-week"]) {
+                display: block !important;
+                width: 100%;
+                margin-top: 0.3rem;
+                margin-bottom: 0.3rem;
+            }
+            button[id*="trend-day-btn"],
+            button[id*="trend-week-btn"],
+            button[id*="trend-month-btn"] {
+                padding: 0.25rem 0.5rem !important;
                 font-size: 0.65rem !important;
+            }
+
+            /* Line 3: MET + Conditions inline */
+            #last24h-section h2 #met-toggle-last24h,
+            #last24h-section h2 > span:has(button[id*="last24h-shade"]) {
+                display: inline-flex !important;
+                margin-right: 0.4rem;
+                margin-bottom: 0.3rem;
+            }
+            #last24h-section h2 #met-toggle-last24h button,
+            button[id*="last24h-shade-btn"],
+            button[id*="last24h-sun-btn"] {
+                padding: 0.25rem 0.4rem !important;
+                font-size: 0.65rem !important;
+            }
+
+            /* Line 4: State + District - force them to stay on same row */
+            #last24h-section h2 > span:has(#charts-state-select) {
+                display: inline !important;
+                margin-top: 0.3rem;
+                margin-right: 0.15rem;
+            }
+            #last24h-section h2 > span:has(#charts-district-select) {
+                display: inline !important;
+                margin-top: 0.3rem;
+            }
+            /* Hide STATE/DISTRICT labels on phones for Historical Zones */
+            #last24h-section h2 > span:has(#charts-state-select) > span,
+            #last24h-section h2 > span:has(#charts-district-select) > span {
+                display: none !important;
+            }
+            #charts-state-select, #charts-district-select {
+                width: 42% !important;
+                max-width: 140px !important;
+                font-size: 0.875rem !important; /* 14px UI element */
+                padding: 0 0.3rem !important;
+                height: 32px !important;
+                display: inline-block !important;
+            }
+
+            /* Hide info tooltip on phones */
+            .section h2 .info-tooltip {
+                display: none !important;
+            }
+
+            /* Data sources and notes - smaller on phones */
+            .section p[style*="font-size: 0.85rem"],
+            .section p[style*="color: #999"] {
+                font-size: 0.75rem !important; /* 12px - compact */
+                margin-top: 0.5rem !important;
             }
         }
 
         /* Extra small phones (iPhone SE, small Androids ~360px) */
         @media (max-width: 375px) {
             .logo-container img {
-                height: 90px;
+                height: 24px;
             }
             .tab {
                 padding: 5px 3px;
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
             .met-select-green {
                 font-size: 0.7rem !important;
@@ -1658,10 +1943,10 @@
                 padding: 0.4rem !important;
             }
             .status-grid .stat-box .stat-number {
-                font-size: 0.9rem !important;
+                font-size: 1rem !important; /* 16px - minimum readable */
             }
             .status-grid .stat-box .stat-label {
-                font-size: 0.6rem !important;
+                font-size: 0.75rem !important; /* 12px - minimum for very small screens */
             }
         }
 
@@ -1745,10 +2030,10 @@
                 padding: 0.4rem !important;
             }
             .status-grid .stat-box .stat-number {
-                font-size: 0.9rem !important;
+                font-size: 1rem !important; /* 16px - readable */
             }
             .status-grid .stat-box .stat-label {
-                font-size: 0.6rem !important;
+                font-size: 0.75rem !important; /* 12px - minimum readable in landscape */
             }
 
             /* Dashboard grid - 2 columns in landscape */
@@ -1786,13 +2071,17 @@
     </div>
 
     <div class="header">
+        <!-- Mobile tour button - positioned in header for mobile -->
+        <button class="take-tour-btn mobile-tour-btn" onclick="startTour()" title="Learn how to use SHRAM">
+            <i class="fas fa-question-circle"></i>
+        </button>
         <div class="header-content">
             <div class="logo-container">
                 <img src="shram_logo.svg" alt="SHRAM: System for Heat Risk Assessment for Manual labor">
             </div>
 
             <div class="tabs-wrapper">
-                <button class="take-tour-btn" onclick="startTour()" title="Learn how to use SHRAM">
+                <button class="take-tour-btn desktop-tour-btn" onclick="startTour()" title="Learn how to use SHRAM">
                     <i class="fas fa-question-circle"></i>
                 </button>
                 <div class="tabs">
@@ -1828,7 +2117,7 @@
                 <!-- LEFT: Current Status -->
                 <div class="section">
                     <h2 style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem;">
-                        <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Current Heat Stress</span>
+                        <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Current Heat Stress Alerts</span>
                         <span id="met-toggle-current" class="met-toggle-group" style="display: inline-flex; flex-direction: column; align-items: center;">
                             <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">MET LEVEL</span>
                             <span style="display: inline-flex;">
@@ -1878,6 +2167,7 @@
                             <p style="text-align: center; color: #666;"><i class="fas fa-spinner fa-spin"></i> Loading current status...</p>
                         </div>
                         <div class="status-grid" id="status-grid"></div>
+                        <p id="current-location-summary" class="location-summary" style="display: none; text-align: center; font-size: 0.85rem; color: #666; margin-top: 0.75rem; font-style: italic;"></p>
                     </div>
 
                     <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: India Meteorological Department (IMD)</p>
@@ -1941,6 +2231,10 @@
                                     <i class="fas fa-home" style="color: #333;"></i>
                                 </button>
                             </div>
+                            <!-- Mobile forecast day buttons - shown after map on phones -->
+                            <div class="forecast-buttons-mobile" style="display: none; justify-content: center; gap: 0; margin-top: 0.75rem;">
+                                <button onclick="setForecastDays(1)" style="padding: 0.5rem 0.75rem; font-size: 0.85rem; background: #e8f4f8; color: var(--shram-teal); border: 2px solid #e8f4f8; border-radius: 6px 0 0 6px; font-weight: 700; cursor: pointer;" id="forecast-1day-btn-mobile">1-Day</button><button onclick="setForecastDays(3)" style="padding: 0.5rem 0.75rem; font-size: 0.85rem; background: var(--shram-teal); color: white; border: 2px solid var(--shram-teal); border-left: none; border-radius: 0 6px 6px 0; font-weight: 700; cursor: pointer;" id="forecast-3day-btn-mobile">3-Day</button>
+                            </div>
                             <div style="margin-top: 0.5rem;">
                                 <p id="selected-location-label" style="font-weight: 600; color: var(--shram-teal); margin: 0;"></p>
                             </div>
@@ -1954,18 +2248,18 @@
                             <div style="margin-top: 1.5rem;">
                                 <canvas id="forecast-chart" style="height: 400px; min-height: 350px;"></canvas>
                             </div>
-                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.75rem; font-style: italic;">Note: Nighttime hours show EHI-N (no solar load) since there is no sun exposure.</p>
+                            <p class="forecast-note" style="font-size: 0.85rem; color: #999; margin-top: 0.75rem; font-style: italic; word-wrap: break-word; overflow-wrap: break-word; text-align: center;">Note: Nighttime = EHI-N (no solar load).</p>
                         </div>
                     </div>
 
-                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: WeatherAPI.com</p>
+                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic; word-wrap: break-word;">Data source: WeatherAPI.com</p>
                 </div>
             </div>
 
-            <!-- Zone Trends (full width) -->
+            <!-- Historical Zones (full width) -->
             <div id="last24h-section" class="section">
                 <h2 style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem;">
-                    <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Zone Trends</span>
+                    <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Historical Zones</span>
                     <span style="display: inline-flex; flex-direction: column; align-items: center;">
                         <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">TIMEFRAME</span>
                         <span style="display: inline-flex;">
@@ -2016,7 +2310,7 @@
 
                 <div class="chart-grid">
                     <div class="chart-container">
-                        <h3>Zone Trends</h3>
+                        <h3>Historical Zones</h3>
                         <canvas id="alertTrendChart"></canvas>
                     </div>
                     <div class="chart-container">
@@ -2130,7 +2424,7 @@
             <div id="about-ehi-section" class="section" style="padding-left: 2.5rem;">
                 <h2>About EHI-N*</h2>
 
-                <p>The <strong>Extended Heat Index for Working Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal strain in labor-intensive occupations.</p>
+                <p>The <strong>Extended Heat Index for Laboring Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal strain in labor-intensive occupations.</p>
 
                 <h3>Nomenclature</h3>
                 <div style="display: flex; flex-direction: column; align-items: center; margin: 1.5rem 0;">
@@ -2166,7 +2460,7 @@
 
             <div id="zones-section" class="section">
                 <h2>Heat Stress Zones</h2>
-                <p>EHI-N* classifies heat stress into zones based on physiological strain:</p>
+                <p>EHI-N* classifies heat stress into zones based on physiological risk:</p>
 
                 <div style="margin: 1.5rem 0;">
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
@@ -2226,8 +2520,11 @@
                 <p>Get notified when hazardous heat stress conditions are detected in your location. Free service for workers, employers, and community organizers.</p>
 
                 <div class="alert-box" style="background: #e3f2fd; border-left-color: var(--shram-teal);">
-                    <p><strong>How it works:</strong></p>
-                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <p onclick="toggleHowItWorks()" style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                        <i id="how-it-works-icon" class="fas fa-chevron-right" style="font-size: 0.8rem; transition: transform 0.2s;"></i>
+                        <strong>How does alerting work?</strong>
+                    </p>
+                    <ol id="how-it-works-content" style="margin-left: 1.5rem; margin-top: 0.5rem; display: none;">
                         <li>Select your state and district</li>
                         <li>Choose your MET level (work intensity) and zone alert threshold</li>
                         <li><strong>Live alerts:</strong> You will receive an immediate email if Zone 6 (Hazardous) is detected in your district, regardless of MET level or sun/shade conditions</li>
@@ -2236,14 +2533,15 @@
                 </div>
 
                 <form id="alert-subscription-form" style="background: var(--gray-light); padding: 2rem; border-radius: 10px; margin-top: 1.5rem;">
+                    <p style="font-size: 0.8rem; color: #666; margin-bottom: 1rem;"><span style="color: #d32f2f;">*</span> Required fields. If no MET level or zone alert is selected, you will receive Zone 6 alerts for all activity levels.</p>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group">
-                            <label for="subscriber-name" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Full Name *</label>
-                            <input type="text" id="subscriber-name" required style="width: 100%; padding: 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; font-size: 1rem;">
+                            <label for="subscriber-name" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Name</label>
+                            <input type="text" id="subscriber-name" placeholder="Optional" style="width: 100%; padding: 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; font-size: 1rem;">
                         </div>
 
                         <div class="input-group">
-                            <label for="subscriber-email" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Email Address *</label>
+                            <label for="subscriber-email" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Email Address <span style="color: #d32f2f;">*</span></label>
                             <input type="email" id="subscriber-email" required style="width: 100%; padding: 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; font-size: 1rem;">
                         </div>
 
@@ -2258,24 +2556,24 @@
 
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group">
-                            <label for="subscriber-state" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">States *</label>
+                            <label for="subscriber-state" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">States <span style="color: #d32f2f;">*</span></label>
                             <select id="subscriber-state" required multiple onchange="updateSubscriberDistricts()" style="width: 100%; padding: 0.75rem; border: 2px solid var(--shram-teal); border-radius: 6px; font-size: 1rem; background: white; min-height: 150px;">
                             </select>
-                            <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Hold Ctrl/Cmd to select multiple states</small>
+                            <small class="multi-select-hint" style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;"><span class="desktop-hint">Hold Ctrl/Cmd to select multiple</span><span class="mobile-hint">Tap to select/deselect multiple</span></small>
                         </div>
 
                         <div class="input-group">
-                            <label for="subscriber-district" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Districts *</label>
+                            <label for="subscriber-district" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Districts <span style="color: #d32f2f;">*</span></label>
                             <select id="subscriber-district" required multiple style="width: 100%; padding: 0.75rem; border: 2px solid var(--shram-teal); border-radius: 6px; font-size: 1rem; background: white; min-height: 150px;">
                             </select>
-                            <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Hold Ctrl/Cmd to select multiple districts</small>
+                            <small class="multi-select-hint" style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;"><span class="desktop-hint">Hold Ctrl/Cmd to select multiple</span><span class="mobile-hint">Tap to select/deselect multiple</span></small>
                         </div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group">
                             <label style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">
-                                MET Level (Work Intensity) *
+                                MET Level (Work Intensity)
                                 <span class="info-tooltip">
                                     <i class="fas fa-info-circle"></i>
                                     <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)</span>
@@ -2303,7 +2601,7 @@
                         </div>
 
                         <div class="input-group">
-                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Zone Alerts *</label>
+                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Zone Alerts</label>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--caution-yellow); border-radius: 6px; background: #fffde7;">
                                     <input type="checkbox" id="alert-zone-4" value="zone-4" style="width: 18px; height: 18px; cursor: pointer;">
@@ -2354,8 +2652,8 @@
 
     <div class="footer">
         <p><strong>SHRAM: System for Heat Risk Assessment for Manual labor</strong></p>
-        <p>Developed by Elif Kılıç | India Energy & Climate Center | University of California, Berkeley</p>
-        <p>Data sources: India Meteorological Department (IMD), ERA5 Reanalysis (ECMWF) | Updated hourly</p>
+        <p>Developed by Elif Kılıç | India Energy & Climate Center | Goldman School of Public Policy | University of California, Berkeley</p>
+        <p>Data sources: India Meteorological Department (IMD), ERA5 Reanalysis (ECMWF), Open-Meteo | Updated hourly</p>
         <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
             &copy; 2025
         </p>
@@ -2478,6 +2776,63 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             return window.innerWidth <= 420;
         }
 
+        // Get mobile-optimized line properties (thin lines, no markers)
+        function getMobileLineProps() {
+            const mobile = isMobile();
+            return {
+                borderWidth: mobile ? 1.5 : 3,
+                pointRadius: mobile ? 0 : 3,
+                pointHoverRadius: mobile ? 3 : 5,
+                tension: 0.3
+            };
+        }
+
+        // Get mobile-friendly chart labels
+        function getZoneLabel(zone) {
+            const mobile = isMobile();
+            const labels = {
+                6: mobile ? '6' : 'Zone 6 (Hazardous)',
+                5: mobile ? '5' : 'Zone 5 (High Risk)',
+                4: mobile ? '4' : 'Zone 4 (Elevated)',
+                23: mobile ? '2-3' : 'Zone 2-3 (Comfortable)',
+                1: mobile ? '1' : 'Zone 1 (Cold)'
+            };
+            return labels[zone] || `Zone ${zone}`;
+        }
+
+        function getTempRHLabel(type) {
+            const mobile = isMobile();
+            if (type === 'temp') return mobile ? 'T (°C)' : 'Temperature (°C)';
+            if (type === 'rh') return mobile ? 'RH (%)' : 'Relative Humidity (%)';
+            return type;
+        }
+
+        // Format date labels for mobile (1/2 instead of Feb 01 12:00)
+        function formatDateLabel(dateStr, period) {
+            const mobile = isMobile();
+            if (!mobile) return dateStr;
+
+            // Try to parse and shorten the date
+            try {
+                const date = new Date(dateStr);
+                if (!isNaN(date)) {
+                    // For all periods on mobile, just show d/m (date only, no time)
+                    return `${date.getDate()}/${date.getMonth()+1}`;
+                }
+            } catch (e) {}
+
+            // Fallback: try to shorten existing string format
+            // "Feb 01 12:00" -> "1/2"
+            const match = dateStr.match(/(\w+)\s+(\d+)/);
+            if (match) {
+                const months = {Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+                const m = months[match[1]] || match[1];
+                const d = parseInt(match[2]);
+                return `${d}/${m}`;
+            }
+            return dateStr;
+        }
+
         function getChartOptions(type) {
             const mobile = isMobile();
             const small = isSmallMobile();
@@ -2490,6 +2845,17 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         bottom: small ? 8 : (mobile ? 10 : 10),
                         left: small ? 5 : (mobile ? 8 : 10),
                         right: small ? 5 : (mobile ? 8 : 10)
+                    }
+                },
+                // Mobile: thin lines, no markers for cleaner appearance
+                elements: {
+                    line: {
+                        borderWidth: mobile ? 1.5 : 2,
+                        tension: 0.3
+                    },
+                    point: {
+                        radius: mobile ? 0 : 3,
+                        hoverRadius: mobile ? 3 : 5
                     }
                 },
                 plugins: {
@@ -2509,16 +2875,19 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         ticks: {
                             maxRotation: mobile ? 45 : 0,
                             minRotation: mobile ? 45 : 0,
-                            font: { size: small ? 8 : (mobile ? 9 : 11) },
+                            font: { size: small ? 8 : (mobile ? 9 : 11), weight: 'bold' },
                             maxTicksLimit: small ? 6 : (mobile ? 8 : 12)
                         },
                         title: { display: !mobile, text: 'Time (IST)' }
                     },
                     y: {
-                        ticks: { font: { size: small ? 8 : (mobile ? 9 : 11) } },
+                        ticks: {
+                            font: { size: small ? 8 : (mobile ? 9 : 11), weight: 'bold' },
+                            color: type === 'temp' ? '#d32f2f' : undefined // Red for temp axis
+                        },
                         title: {
-                            display: true,
-                            text: type === 'zone' ? (mobile ? '# Locations' : 'Number of Locations') : (mobile ? 'Temp (°C)' : 'Temperature (°C)'),
+                            display: !mobile, // Hide y-axis title on mobile (use colored ticks instead)
+                            text: type === 'zone' ? 'Number of Locations' : 'Temperature (°C)',
                             font: { size: small ? 8 : (mobile ? 9 : 11) }
                         },
                         beginAtZero: type === 'zone'
@@ -2529,10 +2898,13 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 base.scales.y1 = {
                     type: 'linear',
                     position: 'right',
-                    ticks: { font: { size: small ? 8 : (mobile ? 9 : 11) } },
+                    ticks: {
+                        font: { size: small ? 8 : (mobile ? 9 : 11), weight: 'bold' },
+                        color: '#1976d2' // Blue for humidity axis
+                    },
                     title: {
-                        display: true,
-                        text: mobile ? 'RH (%)' : 'Humidity (%)',
+                        display: !mobile, // Hide on mobile
+                        text: 'Humidity (%)',
                         font: { size: small ? 8 : (mobile ? 9 : 11) }
                     },
                     grid: { drawOnChartArea: false }
@@ -2563,6 +2935,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     page_path: '/' + tabName
                 });
             }
+
+            // Fix map sizing when switching to dashboard tab
+            if (tabName === 'dashboard' && typeof forecastMap !== 'undefined' && forecastMap) {
+                setTimeout(() => forecastMap.invalidateSize(), 100);
+            }
         }
 
         function toggleBanner(event) {
@@ -2576,6 +2953,18 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             } else {
                 banner.classList.add('minimized');
                 toggleBtn.innerHTML = '<i class="fas fa-plus"></i>';
+            }
+        }
+
+        function toggleHowItWorks() {
+            const content = document.getElementById('how-it-works-content');
+            const icon = document.getElementById('how-it-works-icon');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(90deg)';
+            } else {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
             }
         }
 
@@ -2900,6 +3289,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // Update button styles - selected is teal filled, unselected is light blue-grey
             const btn1 = document.getElementById('forecast-1day-btn');
             const btn3 = document.getElementById('forecast-3day-btn');
+            const btn1Mobile = document.getElementById('forecast-1day-btn-mobile');
+            const btn3Mobile = document.getElementById('forecast-3day-btn-mobile');
 
             if (days === 1) {
                 btn1.style.background = 'var(--shram-teal)';
@@ -2908,6 +3299,17 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 btn3.style.background = '#e8f4f8';
                 btn3.style.color = 'var(--shram-teal)';
                 btn3.style.borderColor = '#e8f4f8';
+                // Mobile buttons
+                if (btn1Mobile) {
+                    btn1Mobile.style.background = 'var(--shram-teal)';
+                    btn1Mobile.style.color = 'white';
+                    btn1Mobile.style.borderColor = 'var(--shram-teal)';
+                }
+                if (btn3Mobile) {
+                    btn3Mobile.style.background = '#e8f4f8';
+                    btn3Mobile.style.color = 'var(--shram-teal)';
+                    btn3Mobile.style.borderColor = '#e8f4f8';
+                }
             } else {
                 btn1.style.background = '#e8f4f8';
                 btn1.style.color = 'var(--shram-teal)';
@@ -2915,6 +3317,17 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 btn3.style.background = 'var(--shram-teal)';
                 btn3.style.color = 'white';
                 btn3.style.borderColor = 'var(--shram-teal)';
+                // Mobile buttons
+                if (btn1Mobile) {
+                    btn1Mobile.style.background = '#e8f4f8';
+                    btn1Mobile.style.color = 'var(--shram-teal)';
+                    btn1Mobile.style.borderColor = '#e8f4f8';
+                }
+                if (btn3Mobile) {
+                    btn3Mobile.style.background = 'var(--shram-teal)';
+                    btn3Mobile.style.color = 'white';
+                    btn3Mobile.style.borderColor = 'var(--shram-teal)';
+                }
             }
 
             loadForecast();
@@ -3013,46 +3426,45 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 const ctxAlert = document.getElementById('alertTrendChart').getContext('2d');
                 if (alertTrendChart) alertTrendChart.destroy();
 
+                const lineProps = getMobileLineProps();
+                // Format labels for mobile
+                const mobileLabels = labels.map(l => formatDateLabel(l, trendPeriod));
                 alertTrendChart = new Chart(ctxAlert, {
                     type: 'line',
                     data: {
-                        labels: labels,
+                        labels: mobileLabels,
                         datasets: [
                             {
-                                label: 'Zone 6 (Hazardous)',
+                                label: getZoneLabel(6),
                                 data: zone6Data,
                                 borderColor: '#d32f2f',
                                 backgroundColor: 'rgba(211, 47, 47, 0.1)',
                                 fill: true,
-                                tension: 0.3,
-                                borderWidth: 3
+                                ...lineProps
                             },
                             {
-                                label: 'Zone 5 (High Risk)',
+                                label: getZoneLabel(5),
                                 data: zone5Data,
                                 borderColor: '#e65100',
                                 backgroundColor: 'rgba(230, 81, 0, 0.1)',
                                 fill: true,
-                                tension: 0.3,
-                                borderWidth: 3
+                                ...lineProps
                             },
                             {
-                                label: 'Zone 4 (Elevated)',
+                                label: getZoneLabel(4),
                                 data: zone4Data,
                                 borderColor: '#c79100',
                                 backgroundColor: 'rgba(199, 145, 0, 0.1)',
                                 fill: true,
-                                tension: 0.3,
-                                borderWidth: 3
+                                ...lineProps
                             },
                             {
-                                label: 'Zone 2-3 (Comfortable)',
+                                label: getZoneLabel(23),
                                 data: zone23Data,
                                 borderColor: '#006D77',
                                 backgroundColor: 'rgba(0, 109, 119, 0.1)',
                                 fill: true,
-                                tension: 0.3,
-                                borderWidth: 3
+                                ...lineProps
                             }
                         ]
                     },
@@ -3086,30 +3498,30 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
                 if (tempHumidityChart) tempHumidityChart.destroy();
                 const ctxTemp = document.getElementById('tempHumidityChart').getContext('2d');
+                const lineProps2 = getMobileLineProps();
+                const mobile = isMobile();
                 tempHumidityChart = new Chart(ctxTemp, {
                     type: 'line',
                     data: {
-                        labels: labels,
+                        labels: mobileLabels,
                         datasets: [
                             {
-                                label: 'Temperature (°C)',
+                                label: getTempRHLabel('temp'),
                                 data: tempData,
                                 borderColor: '#d32f2f',
                                 backgroundColor: 'rgba(211, 47, 47, 0.1)',
                                 fill: false,
-                                tension: 0.3,
-                                borderWidth: 2,
-                                yAxisID: 'y'
+                                yAxisID: 'y',
+                                ...lineProps2
                             },
                             {
-                                label: 'Relative Humidity (%)',
+                                label: getTempRHLabel('rh'),
                                 data: rhData,
                                 borderColor: '#1976d2',
                                 backgroundColor: 'rgba(25, 118, 210, 0.1)',
                                 fill: false,
-                                tension: 0.3,
-                                borderWidth: 2,
-                                yAxisID: 'y1'
+                                yAxisID: 'y1',
+                                ...lineProps2
                             }
                         ]
                     },
@@ -3130,18 +3542,23 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             }
                         },
                         scales: {
+                            x: {
+                                ticks: { font: { weight: 'bold' } }
+                            },
                             y: {
                                 type: 'linear',
                                 display: true,
                                 position: 'left',
-                                title: { display: true, text: 'Temperature (°C)' },
+                                title: { display: !mobile, text: 'Temperature (°C)' },
+                                ticks: { color: '#d32f2f', font: { weight: 'bold' } }, // Red for temperature
                                 grid: { drawOnChartArea: true }
                             },
                             y1: {
                                 type: 'linear',
                                 display: true,
                                 position: 'right',
-                                title: { display: true, text: 'Relative Humidity (%)' },
+                                title: { display: !mobile, text: 'Relative Humidity (%)' },
+                                ticks: { color: '#1976d2', font: { weight: 'bold' } }, // Blue for humidity
                                 min: 0,
                                 max: 100,
                                 grid: { drawOnChartArea: false }
@@ -3980,6 +4397,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     </div>
                 </div>
             `;
+
+            // Update mobile location summary (shown under tiles on mobile)
+            const locationSummary = document.getElementById('current-location-summary');
+            if (locationSummary) {
+                locationSummary.textContent = `${filteredAlerts.length} stations in ${locationText} across ${totalDistricts} districts`;
+                locationSummary.style.display = window.innerWidth <= 768 ? 'block' : 'none';
+            }
+
             // Note: Zone 6 banner is NOT updated here - it stays global (set in loadLiveData)
         }
 
@@ -4425,11 +4850,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             const metData = hourData.data[`met${met}`];
                             const rawZone = metData ? metData[sunCondition].zone : 2;
 
-                            // Map zones to simplified 5-level scale:
-                            // Zone 1 -> 1 (Cold Stress), Zone 2,3 -> 2 (Comfortable), Zone 4 -> 3 (Caution), Zone 5 -> 4 (High Risk), Zone 6 -> 5 (Hazardous)
-                            const zoneMap = { 1: 1, 2: 2, 3: 2, 4: 3, 5: 4, 6: 5 };
+                            // Use actual zone numbers 1-6
                             const rawZoneInt = Math.round(rawZone);
-                            const zone = zoneMap[rawZoneInt] !== undefined ? zoneMap[rawZoneInt] : 2;
+                            const zone = rawZoneInt >= 1 && rawZoneInt <= 6 ? rawZoneInt : 2;
 
                             // Full day + date at midnight, just hours otherwise (every 3 hours)
                             let label;
@@ -4536,7 +4959,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                                 callbacks: {
                                     label: function(context) {
                                         const level = context.raw;
-                                        const labels = { 1: 'Zone 1: Cold Stress', 2: 'Zone 2/3: Comfortable', 3: 'Zone 4: Caution', 4: 'Zone 5: High Risk', 5: 'Zone 6: HAZARDOUS' };
+                                        const labels = { 1: 'Zone 1', 2: 'Zone 2', 3: 'Zone 3', 4: 'Zone 4', 5: 'Zone 5', 6: 'Zone 6' };
                                         return labels[level] || '';
                                     }
                                 }
@@ -4545,26 +4968,27 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         scales: {
                             y: {
                                 min: 0.5,
-                                max: 5.5,
+                                max: 6.5,
                                 title: {
                                     display: true,
-                                    text: 'Heat Stress Level',
+                                    text: 'Zone',
                                     font: { weight: 'bold' }
                                 },
                                 ticks: {
                                     stepSize: 1,
+                                    font: { weight: 'bold' },
                                     callback: function(value) {
                                         const v = Math.round(value);
-                                        const labels = { 1: 'Cold Stress', 2: 'Comfortable', 3: 'Caution', 4: 'High Risk', 5: 'HAZARDOUS' };
-                                        return labels[v] || '';
+                                        if (v >= 1 && v <= 6) return v.toString();
+                                        return '';
                                     }
                                 },
                                 grid: {
                                     color: function(context) {
                                         if (context.tick.value === 1) return 'rgba(33, 150, 243, 0.4)';
-                                        if (context.tick.value === 3) return 'rgba(199, 145, 0, 0.4)';
-                                        if (context.tick.value === 4) return 'rgba(230, 81, 0, 0.4)';
-                                        if (context.tick.value === 5) return 'rgba(211, 47, 47, 0.4)';
+                                        if (context.tick.value === 4) return 'rgba(199, 145, 0, 0.4)';
+                                        if (context.tick.value === 5) return 'rgba(230, 81, 0, 0.4)';
+                                        if (context.tick.value === 6) return 'rgba(211, 47, 47, 0.4)';
                                         return 'rgba(0, 0, 0, 0.1)';
                                     }
                                 }
@@ -4576,6 +5000,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                                 ticks: {
                                     maxRotation: 45,
                                     autoSkip: false,
+                                    font: { weight: 'bold' },
                                     callback: function(value, index, ticks) {
                                         const label = this.getLabelForValue(value);
                                         if (!label) return null;
@@ -5095,6 +5520,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // Load districts data and initialize forecast map
             loadIndiaDistrictsData().then(() => {
                 initForecastMap();  // Initialize map with all states
+                // Fix initial map sizing after short delay
+                setTimeout(() => {
+                    if (forecastMap) forecastMap.invalidateSize();
+                }, 200);
             });
             loadSummerStats();
 
@@ -5250,10 +5679,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'bottom',
                     tab: 'dashboard'
                 },
-                // Current Heat Stress Status
+                // Current Heat Stress Alerts Status
                 {
                     element: document.querySelector('#status-grid'),
-                    title: 'Current Heat Stress Status',
+                    title: 'Current Heat Stress Alerts Status',
                     intro: 'See how many districts are in each heat stress zone right now. <b>Hover over zone tiles</b> to see affected districts, or <b>click</b> to see zone definitions.',
                     position: 'top',
                     tab: 'dashboard',
@@ -5287,7 +5716,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 {
                     element: document.querySelector('#livemap-sidebar-overlay'),
                     title: 'Active Alerts & Trends',
-                    intro: 'The sidebar on the right shows <b>Active Alerts</b> count and <b>Zone Trends</b> over the past hour.',
+                    intro: 'The sidebar on the right shows <b>Active Alerts</b> count and <b>Historical Zones</b> over the past hour.',
                     position: 'left',
                     tab: 'livemap'
                 },
@@ -5319,7 +5748,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 {
                     element: document.querySelector('#about-ehi-section'),
                     title: 'Understanding EHI-N*',
-                    intro: 'Learn about the <b>Extended Heat Index for Working Populations</b> and the science behind heat stress assessment.<br><br><em>Technical report and working paper coming soon.</em>',
+                    intro: 'Learn about the <b>Extended Heat Index for Laboring Populations</b> and the science behind heat stress assessment.<br><br><em>Technical report and working paper coming soon.</em>',
                     position: 'bottom',
                     tab: 'about'
                 },
