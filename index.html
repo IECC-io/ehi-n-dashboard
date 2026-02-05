@@ -1871,20 +1871,32 @@
                 padding: 0 0.3rem !important;
                 height: 32px !important;
             }
-            /* Force line break before state by making the sun/shade toggle take remaining width */
-            .section h2 #sun-shade-toggle {
-                flex-grow: 1 !important;
-                justify-content: flex-end !important;
+            /* Force sun/shade toggle to take remaining width and push state to next line */
+            .section h2 #sun-shade-toggle::after {
+                content: "" !important;
+                flex-basis: 100% !important;
+                width: 0 !important;
+                height: 0 !important;
             }
-            /* State and District on their own row */
+            /* Make the h2 have a wrapper-like behavior */
             .section h2 > span:has(#current-state-select) {
-                flex-basis: 50% !important;
-                justify-content: flex-end !important;
+                flex-basis: calc(50% - 0.25rem) !important;
                 margin-top: 0.5rem !important;
+                order: 100 !important;
             }
             .section h2 > span:has(#current-district-select) {
-                flex-basis: 50% !important;
-                justify-content: flex-start !important;
+                flex-basis: calc(50% - 0.25rem) !important;
+                margin-top: 0.5rem !important;
+                order: 101 !important;
+            }
+            /* Add a flex break after CONDITIONS */
+            .section h2 #sun-shade-toggle {
+                margin-right: auto !important;
+            }
+            /* Info tooltip last */
+            .section h2 > .info-tooltip {
+                order: 200 !important;
+                flex-basis: 100% !important;
                 margin-top: 0.5rem !important;
             }
 
