@@ -1245,7 +1245,7 @@
                 flex-shrink: 0;
             }
             .logo-container img {
-                height: 56px;
+                height: 120px;
                 width: auto;
                 display: block;
             }
@@ -1297,14 +1297,14 @@
             .tab i {
                 display: none;
             }
-            /* Shorter tab labels on mobile */
-            #livemap-tab-btn { font-size: 0; }
-            #livemap-tab-btn::after { content: "Live Map"; font-size: 0.75rem; }
-            .tab[onclick*="calculator"] { font-size: 0; }
-            .tab[onclick*="calculator"]::after { content: "Calculator"; font-size: 0.75rem; }
-            #about-tab-btn { font-size: 0; }
-            #about-tab-btn::after { content: "About"; font-size: 0.75rem; }
-            /* Active tab styling on mobile - ensure teal color */
+            /* Shorter tab labels on mobile - white text for inactive */
+            #livemap-tab-btn { font-size: 0; color: white; }
+            #livemap-tab-btn::after { content: "Live Map"; font-size: 0.75rem; color: rgba(255,255,255,0.9); }
+            .tab[onclick*="calculator"] { font-size: 0; color: white; }
+            .tab[onclick*="calculator"]::after { content: "Calculator"; font-size: 0.75rem; color: rgba(255,255,255,0.9); }
+            #about-tab-btn { font-size: 0; color: white; }
+            #about-tab-btn::after { content: "About"; font-size: 0.75rem; color: rgba(255,255,255,0.9); }
+            /* Active tab styling on mobile - teal text on white background */
             .tab.active {
                 background: white !important;
                 color: var(--shram-teal) !important;
@@ -1312,10 +1312,10 @@
             .tab.active::after {
                 color: var(--shram-teal) !important;
             }
-            /* Remove brown bar from active tab on mobile */
-            #livemap-tab-btn.active::after { content: "Live Map"; display: inline; font-size: 0.75rem; color: var(--shram-teal); }
-            .tab[onclick*="calculator"].active::after { content: "Calculator"; display: inline; font-size: 0.75rem; color: var(--shram-teal); }
-            #about-tab-btn.active::after { content: "About"; display: inline; font-size: 0.75rem; color: var(--shram-teal); }
+            /* Active state for renamed tabs - teal text */
+            #livemap-tab-btn.active::after { content: "Live Map"; font-size: 0.75rem; color: var(--shram-teal) !important; }
+            .tab[onclick*="calculator"].active::after { content: "Calculator"; font-size: 0.75rem; color: var(--shram-teal) !important; }
+            #about-tab-btn.active::after { content: "About"; font-size: 0.75rem; color: var(--shram-teal) !important; }
 
             .container { padding: 0.5rem; overflow-x: hidden; }
 
@@ -1407,8 +1407,8 @@
                 justify-content: flex-start;
             }
             .logo-strip img {
-                height: 8px;
-                width: auto;
+                height: 12px !important;
+                width: auto !important;
             }
             .logo-strip-text { display: none; }
 
@@ -1741,10 +1741,10 @@
             }
         }
 
-        /* Small phones (iPhone 14/15 regular, most Androids) */
-        @media (max-width: 420px) {
+        /* Small phones (iPhone 14/15 Pro Max/Plus ~430px, regular, most Androids) */
+        @media (max-width: 440px) {
             .logo-container img {
-                height: 28px;
+                height: 100px;
             }
             .tab {
                 padding: 6px 4px;
@@ -1918,7 +1918,7 @@
         /* Extra small phones (iPhone SE, small Androids ~360px) */
         @media (max-width: 375px) {
             .logo-container img {
-                height: 24px;
+                height: 80px;
             }
             .tab {
                 padding: 5px 3px;
@@ -2424,9 +2424,8 @@
             <div id="about-ehi-section" class="section" style="padding-left: 2.5rem;">
                 <h2>About EHI-N*</h2>
 
-                <p>The <strong>Extended Heat Index for Laboring Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal strain in labor-intensive occupations.</p>
+                <p>The <strong>Extended Heat Index for Laboring Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal stress in labor-intensive occupations.</p>
 
-                <h3>Nomenclature</h3>
                 <div style="display: flex; flex-direction: column; align-items: center; margin: 1.5rem 0;">
                     <svg viewBox="0 0 400 160" style="max-width: 400px; width: 100%; height: auto;">
                         <!-- Metabolic Rate label and arrow (shifted left) -->
@@ -2454,8 +2453,13 @@
                     </svg>
                 </div>
 
-                <h3>Scientific Foundation</h3>
-                <p style="padding-left: 0.5rem;"><em>Technical brief coming soon...</em></p>
+                <h3 onclick="toggleScientificFoundation()" style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                    <i id="scientific-foundation-icon" class="fas fa-chevron-right" style="font-size: 0.8rem; transition: transform 0.2s;"></i>
+                    Scientific Foundation
+                </h3>
+                <div id="scientific-foundation-content" style="padding-left: 1.5rem; display: none;">
+                    <p><em>Technical brief coming soon...</em></p>
+                </div>
             </div>
 
             <div id="zones-section" class="section">
@@ -2959,6 +2963,18 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         function toggleHowItWorks() {
             const content = document.getElementById('how-it-works-content');
             const icon = document.getElementById('how-it-works-icon');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(90deg)';
+            } else {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function toggleScientificFoundation() {
+            const content = document.getElementById('scientific-foundation-content');
+            const icon = document.getElementById('scientific-foundation-icon');
             if (content.style.display === 'none') {
                 content.style.display = 'block';
                 icon.style.transform = 'rotate(90deg)';
@@ -5655,14 +5671,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'bottom',
                     tab: 'dashboard'
                 },
-                // Help Button
-                {
-                    element: document.querySelector('.take-tour-btn'),
-                    title: 'Take the Tour Again',
-                    intro: 'Click here anytime to take this tour again!',
-                    position: 'bottom',
-                    tab: 'dashboard'
-                },
                 // Activity Level (METs) on Dashboard
                 {
                     element: document.querySelector('#met-toggle-current'),
@@ -5772,9 +5780,17 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 {
                     element: document.querySelector('#api-docs-btn'),
                     title: 'API for Developers',
-                    intro: 'Access our <b>three datasets</b> programmatically:<br>• Current alerts<br>• 24-hour history<br>• 3-day forecasts<br><br>Click to view API documentation.<br><br><b>Thanks for taking the tour!</b>',
+                    intro: 'Access our <b>three datasets</b> programmatically:<br>• Current alerts<br>• 24-hour history<br>• 3-day forecasts<br><br>Click to view API documentation.',
                     position: 'top',
                     tab: 'about'
+                },
+                // Take Tour Again - final step
+                {
+                    element: document.querySelector('.take-tour-btn.desktop-tour-btn') || document.querySelector('.take-tour-btn'),
+                    title: 'Take the Tour Again',
+                    intro: 'Click the <b>?</b> button anytime to take this tour again!<br><br><b>Thanks for taking the tour!</b>',
+                    position: 'bottom',
+                    tab: 'dashboard'
                 }
             ];
 
