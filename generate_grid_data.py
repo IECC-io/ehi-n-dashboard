@@ -43,17 +43,22 @@ MET_LEVELS = {
 
 
 def load_india_boundary():
-    """Load India boundary GeoJSON for filtering points."""
-    url = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson'
-    response = requests.get(url, timeout=60)
-    data = response.json()
+    """Load India boundary from local GeoJSON (includes all territories including Ladakh, J&K)."""
+    geojson_dir = os.path.join(os.path.dirname(__file__) or '.', 'geojson')
+    states_file = os.path.join(geojson_dir, 'india_states.geojson')
 
-    for feature in data['features']:
-        if feature['properties'].get('ADMIN') == 'India' or \
-           feature['properties'].get('name') == 'India' or \
-           feature['properties'].get('ISO_A3') == 'IND':
-            return feature
-    return None
+    try:
+        with open(states_file, 'r') as f:
+            data = json.load(f)
+
+        # Return the entire GeoJSON as a pseudo-feature containing all state polygons
+        # This ensures all states including Ladakh and J&K are included
+        print(f"Loaded {len(data['features'])} state/UT boundaries from local GeoJSON")
+        return data
+    except Exception as e:
+        print(f"Error loading india_states.geojson: {e}")
+        print("Falling back to bounding box only (no boundary filtering)")
+        return None
 
 
 def load_district_geojsons():
@@ -129,18 +134,22 @@ def point_in_polygon(lat, lon, polygon):
 
 
 def is_point_in_india(lat, lon, india_boundary):
-    """Check if point is within India boundaries."""
+    """Check if point is within any Indian state/UT boundary."""
     if india_boundary is None:
         return True
 
-    geometry = india_boundary['geometry']
+    # india_boundary is now a GeoJSON FeatureCollection with all states
+    for feature in india_boundary.get('features', []):
+        geometry = feature.get('geometry', {})
 
-    if geometry['type'] == 'Polygon':
-        return point_in_polygon(lat, lon, geometry['coordinates'][0])
-    elif geometry['type'] == 'MultiPolygon':
-        for polygon in geometry['coordinates']:
-            if point_in_polygon(lat, lon, polygon[0]):
+        if geometry.get('type') == 'Polygon':
+            if point_in_polygon(lat, lon, geometry['coordinates'][0]):
                 return True
+        elif geometry.get('type') == 'MultiPolygon':
+            for polygon in geometry['coordinates']:
+                if point_in_polygon(lat, lon, polygon[0]):
+                    return True
+
     return False
 
 
