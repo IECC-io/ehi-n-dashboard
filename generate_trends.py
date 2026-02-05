@@ -133,6 +133,23 @@ def aggregate_hourly(df):
                     district_data[dist_key] = {}
                 district_data[dist_key][key] = zone_num
 
+        # Add district-level temp/RH values
+        for _, row in group.iterrows():
+            state = row.get('STATE', '')
+            district = row.get('DISTRICT', '')
+            if state and district:
+                dist_key = f"{state}|{district}"
+                if dist_key in district_data:
+                    try:
+                        temp = float(row.get('TEMP', 0))
+                        rh = float(row.get('RH', 0))
+                        if temp > 0:
+                            district_data[dist_key]['temp'] = round(temp, 1)
+                        if rh > 0:
+                            district_data[dist_key]['rh'] = round(rh, 1)
+                    except (ValueError, TypeError):
+                        pass
+
         entry['districts'] = district_data
 
         # Add temp/RH averages

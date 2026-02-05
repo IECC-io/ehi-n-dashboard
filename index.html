@@ -951,8 +951,9 @@
 
         select option.unavailable,
         select option:disabled {
-            color: #999;
+            color: #aaa !important;
             font-style: italic;
+            background-color: #f5f5f5;
         }
 
         .footer {
@@ -2335,7 +2336,11 @@
             <!-- Historical Zones (full width) -->
             <div id="last24h-section" class="section">
                 <h2 style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem;">
-                    <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Historical Zones</span>
+                    <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Historical Zones
+                        <span class="tooltip-icon" style="cursor: help; margin-left: 0.3rem; font-size: 0.7em; color: #78909c;" title="Click legend items to show/hide individual zones">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                    </span>
                     <span style="display: inline-flex; flex-direction: column; align-items: center;">
                         <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">TIMEFRAME</span>
                         <span style="display: inline-flex;">
@@ -2487,10 +2492,13 @@
                     Calculate
                 </button>
 
-                <div class="result-display" id="result-display">
-                    <div class="result-zone" id="result-zone">--</div>
-                    <div class="result-value" id="result-value">--</div>
-                    <p id="result-description">--</p>
+                <div class="result-display" id="result-display" style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <div class="result-zone" id="result-zone">--</div>
+                        <div class="result-value" id="result-value">--</div>
+                        <p id="result-description">--</p>
+                    </div>
+                    <div id="zone-scatter-container" style="flex: 1; min-width: 300px; max-width: 400px; display: none;"></div>
                 </div>
             </div>
         </div>
@@ -3509,14 +3517,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     return;
                 }
 
-                // Update timestamp
-                const generated = new Date(data.generated).toLocaleString('en-IN', {
-                    timeZone: 'Asia/Calcutta',
-                    dateStyle: 'medium',
-                    timeStyle: 'short'
-                });
-                document.getElementById('last24h-timestamp').innerHTML = `<strong>Last Updated: ${generated} IST</strong>`;
-
                 // Get MET/sun column key
                 const met = currentMetLast24h || 3;
                 const sun = shadeStates.last24h ? 'shade' : 'sun';
@@ -3525,6 +3525,33 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 // Get selected state/district for filtering
                 const selectedState = document.getElementById('charts-state-select').value;
                 const selectedDistrict = document.getElementById('charts-district-select').value;
+
+                // Check if selected state/district has data in the most recent entry
+                let hasRecentData = true;
+                if (selectedState !== 'all' && data.data.length > 0) {
+                    const latestEntry = data.data[data.data.length - 1];
+                    if (latestEntry.districts) {
+                        hasRecentData = Object.entries(latestEntry.districts).some(([distKey, distData]) => {
+                            const [state, district] = distKey.split('|');
+                            const stateMatch = state === selectedState;
+                            const districtMatch = selectedDistrict === 'all' || district === selectedDistrict;
+                            return stateMatch && districtMatch;
+                        });
+                    }
+                }
+
+                // Update timestamp - show red if data is stale (more than 2 hours old) OR selected state has no recent data
+                const generatedDate = new Date(data.generated);
+                const generated = generatedDate.toLocaleString('en-IN', {
+                    timeZone: 'Asia/Calcutta',
+                    dateStyle: 'medium',
+                    timeStyle: 'short'
+                });
+                const isStale = (Date.now() - generatedDate.getTime()) > 2 * 60 * 60 * 1000; // 2 hours
+                const showRed = isStale || !hasRecentData;
+                const timestampColor = showRed ? 'color: #d32f2f; font-weight: bold;' : '';
+                const timestampLabel = !hasRecentData ? 'Last Available' : 'Last Updated';
+                document.getElementById('last24h-timestamp').innerHTML = `<strong style="${timestampColor}">${timestampLabel}: ${generated} IST</strong>`;
 
                 const labels = [];
                 const zone6Data = [], zone5Data = [], zone4Data = [], zone3Data = [], zone2Data = [], zone1Data = [];
@@ -3639,10 +3666,15 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
                         plugins: {
                             legend: { position: 'bottom' },
                             title: {
                                 display: true,
+                                align: 'center',
                                 text: selectedState !== 'all'
                                     ? `${config.title} - ${selectedDistrict !== 'all' ? selectedDistrict + ', ' : ''}${selectedState}`
                                     : `${config.title} - All India`
@@ -3657,11 +3689,38 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     }
                 });
 
-                // Temp/humidity chart - show actual data
+                // Temp/humidity chart - filter by state/district if selected
                 const tempData = [], rhData = [];
                 data.data.forEach(entry => {
-                    tempData.push(entry.avg_temp || null);
-                    rhData.push(entry.avg_rh || null);
+                    if (selectedState !== 'all' && entry.districts) {
+                        // Calculate average temp/RH for selected state/district
+                        let tempSum = 0, tempCount = 0;
+                        let rhSum = 0, rhCount = 0;
+
+                        for (const [distKey, distData] of Object.entries(entry.districts)) {
+                            const [state, district] = distKey.split('|');
+                            const stateMatch = state === selectedState;
+                            const districtMatch = selectedDistrict === 'all' || district === selectedDistrict;
+
+                            if (stateMatch && districtMatch) {
+                                if (distData.temp) {
+                                    tempSum += distData.temp;
+                                    tempCount++;
+                                }
+                                if (distData.rh) {
+                                    rhSum += distData.rh;
+                                    rhCount++;
+                                }
+                            }
+                        }
+
+                        tempData.push(tempCount > 0 ? Math.round(tempSum / tempCount * 10) / 10 : null);
+                        rhData.push(rhCount > 0 ? Math.round(rhSum / rhCount * 10) / 10 : null);
+                    } else {
+                        // Use national averages
+                        tempData.push(entry.avg_temp || null);
+                        rhData.push(entry.avg_rh || null);
+                    }
                 });
 
                 if (tempHumidityChart) tempHumidityChart.destroy();
@@ -3704,21 +3763,22 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             legend: { position: 'bottom' },
                             title: {
                                 display: true,
-                                text: trendPeriod === 'day' ? 'Last 24 Hours (Hourly Avg)' :
-                                      trendPeriod === 'week' ? 'Last 7 Days (Hourly Avg)' :
-                                      'Last 30 Days (Hourly Avg)'
+                                align: 'center',
+                                text: selectedState !== 'all'
+                                    ? `${config.title.replace('(Hourly)', '(Hourly Avg)')} - ${selectedDistrict !== 'all' ? selectedDistrict + ', ' : ''}${selectedState}`
+                                    : `${config.title.replace('(Hourly)', '(Hourly Avg)')} - All India`
                             }
                         },
                         scales: {
                             x: {
-                                ticks: { font: { weight: 'bold' } }
+                                ticks: { }
                             },
                             y: {
                                 type: 'linear',
                                 display: true,
                                 position: 'left',
                                 title: { display: !mobile, text: 'Temperature (°C)' },
-                                ticks: { color: '#d32f2f', font: { weight: 'bold' } }, // Red for temperature
+                                ticks: { color: '#d32f2f' },
                                 grid: { drawOnChartArea: true }
                             },
                             y1: {
@@ -3726,7 +3786,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                                 display: true,
                                 position: 'right',
                                 title: { display: !mobile, text: 'Relative Humidity (%)' },
-                                ticks: { color: '#1976d2', font: { weight: 'bold' } }, // Blue for humidity
+                                ticks: { color: '#1976d2' },
                                 min: 0,
                                 max: 100,
                                 grid: { drawOnChartArea: false }
@@ -3832,12 +3892,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             };
 
             const zoneColors = {
-                1: "#2196f3",
-                2: "#4caf50",
-                3: "#4caf50",
-                4: "#c79100",
-                5: "#e65100",
-                6: "#d32f2f"
+                1: "#1976D2",  // Blue
+                2: "#2E7D32",  // Green
+                3: "#F9A825",  // Dark Yellow
+                4: "#e65100",  // Orange
+                5: "#d32f2f",  // Red
+                6: "#7B1FA2"   // Purple
             };
 
             const descriptions = {
@@ -3858,6 +3918,158 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             document.getElementById('result-value').textContent = `${ehiLabel}: ${ehiValue.toFixed(1)}°C`;
             document.getElementById('result-description').textContent = descriptions[zone] || '';
             document.getElementById('result-display').classList.add('show');
+
+            // Draw the zone scatter plot with user's position
+            drawZoneScatterPlot(lookupTable, temp, rh, zone, zoneColors, ehiLabel);
+        }
+
+        // Draw continuous zone heatmap with user's position
+        function drawZoneScatterPlot(lookupTable, userTemp, userRH, userZone, zoneColors, ehiLabel) {
+            const container = document.getElementById('zone-scatter-container');
+
+            // Show the container
+            container.style.display = 'block';
+
+            // Replace canvas with custom heatmap container
+            container.innerHTML = `
+                <div style="display: flex; align-items: stretch; gap: 8px; height: 220px;">
+                    <div style="flex: 1; position: relative;">
+                        <div style="text-align: center; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #333;">${ehiLabel} Zone Map</div>
+                        <canvas id="zone-heatmap-canvas" style="width: 100%; height: 180px;"></canvas>
+                        <div style="display: flex; justify-content: space-between; font-size: 9px; color: #666; margin-top: 2px;">
+                            <span>20°C</span>
+                            <span style="flex: 1; text-align: center;">Temperature</span>
+                            <span>50°C</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 20px 0;">
+                        <div style="font-size: 9px; color: #666; text-align: center; margin-bottom: 4px;">Zone</div>
+                        ${[6, 5, 4, 3, 2, 1].map(z => `
+                            <div style="display: flex; align-items: center; gap: 4px;">
+                                <div style="width: 16px; height: 20px; background: ${zoneColors[z]}; border-radius: 2px;"></div>
+                                <span style="font-size: 10px; color: #444;">${z}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            const canvas = document.getElementById('zone-heatmap-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas resolution
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            const width = rect.width;
+            const height = rect.height;
+
+            // Define data ranges
+            const tempMin = 20, tempMax = 50;
+            const rhMin = 0, rhMax = 100;
+
+            // Draw the heatmap
+            const cellWidth = width / (tempMax - tempMin);
+            const cellHeight = height / (rhMax - rhMin);
+
+            // Get temp keys from lookup table
+            const tempKeys = Object.keys(lookupTable.data).map(Number).sort((a, b) => a - b);
+
+            for (let t = tempMin; t < tempMax; t += 0.5) {
+                for (let rh = rhMin; rh < rhMax; rh += 2) {
+                    // Find the closest temp key
+                    const tempKey = t.toFixed(1);
+                    const rhKey = String(Math.round(rh));
+
+                    let zone = 1;
+                    if (lookupTable.data[tempKey] && lookupTable.data[tempKey][rhKey]) {
+                        zone = lookupTable.data[tempKey][rhKey][1];
+                    } else {
+                        // Try to find nearest temp
+                        const nearestTemp = tempKeys.reduce((prev, curr) =>
+                            Math.abs(curr - t) < Math.abs(prev - t) ? curr : prev
+                        );
+                        const nearestTempKey = nearestTemp.toFixed(1);
+                        if (lookupTable.data[nearestTempKey] && lookupTable.data[nearestTempKey][rhKey]) {
+                            zone = lookupTable.data[nearestTempKey][rhKey][1];
+                        }
+                    }
+
+                    // Calculate position (RH inverted so high RH is at top)
+                    const x = (t - tempMin) * cellWidth;
+                    const y = height - ((rh - rhMin) / (rhMax - rhMin)) * height;
+
+                    ctx.fillStyle = zoneColors[zone] || '#ccc';
+                    ctx.fillRect(x, y - cellHeight * 2, cellWidth * 0.5, cellHeight * 2);
+                }
+            }
+
+            // Draw RH axis label vertically on left
+            ctx.save();
+            ctx.fillStyle = '#666';
+            ctx.font = '9px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.translate(8, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('RH %', 0, 0);
+            ctx.restore();
+
+            // Draw RH tick labels
+            ctx.fillStyle = '#666';
+            ctx.font = '8px sans-serif';
+            ctx.textAlign = 'right';
+            for (let rh = 0; rh <= 100; rh += 25) {
+                const y = height - (rh / 100) * height;
+                ctx.fillText(rh.toString(), 22, y + 3);
+            }
+
+            // Draw user's position marker
+            const userX = ((userTemp - tempMin) / (tempMax - tempMin)) * width;
+            const userY = height - ((userRH - rhMin) / (rhMax - rhMin)) * height;
+
+            // Draw crosshairs
+            ctx.strokeStyle = '#006D77';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.moveTo(userX, 0);
+            ctx.lineTo(userX, height);
+            ctx.moveTo(0, userY);
+            ctx.lineTo(width, userY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Draw marker circle
+            ctx.beginPath();
+            ctx.arc(userX, userY, 8, 0, Math.PI * 2);
+            ctx.fillStyle = '#006D77';
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Draw inner dot
+            ctx.beginPath();
+            ctx.arc(userX, userY, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+
+            // Add tooltip with user's state info
+            ctx.fillStyle = '#006D77';
+            ctx.font = 'bold 9px sans-serif';
+            ctx.textAlign = 'left';
+            const labelX = userX + 12;
+            const labelY = userY - 5;
+            // Background for label
+            const labelText = `${userTemp.toFixed(1)}°C, ${userRH}%`;
+            const textWidth = ctx.measureText(labelText).width;
+            ctx.fillStyle = 'rgba(255,255,255,0.85)';
+            ctx.fillRect(labelX - 2, labelY - 9, textWidth + 4, 12);
+            ctx.fillStyle = '#006D77';
+            ctx.fillText(labelText, labelX, labelY);
         }
 
         function countUniqueDistricts(alerts) {
@@ -3889,10 +4101,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             currentStateSelect.innerHTML = '<option value="all">All India</option>';
             allStates.forEach(state => {
                 const isAvailable = availableStates.includes(state);
-                // Use disabled for grey styling, but we'll enable selection via JS
+                // Use class for grey styling, allow selection
                 const label = isAvailable ? state : `${state} (last available)`;
-                const disabled = isAvailable ? '' : 'disabled';
-                currentStateSelect.innerHTML += `<option value="${state}" ${disabled}>${label}</option>`;
+                const unavailableClass = isAvailable ? '' : 'class="unavailable"';
+                currentStateSelect.innerHTML += `<option value="${state}" ${unavailableClass}>${label}</option>`;
             });
 
             // NOTE: Forecast dropdowns are populated separately from india_districts.json
@@ -3903,10 +4115,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             chartsStateSelect.innerHTML = '<option value="all">All India</option>';
             allStates.forEach(state => {
                 const isAvailable = availableStates.includes(state);
-                // Use disabled for grey styling, but we'll enable selection via JS
+                // Use class for grey styling, allow selection
                 const label = isAvailable ? state : `${state} (last available)`;
-                const disabled = isAvailable ? '' : 'disabled';
-                chartsStateSelect.innerHTML += `<option value="${state}" ${disabled}>${label}</option>`;
+                const unavailableClass = isAvailable ? '' : 'class="unavailable"';
+                chartsStateSelect.innerHTML += `<option value="${state}" ${unavailableClass}>${label}</option>`;
             });
 
             // Enable selection of "disabled" options by temporarily enabling them on mousedown
@@ -4499,17 +4711,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 ? 'background: #ffebee; color: #c62828; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #ef9a9a;'
                 : '';
 
-            // Update global timestamp only - show red warning style if historical data, otherwise normal
+            // Update global timestamp only - show red font if historical data, otherwise normal black
             // Note: last24h-timestamp is managed independently by load24HourData()
             if (isHistoricalData) {
-                document.getElementById('global-timestamp').innerHTML = `
-                    <span style="background: #ffebee; color: #c62828; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #ef9a9a; display: inline-block;">
-                        <i class="fas fa-history"></i> <strong>Last Data Available: ${formattedTimestamp} IST</strong>
-                        <br><small style="font-weight: normal;">No current IMD data for this location</small>
-                    </span>
-                `;
+                document.getElementById('global-timestamp').innerHTML = `<strong style="color: #d32f2f;">Last Updated: ${formattedTimestamp} IST</strong>`;
             } else {
-                // Reset to normal timestamp style
+                // Reset to normal timestamp style (black)
                 document.getElementById('global-timestamp').innerHTML = `<strong>Last Updated: ${formattedTimestamp} IST</strong>`;
             }
 
@@ -5683,6 +5890,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 loadLiveData().then(() => {
                     // Populate subscriber dropdowns after data loads
                     populateSubscriberStates();
+                    // Load Historical Zones data after state dropdowns are populated
+                    loadTrendData();
                 });
             });
             // Load districts data and initialize forecast map

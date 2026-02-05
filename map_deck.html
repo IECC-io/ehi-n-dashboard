@@ -29,9 +29,12 @@
         :root {
             --iecc-blue: #2d637f;
             --iecc-green: #9DAD33;
-            --zone4-color: #c79100;
-            --zone5-color: #e65100;
-            --zone6-color: #d32f2f;
+            --zone1-color: #1976D2;
+            --zone2-color: #2E7D32;
+            --zone3-color: #F9A825;
+            --zone4-color: #e65100;
+            --zone5-color: #d32f2f;
+            --zone6-color: #7B1FA2;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -671,11 +674,12 @@
             font-size: 0.85rem;
         }
 
-        .tooltip-zone.zone1 { background: #e3f2fd; color: #1565c0; }
-        .tooltip-zone.zone2, .tooltip-zone.zone3 { background: #e8f5e9; color: #2e7d32; }
-        .tooltip-zone.zone4 { background: #fffde7; color: #f9a825; }
-        .tooltip-zone.zone5 { background: #fff3e0; color: #ef6c00; }
-        .tooltip-zone.zone6 { background: #ffebee; color: #c62828; }
+        .tooltip-zone.zone1 { background: #e3f2fd; color: #1976D2; }
+        .tooltip-zone.zone2 { background: #e8f5e9; color: #2E7D32; }
+        .tooltip-zone.zone3 { background: #fffde7; color: #F9A825; }
+        .tooltip-zone.zone4 { background: #fff3e0; color: #e65100; }
+        .tooltip-zone.zone5 { background: #ffebee; color: #d32f2f; }
+        .tooltip-zone.zone6 { background: #f3e5f5; color: #7B1FA2; }
     </style>
 </head>
 <body>
@@ -716,11 +720,12 @@
 
             <div class="map-legend">
                 <h3>Zones</h3>
-                <div class="legend-item"><span style="color: #2196f3; font-weight: 600;">—</span> <span>1</span></div>
-                <div class="legend-item"><span style="color: #4caf50; font-weight: 600;">—</span> <span>2-3</span></div>
-                <div class="legend-item"><span style="color: #c79100; font-weight: 600;">—</span> <span>4</span></div>
-                <div class="legend-item"><span style="color: #e65100; font-weight: 600;">—</span> <span>5</span></div>
-                <div class="legend-item"><span style="color: #d32f2f; font-weight: 600;">—</span> <span>6</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #1976D2; border-radius: 2px;"></span> <span>1</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #2E7D32; border-radius: 2px;"></span> <span>2</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #F9A825; border-radius: 2px;"></span> <span>3</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #e65100; border-radius: 2px;"></span> <span>4</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #d32f2f; border-radius: 2px;"></span> <span>5</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #7B1FA2; border-radius: 2px;"></span> <span>6</span></div>
                 <div class="source-text"><em>Data source: WeatherAPI.com</em></div>
                 <div class="source-text"><a href="#" onclick="showMethodology(); return false;" style="color: #2d637f; text-decoration: underline; cursor: pointer;">Methodology</a></div>
             </div>
@@ -776,7 +781,14 @@
                 </div>
             </div>
             <div class="trend-summary" id="trend-summary" style="display: none;">
-                <div class="trend-summary-title"><i class="fas fa-chart-line"></i> Trend (vs 1 hour ago)</div>
+                <div class="trend-summary-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.25rem;">
+                    <span><i class="fas fa-chart-line"></i> Trend (vs <span id="trend-timeframe-label">1 hour</span> ago)</span>
+                    <span style="display: inline-flex; gap: 2px;">
+                        <button onclick="setTrendTimeframe(1)" id="trend-1h-btn" class="trend-timeframe-btn active" style="padding: 2px 6px; font-size: 0.65rem; border: 1px solid var(--iecc-blue); background: var(--iecc-blue); color: white; border-radius: 3px; cursor: pointer;">1h</button>
+                        <button onclick="setTrendTimeframe(12)" id="trend-12h-btn" class="trend-timeframe-btn" style="padding: 2px 6px; font-size: 0.65rem; border: 1px solid var(--iecc-blue); background: white; color: var(--iecc-blue); border-radius: 3px; cursor: pointer;">12h</button>
+                        <button onclick="setTrendTimeframe(24)" id="trend-24h-btn" class="trend-timeframe-btn" style="padding: 2px 6px; font-size: 0.65rem; border: 1px solid var(--iecc-blue); background: white; color: var(--iecc-blue); border-radius: 3px; cursor: pointer;">24h</button>
+                    </span>
+                </div>
                 <div class="trend-summary-row">
                     <span>Worsening:</span>
                     <span id="trend-worsening" style="color: #c62828; font-weight: 600;">0 locations</span>
@@ -834,6 +846,9 @@
         let deckgl;
         let precomputedData = null;
         let previousData = null;  // Store previous hour's data for trend comparison
+        let previousData12h = null;  // Store 12 hours ago data
+        let previousData24h = null;  // Store 24 hours ago data
+        let currentTrendTimeframe = 1;  // 1, 12, or 24 hours
         let statesGeoJson = null;  // India state boundaries
         let currentMet = 3;
         let currentSun = 'shade';
@@ -843,12 +858,12 @@
 
         // Zone colors [R, G, B, A]
         const ZONE_COLORS = {
-            6: [211, 47, 47, 200],    // Hazardous - red
-            5: [245, 124, 0, 200],    // High risk - orange
-            4: [251, 192, 45, 200],   // Caution - yellow
-            3: [76, 175, 80, 200],    // Comfortable - green
-            2: [76, 175, 80, 200],    // Comfortable - green
-            1: [33, 150, 243, 200],   // Cold stress - blue
+            6: [123, 31, 162, 200],   // Hazardous - purple (#7B1FA2)
+            5: [211, 47, 47, 200],    // High risk - red (#d32f2f)
+            4: [230, 81, 0, 200],     // Elevated - orange (#e65100)
+            3: [249, 168, 37, 200],   // Moderate - dark yellow (#F9A825)
+            2: [46, 125, 50, 200],    // Comfortable - green (#2E7D32)
+            1: [25, 118, 210, 200],   // Cold stress - blue (#1976D2)
             0: [158, 158, 158, 200],  // Unknown - gray
         };
 
@@ -1102,7 +1117,7 @@
 
                 console.log(`Loaded ${precomputedData.metadata.point_count} grid points`);
 
-                // Try to load previous hour's data for trend comparison
+                // Try to load previous data for trend comparison (1h, 12h, 24h)
                 try {
                     const prevResponse = await fetch('grid_data_prev.json');
                     if (prevResponse.ok) {
@@ -1112,6 +1127,28 @@
                 } catch (prevError) {
                     console.log('No previous hour data available for trend comparison');
                     previousData = null;
+                }
+
+                // Try to load 12h ago data
+                try {
+                    const prev12Response = await fetch('grid_data_prev_12h.json');
+                    if (prev12Response.ok) {
+                        previousData12h = await prev12Response.json();
+                        console.log('Loaded 12 hour ago data for trend comparison');
+                    }
+                } catch (e) {
+                    previousData12h = null;
+                }
+
+                // Try to load 24h ago data
+                try {
+                    const prev24Response = await fetch('grid_data_prev_24h.json');
+                    if (prev24Response.ok) {
+                        previousData24h = await prev24Response.json();
+                        console.log('Loaded 24 hour ago data for trend comparison');
+                    }
+                } catch (e) {
+                    previousData24h = null;
                 }
 
                 // Load state boundaries for overlay
@@ -1206,7 +1243,17 @@
 
         // Calculate trend by comparing current and previous data
         function calculateTrends() {
-            if (!precomputedData || !previousData) return null;
+            // Select the comparison data based on timeframe
+            let comparisonData;
+            if (currentTrendTimeframe === 1) {
+                comparisonData = previousData;
+            } else if (currentTrendTimeframe === 12) {
+                comparisonData = previousData12h;
+            } else if (currentTrendTimeframe === 24) {
+                comparisonData = previousData24h;
+            }
+
+            if (!precomputedData || !comparisonData) return null;
 
             const metKey = `met${currentMet}`;
             let worsening = 0;
@@ -1215,7 +1262,7 @@
 
             // Create a map of previous data by location key
             const prevMap = new Map();
-            previousData.points.forEach(point => {
+            comparisonData.points.forEach(point => {
                 const key = `${point.lat}_${point.lon}`;
                 const prevCondition = point.data[metKey]?.[currentSun];
                 if (prevCondition) {
@@ -1244,15 +1291,48 @@
             return { worsening, improving, stable };
         }
 
+        // Set trend comparison timeframe
+        function setTrendTimeframe(hours) {
+            currentTrendTimeframe = hours;
+
+            // Update button styles
+            document.querySelectorAll('.trend-timeframe-btn').forEach(btn => {
+                btn.style.background = 'white';
+                btn.style.color = 'var(--iecc-blue)';
+            });
+            const activeBtn = document.getElementById(`trend-${hours}h-btn`);
+            if (activeBtn) {
+                activeBtn.style.background = 'var(--iecc-blue)';
+                activeBtn.style.color = 'white';
+            }
+
+            // Update label
+            const label = hours === 1 ? '1 hour' : `${hours} hours`;
+            document.getElementById('trend-timeframe-label').textContent = label;
+
+            // Recalculate and update trends
+            updateSidebar();
+        }
+
         // Get trend indicator HTML for an alert item
         function getTrendIndicator(lat, lon) {
-            if (!previousData) return '';
+            // Select comparison data based on timeframe
+            let comparisonData;
+            if (currentTrendTimeframe === 1) {
+                comparisonData = previousData;
+            } else if (currentTrendTimeframe === 12) {
+                comparisonData = previousData12h;
+            } else if (currentTrendTimeframe === 24) {
+                comparisonData = previousData24h;
+            }
+
+            if (!comparisonData) return '';
 
             const metKey = `met${currentMet}`;
             const key = `${lat}_${lon}`;
 
             // Find previous zone for this location
-            const prevPoint = previousData.points.find(p => p.lat === lat && p.lon === lon);
+            const prevPoint = comparisonData.points.find(p => p.lat === lat && p.lon === lon);
             if (!prevPoint) return '';
 
             const prevCondition = prevPoint.data[metKey]?.[currentSun];
