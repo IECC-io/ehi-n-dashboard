@@ -3685,9 +3685,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             legend: { position: 'bottom' },
                             title: {
                                 display: true,
-                                text: trendPeriod === 'day' ? 'Last 7 Days (Hourly Avg)' :
-                                      trendPeriod === 'week' ? 'Last 4 Weeks (Daily Avg)' :
-                                      'Last 6 Months (Weekly Avg)'
+                                text: trendPeriod === 'day' ? 'Last 24 Hours (Hourly Avg)' :
+                                      trendPeriod === 'week' ? 'Last 7 Days (Hourly Avg)' :
+                                      'Last 30 Days (Hourly Avg)'
                             }
                         },
                         scales: {
@@ -4822,7 +4822,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             return colors[zone] || '#999';
         }
 
-        function getZoneLabel(zone) {
+        function getZoneLabelShort(zone) {
             const labels = {
                 6: 'HAZARDOUS',
                 5: 'High Risk',
