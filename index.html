@@ -2856,14 +2856,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             return window.innerWidth <= 420;
         }
 
-        // Get mobile-optimized line properties (thin lines, no markers)
+        // Get line properties (smooth lines, no markers)
         function getMobileLineProps() {
             const mobile = isMobile();
             return {
-                borderWidth: mobile ? 1.5 : 3,
-                pointRadius: mobile ? 0 : 3,
+                borderWidth: mobile ? 1.5 : 2,
+                pointRadius: 0,
                 pointHoverRadius: mobile ? 3 : 5,
-                tension: 0.3
+                tension: 0.4
             };
         }
 
