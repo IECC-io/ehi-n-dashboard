@@ -6,9 +6,9 @@ Aggregates hourly weather CSV data into trend summaries for the dashboard.
 Outputs JSON files that can be loaded by the frontend.
 
 Outputs:
-- weather_logs/trends_daily.json   - Last 7 days, hourly data points
-- weather_logs/trends_weekly.json  - Last 4 weeks, daily averages
-- weather_logs/trends_monthly.json - Last 6 months, weekly averages
+- weather_logs/trends_daily.json   - Last 24 hours, hourly data points
+- weather_logs/trends_weekly.json  - Last 168 hours (7 days), hourly data points
+- weather_logs/trends_monthly.json - Last 720 hours (30 days), hourly data points
 """
 
 import os
@@ -234,11 +234,11 @@ def aggregate_weekly(daily_data):
 
 
 def generate_daily_trends():
-    """Generate last 7 days of hourly data."""
-    print("Generating daily trends (last 7 days, hourly)...")
+    """Generate last 24 hours of hourly data."""
+    print("Generating daily trends (last 24 hours, hourly)...")
 
     end_date = datetime.now(IST)
-    start_date = end_date - timedelta(days=7)
+    start_date = end_date - timedelta(hours=24)
 
     df = load_csv_files(start_date, end_date)
     print(f"  Loaded {len(df)} records")
@@ -249,6 +249,7 @@ def generate_daily_trends():
     output = {
         'generated': datetime.now(IST).isoformat(),
         'period': 'daily',
+        'hours': 24,
         'start_date': start_date.isoformat(),
         'end_date': end_date.isoformat(),
         'data': hourly_data
@@ -263,24 +264,25 @@ def generate_daily_trends():
 
 
 def generate_weekly_trends():
-    """Generate last 4 weeks of daily averages."""
-    print("Generating weekly trends (last 4 weeks, daily)...")
+    """Generate last 168 hours (7 days) of hourly data."""
+    print("Generating weekly trends (last 168 hours / 7 days, hourly)...")
 
     end_date = datetime.now(IST)
-    start_date = end_date - timedelta(weeks=4)
+    start_date = end_date - timedelta(hours=168)  # 7 days
 
     df = load_csv_files(start_date, end_date)
     print(f"  Loaded {len(df)} records")
 
-    daily_data = aggregate_daily(df)
-    print(f"  Generated {len(daily_data)} daily data points")
+    hourly_data = aggregate_hourly(df)
+    print(f"  Generated {len(hourly_data)} hourly data points")
 
     output = {
         'generated': datetime.now(IST).isoformat(),
         'period': 'weekly',
+        'hours': 168,
         'start_date': start_date.isoformat(),
         'end_date': end_date.isoformat(),
-        'data': daily_data
+        'data': hourly_data
     }
 
     output_file = f"{WEATHER_LOGS_DIR}/trends_weekly.json"
@@ -292,25 +294,25 @@ def generate_weekly_trends():
 
 
 def generate_monthly_trends():
-    """Generate last 6 months of weekly averages."""
-    print("Generating monthly trends (last 6 months, weekly)...")
+    """Generate last 720 hours (30 days) of hourly data."""
+    print("Generating monthly trends (last 720 hours / 30 days, hourly)...")
 
     end_date = datetime.now(IST)
-    start_date = end_date - timedelta(days=180)  # ~6 months
+    start_date = end_date - timedelta(hours=720)  # 30 days
 
     df = load_csv_files(start_date, end_date)
     print(f"  Loaded {len(df)} records")
 
-    daily_data = aggregate_daily(df)
-    weekly_data = aggregate_weekly(daily_data)
-    print(f"  Generated {len(weekly_data)} weekly data points")
+    hourly_data = aggregate_hourly(df)
+    print(f"  Generated {len(hourly_data)} hourly data points")
 
     output = {
         'generated': datetime.now(IST).isoformat(),
         'period': 'monthly',
+        'hours': 720,
         'start_date': start_date.isoformat(),
         'end_date': end_date.isoformat(),
-        'data': weekly_data
+        'data': hourly_data
     }
 
     output_file = f"{WEATHER_LOGS_DIR}/trends_monthly.json"

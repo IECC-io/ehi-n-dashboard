@@ -3484,11 +3484,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         }
 
         async function loadTrendData() {
-            // Map period to file and display settings
+            // Map period to file and display settings - all now use hourly data
             const periodConfig = {
-                'day': { file: 'trends_daily.json', labelKey: 'timestamp', labelFormat: 'time' },
-                'week': { file: 'trends_weekly.json', labelKey: 'date', labelFormat: 'date' },
-                'month': { file: 'trends_monthly.json', labelKey: 'week', labelFormat: 'week' }
+                'day': { file: 'trends_daily.json', labelKey: 'timestamp', labelFormat: 'time', title: 'Last 24 Hours (Hourly)' },
+                'week': { file: 'trends_weekly.json', labelKey: 'timestamp', labelFormat: 'time', title: 'Last 7 Days (Hourly)' },
+                'month': { file: 'trends_monthly.json', labelKey: 'timestamp', labelFormat: 'time', title: 'Last 30 Days (Hourly)' }
             };
 
             const config = periodConfig[trendPeriod];
@@ -3525,20 +3525,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 const zone6Data = [], zone5Data = [], zone4Data = [], zone23Data = [], zone1Data = [];
 
                 data.data.forEach(entry => {
-                    // Generate label based on format
-                    if (config.labelFormat === 'date') {
-                        labels.push(new Date(entry.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }));
-                    } else if (config.labelFormat === 'week') {
-                        labels.push(entry.week.replace('-W', ' W'));
-                    } else if (config.labelFormat === 'time') {
-                        // Format timestamp as "Jan 26 14:00"
-                        const ts = new Date(entry.timestamp);
-                        const dateStr = ts.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
-                        const timeStr = ts.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false });
-                        labels.push(`${dateStr} ${timeStr}`);
-                    } else {
-                        labels.push(entry[config.labelKey]);
-                    }
+                    // All periods now use timestamp format (hourly data)
+                    const ts = new Date(entry.timestamp);
+                    const dateStr = ts.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                    const timeStr = ts.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false });
+                    labels.push(`${dateStr} ${timeStr}`);
 
                     // Get zone data for this MET/sun combo
                     const zones = entry[zoneKey] || {};
@@ -3602,9 +3593,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             legend: { position: 'bottom' },
                             title: {
                                 display: true,
-                                text: trendPeriod === 'day' ? 'Last 7 Days (Hourly)' :
-                                      trendPeriod === 'week' ? 'Last 4 Weeks (Daily Snapshots)' :
-                                      'Last 6 Months (Weekly Snapshots)'
+                                text: config.title
                             }
                         },
                         scales: {
