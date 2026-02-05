@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Generate pre-computed 3-day forecast data for all district capitals in India.
+Generate pre-computed forecast data for all district capitals in India.
 Fetches weather forecast from Open-Meteo API and computes EHI/zones using lookup tables.
+Generates 1-day, 3-day, and 7-day forecast files.
 Run this daily at 5pm IST via GitHub Actions.
 
 Open-Meteo API: https://open-meteo.com/
@@ -215,8 +216,12 @@ def process_forecast_data(data, met_levels=[3, 4, 5, 6]):
     return result
 
 
-def generate_forecasts():
-    """Generate forecasts for all district capitals."""
+def generate_forecasts(forecast_days=7):
+    """Generate forecasts for all district capitals.
+
+    Args:
+        forecast_days: Number of days to fetch (max 16 for Open-Meteo)
+    """
 
     # Load districts data
     print("Loading districts data...")
@@ -230,7 +235,7 @@ def generate_forecasts():
         'metadata': {
             'generated_at': now.isoformat(),
             'generated_at_ist': now.strftime('%d %b %Y, %I:%M %p IST'),
-            'forecast_days': 3,
+            'forecast_days': forecast_days,
             'met_levels': [3, 4, 5, 6],
             'sun_conditions': ['shade', 'sun'],
             'data_source': 'Open-Meteo'
@@ -247,7 +252,7 @@ def generate_forecasts():
         total_locations += 1  # State capital
         total_locations += len(state_data.get('districts', {}))
 
-    print(f"Processing {total_locations} locations...")
+    print(f"Processing {total_locations} locations for {forecast_days}-day forecast...")
 
     for state_name, state_data in districts_data['states'].items():
         print(f"\nProcessing {state_name}...")
@@ -260,7 +265,7 @@ def generate_forecasts():
         # Fetch forecast for state capital
         capital = state_data.get('capital', {})
         if capital.get('lat') and capital.get('lon'):
-            forecast_data = fetch_forecast_openmeteo(capital['lat'], capital['lon'])
+            forecast_data = fetch_forecast_openmeteo(capital['lat'], capital['lon'], days=forecast_days)
             if forecast_data:
                 state_output['capital'] = {
                     'name': capital.get('name', state_name),
@@ -276,7 +281,7 @@ def generate_forecasts():
         # Fetch forecast for each district
         for district_name, district_coords in state_data.get('districts', {}).items():
             if district_coords.get('lat') and district_coords.get('lon'):
-                forecast_data = fetch_forecast_openmeteo(district_coords['lat'], district_coords['lon'])
+                forecast_data = fetch_forecast_openmeteo(district_coords['lat'], district_coords['lon'], days=forecast_days)
                 if forecast_data:
                     state_output['districts'][district_name] = {
                         'lat': district_coords['lat'],
@@ -293,22 +298,101 @@ def generate_forecasts():
 
         output['states'][state_name] = state_output
 
-    # Save output
-    output_path = 'weather_logs/forecast_data.json'
+    return output, processed, errors
+
+
+def save_forecast(output, filename):
+    """Save forecast data to file."""
     os.makedirs('weather_logs', exist_ok=True)
+    output_path = f'weather_logs/{filename}'
 
     with open(output_path, 'w') as f:
         json.dump(output, f)
 
     file_size = os.path.getsize(output_path) / (1024 * 1024)
-    print(f"\n✓ Saved forecast data to {output_path}")
-    print(f"  File size: {file_size:.2f} MB")
-    print(f"  Processed: {processed}/{total_locations}")
-    print(f"  Errors: {errors}")
-    print(f"  Generated at: {output['metadata']['generated_at_ist']}")
+    print(f"  Saved to {output_path} ({file_size:.2f} MB)")
+    return output_path
 
-    return output
+
+def slice_forecast_days(full_output, num_days):
+    """Create a subset of forecast data with only the first N days."""
+    sliced = {
+        'metadata': {
+            **full_output['metadata'],
+            'forecast_days': num_days
+        },
+        'states': {}
+    }
+
+    for state_name, state_data in full_output['states'].items():
+        sliced_state = {
+            'capital': None,
+            'districts': {}
+        }
+
+        # Slice capital forecast
+        if state_data.get('capital'):
+            sliced_state['capital'] = {
+                **state_data['capital'],
+                'forecast': state_data['capital']['forecast'][:num_days]
+            }
+
+        # Slice district forecasts
+        for district_name, district_data in state_data.get('districts', {}).items():
+            sliced_state['districts'][district_name] = {
+                **district_data,
+                'forecast': district_data['forecast'][:num_days]
+            }
+
+        sliced['states'][state_name] = sliced_state
+
+    return sliced
+
+
+def main():
+    """Generate 1-day, 3-day, and 7-day forecast files."""
+    print("=" * 60)
+    print("Generating EHI Forecasts (1-day, 3-day, 7-day)")
+    print("=" * 60)
+
+    # Fetch 7-day forecast (maximum we need)
+    print("\n[1/4] Fetching 7-day forecast data from Open-Meteo...")
+    full_output, processed, errors = generate_forecasts(forecast_days=7)
+
+    total_locations = sum(
+        1 + len(state_data.get('districts', {}))
+        for state_data in full_output['states'].values()
+    )
+
+    print(f"\n  Processed: {processed}/{total_locations}")
+    print(f"  Errors: {errors}")
+    print(f"  Generated at: {full_output['metadata']['generated_at_ist']}")
+
+    # Save 7-day forecast
+    print("\n[2/4] Saving 7-day forecast...")
+    save_forecast(full_output, 'forecast_7day.json')
+
+    # Create and save 3-day forecast (slice from 7-day)
+    print("\n[3/4] Creating and saving 3-day forecast...")
+    forecast_3day = slice_forecast_days(full_output, 3)
+    save_forecast(forecast_3day, 'forecast_3day.json')
+
+    # Also save as forecast_data.json for backwards compatibility
+    save_forecast(forecast_3day, 'forecast_data.json')
+
+    # Create and save 1-day forecast (slice from 7-day)
+    print("\n[4/4] Creating and saving 1-day forecast...")
+    forecast_1day = slice_forecast_days(full_output, 1)
+    save_forecast(forecast_1day, 'forecast_1day.json')
+
+    print("\n" + "=" * 60)
+    print("DONE! Generated forecast files:")
+    print("  - weather_logs/forecast_1day.json")
+    print("  - weather_logs/forecast_3day.json")
+    print("  - weather_logs/forecast_7day.json")
+    print("  - weather_logs/forecast_data.json (3-day, for compatibility)")
+    print("=" * 60)
 
 
 if __name__ == '__main__':
-    generate_forecasts()
+    main()
