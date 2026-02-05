@@ -956,6 +956,70 @@
             background-color: #f5f5f5;
         }
 
+        /* Custom dropdown styles */
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 200px;
+        }
+        .custom-dropdown-selected {
+            padding: 0 0.75rem;
+            border-radius: 6px;
+            border: 2px solid var(--shram-teal);
+            background: white;
+            color: var(--shram-teal);
+            font-weight: 600;
+            font-size: 1rem;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+        .custom-dropdown-selected::after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+        .custom-dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--shram-teal);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+        .custom-dropdown.open .custom-dropdown-options {
+            display: block;
+        }
+        .custom-dropdown-option {
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .custom-dropdown-option:hover {
+            background: #e0f2f1;
+        }
+        .custom-dropdown-option.unavailable {
+            color: #999;
+            font-style: italic;
+            background: #f9f9f9;
+        }
+        .custom-dropdown-option.unavailable:hover {
+            background: #f0f0f0;
+        }
+        .custom-dropdown-option.selected {
+            background: var(--shram-teal);
+            color: white;
+        }
+
         .footer {
             background: var(--shram-dark-orange);
             color: white;
@@ -2325,11 +2389,11 @@
                             <div style="margin-top: 1.5rem;">
                                 <canvas id="forecast-chart" style="height: 400px; min-height: 350px;"></canvas>
                             </div>
-                            <p class="forecast-note" style="font-size: 0.85rem; color: #999; margin-top: 0.75rem; font-style: italic; word-wrap: break-word; overflow-wrap: break-word; text-align: center;">Note: Nighttime = EHI-N (no solar load).</p>
+                            <p id="forecast-nighttime-note" class="forecast-note" style="font-size: 0.85rem; color: #999; margin-top: 0.75rem; font-style: italic; word-wrap: break-word; overflow-wrap: break-word; text-align: center; display: none;">Note: Nighttime = EHI-N (no solar load).</p>
                         </div>
                     </div>
 
-                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic; word-wrap: break-word;">Data source: WeatherAPI.com</p>
+                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic; word-wrap: break-word;">Data source: Open-Meteo</p>
                 </div>
             </div>
 
@@ -2365,7 +2429,11 @@
                     </span>
                     <span style="display: inline-flex; flex-direction: column; align-items: center;">
                         <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">STATE</span>
-                        <select id="charts-state-select" onchange="updateChartsDistricts(); loadTrendData();" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
+                        <div id="charts-state-dropdown" class="custom-dropdown">
+                            <div class="custom-dropdown-selected">All India</div>
+                            <div class="custom-dropdown-options"></div>
+                        </div>
+                        <select id="charts-state-select" style="display: none;">
                             <option value="all">All India</option>
                         </select>
                     </span>
@@ -4110,20 +4178,84 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // NOTE: Forecast dropdowns are populated separately from india_districts.json
             // by loadIndiaDistrictsData() - do NOT populate them here with uppercase names
 
-            // Charts dropdowns - make all states clickable
+            // Charts dropdowns - populate both hidden select and custom dropdown
             const chartsStateSelect = document.getElementById('charts-state-select');
             chartsStateSelect.innerHTML = '<option value="all">All India</option>';
+
+            // Populate custom dropdown
+            const customDropdown = document.getElementById('charts-state-dropdown');
+            const optionsContainer = customDropdown.querySelector('.custom-dropdown-options');
+            optionsContainer.innerHTML = '<div class="custom-dropdown-option selected" data-value="all">All India</div>';
+
             allStates.forEach(state => {
                 const isAvailable = availableStates.includes(state);
-                // Use class for grey styling, allow selection
                 const label = isAvailable ? state : `${state} (last available)`;
                 const unavailableClass = isAvailable ? '' : 'class="unavailable"';
+
+                // Hidden select
                 chartsStateSelect.innerHTML += `<option value="${state}" ${unavailableClass}>${label}</option>`;
+
+                // Custom dropdown
+                const optClass = isAvailable ? '' : ' unavailable';
+                optionsContainer.innerHTML += `<div class="custom-dropdown-option${optClass}" data-value="${state}">${label}</div>`;
+            });
+
+            // Initialize custom dropdown behavior
+            initCustomDropdown('charts-state-dropdown', 'charts-state-select', function() {
+                updateChartsDistricts();
+                loadTrendData();
             });
 
             // Enable selection of "disabled" options by temporarily enabling them on mousedown
             enableDisabledOptions(currentStateSelect);
-            enableDisabledOptions(chartsStateSelect);
+        }
+
+        // Initialize custom dropdown behavior
+        function initCustomDropdown(dropdownId, selectId, onChange) {
+            const dropdown = document.getElementById(dropdownId);
+            const select = document.getElementById(selectId);
+            const selected = dropdown.querySelector('.custom-dropdown-selected');
+            const options = dropdown.querySelectorAll('.custom-dropdown-option');
+
+            // Toggle dropdown on click
+            selected.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Close other dropdowns
+                document.querySelectorAll('.custom-dropdown.open').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('open');
+                });
+                dropdown.classList.toggle('open');
+            });
+
+            // Handle option selection
+            options.forEach(opt => {
+                opt.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const value = this.dataset.value;
+                    const label = this.textContent;
+
+                    // Update display
+                    selected.textContent = label;
+
+                    // Update hidden select
+                    select.value = value;
+
+                    // Update selected class
+                    options.forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+
+                    // Close dropdown
+                    dropdown.classList.remove('open');
+
+                    // Trigger callback
+                    if (onChange) onChange();
+                });
+            });
+
+            // Close on outside click
+            document.addEventListener('click', function() {
+                dropdown.classList.remove('open');
+            });
         }
 
         // Helper function to allow clicking on disabled options (for greyed-out styling)
@@ -5303,6 +5435,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 if (forecastChart) {
                     forecastChart.destroy();
                 }
+
+                // Show the nighttime note when forecast is populated
+                document.getElementById('forecast-nighttime-note').style.display = 'block';
 
                 forecastChart = new Chart(ctx, {
                     type: 'line',

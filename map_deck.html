@@ -711,6 +711,9 @@
                                 Sun
                             </button>
                         </div>
+                        <div id="nighttime-notice" style="display: none; font-size: 0.75rem; color: #666; margin-top: 0.25rem; font-style: italic;">
+                            🌙 Nighttime: Sun = Shade
+                        </div>
                     </div>
                     <div class="data-timestamp" id="data-timestamp">
                         Loading...
@@ -726,7 +729,7 @@
                 <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #e65100; border-radius: 2px;"></span> <span>4</span></div>
                 <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #d32f2f; border-radius: 2px;"></span> <span>5</span></div>
                 <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #7B1FA2; border-radius: 2px;"></span> <span>6</span></div>
-                <div class="source-text"><em>Data source: WeatherAPI.com</em></div>
+                <div class="source-text"><em>Data source: Open-Meteo</em></div>
                 <div class="source-text"><a href="#" onclick="showMethodology(); return false;" style="color: #2d637f; text-decoration: underline; cursor: pointer;">Methodology</a></div>
             </div>
         </div>
@@ -740,10 +743,10 @@
             </div>
             <div class="modal-body">
                 <h4>Data Source</h4>
-                <p>Weather data (temperature and relative humidity) is fetched hourly from WeatherAPI.com for locations across India.</p>
+                <p>Weather data (temperature and relative humidity) is fetched every 30 minutes from Open-Meteo API for locations across India.</p>
 
                 <h4>Grid Resolution</h4>
-                <p>The map uses a 0.5° latitude/longitude grid (~55 km spacing) covering India. Only grid points within India's boundaries are included, resulting in approximately 400-500 locations.</p>
+                <p>The map uses a 0.25° latitude/longitude grid (~28 km spacing) covering India. Only grid points within India's boundaries are included.</p>
 
                 <h4>EHI-N* Calculation</h4>
                 <p>For each location, the Extended Heat Index (EHI-N*) is computed using pre-calculated lookup tables derived from the two-node human thermal model. The "N" denotes the MET level (metabolic rate) and "*" indicates additional solar radiation heat stress is applied. The calculation assumes:</p>
@@ -1114,6 +1117,14 @@
                     `<i class="fas fa-clock"></i> ${precomputedData.metadata.generated_at_ist}`;
                 document.getElementById('last-update').textContent =
                     `Data from: ${precomputedData.metadata.generated_at_ist}`;
+
+                // Show nighttime notice if applicable
+                const nighttimeNotice = document.getElementById('nighttime-notice');
+                if (precomputedData.metadata.is_nighttime) {
+                    nighttimeNotice.style.display = 'block';
+                } else {
+                    nighttimeNotice.style.display = 'none';
+                }
 
                 console.log(`Loaded ${precomputedData.metadata.point_count} grid points`);
 
