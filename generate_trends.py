@@ -80,8 +80,32 @@ def count_zones(df, zone_col):
     return counts
 
 
+def get_district_zones(df, zone_col):
+    """Get zone assignment for each district."""
+    if zone_col not in df.columns or 'STATE' not in df.columns or 'DISTRICT' not in df.columns:
+        return {}
+
+    district_zones = {}
+    for _, row in df.iterrows():
+        state = row.get('STATE', '')
+        district = row.get('DISTRICT', '')
+        zone_val = row.get(zone_col, '')
+
+        if state and district and zone_val:
+            key = f"{state}|{district}"
+            # Extract zone number from "Zone X" string
+            if isinstance(zone_val, str) and zone_val.startswith('Zone '):
+                try:
+                    zone_num = int(zone_val.split(' ')[1])
+                    district_zones[key] = zone_num
+                except (ValueError, IndexError):
+                    pass
+
+    return district_zones
+
+
 def aggregate_hourly(df):
-    """Aggregate data by hour, counting zones for each MET/sun combo."""
+    """Aggregate data by hour, storing district-level zone data."""
     if df.empty:
         return []
 
@@ -95,9 +119,21 @@ def aggregate_hourly(df):
             'total_stations': len(group),
         }
 
-        # Count zones for each MET/sun combination
+        # Count zones for each MET/sun combination (national totals)
         for key, col in ZONE_COLS.items():
             entry[key] = count_zones(group, col)
+
+        # Store district-level zone data for filtering
+        # Use met3_shade as the reference for district data structure
+        district_data = {}
+        for key, col in ZONE_COLS.items():
+            district_zones = get_district_zones(group, col)
+            for dist_key, zone_num in district_zones.items():
+                if dist_key not in district_data:
+                    district_data[dist_key] = {}
+                district_data[dist_key][key] = zone_num
+
+        entry['districts'] = district_data
 
         # Add temp/RH averages
         if 'TEMP' in group.columns:

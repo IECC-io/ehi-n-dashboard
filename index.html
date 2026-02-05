@@ -3521,6 +3521,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 const sun = shadeStates.last24h ? 'shade' : 'sun';
                 const zoneKey = `met${met}_${sun}`;
 
+                // Get selected state/district for filtering
+                const selectedState = document.getElementById('charts-state-select').value;
+                const selectedDistrict = document.getElementById('charts-district-select').value;
+
                 const labels = [];
                 const zone6Data = [], zone5Data = [], zone4Data = [], zone23Data = [], zone1Data = [];
 
@@ -3531,13 +3535,40 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     const timeStr = ts.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false });
                     labels.push(`${dateStr} ${timeStr}`);
 
-                    // Get zone data for this MET/sun combo
-                    const zones = entry[zoneKey] || {};
-                    zone6Data.push(zones.zone6 || 0);
-                    zone5Data.push(zones.zone5 || 0);
-                    zone4Data.push(zones.zone4 || 0);
-                    zone23Data.push((zones.zone2 || 0) + (zones.zone3 || 0));
-                    zone1Data.push(zones.zone1 || 0);
+                    // Check if we need to filter by state/district
+                    if (selectedState !== 'all' && entry.districts) {
+                        // Filter district-level data
+                        let zoneCounts = { zone1: 0, zone2: 0, zone3: 0, zone4: 0, zone5: 0, zone6: 0 };
+
+                        for (const [distKey, distData] of Object.entries(entry.districts)) {
+                            const [state, district] = distKey.split('|');
+
+                            // Check if this district matches the filter
+                            const stateMatch = state === selectedState;
+                            const districtMatch = selectedDistrict === 'all' || district === selectedDistrict;
+
+                            if (stateMatch && districtMatch) {
+                                const zoneNum = distData[zoneKey];
+                                if (zoneNum >= 1 && zoneNum <= 6) {
+                                    zoneCounts[`zone${zoneNum}`]++;
+                                }
+                            }
+                        }
+
+                        zone6Data.push(zoneCounts.zone6);
+                        zone5Data.push(zoneCounts.zone5);
+                        zone4Data.push(zoneCounts.zone4);
+                        zone23Data.push(zoneCounts.zone2 + zoneCounts.zone3);
+                        zone1Data.push(zoneCounts.zone1);
+                    } else {
+                        // Use national totals
+                        const zones = entry[zoneKey] || {};
+                        zone6Data.push(zones.zone6 || 0);
+                        zone5Data.push(zones.zone5 || 0);
+                        zone4Data.push(zones.zone4 || 0);
+                        zone23Data.push((zones.zone2 || 0) + (zones.zone3 || 0));
+                        zone1Data.push(zones.zone1 || 0);
+                    }
                 });
 
                 // Create chart
@@ -3593,7 +3624,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             legend: { position: 'bottom' },
                             title: {
                                 display: true,
-                                text: config.title
+                                text: selectedState !== 'all'
+                                    ? `${config.title} - ${selectedDistrict !== 'all' ? selectedDistrict + ', ' : ''}${selectedState}`
+                                    : `${config.title} - All India`
                             }
                         },
                         scales: {
