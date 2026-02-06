@@ -414,9 +414,9 @@ def send_forecast_digest(subscriber, district_forecasts, metadata, met_levels=No
                     <p>
                         You're receiving this weekly digest because you subscribed to SHRAM forecasts.
                         <br>
+                        <a href="{DASHBOARD_URL}/preferences.html?token={token}">Update Preferences</a> |
                         <a href="https://{VERCEL_URL}/api/unsubscribe?token={token}">Unsubscribe</a> |
-                        <a href="{DASHBOARD_URL}">SHRAM Dashboard</a> |
-                        <a href="https://iecc.gspp.berkeley.edu">IECC</a>
+                        <a href="{DASHBOARD_URL}">SHRAM Dashboard</a>
                     </p>
                 </div>
             </div>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Preferences - SHRAM Heat Alerts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d637f 0%, #006D77 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group .hint {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #006D77;
+        }
+
+        input:disabled {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: #e8f5e9;
+        }
+
+        .checkbox-item.selected {
+            background: #e0f2f1;
+            border: 2px solid #006D77;
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .radio-item:hover {
+            background: #e8f5e9;
+        }
+
+        .radio-item.selected {
+            background: #e0f2f1;
+            border: 2px solid #006D77;
+        }
+
+        .radio-item input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .toggle-item label {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .toggle-item .description {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #006D77;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .section-divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 25px 0;
+            padding-top: 25px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #006D77;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #006D77;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #005a63;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #006D77;
+            border: 2px solid #006D77;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #e0f2f1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #006D77;
+        }
+
+        @media (max-width: 480px) {
+            .checkbox-group,
+            .radio-group {
+                flex-direction: column;
+            }
+
+            .checkbox-item,
+            .radio-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Update Your Preferences</h1>
+            <p>Customize your SHRAM heat alert settings</p>
+        </div>
+
+        <div class="content">
+            <div id="loading" class="loading">
+                Loading your preferences...
+            </div>
+
+            <div id="error" class="error-message" style="display: none;"></div>
+            <div id="success" class="success-message" style="display: none;"></div>
+
+            <form id="preferences-form" style="display: none;">
+                <!-- Email (read-only) -->
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="text" id="email" disabled>
+                </div>
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label>Name (optional)</label>
+                    <input type="text" id="name" placeholder="Your name">
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label>Phone Number (optional)</label>
+                    <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
+                    <p class="hint">Required for SMS alerts (coming soon)</p>
+                </div>
+
+                <div class="section-divider">
+                    <h3 class="section-title">Alert Settings</h3>
+                </div>
+
+                <!-- Districts -->
+                <div class="form-group">
+                    <label>Districts</label>
+                    <p class="hint">Comma-separated list of districts you want to monitor</p>
+                    <input type="text" id="districts" placeholder="Ahmedabad, Surat, Vadodara">
+                </div>
+
+                <!-- MET Levels -->
+                <div class="form-group">
+                    <label>MET Levels (Activity Intensity)</label>
+                    <p class="hint">Select work intensity levels to monitor</p>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="met" value="3">
+                            MET 3 (Light)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="met" value="4">
+                            MET 4 (Moderate)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="met" value="5">
+                            MET 5 (Heavy)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="met" value="6">
+                            MET 6 (Intense)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Alert Zones -->
+                <div class="form-group">
+                    <label>Alert Zones</label>
+                    <p class="hint">Receive alerts when these zones are detected</p>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="zone" value="4">
+                            Zone 4 (Moderate)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="zone" value="5">
+                            Zone 5 (High)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="zone" value="6">
+                            Zone 6 (Hazardous)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Sun/Shade -->
+                <div class="form-group">
+                    <label>Work Condition</label>
+                    <p class="hint">Where does work typically occur?</p>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="sun_shade" value="shade">
+                            Shade Only
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="sun_shade" value="sun">
+                            Sun Only
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="sun_shade" value="both">
+                            Both Sun & Shade
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-divider">
+                    <h3 class="section-title">Notification Preferences</h3>
+                </div>
+
+                <div class="toggle-group">
+                    <div class="toggle-item">
+                        <div>
+                            <label>Weekly Forecast Digest</label>
+                            <p class="description">Receive 7-day forecast every Sunday at 5 PM IST</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="receive_forecasts">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-item">
+                        <div>
+                            <label>SMS Alerts</label>
+                            <p class="description">Receive urgent alerts via SMS (coming soon)</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="receive_sms">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+
+                <button type="submit" class="btn" id="save-btn">Save Preferences</button>
+                <a href="https://shram.info" class="btn btn-secondary" style="display: block; text-align: center; text-decoration: none;">Back to Dashboard</a>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>
+                <a href="https://shram.info">SHRAM Dashboard</a> |
+                <a href="https://iecc.gspp.berkeley.edu">IECC</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://shram-alerts.vercel.app/api/preferences';
+
+        // Get token from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        const loadingEl = document.getElementById('loading');
+        const errorEl = document.getElementById('error');
+        const successEl = document.getElementById('success');
+        const formEl = document.getElementById('preferences-form');
+
+        function showError(message) {
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+            successEl.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+            errorEl.style.display = 'none';
+        }
+
+        function updateCheckboxStyles() {
+            document.querySelectorAll('.checkbox-item').forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                item.classList.toggle('selected', checkbox.checked);
+            });
+            document.querySelectorAll('.radio-item').forEach(item => {
+                const radio = item.querySelector('input[type="radio"]');
+                item.classList.toggle('selected', radio.checked);
+            });
+        }
+
+        // Add event listeners for checkbox/radio styling
+        document.querySelectorAll('.checkbox-item input, .radio-item input').forEach(input => {
+            input.addEventListener('change', updateCheckboxStyles);
+        });
+
+        async function loadPreferences() {
+            if (!token) {
+                loadingEl.style.display = 'none';
+                showError('Invalid link. Please use the link from your email.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}?token=${encodeURIComponent(token)}`);
+                const data = await response.json();
+
+                if (!data.success) {
+                    loadingEl.style.display = 'none';
+                    if (response.status === 410) {
+                        showError('This subscription is no longer active.');
+                    } else {
+                        showError(data.error || 'Failed to load preferences');
+                    }
+                    return;
+                }
+
+                const prefs = data.preferences;
+
+                // Populate form
+                document.getElementById('email').value = prefs.email || '';
+                document.getElementById('name').value = prefs.name || '';
+                document.getElementById('phone').value = prefs.phone || '';
+                document.getElementById('districts').value = prefs.districts || '';
+
+                // MET levels
+                const metLevels = (prefs.met_levels || '6').split(',').map(m => m.trim());
+                document.querySelectorAll('input[name="met"]').forEach(cb => {
+                    cb.checked = metLevels.includes(cb.value);
+                });
+
+                // Alert zones
+                const alertZones = (prefs.alert_zones || '6').split(',').map(z => z.trim());
+                document.querySelectorAll('input[name="zone"]').forEach(cb => {
+                    cb.checked = alertZones.includes(cb.value);
+                });
+
+                // Sun/shade
+                const sunShade = prefs.sun_shade || 'shade';
+                document.querySelector(`input[name="sun_shade"][value="${sunShade}"]`).checked = true;
+
+                // Toggles
+                document.getElementById('receive_forecasts').checked = prefs.receive_forecasts;
+                document.getElementById('receive_sms').checked = prefs.receive_sms;
+
+                // Update styles
+                updateCheckboxStyles();
+
+                loadingEl.style.display = 'none';
+                formEl.style.display = 'block';
+
+            } catch (err) {
+                console.error(err);
+                loadingEl.style.display = 'none';
+                showError('Failed to load preferences. Please try again.');
+            }
+        }
+
+        // Handle form submission
+        formEl.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const saveBtn = document.getElementById('save-btn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving...';
+
+            // Gather data
+            const metLevels = Array.from(document.querySelectorAll('input[name="met"]:checked'))
+                .map(cb => cb.value).join(',');
+            const alertZones = Array.from(document.querySelectorAll('input[name="zone"]:checked'))
+                .map(cb => cb.value).join(',');
+            const sunShade = document.querySelector('input[name="sun_shade"]:checked')?.value || 'shade';
+
+            const data = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                districts: document.getElementById('districts').value,
+                met_levels: metLevels || '6',
+                alert_zones: alertZones || '6',
+                sun_shade: sunShade,
+                receive_forecasts: document.getElementById('receive_forecasts').checked,
+                receive_sms: document.getElementById('receive_sms').checked
+            };
+
+            try {
+                const response = await fetch(`${API_URL}?token=${encodeURIComponent(token)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showSuccess('Preferences saved successfully!');
+                } else {
+                    showError(result.error || 'Failed to save preferences');
+                }
+
+            } catch (err) {
+                console.error(err);
+                showError('Failed to save preferences. Please try again.');
+            }
+
+            saveBtn.disabled = false;
+            saveBtn.textContent = 'Save Preferences';
+        });
+
+        // Load preferences on page load
+        loadPreferences();
+    </script>
+</body>
+</html>

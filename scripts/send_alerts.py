@@ -520,9 +520,9 @@ def send_alert_email(subscriber, alerts, metadata, is_night):
                     <p>
                         You're receiving this because you subscribed to SHRAM heat alerts for Zone {', '.join(str(z) for z in sorted(subscriber['alert_zones']))} at MET {', '.join(str(m) for m in sorted(subscriber['met_levels']))}.
                         <br>
+                        <a href="{DASHBOARD_URL}/preferences.html?token={token}">Update Preferences</a> |
                         <a href="https://{VERCEL_URL}/api/unsubscribe?token={token}">Unsubscribe</a> |
-                        <a href="{DASHBOARD_URL}">SHRAM Dashboard</a> |
-                        <a href="https://iecc.gspp.berkeley.edu/">IECC</a>
+                        <a href="{DASHBOARD_URL}">SHRAM Dashboard</a>
                     </p>
                 </div>
             </div>
