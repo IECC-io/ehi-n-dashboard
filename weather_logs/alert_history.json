@@ -1,0 +1,28 @@
+{
+  "alerts": [
+    {
+      "timestamp": "2026-02-07T05:06:38.360335+05:30",
+      "subscriber_email": "elifkilic@berkeley.edu",
+      "subscriber_name": "Elif K.",
+      "districts": [
+        "South Andaman"
+      ],
+      "zones": [
+        4,
+        5
+      ],
+      "met_levels": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "conditions": [
+        "shade"
+      ],
+      "is_nighttime": true,
+      "success": false,
+      "alert_count": 4
+    }
+  ]
+}
