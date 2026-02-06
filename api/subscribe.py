@@ -13,7 +13,7 @@ EMAIL_SENDER = os.environ.get('EMAIL_SENDER')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 GOOGLE_SHEETS_CREDENTIALS = os.environ.get('GOOGLE_SHEETS_CREDENTIALS')
 SHEET_ID = os.environ.get('SHEET_ID')
-VERCEL_BASE_URL = os.environ.get('VERCEL_URL', 'shram-alerts.vercel.app')
+VERCEL_BASE_URL = 'shram-alerts.vercel.app'
 DASHBOARD_URL = 'https://shram.info'
 
 
