@@ -6370,6 +6370,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                                 label.textContent = `Selected: ${district.replace(/_/g, ' ')}`;
                             }
                             document.getElementById('forecast-district-select').value = district;
+
+                            // Set to 7-day forecast (matching the weekly email)
+                            setForecastDays(7);
                             loadForecast();
 
                             // Scroll to forecast section after a brief delay for content to load
