@@ -2832,19 +2832,19 @@
 
                         <div class="input-group">
                             <label style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Work Conditions
-                                <span class="tooltip-icon">
-                                    <i class="fas fa-info-circle"></i>
+                                <span class="info-tooltip">
+                                    <i class="fas fa-info-circle" style="color: #2d637f; cursor: help;"></i>
                                     <span class="tooltip-text"><strong>Sun/Shade:</strong> Select based on typical work environment.<br>• Shade: Indoor or shaded outdoor work<br>• Sun: Direct sunlight exposure<br>• Both: Alerts for both conditions<br><em>Note: During nighttime (6pm-6am IST), shade values are used automatically.</em></span>
                                 </span>
                             </label>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; background: white;">
-                                    <input type="radio" name="alert-sun-shade" id="alert-shade" value="shade" checked style="width: 18px; height: 18px; cursor: pointer;">
+                                    <input type="radio" name="alert-sun-shade" id="alert-shade" value="shade" style="width: 18px; height: 18px; cursor: pointer;">
                                     <i class="fas fa-cloud" style="color: #607D8B;"></i>
                                     <span>Shade</span>
                                 </label>
                                 <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem 0.75rem; border: 2px solid var(--gray-medium); border-radius: 6px; background: white;">
-                                    <input type="radio" name="alert-sun-shade" id="alert-sun" value="sun" style="width: 18px; height: 18px; cursor: pointer;">
+                                    <input type="radio" name="alert-sun-shade" id="alert-sun" value="sun" checked style="width: 18px; height: 18px; cursor: pointer;">
                                     <i class="fas fa-sun" style="color: #FFA000;"></i>
                                     <span>Sun</span>
                                 </label>
@@ -2854,7 +2854,7 @@
                                     <span>Both</span>
                                 </label>
                             </div>
-                            <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Default: Shade. Select based on your typical work environment.</small>
+                            <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Default: Sun. Select based on your typical work environment.</small>
                         </div>
                     </div>
 
