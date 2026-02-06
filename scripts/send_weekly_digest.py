@@ -277,13 +277,20 @@ def send_forecast_digest(subscriber, district_forecasts, metadata, met_levels=No
 
     settings_display = f"{met_display} | {condition_display}"
 
+    # Determine which MET level and condition to use for the dashboard link
+    # Use highest MET level (dashboard can only show one at a time)
+    link_met = max(met_levels) if met_levels else 6
+    # If both sun and shade, show sun (more severe); otherwise use their preference
+    link_condition = 'sun' if sun_shade == 'both' else sun_shade
+
     # Get the first district for deep linking
     first_district = list(district_forecasts.keys())[0] if district_forecasts else None
     forecast_url = DASHBOARD_URL
     if first_district:
         # URL encode the district name (replace spaces with underscores as used in dashboard)
         district_param = first_district.replace(' ', '_')
-        forecast_url = f"{DASHBOARD_URL}?district={district_param}"
+        # Include MET level and condition in the URL for proper deep linking
+        forecast_url = f"{DASHBOARD_URL}?district={district_param}&met={link_met}&condition={link_condition}"
 
     # Get today's date
     ist = pytz.timezone('Asia/Kolkata')
