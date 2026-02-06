@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests pytz
+          pip install requests pytz gspread oauth2client
 
       - name: Save previous hour's data for trend comparison
         run: |
@@ -39,7 +39,18 @@ jobs:
       - name: Run generate_grid_data_openmeteo.py
         run: |
           cd ${{ github.workspace }}
-          python generate_grid_data_openmeteo.py
+          python scripts/generate_grid_data_openmeteo.py
+
+      - name: Send Zone 6 alerts to subscribers
+        env:
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          VERCEL_URL: ${{ secrets.VERCEL_URL }}
+        run: |
+          cd ${{ github.workspace }}
+          python scripts/send_alerts.py
 
       - name: Commit and push data
         run: |

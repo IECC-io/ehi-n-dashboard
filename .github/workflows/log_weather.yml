@@ -53,10 +53,10 @@ jobs:
         run: git pull origin main
       
       - name: Run weather logger script
-        run: python IMDdata.py
+        run: python scripts/IMDdata.py
 
       - name: Generate trend data
-        run: python generate_trends.py
+        run: python scripts/generate_trends.py
       
       - name: Commit & push updated logs
         run: |

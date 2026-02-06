@@ -105,7 +105,7 @@
             left: 200px;
             right: 0;
             bottom: 0;
-            background-image: url('shram-map-dot.svg');
+            background-image: url('assets/shram-map-dot.svg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: auto 140%;
@@ -2196,7 +2196,7 @@
     <div class="logo-strip">
         <div class="logo-strip-content">
             <a href="https://iecc.gspp.berkeley.edu/impact-areas/resilience-climate-impacts/" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
-                <img src="iecc-logo.svg" alt="IECC Logo" style="height: 50px; width: auto;">
+                <img src="assets/iecc-logo.svg" alt="IECC Logo" style="height: 50px; width: auto;">
             </a>
         </div>
     </div>
@@ -2229,7 +2229,7 @@
         </div>
         <div class="header-content">
             <div class="logo-container">
-                <img src="shram_logo.svg" alt="SHRAM: System for Heat Risk Assessment for Manual labor">
+                <img src="assets/shram_logo.svg" alt="SHRAM: System for Heat Risk Assessment for Manual labor">
             </div>
 
             <div class="tabs-wrapper">
@@ -2654,7 +2654,7 @@
                 <p>The <strong>Extended Heat Index for Laboring Populations (EHI-N*)</strong> is a physiologically-based heat stress metric designed to assess thermal stress in labor-intensive occupations.</p>
 
                 <div style="display: flex; flex-direction: column; align-items: center; margin: 1.5rem 0;">
-                    <img src="ehi-n-nomenclature.svg" alt="EHI-N* Nomenclature: N indicates metabolic rate (3-6+ METs), * indicates sun exposure" style="max-width: 500px; width: 100%; height: auto;">
+                    <img src="assets/ehi-n-nomenclature.svg" alt="EHI-N* Nomenclature: N indicates metabolic rate (3-6+ METs), * indicates sun exposure" style="max-width: 500px; width: 100%; height: auto;">
                 </div>
 
                 <h3 onclick="toggleScientificFoundation()" style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
@@ -2829,6 +2829,16 @@
                             </div>
                             <small style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; display: block;">Default: Zone 6 only. Receive alerts when conditions reach these zones.</small>
                         </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" id="receive-forecasts" checked style="width: 20px; height: 20px; cursor: pointer; margin-top: 2px;">
+                            <div>
+                                <span style="font-weight: 600; color: #2E7D32;">Receive 7-Day Forecast Digest</span>
+                                <p style="font-size: 0.85rem; color: #555; margin-top: 0.25rem; margin-bottom: 0;">Get a daily morning email with the 7-day heat forecast for your selected districts.</p>
+                            </div>
+                        </label>
                     </div>
 
                     <button type="button" onclick="showPrivacyModal()" class="calculate-btn" style="width: 100%; margin-top: 1rem;">
@@ -3194,6 +3204,13 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             if (banner.classList.contains('minimized')) {
                 banner.classList.remove('minimized');
                 toggleBtn.innerHTML = '<i class="fas fa-minus"></i>';
+                // Track banner expand in GA
+                if (typeof gtag === 'function') {
+                    gtag('event', 'expand_zone6_banner', {
+                        event_category: 'Engagement',
+                        event_label: 'alert_banner'
+                    });
+                }
             } else {
                 banner.classList.add('minimized');
                 toggleBtn.innerHTML = '<i class="fas fa-plus"></i>';
@@ -3362,11 +3379,29 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         function toggleApiModal() {
             const modal = document.getElementById('apiModal');
+            const isOpening = !modal.classList.contains('show');
             modal.classList.toggle('show');
+
+            // Track API docs modal open in GA
+            if (isOpening && typeof gtag === 'function') {
+                gtag('event', 'view_api_docs', {
+                    event_category: 'Engagement',
+                    event_label: 'api_documentation'
+                });
+            }
         }
 
         function copyToClipboard(text, button) {
             navigator.clipboard.writeText(text).then(() => {
+                // Track API URL copy in GA
+                if (typeof gtag === 'function') {
+                    const endpoint = text.split('/').pop();
+                    gtag('event', 'copy_api_url', {
+                        event_category: 'Engagement',
+                        event_label: endpoint
+                    });
+                }
+
                 const originalText = button.innerHTML;
                 button.innerHTML = '<i class="fas fa-check"></i> Copied!';
                 button.style.background = '#4caf50';
@@ -3398,6 +3433,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         function showForecastMethodology() {
             const modal = document.getElementById('forecast-methodology-modal');
             modal.style.display = 'flex';
+
+            // Track methodology view in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'view_methodology', {
+                    event_category: 'Engagement',
+                    event_label: 'forecast_methodology'
+                });
+            }
         }
 
         function hideForecastMethodology() {
@@ -3405,12 +3448,101 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             modal.style.display = 'none';
         }
 
-        function acceptPrivacyAndSubmit() {
+        async function acceptPrivacyAndSubmit() {
+            // Track subscription attempt in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'subscribe_attempt', {
+                    event_category: 'Subscription',
+                    event_label: 'alert_signup'
+                });
+            }
+
             // Close the modal
             closePrivacyModal();
-            // Submit the form
-            const form = document.getElementById('alert-subscription-form');
-            form.submit();
+
+            // Get form values
+            const name = document.getElementById('subscriber-name').value.trim();
+            const email = document.getElementById('subscriber-email').value.trim();
+
+            // Get selected districts
+            const districtSelect = document.getElementById('subscriber-district');
+            const districts = Array.from(districtSelect.selectedOptions).map(opt => opt.value);
+
+            // Check for forecast checkbox (add one if needed, or default to true)
+            const receiveForecastsCheckbox = document.getElementById('receive-forecasts');
+            const receiveForecasts = receiveForecastsCheckbox ? receiveForecastsCheckbox.checked : true;
+
+            // Show loading state
+            const messageDiv = document.getElementById('subscription-message');
+            messageDiv.style.display = 'block';
+            messageDiv.style.background = '#e3f2fd';
+            messageDiv.style.color = '#1565C0';
+            messageDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting subscription...';
+
+            try {
+                // POST to Vercel serverless function
+                const response = await fetch('https://shram-alerts.vercel.app/api/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        districts: districts,
+                        receive_forecasts: receiveForecasts
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Track successful subscription in GA
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'subscribe_success', {
+                            event_category: 'Subscription',
+                            event_label: 'alert_signup_complete'
+                        });
+                    }
+
+                    // Success - show prominent verification message
+                    messageDiv.style.background = '#e8f5e9';
+                    messageDiv.style.color = '#2E7D32';
+                    messageDiv.innerHTML = `
+                        <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">
+                            <i class="fas fa-envelope"></i> <strong>Check your email!</strong>
+                        </div>
+                        <div style="font-size: 0.9rem; font-weight: normal;">
+                            We sent a verification link to your inbox.<br>
+                            <strong>Click the link to activate your alerts.</strong><br>
+                            <span style="color: #666; font-size: 0.85rem;">(Check spam folder if you don't see it)</span>
+                        </div>
+                    `;
+
+                    // Clear form
+                    document.getElementById('subscriber-name').value = '';
+                    document.getElementById('subscriber-email').value = '';
+                    // Reset districts selection would require more logic
+                } else {
+                    // Track failed subscription in GA
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'subscribe_failed', {
+                            event_category: 'Subscription',
+                            event_label: result.error || 'unknown_error'
+                        });
+                    }
+
+                    // Error from API
+                    messageDiv.style.background = '#ffebee';
+                    messageDiv.style.color = '#c62828';
+                    messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (result.error || 'Subscription failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Subscription error:', error);
+                messageDiv.style.background = '#ffebee';
+                messageDiv.style.color = '#c62828';
+                messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please check your connection and try again.';
+            }
         }
 
         // Close modal when clicking outside of it
@@ -3429,6 +3561,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         function selectSolar(value) {
             selectedSolar = value;
+
+            // Track solar/shade selection in calculator GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'select_solar_calculator', {
+                    event_category: 'Calculator',
+                    event_label: value === 0 ? 'shade' : 'sun'
+                });
+            }
 
             // Update button styles to match MET option styling
             document.querySelectorAll('.solar-option').forEach(btn => {
@@ -3456,6 +3596,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         function setShade(section, isShade) {
             shadeStates[section] = isShade;
+
+            // Track shade/sun toggle in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'toggle_shade_sun', {
+                    event_category: 'Interaction',
+                    event_label: `${section}_${isShade ? 'shade' : 'sun'}`
+                });
+            }
 
             const shadeBtn = document.getElementById(`${section}-shade-btn`);
             const sunBtn = document.getElementById(`${section}-sun-btn`);
@@ -3512,18 +3660,39 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         function selectMetCurrent(metLevel) {
             currentMetStatus = parseInt(metLevel);
             updateMetButtons('current', currentMetStatus);
+            // Track MET level change in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'select_met_level', {
+                    event_category: 'Interaction',
+                    event_label: `current_met_${metLevel}`
+                });
+            }
             loadLiveData();
         }
 
         function selectMetForecast(metLevel) {
             currentMetForecast = parseInt(metLevel);
             updateMetButtons('forecast', currentMetForecast);
+            // Track MET level change in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'select_met_level', {
+                    event_category: 'Interaction',
+                    event_label: `forecast_met_${metLevel}`
+                });
+            }
             loadForecast();
         }
 
         function selectMetLast24h(metLevel) {
             currentMetLast24h = parseInt(metLevel);
             updateMetButtons('last24h', currentMetLast24h);
+            // Track MET level change in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'select_met_level', {
+                    event_category: 'Interaction',
+                    event_label: `last24h_met_${metLevel}`
+                });
+            }
             loadTrendData();
         }
 
@@ -3997,6 +4166,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             if (isNaN(temp) || isNaN(rh)) {
                 alert('Please enter valid temperature and humidity values.');
                 return;
+            }
+
+            // Track EHI calculator usage in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'calculate_ehi', {
+                    event_category: 'Calculator',
+                    event_label: `temp_${Math.round(temp)}_rh_${rh}_met_${currentMet}`
+                });
             }
 
             if (tempUnit === 'F') temp = fahrenheitToCelsius(temp);
@@ -4538,7 +4715,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // Add IECC logo marker at Berkeley office location
             const ieccIcon = L.divIcon({
                 className: 'iecc-marker',
-                html: '<img src="iecc-logo.svg" style="height: 18px;">',
+                html: '<img src="assets/iecc-logo.svg" style="height: 18px;">',
                 iconSize: [60, 18],
                 iconAnchor: [30, 9]
             });
@@ -4647,6 +4824,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Zoom to a specific state and show its districts
         async function zoomToState(stateName) {
+            // Track state selection in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'select_state', {
+                    event_category: 'Map Interaction',
+                    event_label: stateName.replace(/_/g, ' ')
+                });
+            }
+
             const instruction = document.getElementById('map-instruction');
             const label = document.getElementById('selected-location-label');
 
@@ -4733,6 +4918,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         });
 
                         layer.on('click', function() {
+                            // Track district selection in GA
+                            if (typeof gtag === 'function') {
+                                gtag('event', 'select_district', {
+                                    event_category: 'Map Interaction',
+                                    event_label: `${currentSelectedState}_${districtName}`.replace(/_/g, ' ')
+                                });
+                            }
+
                             // Highlight selected district - reset others to IECC blue
                             districtLayer.eachLayer(l => {
                                 l.setStyle({ fillColor: '#2d637f', fillOpacity: 0.3 });
@@ -5979,6 +6172,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         }
 
         function showZone(zoneNum) {
+            // Track zone info view in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'view_zone_info', {
+                    event_category: 'Engagement',
+                    event_label: `zone_${zoneNum}`
+                });
+            }
+
             // Hide all zone content
             for (let i = 1; i <= 6; i++) {
                 const content = document.getElementById(`zone-content-${i}`);
@@ -6066,6 +6267,17 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Handle form submission
         document.addEventListener('DOMContentLoaded', function() {
+            // Track external link clicks
+            document.addEventListener('click', function(e) {
+                const link = e.target.closest('a[href^="http"]');
+                if (link && !link.href.includes(window.location.hostname) && typeof gtag === 'function') {
+                    gtag('event', 'click_external_link', {
+                        event_category: 'Outbound',
+                        event_label: link.href
+                    });
+                }
+            });
+
             // Listen for messages from Live Map iframe (click-to-forecast)
             window.addEventListener('message', async function(event) {
                 if (event.data && event.data.type === 'navigateToForecast') {
@@ -6253,6 +6465,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         // SHRAM Onboarding Guide (Intro.js)
         // =============================================
         function startTour() {
+            // Track tour start in GA
+            if (typeof gtag === 'function') {
+                gtag('event', 'start_tour', {
+                    event_category: 'Engagement',
+                    event_label: 'onboarding_guide'
+                });
+            }
+
             // Helper to switch tabs during tour
             function goToTab(tabName) {
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));

@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "alerting_system/*.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/alerting_system/$1"
+    }
+  ],
+  "env": {
+    "EMAIL_SENDER": "@email_sender",
+    "EMAIL_PASSWORD": "@email_password",
+    "GOOGLE_SHEETS_CREDENTIALS": "@google_sheets_credentials",
+    "SHEET_ID": "@sheet_id"
+  }
+}

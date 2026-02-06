@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80" fill="currentColor">
+  <!-- Hat -->
+  <ellipse cx="18" cy="8" rx="12" ry="4"/>
+  <ellipse cx="18" cy="10" rx="8" ry="3"/>
+  <!-- Head -->
+  <circle cx="18" cy="16" r="6"/>
+  <!-- Body bent forward -->
+  <path d="M18,22 Q25,35 35,42" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- Arms pulling -->
+  <path d="M22,28 L40,38" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M20,30 L38,42" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Legs walking -->
+  <path d="M32,40 L25,60 L22,72" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M34,42 L38,58 L45,70" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- Cart handle -->
+  <line x1="40" y1="40" x2="55" y2="45" stroke="currentColor" stroke-width="3"/>
+  <!-- Cart body -->
+  <rect x="55" y="30" width="35" height="25" rx="3"/>
+  <!-- Hay load on cart -->
+  <ellipse cx="72" cy="28" rx="16" ry="10"/>
+  <!-- Cart wheel -->
+  <circle cx="72" cy="62" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+  <circle cx="72" cy="62" r="3"/>
+  <!-- Wheel spokes -->
+  <line x1="72" y1="50" x2="72" y2="74" stroke="currentColor" stroke-width="2"/>
+  <line x1="60" y1="62" x2="84" y2="62" stroke="currentColor" stroke-width="2"/>
+  <line x1="63" y1="53" x2="81" y2="71" stroke="currentColor" stroke-width="2"/>
+  <line x1="63" y1="71" x2="81" y2="53" stroke="currentColor" stroke-width="2"/>
+</svg>
