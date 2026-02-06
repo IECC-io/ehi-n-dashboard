@@ -6285,20 +6285,23 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
         function updateSubscriberDistricts() {
             const stateSelect = document.getElementById('subscriber-state');
             const districtSelect = document.getElementById('subscriber-district');
-            const selectedState = stateSelect.value;
 
-            if (!allAlertsData || selectedState === '') {
+            // Get all selected states (for multi-select)
+            const selectedStates = Array.from(stateSelect.selectedOptions).map(opt => opt.value);
+
+            if (!allAlertsData || selectedStates.length === 0) {
                 districtSelect.innerHTML = '<option value="">Select District</option>';
                 return;
             }
 
+            // Get districts for ALL selected states
             const districts = [...new Set(
                 allAlertsData.alerts
-                    .filter(a => a.STATE === selectedState)
+                    .filter(a => selectedStates.includes(a.STATE))
                     .map(a => a.DISTRICT)
             )].sort();
 
-            districtSelect.innerHTML = '<option value="">Select District</option>';
+            districtSelect.innerHTML = '';
             districts.forEach(district => {
                 districtSelect.innerHTML += `<option value="${district}" class="available">${district.replace(/_/g, ' ')}</option>`;
             });
