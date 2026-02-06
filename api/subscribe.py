@@ -80,7 +80,7 @@ body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
 <div class="content">
 <h2>Welcome{', ' + name if name else ''}!</h2>
 <p>Please verify your email:</p>
-<p><a href="{verify_url}" class="btn">Verify Email Address</a></p>
+<p><a href="{verify_url}" class="btn" style="color: #ffffff !important; background: #006D77; padding: 14px 28px; text-decoration: none; border-radius: 6px; display: inline-block;">Verify Email Address</a></p>
 <p style="font-size: 13px;">Or copy: {verify_url}</p>
 </div></div></body></html>"""
 
