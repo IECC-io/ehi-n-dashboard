@@ -6375,13 +6375,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             setForecastDays(7);
                             loadForecast();
 
-                            // Scroll to forecast section after a brief delay for content to load
+                            // Scroll to forecast map after content loads
                             setTimeout(() => {
-                                const forecastSection = document.getElementById('forecast-section');
-                                if (forecastSection) {
-                                    forecastSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                const forecastMap = document.getElementById('forecast-map');
+                                if (forecastMap) {
+                                    // Scroll to bring the map into view with some offset for the header
+                                    forecastMap.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                 }
-                            }, 300);
+                            }, 500);
                         }
                     }
                 });
