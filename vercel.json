@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "api/index.py": {
+      "runtime": "@vercel/python@4.3.1"
+    },
+    "api/subscribe.py": {
+      "runtime": "@vercel/python@4.3.1"
+    },
+    "api/verify.py": {
+      "runtime": "@vercel/python@4.3.1"
+    },
+    "api/unsubscribe.py": {
+      "runtime": "@vercel/python@4.3.1"
+    }
+  }
+}
