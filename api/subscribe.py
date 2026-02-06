@@ -119,7 +119,7 @@ class handler(BaseHTTPRequestHandler):
             districts = data.get('districts', [])
             met_levels = data.get('met_levels', [6])  # Default to MET 6
             alert_zones = data.get('alert_zones', [6])  # Default to Zone 6
-            sun_shade = data.get('sun_shade', 'shade')  # Default to shade
+            sun_shade = data.get('sun_shade', 'sun')  # Default to sun
             receive_forecasts = data.get('receive_forecasts', True)
             receive_sms = data.get('receive_sms', False)  # For future SMS alerts
 
