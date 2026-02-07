@@ -478,12 +478,14 @@ def send_alert_email(subscriber, alerts, metadata, is_night):
             </div>
         """)
 
-    # Subject line
+    # Subject line with timestamp to prevent Gmail threading
+    now_ist = datetime.now(IST)
+    time_str = now_ist.strftime('%b %d, %I:%M %p IST')
     district_names = list(set(a['district'] for a in alerts))
     if len(district_names) == 1:
-        subject = f"SHRAM Alert: Zone {highest_zone} {zone_info['subject']} - {district_names[0]}"
+        subject = f"SHRAM Alert: Zone {highest_zone} {zone_info['subject']} - {district_names[0]} ({time_str})"
     else:
-        subject = f"SHRAM Alert: Zone {highest_zone} {zone_info['subject']} - {len(district_names)} Districts"
+        subject = f"SHRAM Alert: Zone {highest_zone} {zone_info['subject']} - {len(district_names)} Districts ({time_str})"
 
     # Nighttime notice
     nighttime_notice = ""
