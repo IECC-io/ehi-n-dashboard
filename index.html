@@ -5910,8 +5910,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         },
                         scales: {
                             y: {
-                                min: 0.5,
-                                max: 6.5,
+                                min: 1,
+                                max: 6,
                                 title: {
                                     display: true,
                                     text: 'Zone',
@@ -5921,17 +5921,24 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                                     stepSize: 1,
                                     font: { weight: 'bold' },
                                     callback: function(value) {
-                                        const v = Math.round(value);
-                                        if (v >= 1 && v <= 6) return v.toString();
+                                        // Only show integer zone values
+                                        if (Number.isInteger(value) && value >= 1 && value <= 6) return value.toString();
                                         return '';
                                     }
                                 },
+                                afterBuildTicks: function(axis) {
+                                    // Ensure only integer ticks at zone levels
+                                    axis.ticks = [1, 2, 3, 4, 5, 6].map(v => ({ value: v }));
+                                },
                                 grid: {
                                     color: function(context) {
-                                        if (context.tick.value === 1) return 'rgba(33, 150, 243, 0.4)';
-                                        if (context.tick.value === 4) return 'rgba(199, 145, 0, 0.4)';
-                                        if (context.tick.value === 5) return 'rgba(230, 81, 0, 0.4)';
-                                        if (context.tick.value === 6) return 'rgba(211, 47, 47, 0.4)';
+                                        // Zone colors: 6=purple, 5=red, 4=orange, 3=gold, 2=green, 1=blue
+                                        if (context.tick.value === 1) return 'rgba(33, 150, 243, 0.4)';   // Blue
+                                        if (context.tick.value === 2) return 'rgba(76, 175, 80, 0.4)';   // Green
+                                        if (context.tick.value === 3) return 'rgba(193, 121, 0, 0.4)';   // Gold
+                                        if (context.tick.value === 4) return 'rgba(230, 81, 0, 0.4)';    // Orange
+                                        if (context.tick.value === 5) return 'rgba(211, 47, 47, 0.4)';   // Red
+                                        if (context.tick.value === 6) return 'rgba(123, 31, 162, 0.4)';  // Purple
                                         return 'rgba(0, 0, 0, 0.1)';
                                     }
                                 }
