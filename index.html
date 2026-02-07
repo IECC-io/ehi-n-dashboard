@@ -2013,10 +2013,11 @@
                 font-size: 0.65rem !important;
             }
 
-            /* State + District on their own row */
-            #last24h-section h2 > span:has(#charts-state-select),
-            #last24h-section h2 > span:has(#charts-district-select) {
-                display: inline-block !important;
+            /* Force STATE + DISTRICT dropdowns to new line on mobile */
+            #historical-state-district-wrapper {
+                flex-basis: 100% !important;
+                display: flex !important;
+                gap: 0.5rem;
                 margin-top: 0.5rem;
             }
             /* Force state+district line to be block-level (new line) */
@@ -2057,11 +2058,11 @@
             /* Historical Animation iframe - scale to fit mobile width */
             .section iframe[src*="ehi-webapp-frontend"] {
                 width: 140% !important;
-                height: 700px !important;
-                min-height: 700px !important;
+                height: 750px !important;
+                min-height: 750px !important;
                 transform: scale(0.72);
                 transform-origin: top left;
-                margin-bottom: -200px; /* Compensate for scale whitespace */
+                margin-bottom: -150px; /* Compensate for scale whitespace */
             }
 
             /* Hide info tooltip on phones */
@@ -2533,21 +2534,23 @@
                             </button>
                         </span>
                     </span>
-                    <span style="display: inline-flex; flex-direction: column; align-items: center;">
-                        <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">STATE</span>
-                        <div id="charts-state-dropdown" class="custom-dropdown">
-                            <div class="custom-dropdown-selected">All India</div>
-                            <div class="custom-dropdown-options"></div>
-                        </div>
-                        <select id="charts-state-select" style="display: none;">
-                            <option value="all">All India</option>
-                        </select>
-                    </span>
-                    <span style="display: inline-flex; flex-direction: column; align-items: center;">
-                        <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">DISTRICT</span>
-                        <select id="charts-district-select" onchange="loadTrendData()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
-                            <option value="all">All Districts</option>
-                        </select>
+                    <span id="historical-state-district-wrapper" style="display: inline-flex; gap: 0.75rem; align-items: flex-end;">
+                        <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">STATE</span>
+                            <div id="charts-state-dropdown" class="custom-dropdown">
+                                <div class="custom-dropdown-selected">All India</div>
+                                <div class="custom-dropdown-options"></div>
+                            </div>
+                            <select id="charts-state-select" style="display: none;">
+                                <option value="all">All India</option>
+                            </select>
+                        </span>
+                        <span style="display: inline-flex; flex-direction: column; align-items: center;">
+                            <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">DISTRICT</span>
+                            <select id="charts-district-select" onchange="loadTrendData()" style="padding: 0 0.75rem; border-radius: 6px; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); font-weight: 600; font-size: 1rem; width: 200px; height: 42px;">
+                                <option value="all">All Districts</option>
+                            </select>
+                        </span>
                     </span>
                     <span class="info-tooltip">
                         <i class="fas fa-info-circle"></i>
