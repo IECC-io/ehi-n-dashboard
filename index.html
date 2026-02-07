@@ -1987,8 +1987,9 @@
             /* Line 2: Timeframe buttons under title */
             #last24h-section h2 > span:has(button[id*="trend-day"]),
             #last24h-section h2 > span:has(button[id*="trend-week"]) {
-                display: block !important;
-                width: 100%;
+                display: inline-flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
                 margin-top: 0.3rem;
                 margin-bottom: 0.3rem;
             }
