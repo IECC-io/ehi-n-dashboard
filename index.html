@@ -2026,13 +2026,28 @@
             #last24h-section h2 > span:has(#charts-district-select) > span {
                 display: none !important;
             }
-            #charts-state-select, #charts-district-select {
+            /* Keep native select hidden on mobile - use custom dropdown only */
+            #charts-state-select {
+                display: none !important;
+            }
+            #charts-district-select {
                 width: 42% !important;
                 max-width: 140px !important;
                 font-size: 0.875rem !important; /* 14px UI element */
                 padding: 0 0.3rem !important;
                 height: 32px !important;
                 display: inline-block !important;
+            }
+            /* Custom dropdown styling for mobile */
+            #charts-state-dropdown {
+                width: 42% !important;
+                max-width: 140px !important;
+            }
+            #charts-state-dropdown .custom-dropdown-selected {
+                font-size: 0.875rem !important;
+                padding: 0 0.3rem !important;
+                height: 32px !important;
+                line-height: 28px !important;
             }
 
             /* Hide info tooltip on phones */
