@@ -38,6 +38,7 @@
             --iecc-brown: #8B5A2B;
             --shram-teal: #006D77;
             --zone-yellow: #F9A825;
+            --zone-yellow-dark: #C17900;
             --zone-orange: #e65100;
             --zone-red: #d32f2f;
             --zone-purple: #7B1FA2;
@@ -1800,7 +1801,7 @@
                 padding-right: 0.75rem !important;
             }
 
-            /* Summer 2025 Animation iframe - mobile height */
+            /* Historical Pre-Monsoon Animation iframe - mobile height */
             #animation-tab iframe,
             .section iframe[src*="ehi-webapp"] {
                 height: 450px !important;
@@ -2463,7 +2464,7 @@
                         <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
                             <li><strong style="color: #1976D2;">Zone 1:</strong> Cold Stress</li>
                             <li><strong style="color: #2E7D32;">Zone 2:</strong> Comfort</li>
-                            <li><strong style="color: #F9A825;">Zone 3:</strong> Moderate Heat Stress</li>
+                            <li><strong style="color: #C17900;">Zone 3:</strong> Mild Heat Stress</li>
                             <li><strong style="color: #e65100;">Zone 4:</strong> High Heat Stress</li>
                             <li><strong style="color: #d32f2f;">Zone 5:</strong> Very High Heat Stress</li>
                             <li><strong style="color: #7B1FA2;">Zone 6:</strong> Hazardous Heat Stress</li>
@@ -2545,14 +2546,14 @@
                 <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: India Meteorological Department (IMD)</p>
             </div>
 
-            <!-- Summer 2025 Zones Animation -->
+            <!-- Historical Pre-Monsoon Season Zones Animation -->
             <div class="section">
-                <h2>Summer 2025 Zones</h2>
-                <p style="margin-bottom: 1rem; color: #666;">Hourly heat stress zones across India from May-June 2025. Use the controls to change MET level, sun/shade conditions, and scrub through time.</p>
+                <h2>Historical Pre-Monsoon Season Zones</h2>
+                <p style="margin-bottom: 1rem; color: #666;">Historical hourly heat stress zones across India from April through June. Use the controls to change MET level, sun/shade conditions, and scrub through time.</p>
                 <iframe
                     src="https://ekilic-coder.github.io/ehi-webapp-frontend/"
                     style="width: 100%; height: 600px; border: none; border-radius: 8px;"
-                    title="EHI Heat Stress Zones - India Summer 2025">
+                    title="EHI Heat Stress Zones - India Pre-Monsoon Season">
                 </iframe>
                 <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: ERA5 Reanalysis (Copernicus Climate Data Store)</p>
             </div>
@@ -2674,7 +2675,7 @@
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
                         <button onclick="showZone(1)" id="zone-btn-1" style="padding: 0.5rem 1rem; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 1</button>
                         <button onclick="showZone(2)" id="zone-btn-2" style="padding: 0.5rem 1rem; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 2</button>
-                        <button onclick="showZone(3)" id="zone-btn-3" style="padding: 0.5rem 1rem; border: 2px solid var(--shram-teal); background: white; color: var(--shram-teal); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 3</button>
+                        <button onclick="showZone(3)" id="zone-btn-3" style="padding: 0.5rem 1rem; border: 2px solid var(--zone-yellow-dark); background: white; color: var(--zone-yellow-dark); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 3</button>
                         <button onclick="showZone(4)" id="zone-btn-4" style="padding: 0.5rem 1rem; border: 2px solid var(--zone-orange); background: white; color: var(--zone-orange); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 4</button>
                         <button onclick="showZone(5)" id="zone-btn-5" style="padding: 0.5rem 1rem; border: 2px solid var(--zone-red); background: white; color: var(--zone-red); border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 5</button>
                         <button onclick="showZone(6)" id="zone-btn-6" style="padding: 0.5rem 1rem; border: 2px solid var(--zone-purple); background: var(--zone-purple); color: white; border-radius: 6px; cursor: pointer; font-weight: 600;">Zone 6</button>
@@ -2692,8 +2693,8 @@
                         <p><strong>Characteristics:</strong> Increased skin blood flow while maintaining comfortable clothing levels.</p>
                     </div>
 
-                    <div id="zone-content-3" class="zone-content" style="display: none; background: var(--gray-light); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--shram-teal);">
-                        <h3 style="color: var(--shram-teal); margin-bottom: 1rem;"><i class="fas fa-sun"></i> Zone 3: Warm (Manageable Heat)</h3>
+                    <div id="zone-content-3" class="zone-content" style="display: none; background: #fffde7; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--zone-yellow-dark);">
+                        <h3 style="color: var(--zone-yellow-dark); margin-bottom: 1rem;"><i class="fas fa-sun"></i> Zone 3: Warm (Mild Heat)</h3>
                         <p><strong>Physiological State:</strong> Minimal clothing for enhanced evaporative cooling.</p>
                         <p><strong>Characteristics:</strong> Maximum skin blood flow with minimal clothing to maximize heat dissipation.</p>
                     </div>
@@ -3039,7 +3040,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 6: mobile ? '6' : 'Zone 6 (Hazardous)',
                 5: mobile ? '5' : 'Zone 5 (High Risk)',
                 4: mobile ? '4' : 'Zone 4 (Elevated)',
-                3: mobile ? '3' : 'Zone 3 (Moderate)',
+                3: mobile ? '3' : 'Zone 3 (Mild)',
                 2: mobile ? '2' : 'Zone 2 (Comfortable)',
                 1: mobile ? '1' : 'Zone 1 (Cold)'
             };
@@ -5549,7 +5550,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 6: 'HAZARDOUS',
                 5: 'High Risk',
                 4: 'Caution',
-                3: 'Comfortable',
+                3: 'Mild',
                 2: 'Comfortable',
                 1: 'Cold Stress'
             };
@@ -6238,12 +6239,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 if (content) content.style.display = 'none';
                 if (btn) {
                     // Reset button styles based on zone
-                    if (i === 1) {
+                    if (i === 1 || i === 2) {
                         btn.style.background = 'white';
                         btn.style.color = 'var(--shram-teal)';
-                    } else if (i === 2 || i === 3) {
+                    } else if (i === 3) {
                         btn.style.background = 'white';
-                        btn.style.color = 'var(--shram-teal)';
+                        btn.style.color = 'var(--zone-yellow-dark)';
                     } else if (i === 4) {
                         btn.style.background = 'white';
                         btn.style.color = 'var(--zone-orange)';
@@ -6262,11 +6263,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const selectedBtn = document.getElementById(`zone-btn-${zoneNum}`);
             if (selectedContent) selectedContent.style.display = 'block';
             if (selectedBtn) {
-                if (zoneNum === 1) {
+                if (zoneNum === 1 || zoneNum === 2) {
                     selectedBtn.style.background = 'var(--shram-teal)';
                     selectedBtn.style.color = 'white';
-                } else if (zoneNum === 2 || zoneNum === 3) {
-                    selectedBtn.style.background = 'var(--shram-teal)';
+                } else if (zoneNum === 3) {
+                    selectedBtn.style.background = 'var(--zone-yellow-dark)';
                     selectedBtn.style.color = 'white';
                 } else if (zoneNum === 4) {
                     selectedBtn.style.background = 'var(--zone-orange)';
