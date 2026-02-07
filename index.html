@@ -1535,7 +1535,7 @@
                 justify-content: flex-start;
             }
             .logo-strip img {
-                height: 24px !important;
+                height: 64px !important;
                 width: auto !important;
             }
             .logo-strip-text { display: none; }
@@ -2013,15 +2013,16 @@
                 font-size: 0.65rem !important;
             }
 
-            /* Line 4: State + District - force them to stay on same row */
-            #last24h-section h2 > span:has(#charts-state-select) {
-                display: inline !important;
-                margin-top: 0.3rem;
-                margin-right: 0.15rem;
-            }
+            /* State + District on their own row */
+            #last24h-section h2 > span:has(#charts-state-select),
             #last24h-section h2 > span:has(#charts-district-select) {
-                display: inline !important;
-                margin-top: 0.3rem;
+                display: inline-block !important;
+                margin-top: 0.5rem;
+            }
+            /* Force state+district line to be block-level (new line) */
+            #last24h-section h2 {
+                display: flex !important;
+                flex-wrap: wrap !important;
             }
             /* Hide STATE/DISTRICT labels on phones for Historical Zones */
             #last24h-section h2 > span:has(#charts-state-select) > span,
@@ -2033,23 +2034,34 @@
                 display: none !important;
             }
             #charts-district-select {
-                width: 42% !important;
+                width: 45% !important;
                 max-width: 140px !important;
-                font-size: 0.875rem !important; /* 14px UI element */
+                font-size: 0.875rem !important;
                 padding: 0 0.3rem !important;
                 height: 32px !important;
                 display: inline-block !important;
             }
             /* Custom dropdown styling for mobile */
             #charts-state-dropdown {
-                width: 42% !important;
+                width: 45% !important;
                 max-width: 140px !important;
+                margin-right: 0.5rem !important;
             }
             #charts-state-dropdown .custom-dropdown-selected {
                 font-size: 0.875rem !important;
                 padding: 0 0.3rem !important;
                 height: 32px !important;
                 line-height: 28px !important;
+            }
+
+            /* Historical Animation iframe - scale to fit mobile width */
+            .section iframe[src*="ehi-webapp-frontend"] {
+                width: 140% !important;
+                height: 700px !important;
+                min-height: 700px !important;
+                transform: scale(0.72);
+                transform-origin: top left;
+                margin-bottom: -200px; /* Compensate for scale whitespace */
             }
 
             /* Hide info tooltip on phones */
@@ -2639,7 +2651,7 @@
                         <div class="met-desc">Moderate Work</div>
                     </div>
                     <div class="met-option" data-met="5">
-                        <img src="assets/farmer-cart-icon.png" alt="Heavy Work" style="height: 2rem; width: auto; display: block; margin: 0 auto 0.5rem; filter: invert(1);">
+                        <img src="assets/met5.svg" alt="Heavy Work" style="height: 2rem; width: auto; display: block; margin: 0 auto 0.5rem; filter: invert(1);">
                         <div class="met-label">5 METs</div>
                         <div class="met-desc">Heavy Work</div>
                     </div>
@@ -4061,8 +4073,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                             {
                                 label: getZoneLabel(3),
                                 data: zone3Data,
-                                borderColor: '#F9A825',
-                                backgroundColor: 'rgba(249, 168, 37, 0.1)',
+                                borderColor: '#FFEB3B',
+                                backgroundColor: 'rgba(255, 235, 59, 0.1)',
                                 fill: true,
                                 ...lineProps
                             },
@@ -4323,7 +4335,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const zoneColors = {
                 1: "#2196f3",  // Blue
                 2: "#4caf50",  // Green
-                3: "#C17900",  // Gold/Yellow
+                3: "#FFEB3B",  // Bright Yellow
                 4: "#e65100",  // Orange
                 5: "#d32f2f",  // Red
                 6: "#7B1FA2"   // Purple
@@ -5598,7 +5610,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 6: '#7B1FA2', // Hazardous - purple
                 5: '#d32f2f', // High risk - red
                 4: '#e65100', // Caution - orange
-                3: '#C17900', // Mild heat - gold/yellow
+                3: '#FFEB3B', // Mild heat - bright yellow
                 2: '#4caf50', // Comfortable - green
                 1: '#2196f3'  // Cold stress - blue
             };
@@ -6158,10 +6170,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 data: {
                     labels: hours,
                     datasets: [
-                        { label: 'Zone 6', data: sampleZone6, borderColor: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)', fill: true },
-                        { label: 'Zone 5', data: sampleZone5, borderColor: '#e65100', backgroundColor: 'rgba(230, 81, 0, 0.1)', fill: true },
-                        { label: 'Zone 4', data: sampleZone4, borderColor: '#c79100', backgroundColor: 'rgba(199, 145, 0, 0.1)', fill: true },
-                        { label: 'Zone 3', data: sampleZone3, borderColor: '#4caf50', backgroundColor: 'rgba(76, 175, 80, 0.1)', fill: true },
+                        { label: 'Zone 6', data: sampleZone6, borderColor: '#7B1FA2', backgroundColor: 'rgba(123, 31, 162, 0.1)', fill: true },
+                        { label: 'Zone 5', data: sampleZone5, borderColor: '#d32f2f', backgroundColor: 'rgba(211, 47, 47, 0.1)', fill: true },
+                        { label: 'Zone 4', data: sampleZone4, borderColor: '#e65100', backgroundColor: 'rgba(230, 81, 0, 0.1)', fill: true },
+                        { label: 'Zone 3', data: sampleZone3, borderColor: '#FFEB3B', backgroundColor: 'rgba(255, 235, 59, 0.1)', fill: true },
                         { label: 'Zone 2', data: sampleZone2, borderColor: '#8bc34a', backgroundColor: 'rgba(139, 195, 74, 0.1)', fill: true },
                         { label: 'Zone 1', data: sampleZone1, borderColor: '#03a9f4', backgroundColor: 'rgba(3, 169, 244, 0.1)', fill: true }
                     ]

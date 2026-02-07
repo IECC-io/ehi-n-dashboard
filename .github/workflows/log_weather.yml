@@ -20,34 +20,10 @@ jobs:
         with:
           python-version: '3.10'
       
-      - name: Install system dependencies
+      - name: Install Python packages
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential cmake ninja-build gfortran python3-dev libidn2-0
-      
-      - name: Verify tools
-        run: |
-          cmake --version
-          gfortran --version
-          python --version
-      
-      - name: Install Python packages (except NumbaMinpack)
-        run: |
-          pip install --upgrade pip wheel setuptools
-          pip install pandas numpy requests scipy tabulate beautifulsoup4 thermofeel
-      
-      - name: Install NumbaMinpack with retry
-        run: |
-          pip install numbaminpack || \
-          pip install git+https://github.com/Nicholaswogan/NumbaMinpack.git || \
-          (cd /tmp && \
-           git clone https://github.com/Nicholaswogan/NumbaMinpack.git && \
-           cd NumbaMinpack && \
-           pip install .)
-        continue-on-error: false
-      
-      - name: Validate installation
-        run: pip list
+          pip install --upgrade pip
+          pip install pandas numpy requests tabulate beautifulsoup4 thermofeel pytz
       
       - name: Pull latest data
         run: git pull origin main

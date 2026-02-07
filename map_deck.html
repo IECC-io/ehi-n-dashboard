@@ -205,7 +205,7 @@
                 padding: 4px 8px;
             }
 
-            /* Zone legend - bottom right, very compact */
+            /* Zone legend - bottom right, very compact with numbers only */
             .map-legend {
                 top: auto;
                 bottom: 5px;
@@ -213,7 +213,7 @@
                 left: auto;
                 padding: 6px 8px;
                 font-size: 9px;
-                max-width: 100px;
+                max-width: 70px;
                 background: rgba(255,255,255,0.92);
             }
             .map-legend h3 {
@@ -225,8 +225,12 @@
                 gap: 3px;
                 margin-bottom: 1px;
             }
+            /* Hide zone descriptions on mobile - show only numbers */
+            .legend-item .zone-desc {
+                display: none !important;
+            }
             .map-legend .source-text {
-                font-size: 7px;
+                display: none;
             }
 
             /* Sidebar - compact on mobile */
@@ -465,6 +469,20 @@
 
         .map-legend .source-text a {
             color: inherit;
+        }
+
+        /* MapLibre attribution - collapsed by default */
+        .maplibregl-ctrl-attrib {
+            background: rgba(255,255,255,0.8) !important;
+        }
+        .maplibregl-ctrl-attrib.maplibregl-compact {
+            min-height: 20px !important;
+        }
+        .maplibregl-ctrl-attrib.maplibregl-compact .maplibregl-ctrl-attrib-inner {
+            display: none;
+        }
+        .maplibregl-ctrl-attrib.maplibregl-compact.maplibregl-compact-show .maplibregl-ctrl-attrib-inner {
+            display: block;
         }
 
         /* Home button to reset map view - inline next to controls */
@@ -778,12 +796,12 @@
 
             <div class="map-legend">
                 <h3>Zones</h3>
-                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #1976D2; border-radius: 2px;"></span> <span>1 - Cold Stress</span></div>
-                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #2E7D32; border-radius: 2px;"></span> <span>2 - Comfort</span></div>
-                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #FFEB3B; border-radius: 2px;"></span> <span>3 - Moderate Heat Stress</span></div>
-                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #FF9800; border-radius: 2px;"></span> <span>4 - High Heat Stress</span></div>
-                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #B71C1C; border-radius: 2px;"></span> <span>5 - Very High Heat Stress</span></div>
-                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #7B1FA2; border-radius: 2px;"></span> <span>6 - Hazardous Heat Stress</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #1976D2; border-radius: 2px;"></span> <span class="zone-num">1</span><span class="zone-desc"> - Cold Stress</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #2E7D32; border-radius: 2px;"></span> <span class="zone-num">2</span><span class="zone-desc"> - Comfort</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #FFEB3B; border-radius: 2px;"></span> <span class="zone-num">3</span><span class="zone-desc"> - Moderate Heat Stress</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #FF9800; border-radius: 2px;"></span> <span class="zone-num">4</span><span class="zone-desc"> - High Heat Stress</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #B71C1C; border-radius: 2px;"></span> <span class="zone-num">5</span><span class="zone-desc"> - Very High Heat Stress</span></div>
+                <div class="legend-item"><span style="display: inline-block; width: 12px; height: 12px; background: #7B1FA2; border-radius: 2px;"></span> <span class="zone-num">6</span><span class="zone-desc"> - Hazardous Heat Stress</span></div>
                 <div class="source-text"><em>Data source: Open-Meteo</em></div>
                 <div class="source-text"><a href="#" onclick="showMethodology(); return false;" style="color: #2d637f; text-decoration: underline; cursor: pointer;">Methodology</a></div>
             </div>
@@ -1131,11 +1149,14 @@
             };
         }
 
-        // Initial view state for India
+        // Check if mobile
+        const isMobile = window.innerWidth <= 768;
+
+        // Initial view state for India - zoom out more on mobile
         const INITIAL_VIEW_STATE = {
             longitude: 82,
             latitude: 22.5,
-            zoom: 4,
+            zoom: isMobile ? 3 : 4,
             pitch: 0,
             bearing: 0
         };
@@ -1606,6 +1627,19 @@
         async function init() {
             initDeck();
             await loadGridData();
+
+            // Collapse MapLibre attribution by default (wait for it to render)
+            setTimeout(() => {
+                const attrib = document.querySelector('.maplibregl-ctrl-attrib');
+                if (attrib && !attrib.classList.contains('maplibregl-compact')) {
+                    // Already expanded, need to add compact class
+                    attrib.classList.add('maplibregl-compact');
+                }
+                // Remove the 'show' class if present to collapse it
+                if (attrib) {
+                    attrib.classList.remove('maplibregl-compact-show');
+                }
+            }, 500);
         }
 
         init();
