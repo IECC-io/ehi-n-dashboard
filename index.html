@@ -1529,7 +1529,7 @@
             label { font-size: 0.875rem; } /* 14px UI label */
 
             /* IECC logo strip - very small, left justified aligned with tiles */
-            .logo-strip { padding: 0.15rem 0; }
+            .logo-strip { padding: 0.15rem 0; margin-bottom: 0.25rem; }
             .logo-strip-content {
                 padding: 0 0.5rem;
                 justify-content: flex-start;
@@ -6748,22 +6748,24 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             goToTab('dashboard');
 
             const tour = introJs();
+            const isMobile = window.innerWidth <= 768;
 
             // Define steps with tab info
-            const steps = [
+            const allSteps = [
                 // Welcome
                 {
                     title: 'Welcome to SHRAM!',
                     intro: 'SHRAM monitors heat stress for outdoor workers across India. Let\'s explore the key features.',
                     tab: 'dashboard'
                 },
-                // Navigation Tabs
+                // Navigation Tabs (desktop only)
                 {
                     element: document.querySelector('.tabs'),
                     title: 'Navigation Tabs',
                     intro: 'Use these tabs to navigate between different sections. Let\'s start with the <b>Dashboard</b>.',
                     position: 'bottom',
-                    tab: 'dashboard'
+                    tab: 'dashboard',
+                    desktopOnly: true
                 },
                 // Activity Level (METs) on Dashboard
                 {
@@ -6798,29 +6800,32 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'right',
                     tab: 'dashboard'
                 },
-                // Live Map intro
+                // Live Map intro (desktop only)
                 {
                     element: document.querySelector('#livemap-tab-btn'),
                     title: 'Live Zone Map',
                     intro: 'Now let\'s check out the <b>Live Zone Map</b> - an interactive full view of current conditions across India.',
                     position: 'bottom',
-                    tab: 'livemap'
+                    tab: 'livemap',
+                    desktopOnly: true
                 },
-                // Live Map alerts and trends
+                // Live Map alerts and trends (desktop only)
                 {
                     element: document.querySelector('#livemap-sidebar-overlay'),
                     title: 'Active Alerts & Trends',
                     intro: 'The sidebar on the right shows <b>Active Alerts</b> count and <b>Historical Zones</b> over the past hour.',
                     position: 'left',
-                    tab: 'livemap'
+                    tab: 'livemap',
+                    desktopOnly: true
                 },
-                // Live Map hover/click
+                // Live Map hover/click (desktop only)
                 {
                     element: document.querySelector('#livemap-tab .section'),
                     title: 'Explore Locations',
                     intro: '<b>Hover</b> over any location to see current conditions. <b>Click</b> a district to view its detailed forecast.',
                     position: 'top',
-                    tab: 'livemap'
+                    tab: 'livemap',
+                    desktopOnly: true
                 },
                 // Calculator
                 {
@@ -6830,13 +6835,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'bottom',
                     tab: 'calculator'
                 },
-                // About EHI-N* Tab
+                // About EHI-N* Tab (desktop only)
                 {
                     element: document.querySelector('#about-tab-btn'),
                     title: 'About EHI-N*',
                     intro: 'Visit the <b>About</b> tab to learn more about the science behind heat stress and subscribe to alerts.',
                     position: 'bottom',
-                    tab: 'about'
+                    tab: 'about',
+                    desktopOnly: true
                 },
                 // About EHI-N* Section
                 {
@@ -6870,15 +6876,21 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     position: 'top',
                     tab: 'about'
                 },
-                // Take Tour Again - final step
+                // Take Tour Again - final step (desktop only)
                 {
                     element: document.querySelector('.take-tour-btn.desktop-tour-btn') || document.querySelector('.take-tour-btn'),
                     title: 'Take the Tour Again',
                     intro: 'Click the <b>?</b> button anytime to take this tour again!<br><br><b>Thanks for taking the tour!</b>',
                     position: 'bottom',
-                    tab: 'dashboard'
+                    tab: 'dashboard',
+                    desktopOnly: true
                 }
             ];
+
+            // Filter out desktop-only steps on mobile
+            const steps = isMobile
+                ? allSteps.filter(step => !step.desktopOnly)
+                : allSteps;
 
             tour.setOptions({
                 steps: steps.filter(step => !step.element || step.element !== null),
