@@ -16,16 +16,14 @@ Usage:
     python send_alerts.py
 
 Environment Variables Required:
-    GMAIL_APP_PASSWORD - Gmail app password for sending emails
+    RESEND_API_KEY - Resend API key for sending emails
     GOOGLE_SHEETS_CREDENTIALS - JSON string of service account credentials
     SHEET_ID - Google Sheets document ID
 """
 
 import json
 import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import requests
 from datetime import datetime
 import pytz
 
@@ -37,9 +35,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 # CONFIGURATION
 # =============================================================================
 
-# Email settings
-EMAIL_SENDER = os.environ.get('EMAIL_SENDER', 'eliana101299@gmail.com')
-EMAIL_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD')
+# Email settings (using Resend)
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+EMAIL_SENDER = os.environ.get('EMAIL_SENDER', 'SHRAM Alerts <onboarding@resend.dev>')
 
 # Google Sheets
 GOOGLE_SHEETS_CREDENTIALS = os.environ.get('GOOGLE_SHEETS_CREDENTIALS')
@@ -587,23 +585,29 @@ Data updated: {metadata.get('generated_at_ist', 'Unknown')}
 Unsubscribe: https://shram-alerts.vercel.app/api/unsubscribe?token={token}
     """
 
-    # Send email
+    # Send email via Resend API
     try:
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = subject
-        msg['From'] = EMAIL_SENDER
-        msg['To'] = email
+        response = requests.post(
+            'https://api.resend.com/emails',
+            headers={
+                'Authorization': f'Bearer {RESEND_API_KEY}',
+                'Content-Type': 'application/json'
+            },
+            json={
+                'from': EMAIL_SENDER,
+                'to': [email],
+                'subject': subject,
+                'html': html_body,
+                'text': text_body
+            }
+        )
 
-        msg.attach(MIMEText(text_body, 'plain'))
-        msg.attach(MIMEText(html_body, 'html'))
-
-        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-            smtp.starttls()
-            smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)
-            smtp.send_message(msg)
-
-        print(f"  ✓ Alert sent to {email} ({len(alerts)} districts)")
-        return True
+        if response.status_code == 200:
+            print(f"  ✓ Alert sent to {email} ({len(alerts)} districts)")
+            return True
+        else:
+            print(f"  ✗ Failed to send to {email}: {response.status_code} - {response.text}")
+            return False
 
     except Exception as e:
         print(f"  ✗ Failed to send to {email}: {e}")
@@ -627,8 +631,8 @@ def main():
     print(f"Nighttime mode: {'Yes (using shade values)' if is_night else 'No (respecting sun/shade preferences)'}")
 
     # Check credentials
-    if not EMAIL_PASSWORD:
-        print("\nERROR: GMAIL_APP_PASSWORD not set. Cannot send emails.")
+    if not RESEND_API_KEY:
+        print("\nERROR: RESEND_API_KEY not set. Cannot send emails.")
         return
 
     # Load grid data

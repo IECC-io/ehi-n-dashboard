@@ -44,7 +44,7 @@ jobs:
       - name: Send Zone 6 alerts to subscribers
         env:
           EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
           SHEET_ID: ${{ secrets.SHEET_ID }}
           VERCEL_URL: ${{ secrets.VERCEL_URL }}
