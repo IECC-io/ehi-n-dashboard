@@ -130,7 +130,7 @@ def get_verified_subscribers():
     Fetch all verified subscribers from Google Sheets.
 
     Returns:
-        list: List of subscriber records with parsed preferences
+        list: List of subscriber records with parsed preferences (includes row_num for updates)
     """
     if not GOOGLE_SHEETS_CREDENTIALS or not SHEET_ID:
         print("WARNING: Google Sheets credentials not configured. Skipping subscriber fetch.")
@@ -143,7 +143,7 @@ def get_verified_subscribers():
 
         # Filter to verified subscribers and parse preferences
         verified = []
-        for r in records:
+        for idx, r in enumerate(records):
             if r.get('status') != 'verified':
                 continue
 
@@ -186,7 +186,8 @@ def get_verified_subscribers():
                 'sun_shade': sun_shade,
                 'verification_token': r.get('verification_token'),
                 'receive_forecasts': r.get('receive_forecasts', 'yes') == 'yes',
-                'receive_sms': r.get('receive_sms', 'no') == 'yes'  # For future SMS alerts
+                'receive_sms': r.get('receive_sms', 'no') == 'yes',  # For future SMS alerts
+                'row_num': idx + 2  # Row number in sheet (1-indexed, +1 for header)
             })
 
         print(f"Found {len(verified)} verified subscribers")
@@ -195,6 +196,24 @@ def get_verified_subscribers():
     except Exception as e:
         print(f"ERROR fetching subscribers: {e}")
         return []
+
+
+def update_last_alert_sent(row_num, timestamp):
+    """
+    Update the last_alert_sent column (column 14) for a subscriber.
+
+    Args:
+        row_num: Row number in the sheet (1-indexed)
+        timestamp: ISO format timestamp to set
+    """
+    try:
+        client = get_sheets_client()
+        sheet = client.open_by_key(SHEET_ID).sheet1
+        # Column 14 is last_alert_sent
+        sheet.update_cell(row_num, 14, timestamp)
+        print(f"    Updated last_alert_sent for row {row_num}")
+    except Exception as e:
+        print(f"    Warning: Could not update last_alert_sent: {e}")
 
 
 # =============================================================================
@@ -486,7 +505,7 @@ def send_alert_email(subscriber, alerts, metadata, is_night):
             .alert-header {{ background: linear-gradient(135deg, {zone_info['border']} 0%, {zone_info['text']} 100%); color: white; padding: 25px; text-align: center; border-radius: 8px 8px 0 0; }}
             .content {{ background: #f8f9fa; padding: 25px; border-radius: 0 0 8px 8px; }}
             .action-box {{ background: #e0f2f1; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #006D77; }}
-            .btn {{ display: inline-block; background: #006D77; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; }}
+            .btn {{ display: inline-block; background: #006D77; color: #ffffff !important; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; }}
             .footer {{ font-size: 12px; color: #666; margin-top: 25px; padding-top: 20px; border-top: 1px solid #ddd; }}
         </style>
     </head>
@@ -517,7 +536,7 @@ def send_alert_email(subscriber, alerts, metadata, is_night):
                 </div>
 
                 <p style="text-align: center; margin: 25px 0;">
-                    <a href="{DASHBOARD_URL}" class="btn">View Live Dashboard</a>
+                    <a href="{DASHBOARD_URL}" class="btn" style="color: #ffffff !important;">View Live Dashboard</a>
                 </p>
 
                 <p style="font-size: 13px; color: #666;">
@@ -529,7 +548,7 @@ def send_alert_email(subscriber, alerts, metadata, is_night):
                         You're receiving this because you subscribed to SHRAM heat alerts for Zone {', '.join(str(z) for z in sorted(subscriber['alert_zones']))} at MET {', '.join(str(m) for m in sorted(subscriber['met_levels']))}.
                         <br>
                         <a href="{DASHBOARD_URL}/preferences.html?token={token}">Update Preferences</a> |
-                        <a href="https://{VERCEL_URL}/api/unsubscribe?token={token}">Unsubscribe</a> |
+                        <a href="https://shram-alerts.vercel.app/api/unsubscribe?token={token}">Unsubscribe</a> |
                         <a href="{DASHBOARD_URL}">SHRAM Dashboard</a>
                     </p>
                 </div>
@@ -563,7 +582,7 @@ View live dashboard: {DASHBOARD_URL}
 Data updated: {metadata.get('generated_at_ist', 'Unknown')}
 
 ---
-Unsubscribe: https://{VERCEL_URL}/api/unsubscribe?token={token}
+Unsubscribe: https://shram-alerts.vercel.app/api/unsubscribe?token={token}
     """
 
     # Send email
@@ -702,6 +721,8 @@ def main():
 
             if success:
                 alerts_sent += 1
+                # Update last_alert_sent in Google Sheets
+                update_last_alert_sent(subscriber['row_num'], now_ist.isoformat())
             else:
                 alerts_failed += 1
 

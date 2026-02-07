@@ -540,14 +540,28 @@
                 document.getElementById('phone').value = prefs.phone || '';
                 document.getElementById('districts').value = prefs.districts || '';
 
-                // MET levels
-                const metLevels = (prefs.met_levels || '6').split(',').map(m => m.trim());
+                // MET levels - handle both "3,4,5,6" string and 3456 number formats
+                let metLevelsStr = String(prefs.met_levels || '6');
+                let metLevels;
+                if (metLevelsStr.includes(',')) {
+                    metLevels = metLevelsStr.split(',').map(m => m.trim());
+                } else {
+                    // Handle concatenated number like "3456" -> ["3","4","5","6"]
+                    metLevels = metLevelsStr.split('').filter(d => ['3','4','5','6'].includes(d));
+                }
                 document.querySelectorAll('input[name="met"]').forEach(cb => {
                     cb.checked = metLevels.includes(cb.value);
                 });
 
-                // Alert zones
-                const alertZones = (prefs.alert_zones || '6').split(',').map(z => z.trim());
+                // Alert zones - handle both "4,5,6" string and 456 number formats
+                let alertZonesStr = String(prefs.alert_zones || '6');
+                let alertZones;
+                if (alertZonesStr.includes(',')) {
+                    alertZones = alertZonesStr.split(',').map(z => z.trim());
+                } else {
+                    // Handle concatenated number like "456" -> ["4","5","6"]
+                    alertZones = alertZonesStr.split('').filter(d => ['4','5','6'].includes(d));
+                }
                 document.querySelectorAll('input[name="zone"]').forEach(cb => {
                     cb.checked = alertZones.includes(cb.value);
                 });
