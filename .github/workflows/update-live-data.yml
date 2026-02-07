@@ -29,7 +29,7 @@ jobs:
       - name: Run IMDdata.py
         run: |
           cd ${{ github.workspace }}
-          python IMDdata.py
+          python scripts/IMDdata.py
 
       - name: Commit and push data
         run: |
