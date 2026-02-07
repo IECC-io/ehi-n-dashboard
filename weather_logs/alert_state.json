@@ -1,11 +1,4 @@
 {
-  "last_check": "2026-02-07T05:24:11.731858+05:30",
-  "active_alerts": {
-    "elifkilic@berkeley.edu": {
-      "South Andaman_3_shade": 4,
-      "South Andaman_4_shade": 4,
-      "South Andaman_5_shade": 5,
-      "South Andaman_6_shade": 5
-    }
-  }
+  "last_check": null,
+  "active_alerts": {}
 }
