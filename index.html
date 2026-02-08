@@ -4527,7 +4527,22 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Populate state dropdowns from data
         function populateStateDropdowns(alerts) {
-            const availableStates = [...new Set(alerts.map(a => a.STATE))].sort();
+            // Get available states from the most recent 24h data entry (includes ALL stations, not just Zone 5/6)
+            // This ensures states with Zone 1-4 data are not greyed out
+            let availableStates = [];
+            if (all24HourData) {
+                const hourlySource = all24HourData.hourly_data || all24HourData.hourly_alerts;
+                if (hourlySource && hourlySource.length > 0) {
+                    // First entry is most recent
+                    const mostRecentEntry = hourlySource[0];
+                    const stations = mostRecentEntry.alerts || mostRecentEntry.stations || [];
+                    availableStates = [...new Set(stations.map(s => s.STATE).filter(s => s && typeof s === 'string'))].sort();
+                }
+            }
+            // Fallback to alerts if 24h data not loaded yet
+            if (availableStates.length === 0) {
+                availableStates = [...new Set(alerts.map(a => a.STATE))].sort();
+            }
 
             // All Indian states/UTs for reference (title case to match IMD data format)
             const allStates = [
