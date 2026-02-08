@@ -5294,7 +5294,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // Update global timestamp - show red font if historical/stale data, otherwise normal black
             // Note: last24h-timestamp is managed independently by load24HourData()
             if (showRedTimestamp) {
-                document.getElementById('global-timestamp').innerHTML = `<strong style="color: #d32f2f;">Last Updated: ${formattedTimestamp} IST</strong>`;
+                document.getElementById('global-timestamp').innerHTML = `<strong style="color: #d32f2f;">${timestampLabel}: ${formattedTimestamp} IST</strong>`;
             } else {
                 // Reset to normal timestamp style (black)
                 document.getElementById('global-timestamp').innerHTML = `<strong>Last Updated: ${formattedTimestamp} IST</strong>`;
