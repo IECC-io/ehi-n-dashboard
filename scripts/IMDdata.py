@@ -34,8 +34,9 @@ MET_LEVELS = {
 # from pilotehi350 import find_eqvar as ehi350_zone
 # from pilotehi350 import pvstar as pvstar_ek
 
-import smtplib
-from email.message import EmailMessage
+# Email imports disabled - using send_alerts.py instead
+# import smtplib
+# from email.message import EmailMessage
 from tabulate import tabulate 
 from bs4 import BeautifulSoup
 
@@ -54,12 +55,12 @@ def format_name(name):
     return name.replace('_', ' ').title()
 
 
-# Set up your email credentials and recipients
-EMAIL_SENDER = "eliana101299@gmail.com"
-EMAIL_PASSWORD = "xpyv cwzn drfk ewef"
-EMAIL_RECIPIENTS = ["elifkilic@berkeley.edu", "eliana101299@gmail.com", "rohini.tamarana@berkeley.edu"]
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
+# Email sending disabled - using send_alerts.py instead (via update-grid-data.yml workflow)
+# EMAIL_SENDER = "eliana101299@gmail.com"
+# EMAIL_PASSWORD = "xpyv cwzn drfk ewef"
+# EMAIL_RECIPIENTS = ["elifkilic@berkeley.edu", "eliana101299@gmail.com", "rohini.tamarana@berkeley.edu"]
+# SMTP_SERVER = "smtp.gmail.com"
+# SMTP_PORT = 587
 
 def get_weekly_filename():
     """Generate filename based on ISO week number"""
@@ -189,100 +190,11 @@ def fetch_and_log():
         # Filter rows where ZONE is 5 or 6 for alerts (Zone 4 is caution, not alert)
         alert_df = merged_df[merged_df["Hard Labor Heat Stress Zone"].isin(["Zone 5", "Zone 6"])]
 
-        if not alert_df.empty:
-            msg = EmailMessage()
-            msg["Subject"] = "Extreme Heat Stress Alert: Zones 5 and/or 6 Detected"
-            msg["From"] = EMAIL_SENDER
-            msg["To"] = ", ".join(EMAIL_RECIPIENTS)
-            timestamp = datetime.now(ZoneInfo('Asia/Calcutta')).strftime('%Y-%m-%d %H:%M:%S')
-            text_body = f"Automated alert triggered at {timestamp} IST. See the HTML version of this email for the full table."
-            ehi_info = """
-            <p><strong>Key EHI / EHI-350 Info:</strong></p>
-            <ul>
-              <li style="color:black;">Your body core temperature needs to be <strong>37C to remain healthy.</strong>
-              <li style="color:black;">Both EHI and EHI-350 refer to the difficulty of rejecting body heat to keep core temperature at 37C.</li> 
-              <li style="color:black;">EHI is for a healthy adult doing light work in the shade; EHI-350 is for a healthy adult doing <strong>hard labor in the shade.</strong></li>
-              <li style="color:black;">Persons other than healthy adults are <strong>less resistant </strong>to heat than healthy adults.</li>
-              <li style="color:black;">EHI and EHI-350 values are divided into <strong>zones for health guidance</strong>. EHI summer values mostly fall into zones 4, 5, or 6.</li>
-            </ul>
-            """   
-            
-            zone_descriptions_html = f"""
-            <p><strong>Heat Stress Zone Definitions:</strong></p>
-            <ul>
-                <li style="color:black;">
-                    <span style="background-color: #FFFF00; padding: 2px 4px;">
-                    <strong>Zone 4:</strong> Your body tries to increase blood flow to the skin to improve cooling; sweat evaporates fully.
-                </li>
-                <li style="color:black;">
-                    <span style="background-color: #FFA500; padding: 2px 4px;">
-                    <strong>Zone 5:</strong> Sweat begins to drip off your skin. Cooling via evaporation is no longer sufficient. Remove excess clothing layers to improve cooling of the skin. <strong>You are approaching the maximum heat stress that you can tolerate.</strong>
-                </li>
-                <li style="color:black;">
-                    <span style="background-color: #fc8d8d; padding: 2px 4px;">
-                    <strong>Zone 6:</strong> Your body has started to overheat. Body has no more strategies to cool down. Stop hard labor as soon as you can. Move to a cooler place as soon as possible. Cooling intervention is needed (e.g., drinking ice-cold water, relocating to receive cool air breeze, immediate visit to a heat-clinic). <strong>Heat exhaustion is setting in</strong>, followed by heat stroke and heat death if you remain in Zone 6.
-                </li>
-            </ul>
-            """     
-            zone6_districts = alert_df[alert_df["Hard Labor Heat Stress Zone"] == "Zone 6"]["DISTRICT"].unique()
-            zone_6_warning = f"""
-            <p style="color:red;">
-                <strong>⚠️ WARNING: Zone 6 detected in the following districts! ⚠️</strong><br>
-                Immediate cooling intervention is needed.<br>
-                Affected districts: {', '.join(zone6_districts)}
-            </p>
-            """ if "Zone 6" in alert_df["Hard Labor Heat Stress Zone"].values else ""
-
-
-            # Convert to HTML (escape=False lets us style content later)
-            html_table = alert_df[final_cols].to_html(index=False, justify='center', escape=False)
-
-            # Style header cells (fixed height + width)
-            header_styles = {
-                "LOGGED_AT (IST)": "min-width:110px;",
-                "DISTRICT": "min-width:60px;",
-                "STATION": "min-width:60px;",
-                "TEMP": "min-width:50px;",
-                "RH": "min-width:50px;",
-                "EHI (in shade °C)": "min-width:50px;",
-                "Light Work Heat Stress Zone": "min-width:100px;",
-                "EHI_350 (in shade °C)": "min-width:60px;",
-                "Hard Labor Heat Stress Zone": "min-width:100px;"
-            }
-
-            for col, style in header_styles.items():
-                html_table = html_table.replace(
-                    f"<th>{col}</th>",
-                    f'<th style="height:40px; {style}">{col}</th>'
-                )
-
-            for zone, bgcolor in [("Zone 1", "#0980F6"), ("Zone 2", "#00FF00"), ("Zone 3", "#00FF00"),("Zone 4", "#FFFF00"), ("Zone 5", "#FFA500"), ("Zone 6", "#fc8d8d")]:
-                html_table = html_table.replace(
-                    f">{zone}<",
-                    f' style="background-color:{bgcolor}; font-weight:bold; color:black;">{zone}<'
-                )
-
-            html_body = f"""
-                <html>
-                <body style='font-family: Montserrat, sans-serif;'>
-                    <p><strong>Automated alert triggered at {timestamp} IST</strong></p>
-                    {ehi_info}
-                    {zone_descriptions_html}
-                    {zone_6_warning}
-                    <div style='text-align: center; margin-bottom: 1em;'>
-                        {html_table}
-                    </div>
-                </body>
-                </html>
-                """
-            msg.set_content(text_body)
-            msg.add_alternative(html_body, subtype='html')
-
-
-            with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as smtp:
-                smtp.starttls()
-                smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)
-                smtp.send_message(msg)
+        # Email sending disabled - using send_alerts.py instead (via update-grid-data.yml workflow)
+        # if not alert_df.empty:
+        #     msg = EmailMessage()
+        #     msg["Subject"] = "Extreme Heat Stress Alert: Zones 5 and/or 6 Detected"
+        #     ... (email code removed)
                 
     except Exception as e:
         print("Error fetching from IMD:", e)
