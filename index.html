@@ -4735,40 +4735,62 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 return;
             }
 
-            // First try to get districts from current alerts (Zone 5/6 only)
+            // ALWAYS try to get districts from 24h data first (has ALL stations, not just Zone 5/6)
             let districts = [];
             let isHistorical = false;
 
-            if (allAlertsData) {
+            const hourlySource = all24HourData ? (all24HourData.hourly_data || all24HourData.hourly_alerts) : null;
+            console.log('[updateCurrentDistricts] hourlySource available:', !!hourlySource);
+
+            if (hourlySource && hourlySource.length > 0) {
+                // Get districts from the most recent entry (index 0)
+                const mostRecentEntry = hourlySource[0];
+                const stations = mostRecentEntry.alerts || mostRecentEntry.stations || [];
+                const normalizedState = normalizeLocationName(selectedState);
+                console.log('[updateCurrentDistricts] Looking for state:', normalizedState, 'in', stations.length, 'stations');
+
+                const districtsFromMostRecent = new Set();
+                stations.forEach(s => {
+                    if (s.STATE && s.DISTRICT && normalizeLocationName(s.STATE) === normalizedState) {
+                        districtsFromMostRecent.add(s.DISTRICT);
+                    }
+                });
+
+                if (districtsFromMostRecent.size > 0) {
+                    districts = [...districtsFromMostRecent].sort();
+                    console.log('[updateCurrentDistricts] Districts found in most recent:', districts);
+                    isHistorical = false;  // Data is current
+                } else {
+                    // If not in most recent, search older entries
+                    console.log('[updateCurrentDistricts] State not in most recent, searching older entries');
+                    const allHistoricalDistricts = new Set();
+
+                    hourlySource.forEach((entry, i) => {
+                        if (i === 0) return;  // Skip first, already checked
+                        const entryStations = entry.alerts || entry.stations || [];
+                        entryStations.forEach(s => {
+                            if (s.STATE && s.DISTRICT && normalizeLocationName(s.STATE) === normalizedState) {
+                                allHistoricalDistricts.add(s.DISTRICT);
+                            }
+                        });
+                    });
+
+                    if (allHistoricalDistricts.size > 0) {
+                        districts = [...allHistoricalDistricts].sort();
+                        console.log('[updateCurrentDistricts] Districts found in historical:', districts);
+                        isHistorical = true;
+                    }
+                }
+            }
+
+            // Fallback to Zone 5/6 alerts only if 24h data didn't have anything
+            if (districts.length === 0 && allAlertsData) {
                 districts = [...new Set(
                     allAlertsData.alerts
                         .filter(a => a.STATE === selectedState)
                         .map(a => a.DISTRICT)
                 )].sort();
-                console.log('[updateCurrentDistricts] Districts from Zone 5/6 alerts:', districts.length);
-            }
-
-            // If no current districts, try to find from 24h historical data
-            const hourlySource = all24HourData ? (all24HourData.hourly_data || all24HourData.hourly_alerts) : null;
-            console.log('[updateCurrentDistricts] hourlySource available:', !!hourlySource);
-            if (districts.length === 0 && hourlySource) {
-                const normalizedState = normalizeLocationName(selectedState);
-                console.log('[updateCurrentDistricts] Searching 24h data for state:', normalizedState);
-                const allHistoricalDistricts = new Set();
-
-                hourlySource.forEach(entry => {
-                    const stations = entry.alerts || entry.stations || [];
-                    stations.forEach(s => {
-                        // Check both STATE and DISTRICT exist and match
-                        if (s.STATE && s.DISTRICT && normalizeLocationName(s.STATE) === normalizedState) {
-                            allHistoricalDistricts.add(s.DISTRICT);
-                        }
-                    });
-                });
-
-                districts = [...allHistoricalDistricts].sort();
-                console.log('[updateCurrentDistricts] Districts found from 24h data:', districts);
-                isHistorical = districts.length > 0;
+                console.log('[updateCurrentDistricts] Districts from Zone 5/6 fallback:', districts.length);
             }
 
             // Populate hidden select
@@ -5195,36 +5217,56 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 return;
             }
 
-            // First try to get districts from current alerts
+            // ALWAYS try to get districts from 24h data first (has ALL stations, not just Zone 5/6)
             let districts = [];
             let isHistorical = false;
 
-            if (allAlertsData) {
+            const hourlySource = all24HourData ? (all24HourData.hourly_data || all24HourData.hourly_alerts) : null;
+
+            if (hourlySource && hourlySource.length > 0) {
+                // Get districts from the most recent entry (index 0)
+                const mostRecentEntry = hourlySource[0];
+                const stations = mostRecentEntry.alerts || mostRecentEntry.stations || [];
+                const normalizedState = normalizeLocationName(selectedState);
+
+                const districtsFromMostRecent = new Set();
+                stations.forEach(s => {
+                    if (s.STATE && s.DISTRICT && normalizeLocationName(s.STATE) === normalizedState) {
+                        districtsFromMostRecent.add(s.DISTRICT);
+                    }
+                });
+
+                if (districtsFromMostRecent.size > 0) {
+                    districts = [...districtsFromMostRecent].sort();
+                    isHistorical = false;  // Data is current
+                } else {
+                    // If not in most recent, search older entries
+                    const allHistoricalDistricts = new Set();
+
+                    hourlySource.forEach((entry, i) => {
+                        if (i === 0) return;  // Skip first, already checked
+                        const entryStations = entry.alerts || entry.stations || [];
+                        entryStations.forEach(s => {
+                            if (s.STATE && s.DISTRICT && normalizeLocationName(s.STATE) === normalizedState) {
+                                allHistoricalDistricts.add(s.DISTRICT);
+                            }
+                        });
+                    });
+
+                    if (allHistoricalDistricts.size > 0) {
+                        districts = [...allHistoricalDistricts].sort();
+                        isHistorical = true;
+                    }
+                }
+            }
+
+            // Fallback to Zone 5/6 alerts only if 24h data didn't have anything
+            if (districts.length === 0 && allAlertsData) {
                 districts = [...new Set(
                     allAlertsData.alerts
                         .filter(a => a.STATE === selectedState)
                         .map(a => a.DISTRICT)
                 )].sort();
-            }
-
-            // If no current districts, try to find from 24h historical data
-            const hourlySource = all24HourData ? (all24HourData.hourly_data || all24HourData.hourly_alerts) : null;
-            if (districts.length === 0 && hourlySource) {
-                const normalizedState = normalizeLocationName(selectedState);
-                const allHistoricalDistricts = new Set();
-
-                hourlySource.forEach(entry => {
-                    const stations = entry.alerts || entry.stations || [];
-                    stations.forEach(s => {
-                        // Check both STATE and DISTRICT exist and match
-                        if (s.STATE && s.DISTRICT && normalizeLocationName(s.STATE) === normalizedState) {
-                            allHistoricalDistricts.add(s.DISTRICT);
-                        }
-                    });
-                });
-
-                districts = [...allHistoricalDistricts].sort();
-                isHistorical = districts.length > 0;
             }
 
             // Use disabled attribute for grey styling on historical data
