@@ -4530,21 +4530,27 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // Grey means "data is NOT from the most recent push" (i.e., outdated)
             // We check if each state appears in the MOST RECENT entry of alerts_24h.json
             let statesInMostRecentPush = new Set();
+            console.log('[populateStateDropdowns] all24HourData available:', !!all24HourData);
             if (all24HourData) {
                 const hourlySource = all24HourData.hourly_data || all24HourData.hourly_alerts;
+                console.log('[populateStateDropdowns] hourlySource entries:', hourlySource ? hourlySource.length : 0);
                 if (hourlySource && hourlySource.length > 0) {
                     // First entry (index 0) is most recent
                     const mostRecentEntry = hourlySource[0];
                     const stations = mostRecentEntry.alerts || mostRecentEntry.stations || [];
+                    console.log('[populateStateDropdowns] stations in most recent:', stations.length);
                     stations.forEach(s => {
                         if (s.STATE && typeof s.STATE === 'string') {
                             statesInMostRecentPush.add(s.STATE);
                         }
                     });
+                    console.log('[populateStateDropdowns] states found in most recent push:', statesInMostRecentPush.size);
+                    console.log('[populateStateDropdowns] Chandigarh in set:', statesInMostRecentPush.has('Chandigarh'));
                 }
             }
             // Fallback: if 24h data not loaded, use Zone 5/6 alerts (all are "current")
             if (statesInMostRecentPush.size === 0) {
+                console.log('[populateStateDropdowns] Using Zone 5/6 fallback');
                 alerts.forEach(a => {
                     if (a.STATE) statesInMostRecentPush.add(a.STATE);
                 });
@@ -4718,6 +4724,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const districtSelected = districtDropdown.querySelector('.custom-dropdown-selected');
             const selectedState = stateSelect.value;
 
+            console.log('[updateCurrentDistricts] selectedState:', selectedState);
+            console.log('[updateCurrentDistricts] all24HourData available:', !!all24HourData);
+
             if (selectedState === 'all') {
                 districtSelect.innerHTML = '<option value="all" class="available">All Districts</option>';
                 districtOptions.innerHTML = '<div class="custom-dropdown-option selected" data-value="all">All Districts</div>';
@@ -4726,7 +4735,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 return;
             }
 
-            // First try to get districts from current alerts
+            // First try to get districts from current alerts (Zone 5/6 only)
             let districts = [];
             let isHistorical = false;
 
@@ -4736,12 +4745,15 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                         .filter(a => a.STATE === selectedState)
                         .map(a => a.DISTRICT)
                 )].sort();
+                console.log('[updateCurrentDistricts] Districts from Zone 5/6 alerts:', districts.length);
             }
 
             // If no current districts, try to find from 24h historical data
             const hourlySource = all24HourData ? (all24HourData.hourly_data || all24HourData.hourly_alerts) : null;
+            console.log('[updateCurrentDistricts] hourlySource available:', !!hourlySource);
             if (districts.length === 0 && hourlySource) {
                 const normalizedState = normalizeLocationName(selectedState);
+                console.log('[updateCurrentDistricts] Searching 24h data for state:', normalizedState);
                 const allHistoricalDistricts = new Set();
 
                 hourlySource.forEach(entry => {
@@ -4755,6 +4767,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 });
 
                 districts = [...allHistoricalDistricts].sort();
+                console.log('[updateCurrentDistricts] Districts found from 24h data:', districts);
                 isHistorical = districts.length > 0;
             }
 
@@ -5234,12 +5247,16 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Find last available data from 24h history for a state/district
         function findLastAvailableData(selectedState, selectedDistrict) {
+            console.log('[findLastAvailableData] Looking for state:', selectedState, 'district:', selectedDistrict);
+            console.log('[findLastAvailableData] all24HourData available:', !!all24HourData);
             if (!all24HourData) return null;
             const hourlySource = all24HourData.hourly_data || all24HourData.hourly_alerts;
+            console.log('[findLastAvailableData] hourlySource entries:', hourlySource ? hourlySource.length : 0);
             if (!hourlySource) return null;
 
             const normalizedState = normalizeLocationName(selectedState);
             const normalizedDistrict = selectedDistrict !== 'all' ? normalizeLocationName(selectedDistrict) : null;
+            console.log('[findLastAvailableData] normalized state:', normalizedState, 'district:', normalizedDistrict);
 
             // Search from most recent (index 0) to oldest - data is in DESCENDING order
             for (let i = 0; i < hourlySource.length; i++) {
@@ -5250,6 +5267,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     normalizeLocationName(s.STATE) === normalizedState
                 );
 
+                if (i === 0) {
+                    console.log('[findLastAvailableData] Entry 0 has', stations.length, 'stations, matched:', matchingStations.length);
+                }
+
                 if (normalizedDistrict) {
                     matchingStations = matchingStations.filter(s =>
                         normalizeLocationName(s.DISTRICT) === normalizedDistrict
@@ -5257,12 +5278,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 }
 
                 if (matchingStations.length > 0) {
+                    console.log('[findLastAvailableData] Found', matchingStations.length, 'stations at entry', i);
                     return {
                         timestamp: entry.timestamp,
                         alerts: matchingStations
                     };
                 }
             }
+            console.log('[findLastAvailableData] No matching data found in any entry');
             return null;
         }
 
