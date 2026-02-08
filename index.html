@@ -4527,23 +4527,27 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Populate state dropdowns from data
         function populateStateDropdowns(alerts) {
-            // Get available states from the most recent 24h data entry (includes ALL stations, not just Zone 5/6)
-            // This ensures states with Zone 1-4 data are not greyed out
-            let availableStates = [];
+            // Grey means "data is NOT from the most recent push" (i.e., outdated)
+            // We check if each state appears in the MOST RECENT entry of alerts_24h.json
+            let statesInMostRecentPush = new Set();
             if (all24HourData) {
                 const hourlySource = all24HourData.hourly_data || all24HourData.hourly_alerts;
                 if (hourlySource && hourlySource.length > 0) {
-                    // First entry is most recent
+                    // First entry (index 0) is most recent
                     const mostRecentEntry = hourlySource[0];
                     const stations = mostRecentEntry.alerts || mostRecentEntry.stations || [];
-                    availableStates = [...new Set(stations.map(s => s.STATE).filter(s => s && typeof s === 'string'))].sort();
-                    console.log('[DEBUG] populateStateDropdowns using 24h data:', availableStates.length, 'states, includes Chandigarh:', availableStates.includes('Chandigarh'));
+                    stations.forEach(s => {
+                        if (s.STATE && typeof s.STATE === 'string') {
+                            statesInMostRecentPush.add(s.STATE);
+                        }
+                    });
                 }
             }
-            // Fallback to alerts if 24h data not loaded yet
-            if (availableStates.length === 0) {
-                availableStates = [...new Set(alerts.map(a => a.STATE))].sort();
-                console.log('[DEBUG] populateStateDropdowns FALLBACK to Zone 5/6 alerts:', availableStates.length, 'states, includes Chandigarh:', availableStates.includes('Chandigarh'));
+            // Fallback: if 24h data not loaded, use Zone 5/6 alerts (all are "current")
+            if (statesInMostRecentPush.size === 0) {
+                alerts.forEach(a => {
+                    if (a.STATE) statesInMostRecentPush.add(a.STATE);
+                });
             }
 
             // All Indian states/UTs for reference (title case to match IMD data format)
@@ -4567,15 +4571,16 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             currentStateOptions.innerHTML = '<div class="custom-dropdown-option selected" data-value="all">All India</div>';
 
             allStates.forEach(state => {
-                const isAvailable = availableStates.includes(state);
+                // Grey = NOT in most recent push (outdated data)
+                const hasCurrentData = statesInMostRecentPush.has(state);
                 const label = state;
-                const unavailableClass = isAvailable ? '' : 'class="unavailable"';
+                const unavailableClass = hasCurrentData ? '' : 'class="unavailable"';
 
                 // Hidden select
                 currentStateSelect.innerHTML += `<option value="${state}" ${unavailableClass}>${label}</option>`;
 
-                // Custom dropdown
-                const optClass = isAvailable ? '' : ' unavailable';
+                // Custom dropdown - grey styling for states without current data
+                const optClass = hasCurrentData ? '' : ' unavailable';
                 currentStateOptions.innerHTML += `<div class="custom-dropdown-option${optClass}" data-value="${state}">${label}</div>`;
             });
 
@@ -4604,15 +4609,16 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             optionsContainer.innerHTML = '<div class="custom-dropdown-option selected" data-value="all">All India</div>';
 
             allStates.forEach(state => {
-                const isAvailable = availableStates.includes(state);
+                // Grey = NOT in most recent push (outdated data)
+                const hasCurrentData = statesInMostRecentPush.has(state);
                 const label = state;
-                const unavailableClass = isAvailable ? '' : 'class="unavailable"';
+                const unavailableClass = hasCurrentData ? '' : 'class="unavailable"';
 
                 // Hidden select
                 chartsStateSelect.innerHTML += `<option value="${state}" ${unavailableClass}>${label}</option>`;
 
-                // Custom dropdown
-                const optClass = isAvailable ? '' : ' unavailable';
+                // Custom dropdown - grey styling for states without current data
+                const optClass = hasCurrentData ? '' : ' unavailable';
                 optionsContainer.innerHTML += `<div class="custom-dropdown-option${optClass}" data-value="${state}">${label}</div>`;
             });
 
@@ -5228,18 +5234,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Find last available data from 24h history for a state/district
         function findLastAvailableData(selectedState, selectedDistrict) {
-            if (!all24HourData) {
-                console.log('[DEBUG] findLastAvailableData: all24HourData is null');
-                return null;
-            }
+            if (!all24HourData) return null;
             const hourlySource = all24HourData.hourly_data || all24HourData.hourly_alerts;
-            if (!hourlySource) {
-                console.log('[DEBUG] findLastAvailableData: hourlySource is null');
-                return null;
-            }
+            if (!hourlySource) return null;
+
             const normalizedState = normalizeLocationName(selectedState);
             const normalizedDistrict = selectedDistrict !== 'all' ? normalizeLocationName(selectedDistrict) : null;
-            console.log('[DEBUG] findLastAvailableData: looking for state="' + normalizedState + '", district="' + normalizedDistrict + '"');
 
             // Search from most recent (index 0) to oldest - data is in DESCENDING order
             for (let i = 0; i < hourlySource.length; i++) {
@@ -5250,10 +5250,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     normalizeLocationName(s.STATE) === normalizedState
                 );
 
-                if (i === 0) {
-                    console.log('[DEBUG] Entry 0 has ' + stations.length + ' total stations, ' + matchingStations.length + ' match state "' + normalizedState + '"');
-                }
-
                 if (normalizedDistrict) {
                     matchingStations = matchingStations.filter(s =>
                         normalizeLocationName(s.DISTRICT) === normalizedDistrict
@@ -5261,14 +5257,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 }
 
                 if (matchingStations.length > 0) {
-                    console.log('[DEBUG] Found ' + matchingStations.length + ' stations at entry ' + i);
                     return {
                         timestamp: entry.timestamp,
                         alerts: matchingStations
                     };
                 }
             }
-            console.log('[DEBUG] findLastAvailableData: NO data found for ' + normalizedState);
             return null;
         }
 
