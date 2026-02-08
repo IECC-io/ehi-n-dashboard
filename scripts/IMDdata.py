@@ -244,6 +244,9 @@ def fetch_and_log():
         current_hour = now_ist.hour
         is_nighttime = current_hour >= 18 or current_hour < 6
 
+        # Replace NaN with None for valid JSON (NaN is not valid JSON)
+        alerts_data = alerts_df[all_cols].where(pd.notnull(alerts_df[all_cols]), None).to_dict(orient='records') if not alerts_df.empty else []
+
         alerts_json = {
             "timestamp": datetime.now(ZoneInfo("Asia/Calcutta")).isoformat(),
             "total_stations": len(merged_df),
@@ -254,11 +257,11 @@ def fetch_and_log():
             "zone_6_count": zone_counts.get("met6_shade_zone6", 0),
             "zone_5_count": zone_counts.get("met6_shade_zone5", 0),
             "zone_4_count": zone_counts.get("met6_shade_zone4", 0),
-            "alerts": alerts_df[all_cols].to_dict(orient='records') if not alerts_df.empty else []
+            "alerts": alerts_data
         }
 
         with open(os.path.join(ROOT_DIR, 'weather_logs', 'latest_alerts.json'), 'w') as f:
-            json.dump(alerts_json, f, indent=2, default=str)
+            json.dump(alerts_json, f, indent=2)
         print(f"✓ Saved {len(alerts_df)} alerts to JSON (Zone 5 & 6 only)")
 
     except Exception as e:
@@ -277,13 +280,17 @@ def fetch_and_log():
         else:
             history = {"hourly_data": []}
 
+        # Replace NaN values with None for valid JSON (NaN is not valid JSON)
+        stations_df = merged_df[all_cols].copy() if 'all_cols' in dir() else pd.DataFrame()
+        stations_data = stations_df.where(pd.notnull(stations_df), None).to_dict(orient='records') if not stations_df.empty else []
+
         # Add current hour's data - includes ALL stations with all zones (1-6)
         current_entry = {
             "timestamp": datetime.now(ZoneInfo("Asia/Calcutta")).isoformat(),
             "total_stations": len(merged_df),
             "alert_count": len(alerts_df) if 'alerts_df' in dir() and not alerts_df.empty else 0,  # Only Zone 5 & 6
             "zone_counts": zone_counts if 'zone_counts' in dir() else {},  # All zones 1-6
-            "stations": merged_df[all_cols].to_dict(orient='records') if 'all_cols' in dir() else []  # All stations
+            "stations": stations_data  # All stations with NaN replaced by null
         }
 
         history["hourly_data"].insert(0, current_entry)  # Add to front
@@ -293,7 +300,7 @@ def fetch_and_log():
 
         # Save updated history
         with open(history_file, 'w') as f:
-            json.dump(history, f, indent=2, default=str)
+            json.dump(history, f, indent=2)
 
         print(f"✓ Saved 24h history ({len(history['hourly_data'])} hours, all zones)")
     except Exception as e:
