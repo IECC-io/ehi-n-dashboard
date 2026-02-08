@@ -245,7 +245,8 @@ def fetch_and_log():
         is_nighttime = current_hour >= 18 or current_hour < 6
 
         # Replace NaN with None for valid JSON (NaN is not valid JSON)
-        alerts_data = alerts_df[all_cols].where(pd.notnull(alerts_df[all_cols]), None).to_dict(orient='records') if not alerts_df.empty else []
+        # Using .replace({np.nan: None}) instead of .where() for proper JSON serialization
+        alerts_data = alerts_df[all_cols].replace({np.nan: None}).to_dict(orient='records') if not alerts_df.empty else []
 
         alerts_json = {
             "timestamp": datetime.now(ZoneInfo("Asia/Calcutta")).isoformat(),
@@ -281,8 +282,9 @@ def fetch_and_log():
             history = {"hourly_data": []}
 
         # Replace NaN values with None for valid JSON (NaN is not valid JSON)
+        # Using .replace({np.nan: None}) instead of .where() for proper JSON serialization
         stations_df = merged_df[all_cols].copy() if 'all_cols' in dir() else pd.DataFrame()
-        stations_data = stations_df.where(pd.notnull(stations_df), None).to_dict(orient='records') if not stations_df.empty else []
+        stations_data = stations_df.replace({np.nan: None}).to_dict(orient='records') if not stations_df.empty else []
 
         # Add current hour's data - includes ALL stations with all zones (1-6)
         current_entry = {
