@@ -4716,11 +4716,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             }
 
             // If no current districts, try to find from 24h historical data
-            if (districts.length === 0 && all24HourData && all24HourData.hourly_alerts) {
+            const hourlySource = all24HourData ? (all24HourData.hourly_data || all24HourData.hourly_alerts) : null;
+            if (districts.length === 0 && hourlySource) {
                 const normalizedState = normalizeLocationName(selectedState);
                 const allHistoricalDistricts = new Set();
 
-                all24HourData.hourly_alerts.forEach(entry => {
+                hourlySource.forEach(entry => {
                     const stations = entry.alerts || entry.stations || [];
                     stations.forEach(s => {
                         if (normalizeLocationName(s.STATE) === normalizedState) {
@@ -5170,11 +5171,12 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             }
 
             // If no current districts, try to find from 24h historical data
-            if (districts.length === 0 && all24HourData && all24HourData.hourly_alerts) {
+            const hourlySource = all24HourData ? (all24HourData.hourly_data || all24HourData.hourly_alerts) : null;
+            if (districts.length === 0 && hourlySource) {
                 const normalizedState = normalizeLocationName(selectedState);
                 const allHistoricalDistricts = new Set();
 
-                all24HourData.hourly_alerts.forEach(entry => {
+                hourlySource.forEach(entry => {
                     const stations = entry.alerts || entry.stations || [];
                     stations.forEach(s => {
                         if (normalizeLocationName(s.STATE) === normalizedState) {
@@ -5207,9 +5209,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Find last available data from 24h history for a state/district
         function findLastAvailableData(selectedState, selectedDistrict) {
-            if (!all24HourData || !all24HourData.hourly_alerts) return null;
-
-            const hourlySource = all24HourData.hourly_alerts;
+            if (!all24HourData) return null;
+            const hourlySource = all24HourData.hourly_data || all24HourData.hourly_alerts;
+            if (!hourlySource) return null;
             const normalizedState = normalizeLocationName(selectedState);
             const normalizedDistrict = selectedDistrict !== 'all' ? normalizeLocationName(selectedDistrict) : null;
 
