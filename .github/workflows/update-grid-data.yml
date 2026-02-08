@@ -26,16 +26,6 @@ jobs:
         run: |
           pip install requests pytz gspread oauth2client
 
-      - name: Save previous hour's data for trend comparison
-        run: |
-          cd ${{ github.workspace }}
-          if [ -f grid_data.json ]; then
-            cp grid_data.json grid_data_prev.json
-            echo "Saved previous grid_data.json as grid_data_prev.json"
-          else
-            echo "No existing grid_data.json found"
-          fi
-
       - name: Run generate_grid_data_openmeteo.py
         run: |
           cd ${{ github.workspace }}
@@ -56,5 +46,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          # Add grid data files explicitly (including trend comparison files and history)
+          git add grid_data.json grid_data_history.json grid_data_prev.json grid_data_prev_12h.json grid_data_prev_24h.json 2>/dev/null || true
           git add -A
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update live map grid data [automated - hourly]" && git pull --rebase && git push)

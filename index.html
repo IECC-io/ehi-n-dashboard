@@ -6325,111 +6325,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             });
         }
 
-        async function loadSummerStats() {
-            try {
-                // Try local file first, then fall back to GitHub Pages
-                let response;
-                try {
-                    response = await fetch('weather_logs/summer_stats.json');
-                    if (!response.ok) throw new Error('Local file not found');
-                } catch (e) {
-                    response = await fetch('https://iecc-io.github.io/SHRAM/weather_logs/summer_stats.json');
-                }
-                const data = await response.json();
-
-                // Check if summer data is available yet
-                if (!data.hottest_location || data.total_alerts === 0) {
-                    document.getElementById('summer-stats-content').innerHTML = `
-                        <div style="text-align: center; padding: 2rem; color: #666;">
-                            <i class="fas fa-calendar-alt" style="font-size: 2rem; margin-bottom: 1rem; color: #999;"></i>
-                            <p style="font-size: 1.1rem;"><strong>Summer ${data.year} Statistics</strong></p>
-                            <p>Data collection started: ${new Date(data.data_collection_started).toLocaleDateString('en-IN', { dateStyle: 'medium' })}</p>
-                            <p style="margin-top: 0.5rem;">Summer statistics will be available once the season begins (June - September).</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                // Parse dates as IST (data is already in IST, append +05:30 to prevent double conversion)
-                const hottestDateIST = data.hottest_location.date.includes('+') ? data.hottest_location.date : data.hottest_location.date + '+05:30';
-                const hottestDate = new Date(hottestDateIST).toLocaleString('en-IN', {
-                    timeZone: 'Asia/Calcutta',
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                }) + ' IST';
-
-                const ehiDateIST = data.peak_ehi350_location.date.includes('+') ? data.peak_ehi350_location.date : data.peak_ehi350_location.date + '+05:30';
-                const ehiDate = new Date(ehiDateIST).toLocaleString('en-IN', {
-                    timeZone: 'Asia/Calcutta',
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                }) + ' IST';
-
-                // Prepare tooltip content for zones
-                const zone6TopState = data.zone_6_top_state || 'N/A';
-                const zone6CommonTime = (data.zone_6_common_time || 'Afternoon (12-4 PM)') + ' IST';
-                const zone5TopState = data.zone_5_top_state || 'N/A';
-                const zone5CommonTime = (data.zone_5_common_time || 'Afternoon (12-4 PM)') + ' IST';
-
-                let html = `
-                    <div class="status-grid">
-                        <div class="stat-box">
-                            <div class="stat-number">${(data.total_alerts || 0).toLocaleString()}</div>
-                            <div class="stat-label">Total Alerts (Summer ${data.year})</div>
-                        </div>
-                        <div class="stat-box hoverable" style="background: linear-gradient(135deg, #7B1FA2 0%, #6A1B9A 100%); cursor: pointer; border-color: #7B1FA2;" onclick="switchTab(event, 'about')">
-                            <div class="stat-number">${data.zone_6_events.toLocaleString()}</div>
-                            <div class="stat-label">Zone 6 Hours</div>
-                            <div class="zone-tooltip tooltip-down" style="border-color: #7B1FA2;">
-                                <h4 style="color: #7B1FA2;"><i class="fas fa-exclamation-triangle"></i> Zone 6 Summer Statistics</h4>
-                                <p><strong>Top State:</strong> ${zone6TopState.replace(/_/g, ' ')}</p>
-                                <p><strong>Most Common Time:</strong> ${zone6CommonTime}</p>
-                                <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
-                            </div>
-                        </div>
-                        <div class="stat-box hoverable" style="background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); cursor: pointer; border-color: #d32f2f;" onclick="switchTab(event, 'about')">
-                            <div class="stat-number">${data.zone_5_events.toLocaleString()}</div>
-                            <div class="stat-label">Zone 5 Hours</div>
-                            <div class="zone-tooltip tooltip-down" style="border-color: #d32f2f;">
-                                <h4 style="color: #d32f2f;"><i class="fas fa-heartbeat"></i> Zone 5 Summer Statistics</h4>
-                                <p><strong>Top State:</strong> ${zone5TopState.replace(/_/g, ' ')}</p>
-                                <p><strong>Most Common Time:</strong> ${zone5CommonTime}</p>
-                                <span class="learn-more-link"><i class="fas fa-info-circle"></i> Click to learn more about EHI zones</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 2rem; background: var(--gray-light); padding: 1.5rem; border-radius: 8px;">
-                        <h3 style="color: var(--danger-red); margin-bottom: 1rem;"><i class="fas fa-exclamation-circle"></i> Summer ${data.year} Peak Heat Events</h3>
-
-                        <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 4px solid var(--danger-red);">
-                            <strong style="color: var(--danger-red); font-size: 1.1rem;">Hottest Location Recorded:</strong><br>
-                            <span style="font-size: 1rem;">${data.hottest_location.station}, ${data.hottest_location.district}, ${data.hottest_location.state.replace(/_/g, ' ')}</span><br>
-                            <span style="font-size: 1.3rem; font-weight: 700; color: var(--danger-red);">${data.peak_temp}°C</span>${data.hottest_location.rh ? ` at ${data.hottest_location.rh}% RH` : ''} on ${hottestDate}
-                        </div>
-
-                        <div style="background: white; padding: 1rem; border-radius: 6px; border-left: 4px solid var(--warning-orange);">
-                            <strong style="color: var(--warning-orange); font-size: 1.1rem;">Highest EHI-6 Recorded:</strong><br>
-                            <span style="font-size: 1rem;">${data.peak_ehi350_location.station}, ${data.peak_ehi350_location.district}, ${data.peak_ehi350_location.state.replace(/_/g, ' ')}</span><br>
-                            <span style="font-size: 1.3rem; font-weight: 700; color: var(--warning-orange);">${data.peak_ehi350.toFixed(1)}°C EHI-6</span>${data.peak_ehi350_location.temp && data.peak_ehi350_location.rh ? ` (${data.peak_ehi350_location.temp}°C, ${data.peak_ehi350_location.rh}% RH)` : ''} on ${ehiDate}
-                        </div>
-                    </div>
-                `;
-
-                document.getElementById('summer-stats-content').innerHTML = html;
-            } catch (error) {
-                console.error('Error loading summer stats:', error);
-                document.getElementById('summer-stats-content').innerHTML = '<p style="text-align: center; color: #666;">Summer statistics not available</p>';
-            }
-        }
+        // COMMENTED OUT: Summer stats feature disabled - UI element was removed
+        // async function loadSummerStats() { ... }
 
         function showZone(zoneNum) {
             // Track zone info view in GA
@@ -6734,7 +6631,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     handleUrlParameters();
                 }, 500);
             });
-            loadSummerStats();
+            // loadSummerStats(); // DISABLED: Summer stats feature removed
 
             // Handle hash navigation (e.g., #subscribe-section)
             if (window.location.hash === '#subscribe-section') {

@@ -470,7 +470,78 @@ def generate_grid_data():
     else:
         print(f"  ⚠ {len(missing_lats)} latitude gaps remain")
 
+    # Manage historical data for trend comparisons (1h, 12h, 24h)
+    manage_historical_data(repo_root, output_path)
+
     return output
+
+
+def manage_historical_data(repo_root, current_file):
+    """
+    Manage historical grid data for trend comparison using a simple rolling history.
+
+    Strategy: Maintain a single grid_data_history.json with last 25 hourly snapshots.
+    The frontend can then pull:
+    - Entry 0 = current (but we use grid_data.json for that)
+    - Entry 1 = ~1 hour ago  → grid_data_prev.json
+    - Entry 12 = ~12 hours ago → grid_data_prev_12h.json
+    - Entry 24 = ~24 hours ago → grid_data_prev_24h.json
+    """
+    import shutil
+
+    history_file = os.path.join(repo_root, 'grid_data_history.json')
+
+    # Load existing history
+    history = []
+    if os.path.exists(history_file):
+        try:
+            with open(history_file, 'r') as f:
+                history = json.load(f)
+        except:
+            history = []
+
+    # Load current data to add to history
+    try:
+        with open(current_file, 'r') as f:
+            current_data = json.load(f)
+    except Exception as e:
+        print(f"\n  ⚠ Could not load current data for history: {e}")
+        return
+
+    # Add current data to front of history
+    history.insert(0, current_data)
+
+    # Keep only last 25 entries (enough for 24h comparison)
+    history = history[:25]
+
+    # Save updated history
+    try:
+        with open(history_file, 'w') as f:
+            json.dump(history, f)
+        print(f"\n  ✓ Updated history ({len(history)} hourly snapshots)")
+    except Exception as e:
+        print(f"\n  ⚠ Could not save history: {e}")
+        return
+
+    # Now create the individual prev files by extracting from history
+    prev_files = [
+        (1, 'grid_data_prev.json'),      # 1 hour ago
+        (12, 'grid_data_prev_12h.json'), # 12 hours ago
+        (24, 'grid_data_prev_24h.json'), # 24 hours ago
+    ]
+
+    for hours_ago, filename in prev_files:
+        filepath = os.path.join(repo_root, filename)
+        # Use index hours_ago (entry 1 = 1h ago, entry 12 = 12h ago, etc.)
+        if len(history) > hours_ago:
+            try:
+                with open(filepath, 'w') as f:
+                    json.dump(history[hours_ago], f)
+                print(f"    ✓ {filename} updated (from {hours_ago}h ago)")
+            except Exception as e:
+                print(f"    ⚠ Could not write {filename}: {e}")
+        else:
+            print(f"    ⚠ {filename} not available yet (need {hours_ago}h of data, have {len(history)-1}h)")
 
 
 if __name__ == '__main__':

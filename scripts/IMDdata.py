@@ -306,6 +306,9 @@ def fetch_and_log():
     except Exception as e:
         print("Error saving 24h history:", e)
 
+    # COMMENTED OUT: Summer statistics feature disabled
+    # To re-enable, uncomment the block below
+    """
     # NEW: Calculate and save summer statistics
     try:
         now = datetime.now(ZoneInfo("Asia/Calcutta"))
@@ -430,6 +433,8 @@ def fetch_and_log():
             
     except Exception as e:
         print("Error saving summer stats:", e)
+    """
+    # END OF COMMENTED OUT SUMMER STATS
 
 fetch_and_log()
  

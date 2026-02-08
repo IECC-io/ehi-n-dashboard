@@ -784,9 +784,6 @@
                                 Sun
                             </button>
                         </div>
-                        <div id="nighttime-notice" style="display: none; font-size: 0.75rem; color: #666; margin-top: 0.25rem; font-style: italic;">
-                            🌙 Nighttime: Sun = Shade
-                        </div>
                     </div>
                     <div class="data-timestamp" id="data-timestamp">
                         Loading...
@@ -833,7 +830,8 @@
                 <p>EHI-N* values are mapped to physiological zones based on thermoregulatory limits:</p>
                 <ul>
                     <li><strong>Zone 1:</strong> Cold stress (below comfort range)</li>
-                    <li><strong>Zone 2/3:</strong> Comfortable (thermal equilibrium maintained)</li>
+                    <li><strong>Zone 2:</strong> Comfortable (thermal equilibrium maintained)</li>
+                    <li><strong>Zone 3:</strong> Mild heat stress</li>
                     <li><strong>Zone 4:</strong> Caution (approaching thermal limits)</li>
                     <li><strong>Zone 5:</strong> High Risk (thermal strain, limited work capacity)</li>
                     <li><strong>Zone 6:</strong> Hazardous (hyperthermia risk, hazardous conditions)</li>
@@ -965,8 +963,10 @@
                 case 6: return 'HAZARDOUS';
                 case 5: return 'HIGH RISK';
                 case 4: return 'Caution';
+                case 3: return 'Mild Heat Stress';
+                case 2: return 'Comfortable';
                 case 1: return 'COLD STRESS';
-                default: return 'Comfortable';
+                default: return 'Unknown';
             }
         }
 
@@ -992,15 +992,17 @@
                 if (!conditionData) return null;
 
                 // Calculate trend for this point
+                // Zone 2 is optimal - worsening means moving away from Zone 2 in either direction
                 let trend = null;  // null = no data, 'worsening', 'improving', 'unchanged'
                 if (previousData) {
                     const prevPoint = previousData.points.find(p => p.lat === point.lat && p.lon === point.lon);
                     if (prevPoint) {
                         const prevCondition = prevPoint.data[metKey]?.[currentSun];
                         if (prevCondition) {
-                            const diff = conditionData.zone - prevCondition.zone;
-                            if (diff > 0) trend = 'worsening';
-                            else if (diff < 0) trend = 'improving';
+                            const currentDistance = Math.abs(conditionData.zone - 2);
+                            const prevDistance = Math.abs(prevCondition.zone - 2);
+                            if (currentDistance > prevDistance) trend = 'worsening';
+                            else if (currentDistance < prevDistance) trend = 'improving';
                             else trend = 'unchanged';
                         }
                     }
@@ -1136,7 +1138,7 @@
                             <value>${currentMet}</value>
                         </div>
                         <div class="tooltip-zone zone${object.zone}">
-                            ${(object.zone === 2 || object.zone === 3) ? 'Zone 2/3' : 'Zone ' + object.zone} - ${getZoneStatus(object.zone)}
+                            Zone ${object.zone} - ${getZoneStatus(object.zone)}
                         </div>
                         ${trendHtml}
                         ${clickHint}
@@ -1208,12 +1210,18 @@
                 document.getElementById('data-timestamp').innerHTML =
                     `<i class="fas fa-clock"></i> ${precomputedData.metadata.generated_at_ist}`;
 
-                // Show nighttime notice if applicable
-                const nighttimeNotice = document.getElementById('nighttime-notice');
+                // During nighttime, disable sun button (sun = shade anyway)
+                const sunBtn = document.getElementById('sun-btn');
                 if (precomputedData.metadata.is_nighttime) {
-                    nighttimeNotice.style.display = 'block';
+                    sunBtn.disabled = true;
+                    sunBtn.style.opacity = '0.5';
+                    sunBtn.style.cursor = 'not-allowed';
+                    sunBtn.title = 'Sun exposure not applicable at night';
                 } else {
-                    nighttimeNotice.style.display = 'none';
+                    sunBtn.disabled = false;
+                    sunBtn.style.opacity = '1';
+                    sunBtn.style.cursor = 'pointer';
+                    sunBtn.title = '';
                 }
 
                 console.log(`Loaded ${precomputedData.metadata.point_count} grid points`);
@@ -1394,6 +1402,10 @@
             });
 
             // Compare current to previous
+            // Note: Zone 2 is optimal (comfortable). Worsening can go either direction:
+            // - Zone 2 → Zone 1 (cold stress) = worsening
+            // - Zone 2 → Zone 3+ (heat stress) = worsening
+            // Distance from Zone 2 determines severity
             precomputedData.points.forEach(point => {
                 const key = `${point.lat}_${point.lon}`;
                 const currentCondition = point.data[metKey]?.[currentSun];
@@ -1401,10 +1413,14 @@
 
                 if (currentCondition && prevZone !== undefined) {
                     const currentZone = currentCondition.zone;
-                    if (currentZone > prevZone) {
-                        worsening++;
-                    } else if (currentZone < prevZone) {
-                        improving++;
+                    // Calculate distance from optimal Zone 2
+                    const currentDistance = Math.abs(currentZone - 2);
+                    const prevDistance = Math.abs(prevZone - 2);
+
+                    if (currentDistance > prevDistance) {
+                        worsening++;  // Moved further from comfort
+                    } else if (currentDistance < prevDistance) {
+                        improving++;  // Moved closer to comfort
                     } else {
                         stable++;
                     }
@@ -1467,10 +1483,17 @@
             const currentCondition = currentPoint.data[metKey]?.[currentSun];
             if (!currentCondition) return '';
 
-            const diff = currentCondition.zone - prevCondition.zone;
-            if (diff > 0) {
+            // Zone 2 is optimal - calculate distance from comfort zone
+            const currentZone = currentCondition.zone;
+            const prevZone = prevCondition.zone;
+            const currentDistance = Math.abs(currentZone - 2);
+            const prevDistance = Math.abs(prevZone - 2);
+
+            if (currentDistance > prevDistance) {
+                // Moved further from comfort (worsening)
                 return '<span class="trend-indicator worsening"><i class="fas fa-arrow-up"></i></span>';
-            } else if (diff < 0) {
+            } else if (currentDistance < prevDistance) {
+                // Moved closer to comfort (improving)
                 return '<span class="trend-indicator improving"><i class="fas fa-arrow-down"></i></span>';
             }
             return '';
