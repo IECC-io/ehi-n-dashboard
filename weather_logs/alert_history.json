@@ -116,6 +116,30 @@
       "is_nighttime": false,
       "success": false,
       "alert_count": 4
+    },
+    {
+      "timestamp": "2026-02-09T07:21:52.711665+05:30",
+      "subscriber_email": "elifkilic@berkeley.edu",
+      "subscriber_name": "Elif K.",
+      "districts": [
+        "South Andaman"
+      ],
+      "zones": [
+        4,
+        5
+      ],
+      "met_levels": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "conditions": [
+        "sun"
+      ],
+      "is_nighttime": false,
+      "success": true,
+      "alert_count": 4
     }
   ]
 }
