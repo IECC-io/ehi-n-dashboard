@@ -1,54 +1,54 @@
 {
-  "timestamp": "2026-02-16T13:22:12.897466+05:30",
-  "total_stations": 818,
+  "timestamp": "2026-02-16T13:29:34.358781+05:30",
+  "total_stations": 819,
   "alert_count": 480,
   "zone_counts": {
     "met3_shade_zone1": 0,
-    "met3_shade_zone2": 43,
+    "met3_shade_zone2": 44,
     "met3_shade_zone3": 87,
     "met3_shade_zone4": 538,
     "met3_shade_zone5": 6,
     "met3_shade_zone6": 0,
     "met3_sun_zone1": 0,
-    "met3_sun_zone2": 40,
+    "met3_sun_zone2": 41,
     "met3_sun_zone3": 15,
-    "met3_sun_zone4": 578,
-    "met3_sun_zone5": 41,
+    "met3_sun_zone4": 577,
+    "met3_sun_zone5": 42,
     "met3_sun_zone6": 0,
     "met4_shade_zone1": 0,
-    "met4_shade_zone2": 21,
-    "met4_shade_zone3": 49,
-    "met4_shade_zone4": 582,
+    "met4_shade_zone2": 22,
+    "met4_shade_zone3": 50,
+    "met4_shade_zone4": 581,
     "met4_shade_zone5": 22,
     "met4_shade_zone6": 0,
     "met4_sun_zone1": 0,
-    "met4_sun_zone2": 22,
+    "met4_sun_zone2": 23,
     "met4_sun_zone3": 17,
-    "met4_sun_zone4": 526,
-    "met4_sun_zone5": 108,
+    "met4_sun_zone4": 527,
+    "met4_sun_zone5": 107,
     "met4_sun_zone6": 1,
     "met5_shade_zone1": 0,
     "met5_shade_zone2": 2,
-    "met5_shade_zone3": 41,
+    "met5_shade_zone3": 42,
     "met5_shade_zone4": 571,
-    "met5_shade_zone5": 60,
-    "met5_shade_zone6": 0,
+    "met5_shade_zone5": 59,
+    "met5_shade_zone6": 1,
     "met5_sun_zone1": 0,
     "met5_sun_zone2": 15,
-    "met5_sun_zone3": 7,
-    "met5_sun_zone4": 400,
-    "met5_sun_zone5": 251,
+    "met5_sun_zone3": 8,
+    "met5_sun_zone4": 401,
+    "met5_sun_zone5": 250,
     "met5_sun_zone6": 1,
     "met6_shade_zone1": 0,
     "met6_shade_zone2": 0,
-    "met6_shade_zone3": 26,
+    "met6_shade_zone3": 27,
     "met6_shade_zone4": 477,
     "met6_shade_zone5": 170,
     "met6_shade_zone6": 1,
     "met6_sun_zone1": 0,
     "met6_sun_zone2": 1,
-    "met6_sun_zone3": 17,
-    "met6_sun_zone4": 176,
+    "met6_sun_zone3": 19,
+    "met6_sun_zone4": 175,
     "met6_sun_zone5": 476,
     "met6_sun_zone6": 4
   },
@@ -58,51 +58,51 @@
   "zone_4_count": 477,
   "alerts": [
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "Nicobar",
       "STATION": "Campbell Bay",
-      "TEMP": 30.6,
-      "RH": 75.0,
-      "EHI (in shade \u00b0C)": 37.150000000000034,
+      "TEMP": 30.0,
+      "RH": 77.0,
+      "EHI (in shade \u00b0C)": 36.05000000000001,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 65.0,
+      "EHI_350 (in shade \u00b0C)": 64.7,
       "Hard Labor Heat Stress Zone": "Zone 5",
-      "EHI_3_shade": 36.8,
+      "EHI_3_shade": 36.0,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 49.9,
+      "EHI_3_sun": 49.4,
       "Zone_3_sun": "Zone 5",
-      "EHI_4_shade": 52.4,
+      "EHI_4_shade": 50.6,
       "Zone_4_shade": "Zone 5",
-      "EHI_4_sun": 55.4,
+      "EHI_4_sun": 54.9,
       "Zone_4_sun": "Zone 5",
-      "EHI_5_shade": 61.8,
+      "EHI_5_shade": 61.5,
       "Zone_5_shade": "Zone 5",
-      "EHI_5_sun": 59.2,
+      "EHI_5_sun": 58.9,
       "Zone_5_sun": "Zone 5",
-      "EHI_6_shade": 65.0,
+      "EHI_6_shade": 64.7,
       "Zone_6_shade": "Zone 5",
-      "EHI_6_sun": 62.1,
+      "EHI_6_sun": 61.8,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "Nicobar",
       "STATION": "Car Nicobar",
-      "TEMP": 30.7,
-      "RH": 73.0,
-      "EHI (in shade \u00b0C)": 36.85000000000002,
+      "TEMP": 29.9,
+      "RH": 76.0,
+      "EHI (in shade \u00b0C)": 35.55000000000001,
       "Light Work Heat Stress Zone": "Zone 4",
       "EHI_350 (in shade \u00b0C)": 64.4,
       "Hard Labor Heat Stress Zone": "Zone 5",
-      "EHI_3_shade": 36.3,
+      "EHI_3_shade": 35.8,
       "Zone_3_shade": "Zone 4",
       "EHI_3_sun": 48.9,
       "Zone_3_sun": "Zone 5",
-      "EHI_4_shade": 49.2,
+      "EHI_4_shade": 49.0,
       "Zone_4_shade": "Zone 5",
-      "EHI_4_sun": 54.6,
+      "EHI_4_sun": 54.5,
       "Zone_4_sun": "Zone 5",
       "EHI_5_shade": 61.2,
       "Zone_5_shade": "Zone 5",
@@ -114,35 +114,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "Nicobar",
       "STATION": "Nancowry",
-      "TEMP": 34.0,
-      "RH": 80.0,
-      "EHI (in shade \u00b0C)": 63.950000000000045,
+      "TEMP": 34.7,
+      "RH": 81.0,
+      "EHI (in shade \u00b0C)": 66.95000000000005,
       "Light Work Heat Stress Zone": "Zone 5",
-      "EHI_350 (in shade \u00b0C)": 75.1,
+      "EHI_350 (in shade \u00b0C)": 77.4,
       "Hard Labor Heat Stress Zone": "Zone 6",
-      "EHI_3_shade": 64.0,
+      "EHI_3_shade": 66.3,
       "Zone_3_shade": "Zone 5",
-      "EHI_3_sun": 63.9,
+      "EHI_3_sun": 66.2,
       "Zone_3_sun": "Zone 5",
-      "EHI_4_shade": 68.0,
+      "EHI_4_shade": 69.8,
       "Zone_4_shade": "Zone 5",
-      "EHI_4_sun": 67.7,
+      "EHI_4_sun": 70.0,
       "Zone_4_sun": "Zone 6",
-      "EHI_5_shade": 70.5,
-      "Zone_5_shade": "Zone 5",
-      "EHI_5_sun": 71.4,
+      "EHI_5_shade": 73.7,
+      "Zone_5_shade": "Zone 6",
+      "EHI_5_sun": 73.7,
       "Zone_5_sun": "Zone 6",
-      "EHI_6_shade": 75.1,
+      "EHI_6_shade": 77.4,
       "Zone_6_shade": "Zone 6",
-      "EHI_6_sun": 75.1,
+      "EHI_6_sun": 77.4,
       "Zone_6_sun": "Zone 6"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "N M Andaman",
       "STATION": "Mayabunder",
@@ -170,35 +170,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "N M Andaman",
       "STATION": "Rangat Nimbutala",
-      "TEMP": 29.5,
+      "TEMP": 30.4,
       "RH": 63.0,
-      "EHI (in shade \u00b0C)": 32.25,
+      "EHI (in shade \u00b0C)": 33.950000000000045,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 60.3,
+      "EHI_350 (in shade \u00b0C)": 61.8,
       "Hard Labor Heat Stress Zone": "Zone 5",
-      "EHI_3_shade": 32.3,
+      "EHI_3_shade": 34.2,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 34.3,
-      "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 38.2,
+      "EHI_3_sun": 39.1,
+      "Zone_3_sun": "Zone 5",
+      "EHI_4_shade": 40.3,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 48.1,
+      "EHI_4_sun": 50.4,
       "Zone_4_sun": "Zone 5",
-      "EHI_5_shade": 48.1,
+      "EHI_5_shade": 55.3,
       "Zone_5_shade": "Zone 5",
-      "EHI_5_sun": 53.0,
+      "EHI_5_sun": 55.0,
       "Zone_5_sun": "Zone 5",
-      "EHI_6_shade": 60.3,
+      "EHI_6_shade": 61.8,
       "Zone_6_shade": "Zone 5",
-      "EHI_6_sun": 56.7,
+      "EHI_6_sun": 58.4,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "South Andaman",
       "STATION": "Ferrargunj",
@@ -226,13 +226,13 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "South Andaman",
       "STATION": "Hut Bay",
-      "TEMP": 30.8,
+      "TEMP": 30.9,
       "RH": 60.0,
-      "EHI (in shade \u00b0C)": 34.25,
+      "EHI (in shade \u00b0C)": 34.450000000000045,
       "Light Work Heat Stress Zone": "Zone 4",
       "EHI_350 (in shade \u00b0C)": 61.7,
       "Hard Labor Heat Stress Zone": "Zone 5",
@@ -254,7 +254,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "South Andaman",
       "STATION": "Shaheed Dweep",
@@ -282,7 +282,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "South Andaman",
       "STATION": "Sri Vijaya Puram",
@@ -310,7 +310,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "South Andaman",
       "STATION": "Sri Vijaya Puram Aws400",
@@ -338,7 +338,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andaman And Nicobar",
       "DISTRICT": "South Andaman",
       "STATION": "Swaraj Deep",
@@ -366,35 +366,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Alluri Sitharama Raju",
       "STATION": "Araku Valley",
-      "TEMP": 28.3,
-      "RH": 32.0,
-      "EHI (in shade \u00b0C)": 27.650000000000034,
+      "TEMP": 28.5,
+      "RH": 33.0,
+      "EHI (in shade \u00b0C)": 27.950000000000045,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 40.1,
+      "EHI_350 (in shade \u00b0C)": 40.3,
       "Hard Labor Heat Stress Zone": "Zone 4",
-      "EHI_3_shade": 27.8,
+      "EHI_3_shade": 27.9,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 27.3,
+      "EHI_3_sun": 27.5,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 32.2,
+      "EHI_4_shade": 32.3,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 31.5,
+      "EHI_4_sun": 31.7,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 36.3,
+      "EHI_5_shade": 36.4,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 35.5,
+      "EHI_5_sun": 35.7,
       "Zone_5_sun": "Zone 4",
-      "EHI_6_shade": 40.1,
+      "EHI_6_shade": 40.3,
       "Zone_6_shade": "Zone 4",
-      "EHI_6_sun": 43.2,
+      "EHI_6_sun": 44.2,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Anakapalli",
       "STATION": "Yellamanchilli Vskp",
@@ -422,7 +422,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Anantapur",
       "STATION": "Kh Govtdegcollege Dharmavaram",
@@ -450,7 +450,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Bapatla",
       "STATION": "Chirala",
@@ -478,7 +478,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Kakinada",
       "STATION": "Kakinada",
@@ -506,7 +506,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Kakinada",
       "STATION": "Peddapuram",
@@ -534,7 +534,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Konaseema",
       "STATION": "Ambajipeta Arg",
@@ -562,7 +562,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Nellore",
       "STATION": "Nellore Kvk",
@@ -590,7 +590,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Ntr",
       "STATION": "Mylavaram College Of  Engineer",
@@ -618,7 +618,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Ntr",
       "STATION": "Vijayawada",
@@ -646,7 +646,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Palnadu",
       "STATION": "Rentachintala",
@@ -674,7 +674,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Prakasam",
       "STATION": "Cs Puram",
@@ -702,7 +702,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Prakasam",
       "STATION": "Peda Araveedu",
@@ -730,7 +730,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Srikakulam",
       "STATION": "Ragolu",
@@ -758,7 +758,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Visakhapatnam",
       "STATION": "Anandapuram Arg",
@@ -786,7 +786,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Vizianagaram",
       "STATION": "Vizianagaram",
@@ -814,7 +814,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "West Godavari",
       "STATION": "Bhimavaram",
@@ -842,7 +842,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "West Godavari",
       "STATION": "Kv Gopannapalem Eluru",
@@ -870,7 +870,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "West Godavari",
       "STATION": "Maruteru",
@@ -898,7 +898,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "West Godavari",
       "STATION": "Narsapur",
@@ -926,7 +926,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Ysr Kadapa",
       "STATION": "Agricultural College  Badvel",
@@ -954,7 +954,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Andhra Pradesh",
       "DISTRICT": "Ysr Kadapa",
       "STATION": "Utkuru Kvk",
@@ -982,7 +982,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Anjaw",
       "STATION": "Hayuliang Circle",
@@ -1010,7 +1010,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Changlang",
       "STATION": "Miao",
@@ -1038,7 +1038,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "East Kameng",
       "STATION": "Seppa Pampoli",
@@ -1066,7 +1066,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Kurung Kumey",
       "STATION": "Koloraing",
@@ -1094,7 +1094,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Leparada",
       "STATION": "Daring",
@@ -1122,7 +1122,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Namsai",
       "STATION": "Lekang",
@@ -1150,7 +1150,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Namsai",
       "STATION": "Namsai Kvk",
@@ -1178,7 +1178,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Papumpare",
       "STATION": "Itanagar",
@@ -1206,7 +1206,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Siang",
       "STATION": "Pangin Circle",
@@ -1234,7 +1234,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Tirap",
       "STATION": "Deomali",
@@ -1262,35 +1262,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Upper Siang",
       "STATION": "Tuting",
-      "TEMP": 20.0,
-      "RH": 79.0,
-      "EHI (in shade \u00b0C)": 20.55000000000001,
+      "TEMP": 19.6,
+      "RH": 77.0,
+      "EHI (in shade \u00b0C)": 19.950000000000045,
       "Light Work Heat Stress Zone": "Zone 3",
-      "EHI_350 (in shade \u00b0C)": 34.8,
+      "EHI_350 (in shade \u00b0C)": 34.0,
       "Hard Labor Heat Stress Zone": "Zone 4",
-      "EHI_3_shade": 20.5,
+      "EHI_3_shade": 19.8,
       "Zone_3_shade": "Zone 3",
-      "EHI_3_sun": 20.5,
+      "EHI_3_sun": 19.8,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 25.5,
-      "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 25.5,
+      "EHI_4_shade": 25.0,
+      "Zone_4_shade": "Zone 3",
+      "EHI_4_sun": 24.7,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 30.3,
+      "EHI_5_shade": 29.6,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 30.2,
+      "EHI_5_sun": 29.3,
       "Zone_5_sun": "Zone 4",
-      "EHI_6_shade": 34.8,
+      "EHI_6_shade": 34.0,
       "Zone_6_shade": "Zone 4",
-      "EHI_6_sun": 39.5,
+      "EHI_6_sun": 35.9,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "Upper Subhanseri",
       "STATION": "Daporijo",
@@ -1318,7 +1318,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "West Kameng",
       "STATION": "Dirang",
@@ -1346,7 +1346,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Arunachal Pradesh",
       "DISTRICT": "West Kameng",
       "STATION": "Kalaktang",
@@ -1374,7 +1374,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Barpeta",
       "STATION": "Bajali University",
@@ -1402,7 +1402,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Barpeta",
       "STATION": "Barpeta Kvk",
@@ -1430,7 +1430,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Bongaigaon",
       "STATION": "Manikpur",
@@ -1458,7 +1458,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Darrang",
       "STATION": "Dalgaon",
@@ -1486,7 +1486,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Darrang",
       "STATION": "Garukhuti",
@@ -1514,7 +1514,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Darrang",
       "STATION": "Mangaldai",
@@ -1542,7 +1542,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Dhemaji",
       "STATION": "Silapathar Science College",
@@ -1570,7 +1570,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Dhubri",
       "STATION": "Bilasipara",
@@ -1598,7 +1598,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Dhubri",
       "STATION": "Gauripur Aegcl",
@@ -1626,7 +1626,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Dibrugarh",
       "STATION": "Dc Ofc Dibrugarh",
@@ -1654,7 +1654,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Dima Hasao",
       "STATION": "Haflong",
@@ -1682,7 +1682,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Dima Hasao",
       "STATION": "Haflong Aegcl",
@@ -1710,7 +1710,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Dima Hasao",
       "STATION": "Lkhep",
@@ -1738,7 +1738,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Goalpara",
       "STATION": "Agia Aegcl",
@@ -1766,7 +1766,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Goalpara",
       "STATION": "Goalpara",
@@ -1794,7 +1794,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Hajoi",
       "STATION": "Lumding",
@@ -1822,7 +1822,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Jorhat",
       "STATION": "Jorhat Amfu",
@@ -1850,7 +1850,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Kamrup Metropolitan",
       "STATION": "Aau Hrs",
@@ -1878,7 +1878,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Kamrup Metropolitan",
       "STATION": "Down Town University",
@@ -1906,7 +1906,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Kamrup Metropolitan",
       "STATION": "Gauhati University",
@@ -1934,7 +1934,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Kamrup Metropolitan",
       "STATION": "Guwahati",
@@ -1962,7 +1962,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Kamrup Metropolitan",
       "STATION": "Vcbc Rani",
@@ -1990,7 +1990,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Karbi Anglong",
       "STATION": "Bokajaan Aegcl",
@@ -2018,7 +2018,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Karbi Anglong",
       "STATION": "Diphu Amfu",
@@ -2046,7 +2046,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Karbi Anglong(East)",
       "STATION": "Bakulia",
@@ -2074,7 +2074,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Karbi Anglong(East)",
       "STATION": "Diphu",
@@ -2102,7 +2102,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Karbi Anglong(West)",
       "STATION": "Habang Circle",
@@ -2130,7 +2130,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Karbi Anglong(West)",
       "STATION": "Kheronighat",
@@ -2158,7 +2158,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Karbi Anglong(West)",
       "STATION": "Umpanai Apdcl",
@@ -2186,7 +2186,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Kokrajhar",
       "STATION": "Gossaigaon Amfu",
@@ -2214,7 +2214,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Kokrajhar",
       "STATION": "Salakati Aegcl",
@@ -2242,7 +2242,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Marigaon",
       "STATION": "Dharamtul",
@@ -2270,7 +2270,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Marigaon",
       "STATION": "Laharighat",
@@ -2298,7 +2298,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Marigaon",
       "STATION": "Marigaon",
@@ -2326,7 +2326,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Nagaon",
       "STATION": "Samaguri Aegcl",
@@ -2354,7 +2354,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Nalbari",
       "STATION": "Nalbari",
@@ -2382,7 +2382,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Nalbari",
       "STATION": "Tihu",
@@ -2410,7 +2410,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Sivasagar",
       "STATION": "Sivsagar Aegcl",
@@ -2438,7 +2438,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Sonitpur",
       "STATION": "Neriwalam",
@@ -2466,7 +2466,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Tamulpur",
       "STATION": "Mushalpur",
@@ -2494,7 +2494,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Tinsukia",
       "STATION": "Margherita",
@@ -2522,7 +2522,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Tinsukia",
       "STATION": "Ntps Apdcl",
@@ -2550,7 +2550,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Tinsukia",
       "STATION": "Tinsukia",
@@ -2578,7 +2578,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Assam",
       "DISTRICT": "Udalguri",
       "STATION": "Rowta Aegcl",
@@ -2606,7 +2606,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Arwal",
       "STATION": "Arwal Aws400",
@@ -2634,7 +2634,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Buxar",
       "STATION": "Buxar",
@@ -2662,7 +2662,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Gaya",
       "STATION": "Khinjarsarai",
@@ -2690,7 +2690,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Gopalganj",
       "STATION": "Sipaya",
@@ -2718,7 +2718,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Jehanabad",
       "STATION": "Jehanabad",
@@ -2746,7 +2746,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Kaimur",
       "STATION": "Bhabua",
@@ -2774,7 +2774,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Khagaria",
       "STATION": "Khagaria Kvk",
@@ -2802,7 +2802,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Krishnaganj",
       "STATION": "Arrabari",
@@ -2830,7 +2830,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Madhepura",
       "STATION": "Madhepura",
@@ -2858,7 +2858,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Madhubani",
       "STATION": "Chanpur Basaitha",
@@ -2886,7 +2886,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Madhubani",
       "STATION": "Sukhet",
@@ -2914,7 +2914,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Munger",
       "STATION": "Kvk Munger",
@@ -2942,7 +2942,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Muzaffarpur",
       "STATION": "Saraiya Kvk",
@@ -2970,7 +2970,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Nalanda",
       "STATION": "Harnaut",
@@ -2998,7 +2998,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Nalanda",
       "STATION": "Rajgir",
@@ -3026,7 +3026,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Patna",
       "STATION": "Baldwin Academy",
@@ -3054,7 +3054,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Patna",
       "STATION": "Danapur Dps",
@@ -3082,7 +3082,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Patna",
       "STATION": "Iit Patna",
@@ -3110,7 +3110,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Patna",
       "STATION": "Patna",
@@ -3138,7 +3138,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Patna",
       "STATION": "Patna Pwc",
@@ -3166,7 +3166,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Rohtas",
       "STATION": "Dehri",
@@ -3194,7 +3194,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Saharsa",
       "STATION": "Agwanpur Aws400",
@@ -3222,7 +3222,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Sasaram",
       "STATION": "Bikramganj",
@@ -3250,7 +3250,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Supaul",
       "STATION": "Supaul Aws400",
@@ -3278,7 +3278,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Bihar",
       "DISTRICT": "Vaishali",
       "STATION": "Vaishali",
@@ -3306,7 +3306,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Chhattisgarh",
       "DISTRICT": "Balod",
       "STATION": "Balod Aws400",
@@ -3334,7 +3334,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Chhattisgarh",
       "DISTRICT": "Bilaspur",
       "STATION": "Bilaspur",
@@ -3362,7 +3362,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Chhattisgarh",
       "DISTRICT": "Rajnandgaon",
       "STATION": "Rajnandgaon",
@@ -3390,7 +3390,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Chhattisgarh",
       "DISTRICT": "Sukma",
       "STATION": "Sukma",
@@ -3418,7 +3418,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Dadra And Nagar Haveli",
       "DISTRICT": "Dadar Nagar",
       "STATION": "Silvassa",
@@ -3446,7 +3446,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Daman And Diu",
       "DISTRICT": "Daman",
       "STATION": "Daman Arg",
@@ -3474,7 +3474,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Daman And Diu",
       "DISTRICT": "Daman",
       "STATION": "Daman Aws",
@@ -3502,7 +3502,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Delhi",
       "DISTRICT": "Delhi",
       "STATION": "Kvk Crpf Campus",
@@ -3530,7 +3530,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Delhi",
       "DISTRICT": "Delhi",
       "STATION": "Kv Narayna",
@@ -3558,7 +3558,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Delhi",
       "DISTRICT": "New Delhi",
       "STATION": "Lodi Road",
@@ -3586,7 +3586,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Delhi",
       "DISTRICT": "New Delhi",
       "STATION": "Sports Complex",
@@ -3614,7 +3614,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Delhi",
       "DISTRICT": "North West Delhi",
       "STATION": "Narela",
@@ -3642,7 +3642,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Delhi",
       "DISTRICT": "North West Delhi",
       "STATION": "Pitampura",
@@ -3670,7 +3670,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Delhi",
       "DISTRICT": "South West Delhi",
       "STATION": "Najafgarh",
@@ -3698,7 +3698,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Goa",
       "DISTRICT": "North Goa",
       "STATION": "Goa State Biodiversity Board",
@@ -3726,7 +3726,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Goa",
       "DISTRICT": "North Goa",
       "STATION": "Mopa Airport",
@@ -3754,7 +3754,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Ahmedabad",
       "STATION": "Ahmedabad",
@@ -3782,7 +3782,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Ahmedabad",
       "STATION": "Dhorela",
@@ -3810,7 +3810,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Amreli",
       "STATION": "Dhari Aws400",
@@ -3838,7 +3838,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Amreli",
       "STATION": "Jafrabad",
@@ -3866,7 +3866,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Amreli",
       "STATION": "Rajula",
@@ -3894,7 +3894,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Banaskantha",
       "STATION": "Dantewada Amfu",
@@ -3922,7 +3922,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Banaskantha",
       "STATION": "Tharad Aws400",
@@ -3950,7 +3950,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Bharuch",
       "STATION": "Hansot Aws400",
@@ -3978,7 +3978,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Bhavnagar",
       "STATION": "Bhavnagar",
@@ -4006,7 +4006,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Bhavnagar",
       "STATION": "Talaja Aws400",
@@ -4034,7 +4034,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Botad",
       "STATION": "Botad",
@@ -4062,7 +4062,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Dahod",
       "STATION": "Dahod Kvk",
@@ -4090,7 +4090,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Dang",
       "STATION": "Dang Kvk",
@@ -4118,7 +4118,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Dwarka",
       "STATION": "Dwarka",
@@ -4146,7 +4146,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Gandhinagar",
       "STATION": "Gandhinagar",
@@ -4174,7 +4174,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Gir Somnath",
       "STATION": "Veraval   Aws400",
@@ -4202,7 +4202,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Junagadh",
       "STATION": "Junagarh Amfu",
@@ -4230,7 +4230,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Kachchh",
       "STATION": "Bachau Amfu",
@@ -4258,7 +4258,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Kachchh",
       "STATION": "Bhuj",
@@ -4286,7 +4286,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Kachchh",
       "STATION": "Kandla",
@@ -4314,7 +4314,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Kachchh",
       "STATION": "Kutch Mandvi",
@@ -4342,7 +4342,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Kachchh",
       "STATION": "Rapar",
@@ -4370,7 +4370,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Mahisagar",
       "STATION": "Lunavada",
@@ -4398,7 +4398,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Morbi",
       "STATION": "Halwad",
@@ -4426,7 +4426,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Patan",
       "STATION": "Patan",
@@ -4454,7 +4454,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Porbandar",
       "STATION": "Porbandar",
@@ -4482,7 +4482,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Rajkot",
       "STATION": "Targhadia Amfu",
@@ -4510,7 +4510,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Sabarkantha",
       "STATION": "Bayad",
@@ -4538,7 +4538,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Sabarkantha",
       "STATION": "Himatnagar",
@@ -4566,7 +4566,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Surat",
       "STATION": "Surat",
@@ -4594,7 +4594,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Gujarat",
       "DISTRICT": "Vadodara",
       "STATION": "Vadodara Aws400",
@@ -4622,7 +4622,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Bhiwani",
       "STATION": "Bhiwani",
@@ -4650,7 +4650,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Kaithal",
       "STATION": "Kaul Amfu",
@@ -4678,7 +4678,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Karnal",
       "STATION": "Uchani",
@@ -4706,7 +4706,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Mahendragarh",
       "STATION": "Mahendragarh Aws",
@@ -4734,7 +4734,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Panipat",
       "STATION": "Ujha",
@@ -4762,7 +4762,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Rohtak",
       "STATION": "Rohtak",
@@ -4790,7 +4790,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Sirsa",
       "STATION": "Sirsa",
@@ -4818,7 +4818,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Haryana",
       "DISTRICT": "Sonipat",
       "STATION": "Canal Resthouse Saragthal",
@@ -4846,7 +4846,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Jammu And Kashmir",
       "DISTRICT": "Jammu",
       "STATION": "Chatha Amfu",
@@ -4874,7 +4874,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Jammu And Kashmir",
       "DISTRICT": "Jammu",
       "STATION": "Jammu",
@@ -4902,35 +4902,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Jammu And Kashmir",
       "DISTRICT": "Kathua",
       "STATION": "Kathua Kvk",
-      "TEMP": 24.8,
-      "RH": 50.0,
-      "EHI (in shade \u00b0C)": 24.75,
+      "TEMP": 24.5,
+      "RH": 47.0,
+      "EHI (in shade \u00b0C)": 24.25,
       "Light Work Heat Stress Zone": "Zone 3",
-      "EHI_350 (in shade \u00b0C)": 38.4,
+      "EHI_350 (in shade \u00b0C)": 37.4,
       "Hard Labor Heat Stress Zone": "Zone 4",
-      "EHI_3_shade": 25.0,
+      "EHI_3_shade": 24.3,
       "Zone_3_shade": "Zone 3",
-      "EHI_3_sun": 25.0,
+      "EHI_3_sun": 24.1,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 29.8,
+      "EHI_4_shade": 29.0,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 29.6,
+      "EHI_4_sun": 28.6,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 34.3,
+      "EHI_5_shade": 33.4,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 33.9,
+      "EHI_5_sun": 32.8,
       "Zone_5_sun": "Zone 4",
-      "EHI_6_shade": 38.4,
+      "EHI_6_shade": 37.4,
       "Zone_6_shade": "Zone 4",
-      "EHI_6_sun": 43.9,
+      "EHI_6_sun": 39.3,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Jammu And Kashmir",
       "DISTRICT": "Samba",
       "STATION": "Samba",
@@ -4958,7 +4958,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Jammu And Kashmir",
       "DISTRICT": "Udhampur",
       "STATION": "Kawa",
@@ -4986,7 +4986,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Jharkhand",
       "DISTRICT": "Bokaro",
       "STATION": "Bokaro",
@@ -5014,7 +5014,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Bagalkot",
       "STATION": "Bagalkot Kvk",
@@ -5042,7 +5042,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Bangalore Urban",
       "STATION": "Bangalore",
@@ -5070,7 +5070,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Bangalore Urban",
       "STATION": "Electronic City(Nice)",
@@ -5098,7 +5098,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Bangalore Urban",
       "STATION": "Gopal Nagar",
@@ -5126,7 +5126,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Bellary",
       "STATION": "Hagari Kvk",
@@ -5154,7 +5154,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Bijapur",
       "STATION": "Tidagundi Amfu",
@@ -5182,7 +5182,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Chitradurga",
       "STATION": "Hiriyur",
@@ -5210,7 +5210,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Dharwad",
       "STATION": "Mugad",
@@ -5238,7 +5238,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Gadag",
       "STATION": "Gadag",
@@ -5266,7 +5266,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Gulbarga",
       "STATION": "Raddewadgi",
@@ -5294,7 +5294,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Kolar",
       "STATION": "Tamaka Kvk",
@@ -5322,7 +5322,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Koppal",
       "STATION": "Gangavathi Kvk",
@@ -5350,7 +5350,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Koppal",
       "STATION": "Koppal",
@@ -5378,7 +5378,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Mandya",
       "STATION": "Mandya Kvk",
@@ -5406,7 +5406,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Mysore",
       "STATION": "Suttur",
@@ -5434,7 +5434,7 @@
       "Zone_6_sun": "Zone 6"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Karnataka",
       "DISTRICT": "Tumkur",
       "STATION": "Chikkanakalli",
@@ -5462,7 +5462,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Alappuzha",
       "STATION": "Kayamkulam",
@@ -5490,7 +5490,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Alappuzha",
       "STATION": "Thycattussery",
@@ -5518,7 +5518,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Ernakulam",
       "STATION": "Boat Jetty Kgov",
@@ -5546,7 +5546,7 @@
       "Zone_6_sun": "Zone 6"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Ernakulam",
       "STATION": "Choondi",
@@ -5574,7 +5574,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Ernakulam",
       "STATION": "Dhground Kgov",
@@ -5602,7 +5602,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Ernakulam",
       "STATION": "Kadavanthra Kgov",
@@ -5630,7 +5630,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Ernakulam",
       "STATION": "Koothattukulam",
@@ -5658,7 +5658,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Ernakulam",
       "STATION": "Odakkali",
@@ -5686,7 +5686,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Ernakulam",
       "STATION": "Palluruthy",
@@ -5714,7 +5714,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Idukki",
       "STATION": "Ayyappankovil",
@@ -5742,7 +5742,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Idukki",
       "STATION": "Cheruthoni",
@@ -5770,7 +5770,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Idukki",
       "STATION": "Kovilkadavu",
@@ -5798,7 +5798,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Idukki",
       "STATION": "Kundala Dam",
@@ -5826,7 +5826,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Idukki",
       "STATION": "Meencut",
@@ -5854,7 +5854,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Idukki",
       "STATION": "Udumbannoor",
@@ -5882,7 +5882,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Idukki",
       "STATION": "Vellathooval",
@@ -5910,7 +5910,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kannur",
       "STATION": "Peringome",
@@ -5938,7 +5938,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kannur",
       "STATION": "Pinarayi",
@@ -5966,7 +5966,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kasaragod",
       "STATION": "Bayar",
@@ -5994,7 +5994,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kasaragod",
       "STATION": "Madikkai",
@@ -6022,7 +6022,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kasaragod",
       "STATION": "Muliyar",
@@ -6050,7 +6050,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kasaragod",
       "STATION": "Padannakkad",
@@ -6078,7 +6078,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kasaragod",
       "STATION": "Panathur",
@@ -6106,7 +6106,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kollam",
       "STATION": "Chavara",
@@ -6134,7 +6134,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kollam",
       "STATION": "Parippally",
@@ -6162,7 +6162,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kollam",
       "STATION": "Punalur",
@@ -6190,7 +6190,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kottayam",
       "STATION": "Kottayam",
@@ -6218,7 +6218,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kottayam",
       "STATION": "Vadavathoor",
@@ -6246,7 +6246,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kottayam",
       "STATION": "Vaikkom",
@@ -6274,7 +6274,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kozhikode",
       "STATION": "Kunnamangalam",
@@ -6302,7 +6302,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kozhikode",
       "STATION": "Urumi",
@@ -6330,7 +6330,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kozhikode",
       "STATION": "Vadakara",
@@ -6358,7 +6358,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Kozhikode",
       "STATION": "Vilangad",
@@ -6386,7 +6386,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Malappuram",
       "STATION": "Nilambur",
@@ -6414,7 +6414,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Malappuram",
       "STATION": "Palemad",
@@ -6442,7 +6442,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Malappuram",
       "STATION": "Thavanur Kvk",
@@ -6470,7 +6470,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Malappuram",
       "STATION": "Thennala",
@@ -6498,7 +6498,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Palakkad",
       "STATION": "Kollengode",
@@ -6526,7 +6526,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Palakkad",
       "STATION": "Mangalam Dam",
@@ -6554,7 +6554,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Palakkad",
       "STATION": "Mankara",
@@ -6582,7 +6582,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Palakkad",
       "STATION": "Ottapalam",
@@ -6610,7 +6610,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Palakkad",
       "STATION": "Pattambi Kvk",
@@ -6638,7 +6638,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Pathanamthitta",
       "STATION": "Konni",
@@ -6666,7 +6666,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Pathanamthitta",
       "STATION": "Kunnamthanam",
@@ -6694,7 +6694,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Pathanamthitta",
       "STATION": "Pathanamthitta",
@@ -6722,7 +6722,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Pathanamthitta",
       "STATION": "Ulanadu",
@@ -6750,7 +6750,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Thiruvananthapuram",
       "STATION": "Neyyattinkara",
@@ -6778,7 +6778,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Thiruvananthapuram",
       "STATION": "Thattathumala",
@@ -6806,7 +6806,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Thrissur",
       "STATION": "Athirappilly",
@@ -6834,7 +6834,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Thrissur",
       "STATION": "Kunnamkulam",
@@ -6862,7 +6862,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Thrissur",
       "STATION": "Lower Sholayar",
@@ -6890,7 +6890,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Thrissur",
       "STATION": "Munakkal",
@@ -6918,7 +6918,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Thrissur",
       "STATION": "Peechi",
@@ -6946,7 +6946,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Wayanad",
       "STATION": "Kabanigiri",
@@ -6974,7 +6974,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Wayanad",
       "STATION": "Kalpeta",
@@ -7002,7 +7002,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Wayanad",
       "STATION": "Karapuzha",
@@ -7030,7 +7030,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Wayanad",
       "STATION": "Kuppadi",
@@ -7058,7 +7058,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Kerala",
       "DISTRICT": "Wayanad",
       "STATION": "Padamala",
@@ -7086,7 +7086,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Lakshadweep",
       "DISTRICT": "Kavaratti",
       "STATION": "Kavaratti Kvk",
@@ -7114,7 +7114,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Barwani",
       "STATION": "Talun Kvk",
@@ -7142,7 +7142,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Bhopal",
       "STATION": "Berasia",
@@ -7170,7 +7170,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Bhopal ",
       "STATION": "Bhopal",
@@ -7198,7 +7198,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Datia",
       "STATION": "Datia",
@@ -7226,7 +7226,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Dewas",
       "STATION": "Kannod",
@@ -7254,7 +7254,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Dhar",
       "STATION": "Dhar",
@@ -7282,7 +7282,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Hoshangabad",
       "STATION": "Hoshangabad",
@@ -7310,7 +7310,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Hoshangabad",
       "STATION": "Hoshangabad Amfu",
@@ -7338,7 +7338,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Mandsaur",
       "STATION": "Mandsour",
@@ -7366,7 +7366,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Morena",
       "STATION": "Morena Amfu",
@@ -7394,7 +7394,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Narsinghpur",
       "STATION": "Narsinghpur",
@@ -7422,7 +7422,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Neemuch",
       "STATION": "Marukheda Kvk",
@@ -7450,7 +7450,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Satna",
       "STATION": "Gramoday Vv Chitrakoot",
@@ -7478,7 +7478,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Shajapur",
       "STATION": "Shajapur",
@@ -7506,7 +7506,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Ujjain",
       "STATION": "Vikram Vv Ujjain",
@@ -7534,7 +7534,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Madhya Pradesh",
       "DISTRICT": "Vidisha",
       "STATION": "Vidisha",
@@ -7562,35 +7562,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Akola",
       "STATION": "Akola Amfu",
-      "TEMP": 32.6,
+      "TEMP": 31.7,
       "RH": 27.0,
-      "EHI (in shade \u00b0C)": 31.850000000000023,
+      "EHI (in shade \u00b0C)": 30.850000000000023,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 44.0,
+      "EHI_350 (in shade \u00b0C)": 42.7,
       "Hard Labor Heat Stress Zone": "Zone 4",
-      "EHI_3_shade": 31.8,
+      "EHI_3_shade": 30.7,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 31.3,
+      "EHI_3_sun": 30.1,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 36.1,
+      "EHI_4_shade": 34.9,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 35.5,
+      "EHI_4_sun": 34.3,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 40.1,
+      "EHI_5_shade": 38.9,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 39.5,
-      "Zone_5_sun": "Zone 5",
-      "EHI_6_shade": 44.0,
+      "EHI_5_sun": 38.2,
+      "Zone_5_sun": "Zone 4",
+      "EHI_6_shade": 42.7,
       "Zone_6_shade": "Zone 4",
-      "EHI_6_sun": 48.7,
+      "EHI_6_sun": 47.5,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Beed",
       "STATION": "Beed Pto",
@@ -7618,7 +7618,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Buldhana",
       "STATION": "Lonar",
@@ -7646,7 +7646,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Chandrapur",
       "STATION": "Chandrapur Aws400",
@@ -7674,7 +7674,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Hingoli",
       "STATION": "Tondapur Aws400",
@@ -7702,7 +7702,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Kolhapur",
       "STATION": "Kolhapur Amfu",
@@ -7730,7 +7730,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Kolhapur",
       "STATION": "Radhanagri Ars",
@@ -7758,7 +7758,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Latur",
       "STATION": "Udgir Aws400",
@@ -7786,7 +7786,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Mumbai Suburban",
       "STATION": "Vidyavihar",
@@ -7814,7 +7814,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Mumbai Suburban",
       "STATION": "Vikhroli",
@@ -7842,7 +7842,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Mumbai City",
       "STATION": "Byculla Mumbai",
@@ -7870,7 +7870,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Mumbai City",
       "STATION": "Mumbai Santa Cruz",
@@ -7898,7 +7898,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Nagpur",
       "STATION": "Nagpur",
@@ -7926,7 +7926,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Nagpur",
       "STATION": "Nagpur Kvk",
@@ -7954,7 +7954,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Nagpur",
       "STATION": "Ramtek Aws400",
@@ -7982,7 +7982,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Nanded",
       "STATION": "Sagroli Kvk",
@@ -8010,7 +8010,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Nashik",
       "STATION": "Malegaon",
@@ -8038,7 +8038,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Palghar",
       "STATION": "Palghar Aws400",
@@ -8066,7 +8066,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Ballalwadi Junnar",
@@ -8094,7 +8094,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Cagmo Shivajinagar",
@@ -8122,7 +8122,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Chinchwad Pune",
@@ -8150,7 +8150,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Cme Dapodi",
@@ -8178,7 +8178,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Dps Hadapsar Pune",
@@ -8206,7 +8206,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Girivan",
@@ -8234,7 +8234,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Khadakwadi Ambegaon",
@@ -8262,7 +8262,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Kurvande",
@@ -8290,7 +8290,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Lonikalbhor Haveli",
@@ -8318,7 +8318,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Malin Ambegaon",
@@ -8346,7 +8346,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Mti Pashan Pune",
@@ -8374,7 +8374,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Narayangoan Krishi Kendra",
@@ -8402,7 +8402,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Nda Pune",
@@ -8430,7 +8430,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Niasm Baramati",
@@ -8458,7 +8458,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Pashan Aws Lab",
@@ -8486,7 +8486,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Rajgurunagar",
@@ -8514,7 +8514,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Rjspmcop Dudulgaon",
@@ -8542,7 +8542,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Pune",
       "STATION": "Wadgaonsheri Pune",
@@ -8570,7 +8570,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Raigad",
       "STATION": "Iig Mo Alibag",
@@ -8598,7 +8598,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Raigad",
       "STATION": "Karjat",
@@ -8626,7 +8626,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Raigad",
       "STATION": "Matheran",
@@ -8654,7 +8654,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Ratnagiri",
       "STATION": "Dapoli",
@@ -8682,7 +8682,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Ratnagiri",
       "STATION": "Ratnagiri Aws400",
@@ -8710,7 +8710,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Satara",
       "STATION": "Mahabaleshwar",
@@ -8738,7 +8738,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Sindhudurg",
       "STATION": "Devgad",
@@ -8766,7 +8766,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Sindhudurg",
       "STATION": "Mulde Amfu",
@@ -8794,7 +8794,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Sindhudurg",
       "STATION": "Vaibhavwadi",
@@ -8822,7 +8822,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Sindhudurg",
       "STATION": "Vengurla",
@@ -8850,7 +8850,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Solapur",
       "STATION": "Mohol Kvk",
@@ -8878,7 +8878,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Solapur",
       "STATION": "Sangola Mahavidyalaya",
@@ -8906,7 +8906,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Solapur",
       "STATION": "Solapur",
@@ -8934,7 +8934,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Wardha",
       "STATION": "Wardha",
@@ -8962,7 +8962,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Maharashtra",
       "DISTRICT": "Yavatmal",
       "STATION": "Pushad Aws400",
@@ -8990,7 +8990,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Manipur",
       "DISTRICT": "Imphal East",
       "STATION": "Jiribam",
@@ -9018,7 +9018,7 @@
       "Zone_6_sun": "Zone 6"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Manipur",
       "DISTRICT": "Noney",
       "STATION": "Khoupum",
@@ -9046,7 +9046,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Meghalaya",
       "DISTRICT": "Ri Bhoi",
       "STATION": "Umtrewdam",
@@ -9074,7 +9074,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Meghalaya",
       "DISTRICT": "South Garo Hills",
       "STATION": "Baghmara",
@@ -9102,35 +9102,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Meghalaya",
       "DISTRICT": "West Garo Hills",
       "STATION": "Tura",
-      "TEMP": 28.2,
-      "RH": 36.0,
-      "EHI (in shade \u00b0C)": 27.75,
+      "TEMP": 29.4,
+      "RH": 33.0,
+      "EHI (in shade \u00b0C)": 28.850000000000023,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 40.2,
+      "EHI_350 (in shade \u00b0C)": 41.5,
       "Hard Labor Heat Stress Zone": "Zone 4",
-      "EHI_3_shade": 27.6,
+      "EHI_3_shade": 29.0,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 27.2,
+      "EHI_3_sun": 28.7,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 32.1,
+      "EHI_4_shade": 33.4,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 31.5,
+      "EHI_4_sun": 32.9,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 36.2,
+      "EHI_5_shade": 37.6,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 35.6,
+      "EHI_5_sun": 37.0,
       "Zone_5_sun": "Zone 4",
-      "EHI_6_shade": 40.2,
+      "EHI_6_shade": 41.5,
       "Zone_6_shade": "Zone 4",
-      "EHI_6_sun": 45.0,
+      "EHI_6_sun": 47.1,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Mizoram",
       "DISTRICT": "Kolasib",
       "STATION": "Kolasib",
@@ -9158,7 +9158,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Mizoram",
       "DISTRICT": "Mamit",
       "STATION": "Lengpui Kvk",
@@ -9186,7 +9186,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Mizoram",
       "DISTRICT": "Saiha",
       "STATION": "Saiha",
@@ -9214,7 +9214,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Nagaland",
       "DISTRICT": "Dimapur",
       "STATION": "Dimapur",
@@ -9242,7 +9242,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Nagaland",
       "DISTRICT": "Peren",
       "STATION": "Jalukie",
@@ -9270,7 +9270,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Odisha",
       "DISTRICT": "Ganjam",
       "STATION": "Benakuda Kvk",
@@ -9298,7 +9298,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Odisha",
       "DISTRICT": "Khurdha",
       "STATION": "Bhubaneshwar Airport",
@@ -9326,7 +9326,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Odisha",
       "DISTRICT": "Khurdha",
       "STATION": "Pitapalli",
@@ -9354,7 +9354,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Odisha",
       "DISTRICT": "Puri",
       "STATION": "Janhukuda(Near Satapada)",
@@ -9382,7 +9382,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Odisha",
       "DISTRICT": "Puri",
       "STATION": "Puri Kvk",
@@ -9410,7 +9410,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Odisha",
       "DISTRICT": "Rayagada",
       "STATION": "Gunupur Kvk",
@@ -9438,7 +9438,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Puducherry",
       "DISTRICT": "Karaikal",
       "STATION": "Karaikal",
@@ -9466,7 +9466,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Puducherry",
       "DISTRICT": "Puducherry",
       "STATION": "Puducherry",
@@ -9494,7 +9494,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Puducherry",
       "DISTRICT": "Puducherry",
       "STATION": "Puducherry Kvk",
@@ -9522,7 +9522,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Punjab",
       "DISTRICT": "Faridkot",
       "STATION": "Faridkot Amfu",
@@ -9550,7 +9550,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Punjab",
       "DISTRICT": "Firozpur",
       "STATION": "Firozpur Kvk",
@@ -9578,7 +9578,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Punjab",
       "DISTRICT": "Hoshiarpur",
       "STATION": "Hosiyarpur",
@@ -9606,7 +9606,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Punjab",
       "DISTRICT": "Hoshiarpur",
       "STATION": "Salern",
@@ -9634,7 +9634,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Punjab",
       "DISTRICT": "Mansa",
       "STATION": "Mansa",
@@ -9662,7 +9662,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Punjab",
       "DISTRICT": "Pathankot",
       "STATION": "Thein Dam",
@@ -9690,7 +9690,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Punjab",
       "DISTRICT": "Ropar",
       "STATION": "Ropar Kvk",
@@ -9718,7 +9718,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Bikaner",
       "STATION": "Bikaner Amfu",
@@ -9746,7 +9746,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Churu",
       "STATION": "Churu",
@@ -9774,7 +9774,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Dungarpur",
       "STATION": "Dungarpur Kvk",
@@ -9802,7 +9802,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Ganganagar",
       "STATION": "Ganganagar",
@@ -9830,7 +9830,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Hanumangarh",
       "STATION": "Hanumangarh 1 Kvk",
@@ -9858,7 +9858,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Jodhpur",
       "STATION": "Jodhpur",
@@ -9886,7 +9886,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Pali",
       "STATION": "Pali",
@@ -9914,7 +9914,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Sikar",
       "STATION": "Fatehpur Amfu",
@@ -9942,7 +9942,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Sikar",
       "STATION": "Sikar",
@@ -9970,7 +9970,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Sri Ganganagar",
       "STATION": "Gharsana",
@@ -9998,7 +9998,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Rajasthan",
       "DISTRICT": "Tonk",
       "STATION": "Tonk",
@@ -10026,7 +10026,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Ariyalur",
       "STATION": "Ariyalur",
@@ -10054,7 +10054,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Chengalpattu",
       "STATION": "Vit Chennai",
@@ -10082,7 +10082,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Chengalpattu",
       "STATION": "West Tambaram Sit",
@@ -10110,7 +10110,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Chennai",
       "STATION": "Anna University",
@@ -10138,7 +10138,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Chennai",
       "STATION": "Chennai",
@@ -10166,35 +10166,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Chennai",
       "STATION": "Ennore Port",
-      "TEMP": 30.3,
-      "RH": 54.0,
-      "EHI (in shade \u00b0C)": 32.35000000000002,
+      "TEMP": 29.4,
+      "RH": 55.0,
+      "EHI (in shade \u00b0C)": 31.05000000000001,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 59.2,
+      "EHI_350 (in shade \u00b0C)": 55.7,
       "Hard Labor Heat Stress Zone": "Zone 5",
-      "EHI_3_shade": 32.7,
+      "EHI_3_shade": 31.2,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 34.1,
+      "EHI_3_sun": 32.4,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 38.2,
+      "EHI_4_shade": 36.7,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 46.5,
+      "EHI_4_sun": 41.3,
       "Zone_4_sun": "Zone 5",
-      "EHI_5_shade": 43.4,
+      "EHI_5_shade": 41.7,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 51.7,
+      "EHI_5_sun": 50.2,
       "Zone_5_sun": "Zone 5",
-      "EHI_6_shade": 59.2,
+      "EHI_6_shade": 55.7,
       "Zone_6_shade": "Zone 5",
-      "EHI_6_sun": 55.5,
+      "EHI_6_sun": 54.3,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Chennai",
       "STATION": "Meenambakkam Isro",
@@ -10222,7 +10222,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Chennai",
       "STATION": "Niot Pallikaranai",
@@ -10250,7 +10250,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Coimbatore",
       "STATION": "Coimbatore Amfu",
@@ -10278,7 +10278,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Coimbatore",
       "STATION": "P N Palayam",
@@ -10306,7 +10306,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Coimbatore",
       "STATION": "Upasi Tea Research Foundation",
@@ -10334,7 +10334,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Cuddalore",
       "STATION": "Neyveli",
@@ -10362,7 +10362,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Cuddalore",
       "STATION": "Vridha Chalam",
@@ -10390,7 +10390,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Dharmapuri",
       "STATION": "Palacode",
@@ -10418,7 +10418,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Dindigul",
       "STATION": "Natham Isro",
@@ -10446,7 +10446,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Dindigul",
       "STATION": "Palani",
@@ -10474,7 +10474,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Dindigul",
       "STATION": "Vedasandur",
@@ -10502,7 +10502,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Erode",
       "STATION": "Erode Isro",
@@ -10530,7 +10530,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kallakurichi",
       "STATION": "Kallakurichi",
@@ -10558,7 +10558,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kallakurichi",
       "STATION": "Kallakurichi(Taluk Office)",
@@ -10586,7 +10586,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kanchipuram",
       "STATION": "Chembarambakkam",
@@ -10614,7 +10614,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kanchipuram",
       "STATION": "Hindustan University",
@@ -10642,7 +10642,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kanchipuram",
       "STATION": "Lmois  Kolapakkam",
@@ -10670,7 +10670,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kanchipuram",
       "STATION": "Sathyabama  University",
@@ -10698,7 +10698,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kanyakumari",
       "STATION": "Neyyoor",
@@ -10726,7 +10726,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Kanyakumari",
       "STATION": "Thirupathisaram Amfu",
@@ -10754,7 +10754,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Karur",
       "STATION": "Kadavur(Taluk Office)",
@@ -10782,35 +10782,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Krishnagiri",
       "STATION": "Hosur",
-      "TEMP": 27.1,
+      "TEMP": 26.4,
       "RH": 37.0,
-      "EHI (in shade \u00b0C)": 26.650000000000034,
+      "EHI (in shade \u00b0C)": 25.950000000000045,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 39.1,
+      "EHI_350 (in shade \u00b0C)": 38.6,
       "Hard Labor Heat Stress Zone": "Zone 4",
-      "EHI_3_shade": 26.6,
+      "EHI_3_shade": 26.0,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 26.2,
+      "EHI_3_sun": 25.6,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 31.1,
+      "EHI_4_shade": 30.5,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 30.5,
+      "EHI_4_sun": 29.9,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 35.2,
+      "EHI_5_shade": 34.7,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 34.5,
+      "EHI_5_sun": 33.9,
       "Zone_5_sun": "Zone 4",
-      "EHI_6_shade": 39.1,
+      "EHI_6_shade": 38.6,
       "Zone_6_shade": "Zone 4",
-      "EHI_6_sun": 41.7,
+      "EHI_6_sun": 39.6,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Nagapattinam",
       "STATION": "Mo Nagapattinam Campus",
@@ -10838,7 +10838,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Nagapattinam",
       "STATION": "Vedharanyam",
@@ -10866,7 +10866,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Namakkal",
       "STATION": "Namakkal Amfu",
@@ -10894,7 +10894,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Perambalur",
       "STATION": "Perambalur",
@@ -10922,7 +10922,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Pudukkottai",
       "STATION": "Vamban Kvk",
@@ -10950,7 +10950,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Ranipet",
       "STATION": "Ranipet",
@@ -10978,7 +10978,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tenkasi",
       "STATION": "Tenkasi",
@@ -11006,7 +11006,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Thanjavur",
       "STATION": "Adiramapattinam",
@@ -11034,7 +11034,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Thoothukudi",
       "STATION": "Thiruchendur",
@@ -11062,7 +11062,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Thoothukudi",
       "STATION": "Tuticorin Railway Station",
@@ -11090,7 +11090,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tiruchirappalli",
       "STATION": "Thuvakudi Isro",
@@ -11118,7 +11118,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tiruppur",
       "STATION": "Tiruppur Collector Office",
@@ -11146,7 +11146,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tiruvallur",
       "STATION": "Good Will School Villivakkam",
@@ -11174,7 +11174,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tiruvallur",
       "STATION": "Poonamallee",
@@ -11202,35 +11202,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tiruvallur",
       "STATION": "R.K.Pet",
-      "TEMP": 31.3,
+      "TEMP": 30.4,
       "RH": 41.0,
-      "EHI (in shade \u00b0C)": 32.05000000000001,
+      "EHI (in shade \u00b0C)": 30.850000000000023,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 50.1,
+      "EHI_350 (in shade \u00b0C)": 44.9,
       "Hard Labor Heat Stress Zone": "Zone 5",
-      "EHI_3_shade": 32.3,
+      "EHI_3_shade": 31.0,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 32.8,
+      "EHI_3_sun": 31.3,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 37.2,
+      "EHI_4_shade": 35.8,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 37.5,
+      "EHI_4_sun": 35.9,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 41.8,
+      "EHI_5_shade": 40.3,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 48.4,
+      "EHI_5_sun": 46.7,
       "Zone_5_sun": "Zone 5",
-      "EHI_6_shade": 50.1,
+      "EHI_6_shade": 44.9,
       "Zone_6_shade": "Zone 5",
-      "EHI_6_sun": 52.6,
+      "EHI_6_sun": 51.2,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tiruvannamalai",
       "STATION": "Cheyyar",
@@ -11258,7 +11258,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Tiruvannamalai",
       "STATION": "Tiruvannamalai Isro",
@@ -11286,7 +11286,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tamil Nadu",
       "DISTRICT": "Virudhunagar",
       "STATION": "Aruppukottai Kvk",
@@ -11314,7 +11314,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Adilabad",
       "STATION": "Adilabad Kvk",
@@ -11342,7 +11342,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Hanumakonda",
       "STATION": "Hanumakonda",
@@ -11370,7 +11370,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Hyderabad",
       "STATION": "Hyderabad",
@@ -11398,7 +11398,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Jogulamba Gadwal",
       "STATION": "Jurala Cwc",
@@ -11426,7 +11426,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Karimnagar",
       "STATION": "Karimnagar",
@@ -11454,7 +11454,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Khammam",
       "STATION": "Khammam",
@@ -11482,7 +11482,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Khammam",
       "STATION": "Wyra Kvk",
@@ -11510,7 +11510,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Kumuram Bheem Asifabad ",
       "STATION": "Asifabad",
@@ -11538,7 +11538,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Mahabubabad",
       "STATION": "Malyal Kvk",
@@ -11566,7 +11566,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Mahbubnagar",
       "STATION": "Mahbubnagar",
@@ -11594,7 +11594,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Medak",
       "STATION": "Ars Basanthpur",
@@ -11622,7 +11622,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Medak",
       "STATION": "Ars Narsapur",
@@ -11650,7 +11650,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Medak",
       "STATION": "Medak",
@@ -11678,7 +11678,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Medchal Malkajgiri",
       "STATION": "Cgwb Nagole",
@@ -11706,7 +11706,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Nalgonda",
       "STATION": "Devarakonda",
@@ -11734,7 +11734,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Nirmal ",
       "STATION": "Bhainsa Arg",
@@ -11762,7 +11762,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Peddapalli",
       "STATION": "Ars Peddapally",
@@ -11790,7 +11790,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Peddapalli",
       "STATION": "Kunaram",
@@ -11818,7 +11818,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Rajanna Sircilla",
       "STATION": "Sircilla",
@@ -11846,7 +11846,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Ranga Reddy",
       "STATION": "Cbit Gandipet",
@@ -11874,7 +11874,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Ranga Reddy",
       "STATION": "Esci Gachibowli",
@@ -11902,7 +11902,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Ranga Reddy",
       "STATION": "Ghatkesar",
@@ -11930,7 +11930,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Ranga Reddy",
       "STATION": "Hayathnagar",
@@ -11958,7 +11958,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Sangareddy",
       "STATION": "Zaheerabad",
@@ -11986,7 +11986,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Siddipet",
       "STATION": "Kaveri Siddipet",
@@ -12014,7 +12014,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Suryapet",
       "STATION": "Suryapet Arg",
@@ -12042,7 +12042,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Wanaparthy",
       "STATION": "Horticultural University Mojer",
@@ -12070,7 +12070,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Telangana",
       "DISTRICT": "Warangal Rural",
       "STATION": "Siddhapur",
@@ -12098,7 +12098,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tripura",
       "DISTRICT": "Khowai",
       "STATION": "Khowai",
@@ -12126,7 +12126,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tripura",
       "DISTRICT": "North Tripura",
       "STATION": "Ashapara",
@@ -12154,7 +12154,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tripura",
       "DISTRICT": "South Tripura",
       "STATION": "Bagafa",
@@ -12182,7 +12182,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tripura",
       "DISTRICT": "South Tripura",
       "STATION": "Gokulpur",
@@ -12210,7 +12210,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Tripura",
       "DISTRICT": "West Tripura",
       "STATION": "Agartala Airport",
@@ -12238,7 +12238,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttarakhand",
       "DISTRICT": "Dehradun",
       "STATION": "Jollygrant",
@@ -12266,7 +12266,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttarakhand",
       "DISTRICT": "Haridwar",
       "STATION": "Roorkee Amfu",
@@ -12294,7 +12294,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttarakhand",
       "DISTRICT": "Rudraprayag",
       "STATION": "Rudra Prayag",
@@ -12322,7 +12322,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttarakhand",
       "DISTRICT": "Tehri Garhwal",
       "STATION": "Devprayag",
@@ -12350,7 +12350,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Agra",
       "STATION": "Hydrogen Factory Bindukatra",
@@ -12378,7 +12378,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Aligarh",
       "STATION": "Quarsi Farms Quarsi",
@@ -12406,7 +12406,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Amroha",
       "STATION": "Amroha 400Aws",
@@ -12434,7 +12434,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Ayodhya",
       "STATION": "Ayodhya 400Aws",
@@ -12462,7 +12462,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Banda",
       "STATION": "Banda 400Aws",
@@ -12490,7 +12490,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Barabanki",
       "STATION": "Barabanki 400Aws",
@@ -12518,7 +12518,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Bareilly",
       "STATION": "Bareilly Bilwa 400Aws",
@@ -12546,7 +12546,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Bijnor",
       "STATION": "Prithvipur 400Aws",
@@ -12574,7 +12574,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Etawah",
       "STATION": "Bbrau Agriculture College",
@@ -12602,7 +12602,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Firozabad",
       "STATION": "Firozabad 400Aws",
@@ -12630,7 +12630,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Ghaziabad",
       "STATION": "Cdo Ghaziabad",
@@ -12658,7 +12658,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Ghaziabad",
       "STATION": "Kv2 Airforce Hindon",
@@ -12686,7 +12686,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Hamirpur",
       "STATION": "Hamirpur 400Aws",
@@ -12714,7 +12714,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Hapur",
       "STATION": "Hapur 400Aws",
@@ -12742,7 +12742,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Hathras",
       "STATION": "Collectorate Office",
@@ -12770,35 +12770,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Kushinagar",
       "STATION": "Kushinagar Kvk",
-      "TEMP": 25.5,
-      "RH": 70.0,
-      "EHI (in shade \u00b0C)": 26.650000000000034,
+      "TEMP": 25.8,
+      "RH": 67.0,
+      "EHI (in shade \u00b0C)": 26.850000000000023,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 47.1,
+      "EHI_350 (in shade \u00b0C)": 47.3,
       "Hard Labor Heat Stress Zone": "Zone 5",
-      "EHI_3_shade": 26.6,
+      "EHI_3_shade": 27.1,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 27.8,
+      "EHI_3_sun": 28.3,
       "Zone_3_sun": "Zone 4",
-      "EHI_4_shade": 32.2,
+      "EHI_4_shade": 32.7,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 33.2,
+      "EHI_4_sun": 33.6,
       "Zone_4_sun": "Zone 4",
-      "EHI_5_shade": 37.4,
+      "EHI_5_shade": 37.8,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 47.5,
+      "EHI_5_sun": 47.6,
       "Zone_5_sun": "Zone 5",
-      "EHI_6_shade": 47.1,
+      "EHI_6_shade": 47.3,
       "Zone_6_shade": "Zone 5",
       "EHI_6_sun": 52.0,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Lucknow",
       "STATION": "Meteorological Centre Amausi",
@@ -12826,7 +12826,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Mainpuri",
       "STATION": "Mainpuri Kvk",
@@ -12854,7 +12854,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Mathura",
       "STATION": "Collectorate Office",
@@ -12882,7 +12882,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Mathura",
       "STATION": "Mathura 400Aws",
@@ -12910,7 +12910,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Meerut",
       "STATION": "Ccsu Campus",
@@ -12938,7 +12938,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Muzaffarnagar",
       "STATION": "Sohanjani Tajan 400Aws",
@@ -12966,7 +12966,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Pratapgarh",
       "STATION": "Pratapgarh 400Aws",
@@ -12994,35 +12994,35 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "Uttar Pradesh",
       "DISTRICT": "Raebareli",
       "STATION": "Airport Fursatganj",
-      "TEMP": 27.2,
-      "RH": 65.0,
-      "EHI (in shade \u00b0C)": 28.75,
+      "TEMP": 27.8,
+      "RH": 53.0,
+      "EHI (in shade \u00b0C)": 28.55000000000001,
       "Light Work Heat Stress Zone": "Zone 4",
-      "EHI_350 (in shade \u00b0C)": 51.5,
+      "EHI_350 (in shade \u00b0C)": 45.0,
       "Hard Labor Heat Stress Zone": "Zone 5",
-      "EHI_3_shade": 28.4,
+      "EHI_3_shade": 28.8,
       "Zone_3_shade": "Zone 4",
-      "EHI_3_sun": 29.7,
+      "EHI_3_sun": 29.5,
       "Zone_3_sun": "Zone 4",
       "EHI_4_shade": 34.0,
       "Zone_4_shade": "Zone 4",
-      "EHI_4_sun": 36.1,
-      "Zone_4_sun": "Zone 5",
-      "EHI_5_shade": 39.2,
+      "EHI_4_sun": 34.5,
+      "Zone_4_sun": "Zone 4",
+      "EHI_5_shade": 38.8,
       "Zone_5_shade": "Zone 4",
-      "EHI_5_sun": 48.9,
+      "EHI_5_sun": 46.8,
       "Zone_5_sun": "Zone 5",
-      "EHI_6_shade": 51.5,
+      "EHI_6_shade": 45.0,
       "Zone_6_shade": "Zone 5",
-      "EHI_6_sun": 53.1,
+      "EHI_6_sun": 51.3,
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Alipurduar",
       "STATION": "Jayanti",
@@ -13050,7 +13050,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Cooch Behar",
       "STATION": "Dinhata Aws400",
@@ -13078,7 +13078,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Cooch Behar",
       "STATION": "Pundibari Amfu",
@@ -13106,7 +13106,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Darjeeling",
       "STATION": "Kharibari",
@@ -13134,7 +13134,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Howrah",
       "STATION": "Ramsaday College Amta",
@@ -13162,7 +13162,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Jalpaiguri",
       "STATION": "Banarhat",
@@ -13190,7 +13190,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Jalpaiguri",
       "STATION": "Dhupguri",
@@ -13218,7 +13218,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Jalpaiguri",
       "STATION": "Jalpaiguri",
@@ -13246,7 +13246,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Jalpaiguri",
       "STATION": "Mal",
@@ -13274,7 +13274,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Jhargram",
       "STATION": "Jhargram",
@@ -13302,7 +13302,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Kolkata",
       "STATION": "Kolkata Airport",
@@ -13330,7 +13330,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Kolkata",
       "STATION": "Science City",
@@ -13358,7 +13358,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Murshidabad",
       "STATION": "Berhampore",
@@ -13386,7 +13386,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "Nadia",
       "STATION": "Kalyani Amfu",
@@ -13414,7 +13414,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "North Dinajpur",
       "STATION": "Raiganj",
@@ -13442,7 +13442,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "South Dinajpur",
       "STATION": "Majhian Amfu",
@@ -13470,7 +13470,7 @@
       "Zone_6_sun": "Zone 5"
     },
     {
-      "LOGGED_AT (IST)": "2026-02-16 13:22:10",
+      "LOGGED_AT (IST)": "2026-02-16 13:29:31",
       "STATE": "West Bengal",
       "DISTRICT": "South Twenty Four Parganas",
       "STATION": "Alipore",
