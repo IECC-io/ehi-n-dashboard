@@ -322,6 +322,7 @@
         }
 
         .met-option i { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+
         .met-option .met-label { font-weight: 600; font-size: 0.95rem; }
         .met-option .met-desc { font-size: 0.8rem; opacity: 0.8; margin-top: 0.25rem; }
 
@@ -485,6 +486,7 @@
         .zone-badge strong { display: block; margin-bottom: 0.25rem; }
 
         .status-overview { margin-bottom: 2rem; }
+
 
         .status-grid {
             display: grid;
@@ -1516,6 +1518,8 @@
             /* MET selector */
             .met-selector { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
             .met-option { padding: 0.4rem; font-size: 0.875rem; } /* 14px UI */
+            .result-display { flex-wrap: wrap !important; align-items: flex-start !important; }
+            #zone-scatter-container { max-width: 100% !important; }
 
             /* Charts - prevent overflow */
             .chart-grid { grid-template-columns: 1fr; }
@@ -2345,7 +2349,7 @@
                         </span>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
-                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
+                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (e.g. light work)<br>• EHI-4: Moderate (e.g. carrying loads)<br>• EHI-5: Heavy (e.g. construction work)<br>• EHI-6: Very Heavy (e.g. agricultural work)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                         </span>
                     </h2>
                     <!-- Hidden select for compatibility -->
@@ -2367,7 +2371,7 @@
                         <p id="current-location-summary" class="location-summary" style="display: none; text-align: center; font-size: 0.85rem; color: #666; margin-top: 0.75rem; font-style: italic;"></p>
                     </div>
 
-                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: India Meteorological Department (IMD)</p>
+                    <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">EHI-N* zones computed from IMD station observations</p>
                 </div>
 
                 <!-- RIGHT: Forecast -->
@@ -2398,7 +2402,7 @@
                         </span>
                         <span class="info-tooltip">
                             <i class="fas fa-info-circle"></i>
-                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
+                            <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (e.g. light work)<br>• EHI-4: Moderate (e.g. carrying loads)<br>• EHI-5: Heavy (e.g. construction work)<br>• EHI-6: Very Heavy (e.g. agricultural work)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                         </span>
                     </h2>
                     <!-- Hidden selects for compatibility -->
@@ -2475,23 +2479,22 @@
                         <h4 style="color: var(--shram-teal);">EHI-N* Calculation</h4>
                         <p>For each hour in the forecast, the Extended Heat Index (EHI-N*) is computed using pre-calculated lookup tables derived from the two-node human thermal model. The calculation assumes:</p>
                         <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                            <li>Wind speed: 1 m/s (light breeze)</li>
-                            <li>Clothing: 0.5 clo (light work clothing)</li>
-                            <li>Body parameters: 65 kg, 1.64 m height (Indian adult average), 1.71 m² surface area (DuBois)</li>
+                            <li>Body parameters: 65 kg, 1.65 m height (Indian adult average), 1.71 m² surface area (DuBois)</li>
+                            <li>Zone VI (uncompensable) is assigned when core temperature rises despite full vasodilation and a 2 L/h sweat rate</li>
                         </ul>
 
                         <h4 style="color: var(--shram-teal);">MET Levels</h4>
                         <p>The metabolic rate (MET) levels represent different work intensities:</p>
                         <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
-                            <li><strong>MET 3 (174 W/m²):</strong> Light work - walking, light housework</li>
-                            <li><strong>MET 4 (233 W/m²):</strong> Moderate work - carrying loads, cleaning</li>
-                            <li><strong>MET 5 (291 W/m²):</strong> Heavy work - construction, farming</li>
-                            <li><strong>MET 6 (349 W/m²):</strong> Very heavy work - agricultural labor, heavy lifting</li>
+                            <li><strong>MET 3 (180 W/m²):</strong> Light work</li>
+                            <li><strong>MET 4 (240 W/m²):</strong> Moderate work (e.g. carrying loads)</li>
+                            <li><strong>MET 5 (300 W/m²):</strong> Heavy work (e.g. construction work)</li>
+                            <li><strong>MET 6 (360 W/m²):</strong> Very heavy work (e.g. agricultural work)</li>
                         </ul>
 
                         <h4 style="color: var(--shram-teal);">Sun Exposure</h4>
                         <p><strong>Shade:</strong> No direct solar radiation (indoor or shaded outdoor work)</p>
-                        <p><strong>Sun:</strong> Direct solar radiation of 800 W/m² added to heat load</p>
+                        <p><strong>Sun:</strong> Hourly forecast shortwave radiation added to heat load</p>
                         <p><em>Note: During nighttime hours (6pm - 6am IST), sun values equal shade values as there is no solar radiation.</em></p>
 
                         <h4 style="color: var(--shram-teal);">Zone Classification</h4>
@@ -2511,11 +2514,7 @@
             <!-- Historical Zones (full width) -->
             <div id="last24h-section" class="section">
                 <h2 style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem;">
-                    <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Historical Zones
-                        <span class="tooltip-icon" style="cursor: help; margin-left: 0.3rem; font-size: 0.7em; color: #78909c;" title="Click legend items to show/hide individual zones">
-                            <i class="fas fa-info-circle"></i>
-                        </span>
-                    </span>
+                    <span style="margin-right: 0.75rem; margin-bottom: 0.35rem;">Historical Zones</span>
                     <span style="display: inline-flex; flex-direction: column; align-items: center;">
                         <span style="font-size: 0.7rem; color: #78909c; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">TIMEFRAME</span>
                         <span style="display: inline-flex;">
@@ -2558,7 +2557,7 @@
                     </span>
                     <span class="info-tooltip">
                         <i class="fas fa-info-circle"></i>
-                        <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
+                        <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (e.g. light work)<br>• EHI-4: Moderate (e.g. carrying loads)<br>• EHI-5: Heavy (e.g. construction work)<br>• EHI-6: Very Heavy (e.g. agricultural work)<br><br><strong>Sun Exposure:</strong><br>• <strong>Shade:</strong> Working under cover or indoors<br>• <strong>Sun:</strong> Direct sunlight exposure</span>
                     </span>
                 </h2>
                 <!-- Hidden select for compatibility -->
@@ -2617,7 +2616,7 @@
                     <div class="input-group">
                         <label for="temp-input"><i class="fas fa-thermometer-half"></i> Temperature</label>
                         <div class="input-wrapper">
-                            <input type="number" id="temp-input" placeholder="e.g., 35" min="-50" max="150">
+                            <input type="number" id="temp-input" placeholder="e.g. 35" min="-50" max="150">
                             <select id="temp-unit">
                                 <option value="C">°C</option>
                                 <option value="F">°F</option>
@@ -2627,7 +2626,7 @@
 
                     <div class="input-group">
                         <label for="rh-input"><i class="fas fa-tint"></i> Relative Humidity (%)</label>
-                        <input type="number" id="rh-input" placeholder="e.g., 70" min="0" max="100" style="padding: 0.75rem; border: none; border-radius: 6px; background: rgba(255,255,255,0.95); font-size: 1rem;">
+                        <input type="number" id="rh-input" placeholder="e.g. 50" min="0" max="100" style="padding: 0.75rem; border: none; border-radius: 6px; background: rgba(255,255,255,0.95); font-size: 1rem;">
                     </div>
 
                     <div class="input-group">
@@ -2673,13 +2672,13 @@
                     Calculate
                 </button>
 
-                <div class="result-display" id="result-display" style="display: none; flex-wrap: wrap; gap: 1rem; align-items: flex-start;">
-                    <div style="flex: 1; min-width: 200px;">
+                <div class="result-display" id="result-display" style="display: none; flex-wrap: nowrap; gap: 1.5rem; align-items: center;">
+                    <div style="flex: 0 1 auto; min-width: 180px;">
                         <div class="result-zone" id="result-zone">--</div>
                         <div class="result-value" id="result-value">--</div>
                         <p id="result-description">--</p>
                     </div>
-                    <div id="zone-scatter-container" style="flex: 1; min-width: 300px; max-width: 400px; display: none;"></div>
+                    <div id="zone-scatter-container" style="flex: 0 1 auto; min-width: 300px; max-width: 420px; display: none; margin-right: auto;"></div>
                 </div>
             </div>
         </div>
@@ -2697,11 +2696,21 @@
 
                 <h3 onclick="toggleScientificFoundation()" style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
                     <i id="scientific-foundation-icon" class="fas fa-chevron-right" style="font-size: 0.8rem; transition: transform 0.2s;"></i>
-                    Scientific Foundation
+                    Publications &amp; References
                 </h3>
                 <div id="scientific-foundation-content" style="padding-left: 1.5rem; display: none;">
                     <p><a href="https://iecc.gspp.berkeley.edu/wp-content/uploads/2026/02/IECC-Shram-Tech-Report-WP-WEB.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> IECC SHRAM Technical Report (PDF)</a></p>
                     <p><a href="https://iecc.gspp.berkeley.edu/wp-content/uploads/2026/02/IECC-Shram-EHI-Policy-WP-WEB.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> IECC SHRAM EHI Policy Brief (PDF)</a></p>
+
+                    <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--shram-teal);">Underlying literature</h4>
+                    <ul style="padding-left: 1.5rem; line-height: 1.7; font-size: 0.95rem; list-style: none;">
+                        <li style="text-indent: -1.5rem; margin-bottom: 0.6rem;">Gagge, A. P., Stolwijk, J. A. J., &amp; Nishi, Y. (1971). An effective temperature scale based on a simple model of human physiological regulatory response. <em>ASHRAE Transactions, 77</em>(1), 247&ndash;262.</li>
+                        <li style="text-indent: -1.5rem; margin-bottom: 0.6rem;">Havenith, G., &amp; Fiala, D. (2015). Thermal indices and thermophysiological modeling for heat stress. <em>Comprehensive Physiology, 6</em>(1), 255&ndash;302. <a href="https://doi.org/10.1002/cphy.c140051" target="_blank" rel="noopener">https://doi.org/10.1002/cphy.c140051</a></li>
+                        <li style="text-indent: -1.5rem; margin-bottom: 0.6rem;">Kjellstrom, T., Briggs, D., Freyberg, C., Lemke, B., Otto, M., &amp; Hyatt, O. (2016). Heat, human performance, and occupational health: A key issue for the assessment of global climate change impacts. <em>Annual Review of Public Health, 37</em>, 97&ndash;112. <a href="https://doi.org/10.1146/annurev-publhealth-032315-021740" target="_blank" rel="noopener">https://doi.org/10.1146/annurev-publhealth-032315-021740</a></li>
+                        <li style="text-indent: -1.5rem; margin-bottom: 0.6rem;">Lu, Y.-C., &amp; Romps, D. M. (2022). Extending the heat index. <em>Journal of Applied Meteorology and Climatology, 61</em>(10), 1367&ndash;1383. <a href="https://doi.org/10.1175/JAMC-D-22-0021.1" target="_blank" rel="noopener">https://doi.org/10.1175/JAMC-D-22-0021.1</a></li>
+                        <li style="text-indent: -1.5rem; margin-bottom: 0.6rem;">Parsons, K. (2014). <em>Human thermal environments: The effects of hot, moderate, and cold environments on human health, comfort, and performance</em> (3rd ed.). CRC Press.</li>
+                        <li style="text-indent: -1.5rem;">Steadman, R. G. (1979). The assessment of sultriness. Part I: A temperature-humidity index based on human physiology and clothing science. <em>Journal of Applied Meteorology, 18</em>(7), 861&ndash;873. <a href="https://doi.org/10.1175/1520-0450(1979)018%3C0861:TAOSPI%3E2.0.CO;2" target="_blank" rel="noopener">https://doi.org/10.1175/1520-0450(1979)018&lt;0861:TAOSPI&gt;2.0.CO;2</a></li>
+                    </ul>
                 </div>
             </div>
 
@@ -2762,9 +2771,14 @@
             </div>
 
             <div id="subscribe-section" class="section">
-                <h2>Subscribe to Heat Stress Alerts</h2>
+                <h2>Join the Heat Stress Alert Waitlist</h2>
 
                 <p>Get notified when hazardous heat stress conditions are detected in your location. Free service for workers, employers, and community organizers.</p>
+
+                <div class="alert-box" style="background: #fff8e1; border-left: 4px solid var(--zone-yellow-dark);">
+                    <p style="margin: 0;"><i class="fas fa-hourglass-half" style="margin-right: 0.5rem; color: var(--zone-yellow-dark);"></i>
+                    <strong>Alerts are not sending yet.</strong> The alerting system is still being finalised. Sign up now to join the waitlist and you will start receiving alerts as soon as the service goes live. You will not receive any email in the meantime &mdash; including a confirmation, so please double-check your address before submitting.</p>
+                </div>
 
                 <div class="alert-box" style="background: #e3f2fd; border-left-color: var(--shram-teal);">
                     <p onclick="toggleHowItWorks()" style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
@@ -2776,6 +2790,7 @@
                         <li>Choose your MET level (work intensity) and zone alert threshold</li>
                         <li><strong>Live alerts:</strong> You will receive an immediate email if Zone 6 (Hazardous) is detected in your district, regardless of MET level or sun/shade conditions</li>
                         <li><strong>Daily forecast:</strong> Each day you will receive a forecast email for your selected district with your chosen MET level and zone threshold</li>
+                        <li style="color: var(--zone-yellow-dark);"><strong>Not yet active:</strong> steps 3 and 4 describe the service once it launches. Signing up today places you on the waitlist and confirms your email address.</li>
                     </ol>
                 </div>
 
@@ -2788,11 +2803,9 @@
                         </div>
 
                         <div class="input-group">
-                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Email Address <span style="color: #d32f2f;">*</span></label>
-                            <p style="color: #888; font-size: 0.95rem; padding: 0.75rem; background: var(--gray-light); border-radius: 6px; border: 2px dashed var(--gray-medium);">
-                                <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>Email alerts under construction
-                            </p>
-                            <input type="hidden" id="subscriber-email" value="">
+                            <label for="subscriber-email" style="font-weight: 600; margin-bottom: 0.5rem; display: block; color: var(--gray-dark);">Email Address <span style="color: #d32f2f;">*</span></label>
+                            <input type="email" id="subscriber-email" required placeholder="you@example.com" style="width: 100%; padding: 0.75rem; border: 2px solid var(--shram-teal); border-radius: 6px; font-size: 1rem;">
+                            <p style="color: #666; font-size: 0.85rem; margin-top: 0.4rem;">Used only to send you heat stress alerts. You can unsubscribe at any time.</p>
                         </div>
 
                         <div class="input-group">
@@ -2826,7 +2839,7 @@
                                 MET Level (Work Intensity)
                                 <span class="info-tooltip">
                                     <i class="fas fa-info-circle"></i>
-                                    <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (walking, light housework)<br>• EHI-4: Moderate (carrying loads, cleaning)<br>• EHI-5: Heavy (construction, farming)<br>• EHI-6: Very Heavy (agricultural labor, heavy lifting)</span>
+                                    <span class="tooltip-text"><strong>MET Level:</strong> Select based on work intensity.<br>• EHI-3: Light (e.g. light work)<br>• EHI-4: Moderate (e.g. carrying loads)<br>• EHI-5: Heavy (e.g. construction work)<br>• EHI-6: Very Heavy (e.g. agricultural work)</span>
                                 </span>
                             </label>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -2924,6 +2937,12 @@
                 <p>
                 India Energy & Climate Center (IECC)<br>
                 University of California, Berkeley</p>
+
+                <p style="color: #555;">
+                    Developed by Elif K&#305;l&#305;&#231;<br>
+                    Design by Fernando Augusto<br>
+                    Project direction by Ashok Gadgil
+                </p>
 
                 <p>
                     <i class="fas fa-envelope"></i> <a href="mailto:iecc@berkeley.edu">iecc@berkeley.edu</a><br>
@@ -3566,72 +3585,80 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             messageDiv.style.color = '#1565C0';
             messageDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting subscription...';
 
+            // Waitlist entries go to a Google Form, whose responses sheet can be
+            // exported to Excel/CSV. The site is static (GitHub Pages), so there
+            // is no backend to post to. Google does not send CORS headers on
+            // /formResponse, hence mode:'no-cors' — the response is opaque, so a
+            // completed request cannot be distinguished from a rejected one.
+            const GOOGLE_FORM_ID = '1FAIpQLScz37zXergDcoFlec2LX0kmjprzZVE1BVH1y3m2pplfMKQU6A';
+            const FORM_FIELDS = {
+                name:       'entry.923264369',
+                email:      'entry.1970796754',
+                states:     'entry.647080277',
+                districts:  'entry.1890119527',
+                metLevels:  'entry.902118731',
+                alertZones: 'entry.1125323921',
+                sunExposure:'entry.771599494',
+                weeklyForecast: 'entry.447682159'
+            };
+            const SUN_LABEL = { sun: 'Sun', shade: 'Shade', both: 'Sun and shade' };
+
+            const stateSelect = document.getElementById('subscriber-state');
+            const states = stateSelect
+                ? Array.from(stateSelect.selectedOptions).map(opt => opt.text)
+                : [];
+
             try {
-                // POST to Vercel serverless function
-                const response = await fetch('https://shram-alerts.vercel.app/api/subscribe', {
+                const body = new URLSearchParams();
+                body.append(FORM_FIELDS.name, name || '(not given)');
+                body.append(FORM_FIELDS.email, email);
+                body.append(FORM_FIELDS.states, states.join(', '));
+                body.append(FORM_FIELDS.districts, districts.join(', '));
+                body.append(FORM_FIELDS.metLevels, metLevels.join(', '));
+                body.append(FORM_FIELDS.alertZones, alertZones.join(', '));
+                body.append(FORM_FIELDS.sunExposure, SUN_LABEL[sunShade] || sunShade);
+                body.append(FORM_FIELDS.weeklyForecast, receiveForecasts ? 'Yes' : 'No');
+
+                await fetch(`https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        email: email,
-                        districts: districts,
-                        met_levels: metLevels,
-                        alert_zones: alertZones,
-                        sun_shade: sunShade,
-                        receive_forecasts: receiveForecasts
-                    })
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body.toString()
                 });
 
-                const result = await response.json();
-
-                if (response.ok && result.success) {
-                    // Track successful subscription in GA
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'subscribe_success', {
-                            event_category: 'Subscription',
-                            event_label: 'alert_signup_complete'
-                        });
-                    }
-
-                    // Success - show prominent verification message
-                    messageDiv.style.background = '#e8f5e9';
-                    messageDiv.style.color = '#2E7D32';
-                    messageDiv.innerHTML = `
-                        <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">
-                            <i class="fas fa-envelope"></i> <strong>Check your email!</strong>
-                        </div>
-                        <div style="font-size: 0.9rem; font-weight: normal;">
-                            We sent a verification link to your inbox.<br>
-                            <strong>Click the link to activate your alerts.</strong><br>
-                            <span style="color: #666; font-size: 0.85rem;">(Check spam folder if you don't see it)</span>
-                        </div>
-                    `;
-
-                    // Clear form
-                    document.getElementById('subscriber-name').value = '';
-                    document.getElementById('subscriber-email').value = '';
-                    // Reset districts selection would require more logic
-                } else {
-                    // Track failed subscription in GA
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'subscribe_failed', {
-                            event_category: 'Subscription',
-                            event_label: result.error || 'unknown_error'
-                        });
-                    }
-
-                    // Error from API
-                    messageDiv.style.background = '#ffebee';
-                    messageDiv.style.color = '#c62828';
-                    messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (result.error || 'Subscription failed. Please try again.');
+                if (typeof gtag === 'function') {
+                    gtag('event', 'subscribe_success', {
+                        event_category: 'Subscription',
+                        event_label: 'waitlist_signup'
+                    });
                 }
+
+                messageDiv.style.background = '#e8f5e9';
+                messageDiv.style.color = '#2E7D32';
+                messageDiv.innerHTML = `
+                    <div style="font-size: 1.1rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-check-circle"></i> <strong>You're on the waitlist</strong>
+                    </div>
+                    <div style="font-size: 0.9rem; font-weight: normal;">
+                        We've recorded <strong>${email}</strong> for
+                        ${districts.length} district${districts.length === 1 ? '' : 's'}.<br>
+                        You'll hear from us when alerts go live &mdash; nothing before then.
+                    </div>
+                `;
+
+                document.getElementById('subscriber-name').value = '';
+                document.getElementById('subscriber-email').value = '';
             } catch (error) {
-                console.error('Subscription error:', error);
+                console.error('Waitlist signup error:', error);
+                if (typeof gtag === 'function') {
+                    gtag('event', 'subscribe_failed', {
+                        event_category: 'Subscription',
+                        event_label: 'waitlist_error'
+                    });
+                }
                 messageDiv.style.background = '#ffebee';
                 messageDiv.style.color = '#c62828';
-                messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please check your connection and try again.';
+                messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> We could not record your signup just now. Please try again in a moment, or email us directly.';
             }
         }
 
@@ -4346,7 +4373,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const zoneNames = {
                 1: "Zone 1: Cold Stress",
                 2: "Zone 2: Comfortable",
-                3: "Zone 3: Comfortable",
+                3: "Zone 3: Mild Heat Stress",
                 4: "Zone 4: Caution",
                 5: "Zone 5: High Risk",
                 6: "Zone 6: HAZARDOUS"
@@ -4355,7 +4382,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const zoneColors = {
                 1: "#2196f3",  // Blue
                 2: "#4caf50",  // Green
-                3: "#FFEB3B",  // Bright Yellow
+                3: "#C17900",  // Dark Yellow (readable on white)
                 4: "#e65100",  // Orange
                 5: "#d32f2f",  // Red
                 6: "#7B1FA2"   // Purple
@@ -4364,9 +4391,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const descriptions = {
                 1: "Cold stress conditions. Ensure adequate insulation.",
                 2: "Comfortable conditions for work.",
-                3: "Comfortable conditions for work.",
+                3: "Mild heat stress. Ensure access to drinking water.",
                 4: "Caution advised. Take regular breaks and hydrate.",
-                5: "High risk. Frequent rest and hydration hazardous.",
+                5: "High risk. Frequent rest and hydration recommended.",
                 6: "HAZARDOUS: Core temperature rising. Cease work immediately."
             };
 
@@ -4393,8 +4420,15 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
             // Replace canvas with custom heatmap container
             container.innerHTML = `
-                <div style="display: flex; align-items: stretch; gap: 8px; height: 220px;">
-                    <div style="flex: 1; position: relative;">
+                <div style="display: flex; align-items: stretch; gap: 8px; height: 220px; justify-content: flex-start;">
+                    <!-- RH axis lives outside the canvas so it never overlaps the data -->
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 20px;">
+                        <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; color: #666; height: 180px; display: flex; align-items: center; justify-content: center;">RH %</div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; font-size: 8px; color: #666; height: 180px; margin-top: 20px; text-align: right; padding-right: 2px;">
+                        ${[100, 75, 50, 25, 0].map(v => `<span>${v}</span>`).join('')}
+                    </div>
+                    <div style="flex: 0 1 auto; position: relative; min-width: 0;">
                         <div style="text-align: center; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #333;">${ehiLabel} Zone Map</div>
                         <canvas id="zone-heatmap-canvas" style="width: 100%; height: 180px;"></canvas>
                         <div style="display: flex; justify-content: space-between; font-size: 9px; color: #666; margin-top: 2px;">
@@ -4468,24 +4502,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 }
             }
 
-            // Draw RH axis label vertically on left
-            ctx.save();
-            ctx.fillStyle = '#666';
-            ctx.font = '9px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.translate(8, height / 2);
-            ctx.rotate(-Math.PI / 2);
-            ctx.fillText('RH %', 0, 0);
-            ctx.restore();
-
-            // Draw RH tick labels
-            ctx.fillStyle = '#666';
-            ctx.font = '8px sans-serif';
-            ctx.textAlign = 'right';
-            for (let rh = 0; rh <= 100; rh += 25) {
-                const y = height - (rh / 100) * height;
-                ctx.fillText(rh.toString(), 22, y + 3);
-            }
+            // RH axis label and ticks are rendered as HTML beside the canvas,
+            // so nothing is drawn over the data here.
 
             // Draw user's position marker
             const userX = ((userTemp - tempMin) / (tempMax - tempMin)) * width;
@@ -4925,11 +4943,14 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             // Initialize map
             forecastMap = L.map('forecast-map', {
                 zoomControl: true,
-                attributionControl: false
+                attributionControl: true
             }).setView([23, 82], 4.4);
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                maxZoom: 19
+            // Esri Light Gray Canvas: keyless basemap, visually equivalent to the
+            // previous CARTO light_all layer (which now rate-limits anonymous use).
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 16,
+                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
             }).addTo(forecastMap);
 
             // Add IECC logo marker at Berkeley office location
@@ -5579,11 +5600,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 document.getElementById('status-grid').innerHTML = `
                     <div class="stat-box">
                         <div class="stat-number" style="font-size: 1.8rem;">${alertCount}</div>
-                        <div class="stat-label" style="font-size: 0.85rem;">Total Alerts (Zone 5 & 6)</div>
+                        <div class="stat-label" style="font-size: 0.85rem;">Stations in Alert (Zone 5 & 6)</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-number" style="font-size: 1.8rem;">${totalDistricts}</div>
-                        <div class="stat-label" style="font-size: 0.85rem;">Districts Affected</div>
+                        <div class="stat-label" style="font-size: 0.85rem;">Districts with Alerts</div>
                     </div>
                     <div class="stat-box hoverable" style="background: linear-gradient(135deg, #7B1FA2 0%, #6A1B9A 100%); padding: 1rem; cursor: pointer; border-color: #7B1FA2;" onclick="switchTab(event, 'about')">
                         <div class="stat-number" style="font-size: 1.8rem;">${zone6.length}</div>
@@ -5619,7 +5640,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     ))
                 );
                 if (globalZone6.length > 0) {
-                    const marqueeItems = globalZone6.map(a => `${a.DISTRICT}, ${a.STATE}`).join(' | ');
 
                     // Group districts by state
                     const stateGroups = {};
@@ -5646,6 +5666,8 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     }).join('');
 
                     const numStates = Object.keys(stateGroups).length;
+                    const marqueeItems = globalZone6.map(a => `${a.DISTRICT}, ${a.STATE}`).join(' | ');
+
                     const bannerHtml = `
                         <strong style="font-size: 1.4rem;"><i class="fas fa-exclamation-triangle"></i> ZONE 6 DETECTED (${globalZone6.length} districts in ${numStates} states)</strong><br>
                         <span style="font-size: 1rem; font-weight: 600;">Hover over state for districts. Click to view forecast.</span>
@@ -5826,7 +5848,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             if (heatLoad > 35) return 3;
             return 2;
         }
-
         function getZoneColor(zone) {
             const colors = {
                 6: '#7B1FA2', // Hazardous - purple
@@ -6094,11 +6115,10 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     });
 
                     const peakColor = getZoneColor(peakZone);
-                    // Display Zone 2/3 together since they can't be distinguished
-                    const zoneLabel = (peakZone === 2 || peakZone === 3) ? 'Zone 2/3' : `Zone ${peakZone}`;
+                    const zoneLabel = `Zone ${peakZone}`;
 
-                    // Use dark text for Zone 4 (yellow) for better contrast
-                    const textColor = peakZone === 4 ? '#333' : 'white';
+                    // Use dark text on the light Zone 3 yellow for readable contrast
+                    const textColor = peakZone === 3 ? '#333' : 'white';
                     html += `<p style="margin: 0.5rem 0;">
                         <strong>${dateStr}:</strong> ${minTemp.toFixed(0)}°C - ${maxTemp.toFixed(0)}°C, ${avgHumidity}% RH
                         <span style="background: ${peakColor}; color: ${textColor}; padding: 2px 8px; border-radius: 4px; margin-left: 0.5rem; font-size: 0.85rem;">Peak: ${zoneLabel}</span>
@@ -6151,7 +6171,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                                     title: function(contexts) {
                                         const idx = contexts[0].dataIndex;
                                         const meta = contexts[0].chart.data.chartMeta[idx];
-                                        const zoneNames = { 1: 'Zone 1 — Cold stress', 2: 'Zone 2 — Comfort', 3: 'Zone 3 — Caution', 4: 'Zone 4 — Danger', 5: 'Zone 5 — Extreme danger', 6: 'Zone 6 — Fatal' };
+                                        const zoneNames = { 1: 'Zone 1 — Cold', 2: 'Zone 2 — Comfortable', 3: 'Zone 3 — Mild', 4: 'Zone 4 — Elevated', 5: 'Zone 5 — High Risk', 6: 'Zone 6 — Hazardous' };
                                         return zoneNames[meta.zone] || `Zone ${meta.zone}`;
                                     },
                                     label: function(context) {
@@ -6776,86 +6796,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 }, 300);
             }
 
-            // Handle subscription form
-            const subscriptionForm = document.getElementById('alert-subscription-form');
-            if (subscriptionForm) {
-                subscriptionForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-
-                    const messageDiv = document.getElementById('subscription-message');
-                    const submitBtn = this.querySelector('button[type="submit"]');
-
-                    // Collect form data
-                    const formData = {
-                        name: document.getElementById('subscriber-name').value,
-                        email: document.getElementById('subscriber-email').value,
-                        phone: document.getElementById('subscriber-phone').value,
-                        state: document.getElementById('subscriber-state').value,
-                        district: document.getElementById('subscriber-district').value,
-                        zones: {
-                            zone4: document.getElementById('alert-zone-4').checked,
-                            zone5: document.getElementById('alert-zone-5').checked,
-                            zone6: document.getElementById('alert-zone-6').checked
-                        },
-                        timestamp: new Date().toISOString()
-                    };
-
-                    // Validate at least one zone is selected
-                    if (!formData.zones.zone4 && !formData.zones.zone5 && !formData.zones.zone6) {
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.background = '#ffebee';
-                        messageDiv.style.color = '#d32f2f';
-                        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select at least one zone for alerts';
-                        return;
-                    }
-
-                    // Disable submit button
-                    submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
-
-                    try {
-                        // TODO: Replace with your actual backend endpoint
-                        // For now, we'll show a success message and log the data
-                        console.log('Subscription data:', formData);
-
-                        // Simulate API call
-                        await new Promise(resolve => setTimeout(resolve, 1000));
-
-                        // Show success message
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.background = '#e8f5e9';
-                        messageDiv.style.color = '#2e7d32';
-                        messageDiv.innerHTML = `
-                            <i class="fas fa-check-circle"></i> Successfully subscribed!<br>
-                            <small style="font-weight: 400;">You will receive alerts for ${document.getElementById('subscriber-state').options[document.getElementById('subscriber-state').selectedIndex].text}, ${document.getElementById('subscriber-district').options[document.getElementById('subscriber-district').selectedIndex].text}</small>
-                        `;
-
-                        // Reset form
-                        subscriptionForm.reset();
-
-                        // TODO: Send data to your backend
-                        // Example with Google Forms or your API:
-                        /*
-                        const response = await fetch('YOUR_API_ENDPOINT', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(formData)
-                        });
-                        */
-
-                    } catch (error) {
-                        console.error('Subscription error:', error);
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.background = '#ffebee';
-                        messageDiv.style.color = '#d32f2f';
-                        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> An error occurred. Please try again or contact us directly.';
-                    } finally {
-                        // Re-enable submit button
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<i class="fas fa-bell"></i> Subscribe to Alerts';
-                    }
-                });
-            }
         });
 
         // =============================================
@@ -6918,7 +6858,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                 {
                     element: document.querySelector('#met-toggle-current'),
                     title: 'Activity Level (METs)',
-                    intro: 'Select your <b>work intensity</b>:<br>• <b>3 METs:</b> Light work (walking, housework)<br>• <b>4 METs:</b> Moderate (carrying loads)<br>• <b>5 METs:</b> Heavy (construction)<br>• <b>6 METs:</b> Very heavy (agricultural labor)',
+                    intro: 'Select your <b>work intensity</b>:<br>• <b>3 METs:</b> Light work<br>• <b>4 METs:</b> Moderate (e.g. carrying loads)<br>• <b>5 METs:</b> Heavy (e.g. construction work)<br>• <b>6 METs:</b> Very heavy (e.g. agricultural work)',
                     position: 'bottom',
                     tab: 'dashboard'
                 },
