@@ -84,8 +84,14 @@ def fetch_and_log():
         rh_df["RH"] = pd.to_numeric(rh_df["RH"], errors="coerce")
 
         # Merge only on STATION (keep timestamps separate)
+        # Keep LAT/LON from the temperature feed so downstream consumers can map
+        # stations at their true positions (IMD supplies them; they were being
+        # dropped here). RH feed carries the same coordinates, so take one copy.
+        temp_df["LAT"] = pd.to_numeric(temp_df["LAT"], errors="coerce")
+        temp_df["LON"] = pd.to_numeric(temp_df["LON"], errors="coerce")
+
         merged_df = pd.merge(
-            temp_df[["STATE", "DISTRICT", "STATION", "TEMP", "DATE_TEMP", "TIME_TEMP"]],
+            temp_df[["STATE", "DISTRICT", "STATION", "LAT", "LON", "TEMP", "DATE_TEMP", "TIME_TEMP"]],
             rh_df[["STATE", "DISTRICT", "STATION", "RH", "DATE_RH", "TIME_RH"]],
             on=["STATE", "DISTRICT", "STATION"],
             how="outer"
@@ -225,7 +231,9 @@ def fetch_and_log():
                     zone_counts[f"{key_prefix}_zone{zone_num}"] = len(merged_df[merged_df[zone_col] == f"Zone {zone_num}"])
 
         # Include all EHI columns in output
-        all_cols = final_cols.copy()
+        # JSON consumers (the dashboard map) need coordinates; the email tables
+        # built from final_cols do not, so add them only here.
+        all_cols = final_cols.copy() + ["LAT", "LON"]
         for met in [3, 4, 5, 6]:
             for sun in ['shade', 'sun']:
                 all_cols.extend([f"EHI_{met}_{sun}", f"Zone_{met}_{sun}"])

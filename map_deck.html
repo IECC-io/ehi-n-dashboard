@@ -1541,15 +1541,17 @@
             document.getElementById('zone6-count').textContent = zone6Count;
 
             // Update trend summary
+            // TEMPORARILY HIDDEN: trend panel suppressed pending review of the
+            // hour-over-hour comparison logic. Restore by removing the early
+            // assignment below and re-enabling the display toggle.
             const trends = calculateTrends();
             const trendSummary = document.getElementById('trend-summary');
-            if (trends && (trends.worsening > 0 || trends.improving > 0)) {
+            trendSummary.style.display = 'none';
+            if (false && trends && (trends.worsening > 0 || trends.improving > 0)) {
                 trendSummary.style.display = 'block';
                 document.getElementById('trend-worsening').textContent = `${trends.worsening} locations`;
                 document.getElementById('trend-improving').textContent = `${trends.improving} locations`;
                 document.getElementById('trend-stable').textContent = `${trends.stable} locations`;
-            } else {
-                trendSummary.style.display = 'none';
             }
 
             // Sort alerts by zone (highest first) then by EHI
