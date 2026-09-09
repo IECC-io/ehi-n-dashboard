@@ -3674,6 +3674,11 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             }
         }
 
+        // TEMPORARY, FOR SCREEN RECORDING ONLY: keeps the "Last Updated"
+        // timestamp black when replaying an archived snapshot, which would
+        // otherwise be flagged red as stale. Set back to false before pushing.
+        const SUPPRESS_STALE_WARNING = false;
+
         let selectedSolar = 0; // Default to shaded
 
         function selectSolar(value) {
@@ -5453,8 +5458,9 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             const dataAge = Date.now() - new Date(dataTimestamp).getTime();
             const isStaleData = dataAge > 2 * 60 * 60 * 1000; // 2 hours in milliseconds
 
-            // Show red timestamp if using historical data OR if data is stale
-            const showRedTimestamp = isHistoricalData || isStaleData;
+            // Show red timestamp if using historical data OR if data is stale.
+            // DEMO OVERRIDE: set SUPPRESS_STALE_WARNING = false to restore.
+            const showRedTimestamp = SUPPRESS_STALE_WARNING ? false : (isHistoricalData || isStaleData);
             const timestampLabel = isHistoricalData ? 'Last Data Available' : 'Last Updated';
 
             // Update global timestamp - show red font if historical/stale data, otherwise normal black
@@ -5574,7 +5580,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
                 // Update global timestamp - show red if data is stale
                 // Note: last24h-timestamp is managed independently by load24HourData()
-                if (isStaleData) {
+                if (isStaleData && !SUPPRESS_STALE_WARNING) {
                     document.getElementById('global-timestamp').innerHTML = `<strong style="color: #d32f2f;">Last Updated: ${lastUpdate} IST</strong>`;
                 } else {
                     document.getElementById('global-timestamp').innerHTML = `<strong>Last Updated: ${lastUpdate} IST</strong>`;
