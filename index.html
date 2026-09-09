@@ -2949,9 +2949,9 @@
                     <i class="fas fa-globe"></i> <a href="https://iecc.gspp.berkeley.edu" target="_blank">iecc.gspp.berkeley.edu</a>
                 </p>
 
-                <button id="api-docs-btn" onclick="toggleApiModal()" style="margin-top: 1rem; background: var(--shram-teal); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
-                    <i class="fas fa-code"></i> API Documentation
-                </button>
+                <p style="margin-top: 1rem;">
+                    <i class="fas fa-code"></i> Underlying data files are available on request &mdash; email us.
+                </p>
             </div>
         </div>
     </div>
@@ -2965,78 +2965,6 @@
         </p>
     </div>
 
-    <!-- API Documentation Modal -->
-    <div id="apiModal" class="api-modal">
-        <div class="api-modal-content">
-            <div class="api-modal-header">
-                <h2 style="margin: 0;"><i class="fas fa-code"></i> API Documentation</h2>
-                <button class="api-modal-close" onclick="toggleApiModal()">&times;</button>
-            </div>
-            <div class="api-modal-body">
-                <p>Access real-time heat stress data programmatically through our API.</p>
-
-                <div class="endpoint-grid">
-                    <div class="endpoint-card">
-                        <h4><i class="fas fa-globe"></i> Get Current Alerts</h4>
-                        <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/latest_alerts.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/SHRAM/weather_logs/latest_alerts.json</span>
-                        </div>
-                        <p><strong>Returns:</strong> Current heat stress zones for all Indian districts</p>
-                    </div>
-
-                    <div class="endpoint-card">
-                        <h4><i class="fas fa-history"></i> Get 24-Hour History</h4>
-                        <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/alerts_24h.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/SHRAM/weather_logs/alerts_24h.json</span>
-                        </div>
-                        <p><strong>Returns:</strong> Hourly data for last 24 hours with zone distributions</p>
-                    </div>
-
-                    <div class="endpoint-card">
-                        <h4><i class="fas fa-calendar-alt"></i> Get 3-Day Forecast</h4>
-                        <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/forecast_data.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/SHRAM/weather_logs/forecast_data.json</span>
-                        </div>
-                        <p><strong>Returns:</strong> 72-hour heat stress forecast with EHI predictions</p>
-                    </div>
-
-                    <div class="endpoint-card">
-                        <h4><i class="fas fa-chart-line"></i> Get Weekly Trends</h4>
-                        <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/trends_weekly.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/SHRAM/weather_logs/trends_weekly.json</span>
-                        </div>
-                        <p><strong>Returns:</strong> Last 4 weeks of daily zone averages</p>
-                    </div>
-
-                    <div class="endpoint-card">
-                        <h4><i class="fas fa-calendar"></i> Get Monthly Trends</h4>
-                        <div class="endpoint">
-                            <button class="method-badge" style="cursor: pointer; border: none;" onclick="copyToClipboard('https://iecc-io.github.io/SHRAM/weather_logs/trends_monthly.json', this)"><i class="fas fa-copy"></i> Copy</button>
-                            <span>https://iecc-io.github.io/SHRAM/weather_logs/trends_monthly.json</span>
-                        </div>
-                        <p><strong>Returns:</strong> Last 6 months of weekly zone averages</p>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 2rem;"><i class="fas fa-terminal"></i> Example Usage (Python)</h3>
-                <pre><code>import requests
-import pandas as pd
-
-url = "https://iecc-io.github.io/SHRAM/weather_logs/latest_alerts.json"
-data = requests.get(url).json()
-
-df = pd.DataFrame(data['alerts'])
-print(f"Zone 6 (hazardous): {data['zone_6_count']}")
-
-hazardous = df[df['Hard Labor Heat Stress Zone'] == 'Zone 6']
-print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
-            </div>
-        </div>
-    </div>
 
     <!-- Privacy Notice Modal -->
     <div id="privacyModal" class="api-modal">
@@ -3462,19 +3390,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
             }
         })();
 
-        function toggleApiModal() {
-            const modal = document.getElementById('apiModal');
-            const isOpening = !modal.classList.contains('show');
-            modal.classList.toggle('show');
-
-            // Track API docs modal open in GA
-            if (isOpening && typeof gtag === 'function') {
-                gtag('event', 'view_api_docs', {
-                    event_category: 'Engagement',
-                    event_label: 'api_documentation'
-                });
-            }
-        }
 
         function copyToClipboard(text, button) {
             navigator.clipboard.writeText(text).then(() => {
@@ -3664,11 +3579,7 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
 
         // Close modal when clicking outside of it
         window.onclick = function(event) {
-            const apiModal = document.getElementById('apiModal');
             const privacyModal = document.getElementById('privacyModal');
-            if (event.target === apiModal) {
-                apiModal.classList.remove('show');
-            }
             if (event.target === privacyModal) {
                 privacyModal.classList.remove('show');
             }
@@ -6958,14 +6869,6 @@ print(hazardous[['DISTRICT', 'STATE', 'EHI_350 (in shade °C)']])</code></pre>
                     element: document.querySelector('#alert-subscription-form'),
                     title: 'Stay Safe!',
                     intro: 'Enter your <b>name, email, location, and work intensity</b> to receive heat stress alerts. You\'ll get immediate alerts when Zone 6 is detected and daily forecasts for your district.',
-                    position: 'top',
-                    tab: 'about'
-                },
-                // API Documentation
-                {
-                    element: document.querySelector('#api-docs-btn'),
-                    title: 'API for Developers',
-                    intro: 'Access our <b>three datasets</b> programmatically:<br>• Current alerts<br>• 24-hour history<br>• 3-day forecasts<br><br>Click to view API documentation.',
                     position: 'top',
                     tab: 'about'
                 },
