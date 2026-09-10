@@ -2582,8 +2582,13 @@
                 <p style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 1.5rem; font-style: italic;">Data source: India Meteorological Department (IMD)</p>
             </div>
 
-            <!-- Historical Pre-Monsoon Season Zones Animation -->
-            <div class="section">
+            <!-- Historical Pre-Monsoon Season Zones Animation
+                 TEMPORARILY HIDDEN: the frames in ekilic-coder/ehi-webapp-data
+                 were generated 2026-02-05 with the US reference body and before
+                 the Region VI and solar-reference fixes, so they no longer match
+                 the rest of the site. Remove display:none once regenerated with
+                 animations/ehi-webapp/generate_webapp_data_multiyear.py. -->
+            <div class="section" style="display: none;">
                 <h2>Historical Pre-Monsoon Season Zones</h2>
                 <p style="margin-bottom: 1rem; color: #666;">Historical hourly heat stress zones across India from April through June. Use the controls to change MET level, sun/shade conditions, and scrub through time.</p>
                 <iframe
